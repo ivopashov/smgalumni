@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    @Styles.Render("~/bundles/css/site")
+    @Styles.Render("~/bundles/less/site")
+    @RenderSection("styles", false)
+</head>
+<body role="document" class="custom-font custom-background-image">
+    <div class="container" role="main">
+        @Html.Partial("_Header")
+        <section id="main-section">
+            @RenderBody()
+        </section>
+        @Html.Partial("_Footer")
+    </div>
+    @Scripts.Render("~/bundles/js/lib")
+    @Scripts.Render("~/bundles/js/spa")
+    @RenderSection("scripts", false)
+</body>
+</html>

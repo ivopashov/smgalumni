@@ -1,0 +1,23 @@
+﻿<div class="row" style="margin-left: 2px;">
+    <h1>Manage your account data</h1>
+    <p>These are the details associated with your account.</p>
+    <form class="form-horizontal col-sm-12">
+        <div class="form-group">
+            <label for="email" class="col-sm-4 control-label">Email</label>
+            <div class="col-sm-4">
+                <input ng-model="account.email" name="email" type="text" class="form-control" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="userName" class="col-sm-4 control-label">User Name</label>
+            <div class="col-sm-4">
+                <input ng-model="account.userName" name="userName" type="text" class="form-control" required />
+            </div>
+        </div>
+        <div class="col-sm-offset-4 col-sm-10">
+            <button type="submit" ng-click="save()" class="btn btn-default">Save</button>
+        </div>
+    </form>
+    <p>You have configured a password for your account. To change it click <a class="underline" ui-sref="changepassword">here</a></p>
+    <p style="margin-top: 40px;">Linked accounts allow you to access your Survey Master account by using one of the following social website logins.</p>
+</div>
