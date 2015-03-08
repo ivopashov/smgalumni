@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace SmgAlumni.EF.Models
 {
-    public class User
+    public class User : IEntity
     {
+        public User()
+        {
+            PasswordResets = new List<PasswordReset>();
+        }
+
         //basic identification
         public int Id { get; set; }
         public string UserName { get; set; }
@@ -21,7 +26,7 @@ namespace SmgAlumni.EF.Models
         public string PasswordSalt { get; set; }
 
         //optional
-        public Country DwellingCountry { get; set; }
+        public string DwellingCountry { get; set; }
         public string UniversityGraduated { get; set; }
         public string Profession { get; set; }
         public string Company { get; set; }
@@ -33,11 +38,12 @@ namespace SmgAlumni.EF.Models
         //for admin usage
         public bool Verified { get; set; }
         public DateTime DateJoined { get; set; }
+        public virtual List<PasswordReset> PasswordResets{ get; set; }
 
         //image
         public byte[] AvatarImage { get; set; }
 
         //role
-        public virtual Role Role { get; set; }
+        public virtual List<Role> Roles { get; set; }
     }
 }

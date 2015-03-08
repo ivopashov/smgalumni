@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{BB73FDE0-95AF-400A-8A3C-5380EACD809E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mongo.Data", "Mongo.Data\Mongo.Data.csproj", "{06D3B1BA-0734-4A48-A19C-D4EF84548427}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender", "EmailSender\EmailSender.csproj", "{6FAC4509-DA7E-456F-B5E7-CC6B2A212CC1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "EmailService\EmailService.csproj", "{A92A9259-C639-4695-9D7F-A0CA98E53504}"
@@ -14,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmgAlumni.App", "SmgAlumni.App\SmgAlumni.App.csproj", "{41C5714D-4FF2-4762-BB65-F30C0E21E001}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmgAlumni.EF", "SmgAlumni.EF\SmgAlumni.EF.csproj", "{8FF0D601-BF04-4D55-B786-A63817021ADB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmgAlumni.Data", "SmgAlumni.Data\SmgAlumni.Data.csproj", "{3CD85E68-6E36-495E-85DA-339DB86B78BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +25,6 @@ Global
 		{BB73FDE0-95AF-400A-8A3C-5380EACD809E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB73FDE0-95AF-400A-8A3C-5380EACD809E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB73FDE0-95AF-400A-8A3C-5380EACD809E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06D3B1BA-0734-4A48-A19C-D4EF84548427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06D3B1BA-0734-4A48-A19C-D4EF84548427}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06D3B1BA-0734-4A48-A19C-D4EF84548427}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06D3B1BA-0734-4A48-A19C-D4EF84548427}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6FAC4509-DA7E-456F-B5E7-CC6B2A212CC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6FAC4509-DA7E-456F-B5E7-CC6B2A212CC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FAC4509-DA7E-456F-B5E7-CC6B2A212CC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{8FF0D601-BF04-4D55-B786-A63817021ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FF0D601-BF04-4D55-B786-A63817021ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FF0D601-BF04-4D55-B786-A63817021ADB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CD85E68-6E36-495E-85DA-339DB86B78BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CD85E68-6E36-495E-85DA-339DB86B78BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CD85E68-6E36-495E-85DA-339DB86B78BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CD85E68-6E36-495E-85DA-339DB86B78BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

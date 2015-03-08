@@ -30,11 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper">
-      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper.Net4">
-      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    <Reference Include="AutoMapper.Net4, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
     <Reference Include="FluentEmail">
       <HintPath>..\packages\fluent-email.1.4\lib\net40\FluentEmail.dll</HintPath>
@@ -97,12 +99,11 @@
     <Compile Include="EmailQuerer\Templates\ResetPasswordTemplate.cs" />
     <Compile Include="Helpers\Password.cs" />
     <Compile Include="Identity\UserManager.cs" />
-    <Compile Include="Infrastructure\MongoDbHelper.cs" />
     <Compile Include="Mapping\Extensions.cs" />
     <Compile Include="Mapping\IHaveCustomMappings.cs" />
     <Compile Include="Mapping\IMapFrom.cs" />
     <Compile Include="Mapping\MapInitializer.cs" />
-    <Compile Include="Membership\MongoUserManager.cs" />
+    <Compile Include="Membership\EFUserManager.cs" />
     <Compile Include="Messaging\IMsmqMessage.cs" />
     <Compile Include="Messaging\MessageDequeuer.cs" />
     <Compile Include="Messaging\MessageEnqueuer.cs" />
@@ -128,9 +129,17 @@
       <Project>{06d3b1ba-0734-4a48-a19c-d4ef84548427}</Project>
       <Name>Mongo.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SmgAlumni.Data\SmgAlumni.Data.csproj">
+      <Project>{3cd85e68-6e36-495e-85da-339db86b78bd}</Project>
+      <Name>SmgAlumni.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmgAlumni.EF\SmgAlumni.EF.csproj">
+      <Project>{8ff0d601-bf04-4d55-b786-a63817021adb}</Project>
+      <Name>SmgAlumni.EF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

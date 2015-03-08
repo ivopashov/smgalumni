@@ -1,6 +1,6 @@
 ﻿app.service('commonService', [
-    '$http', '$q', '$location', '$rootScope', 'notificationService', 'modelStateErrorsService', 'ngDialog', '$timeout', '$parse', '$compile', '$location',
-    function ($http, $q, $location, $rootScope, notificationService, modelStateErrorsService, ngDialog, $timeout, $parse, $compile, $location) {
+    '$http', '$q', '$location', '$rootScope', 'notificationService', 'ngDialog', '$timeout', '$parse', '$compile', '$location',
+    function ($http, $q, $location, $rootScope, notificationService, ngDialog, $timeout, $parse, $compile, $location) {
 
         return ({
             $q: $q,
@@ -11,8 +11,7 @@
             $timeout: $timeout,
             $parse: $parse,
             $compile: $compile,
-            $location: $location,
-            modelStateErrorsService: modelStateErrorsService
+            $location: $location
         });
     }
 ]);

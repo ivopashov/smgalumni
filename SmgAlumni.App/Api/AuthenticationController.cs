@@ -14,15 +14,17 @@ namespace SmgAlumni.App.Api
     public class AuthenticationController : BaseApiController
     {
         private readonly UserManager _userManager;
-        private readonly MongoUserManager membership;
+        private readonly EFUserManager membership;
 
-        public AuthenticationController(UserManager userManager, MongoUserManager surveyMasterMembership,Logger logger):base(logger)
+        public AuthenticationController(UserManager userManager, EFUserManager surveyMasterMembership, Logger logger)
+            : base(logger)
         {
             _userManager = userManager;
             VerifyNotNull(_userManager);
             membership = surveyMasterMembership;
             VerifyNotNull(membership);
         }
+
         [Route("api/formsauthentication")]
         public IHttpActionResult FormsAuthentication(LoginViewModel login)
         {
@@ -31,22 +33,26 @@ namespace SmgAlumni.App.Api
                 ModelState.AddModelError("error", "Entered incorrect data.");
                 return BadRequest(ModelState);
             }
+
             var user = membership.GetUserByUserName(login.UserName);
+
             if (user == null || !membership.ValidatePassword(user, login.Password))
             {
                 ModelState.AddModelError("error", "The user name or password is incorrect.");
                 return BadRequest(ModelState);
             }
+
             return Ok(GetToken(user.UserName, user.Email));
         }
 
         private string CreateToken(string username)
         {
-            var identity = _userManager.CreateIdentity(username, Startup.OAuthOptions.AuthenticationType); //TODO: isn't this always null
+            var identity = _userManager.CreateIdentity(username, Startup.OAuthOptions.AuthenticationType);
             var ticket = _userManager.CreateAuthenticationTicket(identity);
             var token = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
             return token;
         }
+
         private object GetToken(string username, string email)
         {
             return new
@@ -60,9 +66,9 @@ namespace SmgAlumni.App.Api
         [Route("api/username")]
         public string GetUserName()
         {
-            if (SmUser != null)
+            if (CurrentUser != null)
             {
-                return SmUser.UserName ?? "Unknown user";
+                return CurrentUser.UserName ?? "Unknown user";
             }
             return string.Empty;
         }

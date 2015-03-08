@@ -11,7 +11,7 @@ namespace SmgAlumni.Data
     {
         IQueryable<T> GetAll();
         IQueryable<T> Find(Expression<Func<T, bool>> predicate);
-        void Add(T entity);
+        int Add(T entity);
         void Delete(T entity);
         void Save();
     }

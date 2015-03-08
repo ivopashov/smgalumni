@@ -5,30 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using SmgAlumni.EF.Models;
+using SmgAlumni.EF.Models.enums;
 
 namespace SmgAlumni.EF.DAL
 {
-    public class DbInitializer : CreateDatabaseIfNotExists<SmgAlumniContext>
+    public class DbInitializer : DropCreateDatabaseIfModelChanges<SmgAlumniContext>
     {
         protected override void Seed(SmgAlumniContext context)
         {
-            var roles = new List<Role>()
+            var user = new User()
             {
-                new Role()
+                UserName = "ivopashov",
+                Email = "ivopashov@abv.bg",
+                YearOfGraduation = 2005,
+                Password = "/VHOxTfur8M+4m6M8xTIkW12uZgEv+jzN+eltLO+fhwyr2Q/PC/6BYjTbXBFqIWCEkm0jgCPLtxASciFWWK2vQ==",
+                PasswordSalt = "4e1bFqSrVt9tZJgF7e/aig/w23mRLQbxqRLGMjNrpLVSZLsgpQPcWr2E/mP+nweoPQvLXBvIvD6/1s+9AX0/ng==",
+                Division = ClassDivision.Г,
+                Roles = new List<Role>()
                 {
-                    Name="Admin"
-                },
-                new Role()
-                {
-                    Name="MasterAdmin"
-                },
-                new Role()
-                {
-                    Name="User"
+                    new Role()
+                    {
+                        Name=RoleType.MasterAdmin
+                    }   
                 }
             };
 
-            roles.ForEach(a => context.Roles.Add(a));
+            context.Users.Add(user);
             context.SaveChanges();
         }
     }

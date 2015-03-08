@@ -7,7 +7,7 @@ using AutoMapper;
 
 namespace Core.Mapping
 {
-    internal interface IHaveCustomMappings
+    public interface IHaveCustomMappings
     {
         void CreateMappings(IConfiguration configuration);
     }

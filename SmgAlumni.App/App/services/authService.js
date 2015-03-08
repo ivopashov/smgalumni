@@ -7,21 +7,18 @@
 
             commonService.$http.post('api/formsauthentication', loginData.user)
                 .then(function (authenticationResponse) {
-                sessionStorage.authenticationData = JSON.stringify(authenticationResponse.data);
-                $rootScope.$broadcast('login');
-                commonService.notification.success('Login successful');
+                    sessionStorage.authenticationData = JSON.stringify(authenticationResponse.data);
+                    $rootScope.$broadcast('login');
+                    commonService.notification.success('Login successful');
 
-                if (loginData.returnUrl !== undefined) {
-                    $state.go(loginData.returnUrl, { id: loginData.id });
-                } else {
-                    $state.go('home');
-                }
-                }, function (error) {
-                    var errors = commonService.modelStateErrorsService.parseErrors(error.data);
-                    for (var i = 0; i < errors.length; i++) {
-                        commonService.notification.error(errors[i]);
+                    if (loginData.returnUrl !== undefined) {
+                        $state.go(loginData.returnUrl, { id: loginData.id });
+                    } else {
+                        $state.go('home');
                     }
-            });
+                }, function (error) {
+                    commonService.notification.error(error.data.message);
+                });
         };
 
         var logout = function () {

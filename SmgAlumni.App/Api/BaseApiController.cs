@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin.Security;
-using Mongo.Data;
-using Mongo.Data.Entities;
 using Ninject;
 using NLog;
+using SmgAlumni.Data.Repositories;
+using SmgAlumni.EF.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +24,10 @@ namespace SmgAlumni.App.Api
         }
 
         [Inject]
-        public MongoContext MongoSession { get; set; }
+        public UserRepository Users { get; set; }
 
-        private User _smUser;
-        protected User SmUser
+        private User currentUser;
+        protected User CurrentUser
         {
             get
             {
@@ -36,7 +36,7 @@ namespace SmgAlumni.App.Api
                     return null;
                 }
 
-                if (_smUser == null)
+                if (currentUser == null)
                 {
                     if (!AuthenticationManager.User.HasClaim(x => x.Type == ClaimTypes.NameIdentifier))
                     {
@@ -44,10 +44,13 @@ namespace SmgAlumni.App.Api
                     }
 
                     var claim = AuthenticationManager.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier);
-                    _smUser = MongoSession.Users.GetById(claim.Value);
+                    int id;
+                    int.TryParse(claim.Value, out id);
+
+                    currentUser = int.TryParse(claim.Value, out id) ? Users.GetById(id) : null;
                 }
 
-                return _smUser;
+                return currentUser;
             }
         }
 

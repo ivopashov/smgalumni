@@ -1,6 +1,8 @@
 ﻿using SmgAlumni.EF.Models;
+using SmgAlumni.EF.Models.enums;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,10 +11,15 @@ namespace SmgAlumni.Data.Repositories
 {
     class RoleRepository : GenericRepository<Role>
     {
-        //just in case trim the parameter and compare string after tolower-ing them
-        public Role GetByName(string name)
+        public RoleRepository(DbContext context):base(context)
         {
-            return this.Find(a => a.Name.ToLower().Equals(name.Trim().ToLower())).SingleOrDefault();
+
+        }
+
+        //just in case trim the parameter and compare string after tolower-ing them
+        public Role GetByName(RoleType name)
+        {
+            return this.Find(a => a.Name.Equals(name)).SingleOrDefault();
         }
     }
 }

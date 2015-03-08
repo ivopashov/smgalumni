@@ -48,10 +48,7 @@
             })
             .error(
             function (data, status) {
-                var errors = commonService.modelStateErrorsService.parseErrors(data);
-                for (var i = 0; i < errors.length; i++) {
-                    commonService.notification.error(errors[i]);
-                }
+                commonService.notification.error(error.data.message);
                 deferred.reject(data, status);
             });
         return deferred.promise;
@@ -67,10 +64,7 @@
             })
             .error(
             function (data, status) {
-                var errors = commonService.modelStateErrorsService.parseErrors(data);
-                for (var i = 0; i < errors.length; i++) {
-                    commonService.notification.error(errors[i]);
-                }
+                commonService.notification.error(error.data.message);
                 deferred.reject(data, status);
             });
         return deferred.promise;
@@ -87,10 +81,7 @@
             })
             .error(
             function (data, status) {
-                var errors = commonService.modelStateErrorsService.parseErrors(data);
-                for (var i = 0; i < errors.length; i++) {
-                    commonService.notification.error(errors[i]);
-                }
+                commonService.notification.error(error.data.message);
                 deferred.reject(data, status);
             });
         return deffered.promise;
@@ -106,31 +97,13 @@
             })
             .error(
             function (data, status) {
-                var errors = commonService.modelStateErrorsService.parseErrors(data);
-                for (var i = 0; i < errors.length; i++) {
-                    commonService.notification.error(errors[i]);
-                }
+                commonService.notification.error(error.data.message);
                 deferred.reject(data, status);
             });
         return deferred.promise;
     }
 
     function register(user) {
-        var deferred = commonService.$q.defer();
-        commonService.$http.post('api/account/register', user)
-           .success(
-            function (data) {
-                //commonService.notification.info('Successful registration');
-                deferred.resolve(data);
-            })
-            .error(
-            function (data, status) {
-                var errors = commonService.modelStateErrorsService.parseErrors(data);
-                for (var i = 0; i < errors.length; i++) {
-                    commonService.notification.error(errors[i]);
-                }
-                deferred.reject(data, status);
-            });
-        return deferred.promise;
+        commonService.$http.post('api/account/register', user);
     }
 }])

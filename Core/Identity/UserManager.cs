@@ -14,9 +14,9 @@ namespace Core.Identity
     public class UserManager
     {
         private readonly AppSettings _appSettings;
-        private readonly MongoUserManager _membership;
+        private readonly EFUserManager _membership;
 
-        public UserManager(AppSettings appSettings, MongoUserManager membership)
+        public UserManager(AppSettings appSettings, EFUserManager membership)
         {
             _appSettings = appSettings;
             _membership = membership;
@@ -27,8 +27,9 @@ namespace Core.Identity
             var identity = new ClaimsIdentity(authenticationType);
             var user = _membership.GetUserByUserName(username);
             identity.AddClaim(new Claim(ClaimTypes.Name, username));
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
             identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+            identity.AddClaim(new Claim("Verified", user.Verified ? "true" : "false"));
             return identity;
         }
 
