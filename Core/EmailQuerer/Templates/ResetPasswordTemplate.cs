@@ -11,9 +11,9 @@ namespace Core.EmailQuerer.Templates
         {
             get
             {
-                return String.Format(@"<p>Dear {0}</p>
-                        <p>A request to reset your password was generated in our system. If you generated that request, please follow the <a href='{1}'>link</a> to do that. </p>
-                        <p>If you didn't generate that email, please ignore this email.</p>", UserName, Link);
+                return String.Format(@"<p>Здравейте, {0}</p>
+                        <p>В системата постъпи искане за възстановяване на забравена парола. Ако сте го генерирали Вие последвайте този <a href='{1}'>линк</a> за да го направите. </p>
+                        <p>Ако не сте, може да игнорирате този имейл.</p>", UserName, Link);
             }
         }
         public object Data {

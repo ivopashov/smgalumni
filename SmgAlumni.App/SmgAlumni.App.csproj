@@ -223,17 +223,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
-    <Content Include="App\controllers\account\changePasswordController.js" />
-    <Content Include="App\controllers\account\forgotPasswordController.js" />
+    <Content Include="App\controllers\changePasswordController.js" />
+    <Content Include="App\controllers\forgotPasswordController.js" />
+    <Content Include="App\controllers\headerController.js" />
     <Content Include="App\controllers\loginController.js" />
-    <Content Include="App\controllers\account\manageAccountController.js" />
+    <Content Include="App\controllers\manageAccountController.js" />
     <Content Include="App\controllers\registerController.js" />
-    <Content Include="App\controllers\account\resetPasswordController.js" />
+    <Content Include="App\controllers\resetPasswordController.js" />
     <Content Include="App\directives\fileModel.js" />
     <Content Include="App\factories\notificationService.js" />
     <Content Include="App\interceptors\authInterceptor.js" />
     <Content Include="App\factories\authHelper.js" />
     <Content Include="App\services\accountService.js" />
+    <Content Include="App\services\authHelper.js" />
     <Content Include="App\services\authService.js" />
     <Content Include="App\services\commonService.js" />
     <Content Include="App\templates\account\changePassword.html" />
@@ -241,6 +243,7 @@
     <Content Include="App\templates\account\login.html" />
     <Content Include="App\templates\account\manageAccount.html" />
     <Content Include="App\templates\account\register.html" />
+    <Content Include="App\templates\account\registersuccess.html" />
     <Content Include="App\templates\account\resetPassword.html" />
     <Content Include="App\templates\home\home.html" />
     <Content Include="Content\bootstrap.css" />
@@ -1084,6 +1087,7 @@
     <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\controllers\account\" />
     <Folder Include="App\controllers\authentication\" />
     <Folder Include="App\filters\" />
     <Folder Include="App_Data\" />

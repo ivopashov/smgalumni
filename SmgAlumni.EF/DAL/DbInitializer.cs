@@ -27,7 +27,9 @@ namespace SmgAlumni.EF.DAL
                     {
                         Name=RoleType.MasterAdmin
                     }   
-                }
+                },
+                DateJoined=DateTime.Now
+
             };
 
             context.Users.Add(user);

@@ -12,6 +12,7 @@ namespace SmgAlumni.EF.Models
         public User()
         {
             PasswordResets = new List<PasswordReset>();
+            Roles = new List<Role>();
         }
 
         //basic identification

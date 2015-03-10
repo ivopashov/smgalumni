@@ -53,116 +53,110 @@ namespace SmgAlumni.App.Api
                 return BadRequest(ex.Message);
             }
         }
-       
-        //[HttpGet]
-        //[Route("api/account/checkguid")]
-        //public IHttpActionResult CheckGuid(string guid, string email)
-        //{
-        //    if ((guid != null) && (email != null))
-        //    {
-        //        var user = _userManager.GetUserByEmail(email);
-        //        //check validity
-        //        var g = new Guid(guid);
-        //        if (!_userManager.IsPasswordResetTokenValid(user, g))
-        //        {
-        //            ModelState.AddModelError("error", "Your password reset token is invalid or expired.");
-        //            return BadRequest(ModelState);
-        //        }
-        //    }
-        //    return Ok();
-        //}
-        //[Route("api/account/forgotpassword")]
-        //public IHttpActionResult ForgotPassword(AccountForgotPasswordViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        ModelState.AddModelError("error", "Entered incorrect data.");
-        //        return BadRequest(ModelState);
-        //    }
-        //    //check that user is valid
-        //    var user = _userManager.GetUserByEmail(model.Email);
-        //    if (user == null)
-        //    {
-        //        ModelState.AddModelError("error", "That email is not registered.");
-        //        return BadRequest(ModelState);
-        //    }
-        //    try
-        //    {
-        //        GenerateResetPassRequest(user);
-        //        return Ok("Please check your email and follow the instructions in order to reset your password.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError("error", "An error occured while sending out your password reset email (" + ex.Message + ")");
-        //        return BadRequest(ModelState);
-        //    }
-        //}
 
-        //private void GenerateResetPassRequest(User user)
-        //{
-        //    var guid = Guid.NewGuid();
-        //    if (_userManager.AddResetPassRequest(user, guid))
-        //    {
-        //        var urlBuilder = new UriBuilder(Request.RequestUri.AbsoluteUri)
-        //        {
-        //            Path = Url.Link("ResetPassword", "Account")
-        //        };
-        //        string ff = Request.RequestUri.AbsoluteUri;
-        //        string path = urlBuilder.ToString();
-        //        string link = path+"/#/account/resetpassword" + "?guid=" + guid + "&email=" + user.Email;
-        //        WriteResetPassLinkToMsmq(link, user.Email, user.UserName);
-        //    }
-        //}
+        [Route("api/account/forgotpassword")]
+        public IHttpActionResult ForgotPassword(AccountForgotPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Входните данни не са валидни");
+            }
+            //check that user is valid
+            var user = _userManager.GetUserByEmail(model.Email);
+            if (user == null)
+            {
+                return Ok("Ако сте въвели правилен и-мейл трябва да получите съобщение с инструкции как да възстановите паролата си");
+            }
+            try
+            {
+                GenerateResetPassRequest(user);
+                return Ok("Ако сте въвели правилен и-мейл трябва да получите съобщение с инструкции как да възстановите паролата си");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Възникна грешка. Моля опитайте отново.");
+            }
+        }
 
-        //[Route("api/account/resetpassword")]
-        //public IHttpActionResult ResetPassword(ResetPasswordViewModel model)
-        //{
-        //    var s = CurrentUser;
-        //    var user = _userManager.GetUserByEmail(model.Email);
-            
-        //    if (!_userManager.IsPasswordResetTokenValid(user, model.Token))
-        //    {
-        //        ModelState.AddModelError("error", "Your password reset token is invalid or expired.");
-        //        return BadRequest(ModelState);
-        //    }
-        //    if (!ModelState.IsValid)
-        //    {
-        //        ModelState.AddModelError("error", "Entered incorrect data.");
-        //        return BadRequest(ModelState);
-        //    }
+        private void GenerateResetPassRequest(User user)
+        {
+            var guid = Guid.NewGuid();
+            if (_userManager.AddResetPassRequest(user, guid))
+            {
+                var urlBuilder = new UriBuilder(Request.RequestUri.AbsoluteUri)
+                {
+                    Path = Url.Link("ResetPassword", "Account")
+                };
+                string ff = Request.RequestUri.AbsoluteUri;
+                string path = urlBuilder.ToString();
+                string link = path + "/#/account/resetpassword" + "?guid=" + guid + "&email=" + user.Email;
+                WriteResetPassLinkToMsmq(link, user.Email, user.UserName);
+            }
+        }
 
-        //    try
-        //    {
-        //        var passwordReset = new PasswordReset()
-        //        {
-        //            Guid = model.Token
+        private void WriteResetPassLinkToMsmq(string link, string email, string username)
+        {
+            if (!string.IsNullOrEmpty(email))
+            {
+                _sender.SendEmailNotification(new EmailNotificationOptions
+                {
+                    To = email,
+                    Template = new ResetPasswordTemplate
+                    {
+                        UserName = username,
+                        Link = link
+                    }
+                });
+            }
+        }
 
-        //        };
-        //        _userManager.ResetPasswordBasedOnToken(user, passwordReset, model.Password);
-        //        return Ok("Your password was successfully reset. You may now login using your credentials.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError("error", "There was an error attempting to reset your password (" + ex.Message + ").");
-        //        return BadRequest(ModelState);
-        //    }
-        //}
+        [Route("api/account/resetpassword")]
+        public IHttpActionResult ResetPassword(ResetPasswordViewModel model)
+        {
+            var user = _userManager.GetUserByEmail(model.Email);
 
-        //private void WriteResetPassLinkToMsmq(string link, string email, string username)
-        //{
-        //    if (!string.IsNullOrEmpty(email))
-        //    {
-        //        _sender.SendEmailNotification(new EmailNotificationOptions
-        //        {
-        //            To = email,
-        //            Template = new ResetPasswordTemplate
-        //            {
-        //                UserName = username,
-        //                Link = link
-        //            }
-        //        });
-        //    }
-        //}
+            if (!_userManager.IsPasswordResetTokenValid(user, model.Token))
+            {
+                return BadRequest("Искането за възстановяване на парола е невалидно или изгубило давност. Моля опитайте отново.");
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Невалидни входни данни.");
+            }
+
+            try
+            {
+                var passwordReset = new PasswordReset()
+                {
+                    Guid = model.Token
+
+                };
+                _userManager.ResetPasswordBasedOnToken(user, passwordReset, model.Password);
+                return Ok("Вашата парола беше сменена успешно. Сега може да се автентикирате с новите credentials.");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message);
+                return BadRequest("Възникна грешка. Моля опитайте отново.");
+            }
+        }
+
+        [HttpGet]
+        [Route("api/account/checkguid")]
+        public IHttpActionResult CheckGuid(string guid, string email)
+        {
+            if ((guid != null) && (email != null))
+            {
+                var user = _userManager.GetUserByEmail(email);
+                //check validity
+                var g = new Guid(guid);
+                if (!_userManager.IsPasswordResetTokenValid(user, g))
+                {
+                    return BadRequest("Искането за възстановяване на парола е невалидно или изгубило давност. Моля опитайте отново.");
+                }
+            }
+            return Ok();
+        }
         
         //[Route("api/manage/data")]
         //public IHttpActionResult GetManageData()

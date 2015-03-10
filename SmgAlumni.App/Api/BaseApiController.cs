@@ -14,6 +14,7 @@ using System.Web.Http;
 
 namespace SmgAlumni.App.Api
 {
+    [Authorize]
     public class BaseApiController : ApiController
     {
         protected Logger _logger;

@@ -25,22 +25,23 @@ namespace SmgAlumni.App.Api
             VerifyNotNull(membership);
         }
 
+        [AllowAnonymous]
         [Route("api/formsauthentication")]
         public IHttpActionResult FormsAuthentication(LoginViewModel login)
         {
             if (!ModelState.IsValid || (login == null))
             {
-                ModelState.AddModelError("error", "Entered incorrect data.");
-                return BadRequest(ModelState);
+                return BadRequest("Грешни входни данни. Моля опитайте отново.");
             }
 
             var user = membership.GetUserByUserName(login.UserName);
 
             if (user == null || !membership.ValidatePassword(user, login.Password))
             {
-                ModelState.AddModelError("error", "The user name or password is incorrect.");
-                return BadRequest(ModelState);
+                return BadRequest("Грешни входни данни. Моля опитайте отново.");
             }
+
+            if (!user.Verified) return BadRequest("Вашият акаунт все още не е одобрен.");
 
             return Ok(GetToken(user.UserName, user.Email));
         }
@@ -63,6 +64,7 @@ namespace SmgAlumni.App.Api
             };
         }
 
+        [AllowAnonymous]
         [Route("api/username")]
         public string GetUserName()
         {

@@ -27,6 +27,8 @@ namespace SmgAlumni.App
                     .IncludeDirectory("~/App/services", "*.js", true)
                     .IncludeDirectory("~/App/factories", "*.js", true)
                     .IncludeDirectory("~/App/controllers", "*.js",true)
+                    .IncludeDirectory("~/App/controllers/account", "*.js", true)
+                    .IncludeDirectory("~/App/controllers/authentication", "*.js", true)
                     .IncludeDirectory("~/App/filters", "*.js", true));
 
 

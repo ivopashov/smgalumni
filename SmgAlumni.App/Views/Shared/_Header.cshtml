@@ -1,1 +1,16 @@
-﻿<h1>Header</h1>
+﻿<header ng-controller="headerController">
+    <div class="row">
+        <div ng-if="isLoggedIn()" class="col-sm-4 col-xs-12 pull-right text-right">
+            <div class="login-bar">
+                <span class="xs-pull-left">
+                    <span ng-show="username.val">Hello,</span>
+                    @*<a ui-sref="menu.manage" ng-bind="username.val"></a>*@
+                    <span ng-show="username.val">!</span>
+                </span>
+                <br class="hidden-xs" />
+                <a href="./#/" ng-show="username.val" ng-click="logout()" class="logout-link xs-pull-right">Log out</a>
+            </div>
+        </div>
+    </div>
+    @*<div ng-show="$state.includes('menu')" main-menu></div>*@
+</header>

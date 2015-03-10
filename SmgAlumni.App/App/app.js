@@ -62,6 +62,10 @@ app.config([
             templateUrl: '/App/templates/account/register.html',
             controller: 'registerController',
         });
+        $stateProvider.state('successfullregistration', {
+            url: '/account/register/success',
+            templateUrl: '/App/templates/account/registersuccess.html'
+        });
         $stateProvider.state('forgotpassword', {
             url: '/account/forgotpassword',
             templateUrl: '/App/templates/account/forgotPassword.html',

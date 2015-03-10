@@ -9,7 +9,7 @@
                 .then(function (authenticationResponse) {
                     sessionStorage.authenticationData = JSON.stringify(authenticationResponse.data);
                     $rootScope.$broadcast('login');
-                    commonService.notification.success('Login successful');
+                    commonService.notification.success('Успешно влизане');
 
                     if (loginData.returnUrl !== undefined) {
                         $state.go(loginData.returnUrl, { id: loginData.id });
