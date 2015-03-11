@@ -5,3 +5,5 @@ This site is intended to provide a common collaboratin space for alumni of SMG h
 registration functionality, account managament, search for people, news.
 
 In the next phases will be implemented a forum and peer to peer ads space.
+
+ATM this site is developped solely by me (Ivaylo Pashov) but i will utilize pull requests in the future.
