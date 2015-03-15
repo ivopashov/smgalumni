@@ -86,15 +86,27 @@ app.config([
             authenticate: true
         });
         $stateProvider.state('account.manageaccount', {
-            url: '/account/manageaccount',
+            url: '/manageaccount',
             templateUrl: '/App/templates/account/manageAccount.html',
             controller: 'manageAccountController',
             authenticate: true
         });
         $stateProvider.state('account.changepassword', {
-            url: '/account/changepassword',
+            url: '/changepassword',
             templateUrl: '/App/templates/account/changePassword.html',
             controller: 'changePasswordController',
+            authenticate: true
+        });
+        //admin
+        $stateProvider.state('admin', {
+            url: '/admin',
+            templateUrl: '/App/templates/admin/adminBase.html',
+            authenticate: true
+        });
+        $stateProvider.state('admin.verifyusers', {
+            url: '/verifyusers',
+            templateUrl: '/App/templates/admin/verifyUsers.html',
+            controller: 'verifyUsersController',
             authenticate: true
         });
     }]).run(['$rootScope', '$state', function ($rootScope, $state) {

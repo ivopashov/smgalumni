@@ -1,6 +1,6 @@
 ﻿<div class="row" style="margin-left: 2px;">
     <h1>Редактирайте Вашият профил</h1>
-    <form наме="editProfile" class="form-horizontal col-sm-12">
+    <form name="editProfile" class="form-horizontal col-sm-12" ng-submit="update()">
         <!--<div class="btn btn-lg btn-primary" ng-file-select
              ng-model="image"
              ng-file-change="upload($files, $event)">
@@ -11,7 +11,7 @@
         <div class="form-group">
             <label for="usernameInputEdit" class="col-sm-4 control-label">Потребителско Име *</label>
             <div class="col-sm-8">
-                <input ng-model="user.username" type="text" id="usernameInputEdit" class="form-control" required />
+                <input ng-model="user.userName" type="text" id="usernameInputEdit" class="form-control" required />
             </div>
         </div>
         <div class="form-group">
@@ -90,6 +90,11 @@
             <label for="companyInputEdit" class="col-sm-4 control-label">Компания</label>
             <div class="col-sm-8">
                 <input type="text" ng-model="user.company" id="companyInputEdit" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button type="submit" class="btn btn-default">Изпрати</button>
             </div>
         </div>
     </form>

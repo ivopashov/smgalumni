@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Web.Http;
 using SmgAlumni.EF.Models;
 using AutoMapper;
+using SmgAlumni.Data.Repositories;
 
 namespace SmgAlumni.App.Api
 {
@@ -19,15 +20,20 @@ namespace SmgAlumni.App.Api
     {
         private readonly EFUserManager _userManager;
         private readonly NotificationSender _sender;
+        private readonly UserRepository _userRepository;
 
-        public AccountController(EFUserManager userManager, NotificationSender sender,Logger logger):base(logger)
+
+        public AccountController(EFUserManager userManager, NotificationSender sender,Logger logger, UserRepository userRepository):base(logger)
         {
             _userManager = userManager;
             VerifyNotNull(_userManager);
             _sender = sender;
             VerifyNotNull(_sender);
+            _userRepository = userRepository;
+            VerifyNotNull(_userRepository);
         }
 
+        [AllowAnonymous]
         [Route("api/account/register")]
         public IHttpActionResult Register(RegisterViewModel model)
         {
@@ -54,6 +60,7 @@ namespace SmgAlumni.App.Api
             }
         }
 
+        [AllowAnonymous]
         [Route("api/account/forgotpassword")]
         public IHttpActionResult ForgotPassword(AccountForgotPasswordViewModel model)
         {
@@ -110,6 +117,7 @@ namespace SmgAlumni.App.Api
             }
         }
 
+        [AllowAnonymous]
         [Route("api/account/resetpassword")]
         public IHttpActionResult ResetPassword(ResetPasswordViewModel model)
         {
@@ -229,13 +237,47 @@ namespace SmgAlumni.App.Api
         }
 
         [HttpGet]
-        [Route("api/acocunt/useraccount")]
+        [Route("api/account/useraccount")]
         public IHttpActionResult GetUserAccount()
         {
             var id = CurrentUser.Id;
             var user = _userManager.GetUserById(id);
+            if (user == null) return BadRequest("Потребителят не беше намерен. Моля опитайте отново");
+            
             var vm = Mapper.Map<UserAccountViewModel>(user);
             return Ok(vm);
+        }
+
+        [HttpPost]
+        [Route("api/account/updateuser")]
+        public IHttpActionResult UpdateUser(UserAccountViewModel model)
+        {
+            if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");
+            try
+            {
+                CurrentUser.UserName = model.UserName;
+                CurrentUser.FirstName = model.FirstName;
+                CurrentUser.MiddleName = model.MiddleName;
+                CurrentUser.LastName = model.LastName;
+                CurrentUser.Email = model.Email;
+                CurrentUser.Company = model.Company;
+                CurrentUser.Description = model.Description;
+                CurrentUser.DwellingCountry = model.DwellingCountry;
+                CurrentUser.City = model.City;
+                CurrentUser.Division = model.Division;
+                CurrentUser.YearOfGraduation = model.YearOfGraduation;
+                CurrentUser.UniversityGraduated = model.UniversityGraduated;
+                CurrentUser.Profession = model.Profession;
+                CurrentUser.PhoneNumber = model.PhoneNumber;
+
+                _userRepository.Update(CurrentUser);
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                _logger.Error(e.Message);
+                return BadRequest("Потребителските данни не можаха да бъдат обновени. Моля опитайте отново");
+            }
         }
     }
 }

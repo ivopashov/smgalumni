@@ -2,18 +2,7 @@
 
     'use strict';
 
-    var checkNeedAuthToken = function (config) {
-
-        if (config.url.toLowerCase().indexOf("admin") > -1) {
-            return true;
-        }
-
-        return false;
-
-    };
-
     var addAuthToken = function (config) {
-        //if (!checkNeedAuthToken(config)) return;
 
         config.headers = config.headers || {};
         var authData = authHelper.getAuth();
@@ -29,9 +18,8 @@
     };
 
     var responseError = function (rejection) {
-        if (rejection.status === 403) {
-            authHelper.clearAuth();
-            $window.location.reload();
+        if (rejection.status === 403 || rejection.status === 401) {
+            $window.location = $window.location.origin;
         }
         return $q.reject(rejection);
     };

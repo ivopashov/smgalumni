@@ -10,7 +10,8 @@
         getAccountData: getAccountData,
         getUser: getUserName,
         isUserLoggedIn: isUserLoggedIn,
-        getUserAccount: getUserAccount
+        getUserAccount: getUserAccount,
+        updateUser: updateUser
     });
 
     function getUserName() {
@@ -54,6 +55,10 @@
 
     function getUserAccount() {
         return commonService.$http.get('api/account/useraccount');
+    }
+
+    function updateUser(user) {
+        return commonService.$http.post('api/account/updateuser',user);
     }
 
     function register(user) {
