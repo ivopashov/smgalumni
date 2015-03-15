@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
-namespace Core.EmailQuerer.Serialization
+namespace SmgAlumni.Utils.EmailQuerer.Serialization
 {
     [Serializable]
     public class SerializeableCollection

@@ -1,5 +1,5 @@
-﻿app.factory('authService', ['commonService', '$rootScope', '$state',
-    function (commonService, $rootScope, $state) {
+﻿app.factory('authService', ['commonService', '$rootScope', '$state','accountService',
+    function (commonService, $rootScope, $state, accountService) {
 
         var login = function (loginData) {
 
@@ -10,12 +10,7 @@
                     sessionStorage.authenticationData = JSON.stringify(authenticationResponse.data);
                     $rootScope.$broadcast('login');
                     commonService.notification.success('Успешно влизане');
-
-                    if (loginData.returnUrl !== undefined) {
-                        $state.go(loginData.returnUrl, { id: loginData.id });
-                    } else {
-                        $state.go('home');
-                    }
+                    $state.go('homeauth');
                 }, function (error) {
                     commonService.notification.error(error.data.message);
                 });

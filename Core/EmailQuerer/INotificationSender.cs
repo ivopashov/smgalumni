@@ -1,5 +1,5 @@
-﻿using Core.EmailQuerer.Serialization;
-namespace Core.EmailQuerer
+﻿using SmgAlumni.Utils.EmailQuerer.Serialization;
+namespace SmgAlumni.Utils.EmailQuerer
 {
     public interface INotificationSender
     {

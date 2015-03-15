@@ -1,4 +1,4 @@
-﻿<h1>Log In</h1>
+﻿<h1>Вход</h1>
 <div class="row">
     <form name="loginForm" role="form" valid-submit="login()" novalidate class="form-horizontal col-sm-6 col-sm-offset-3">
         <div class="form-group">
@@ -20,12 +20,7 @@
                        ng-model="user.password" ng-minlength="6" placeholder="Парола"
                        class="form-control" ng-required="true" />
             </div>
-            <span ng-show="loginForm.$submitted && loginForm.password.$error.required" class="error">
-                Паролата е задължителна
-            </span>
-            <span class="error" ng-show="loginForm.$submitted && loginForm.password.$error.minlength">
-                Паролата трябва да е минимум 6 символа
-            </span>
+           
         </div>
         <div class="form-group">
             <input data-val="true" data-val-required="The Remember me field is required." id="RememberMe" name="RememberMe" title="Remember me" type="checkbox" value="true">

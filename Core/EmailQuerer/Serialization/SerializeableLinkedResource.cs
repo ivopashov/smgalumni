@@ -3,7 +3,7 @@ using System.IO;
 using System.Net.Mail;
 using System.Net.Mime;
 
-namespace Core.EmailQuerer.Serialization
+namespace SmgAlumni.Utils.EmailQuerer.Serialization
 {
     [Serializable]
     public class SerializeableLinkedResource

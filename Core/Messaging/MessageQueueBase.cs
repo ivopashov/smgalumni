@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Messaging;
 
-namespace Core.Messaging
+namespace SmgAlumni.Utils.Messaging
 {
     public abstract class MessageQueueBase
     {

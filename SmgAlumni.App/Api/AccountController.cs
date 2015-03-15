@@ -1,8 +1,8 @@
 ﻿using SmgAlumni.App.Models;
-using Core.EmailQuerer;
-using Core.EmailQuerer.Serialization;
-using Core.EmailQuerer.Templates;
-using Core.Membership;
+using SmgAlumni.Utils.EmailQuerer;
+using SmgAlumni.Utils.EmailQuerer.Serialization;
+using SmgAlumni.Utils.EmailQuerer.Templates;
+using SmgAlumni.Utils.Membership;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -206,29 +206,36 @@ namespace SmgAlumni.App.Api
         //    }
         //}
 
-        //[Route("api/account/changepassword")]
-        //public IHttpActionResult ChangePassword(ChangePasswordViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        ModelState.AddModelError("error", "Entered incorrect data.");
-        //        return BadRequest(ModelState);
-        //    }
-        //    if (!_userManager.ValidatePassword(CurrentUser, model.OldPassword))
-        //    {
-        //        ModelState.AddModelError("error", "Your password was wrong.");
-        //        return BadRequest(ModelState);
-        //    }
-        //    try
-        //    {
-        //        _userManager.ChangePassword(CurrentUser.Id, model.NewPassword);
-        //        return Ok("Your password was changed successfully");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError("error", "There was an error while changing your password (" + ex.Message + ").");
-        //        return BadRequest(ModelState);
-        //    }
-        //}
+        [Route("api/account/changepassword")]
+        public IHttpActionResult ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Невалидни входни данни");
+            }
+            if (!_userManager.ValidatePassword(CurrentUser, model.OldPassword))
+            {
+                return BadRequest("Старата парола е грешна");
+            }
+            try
+            {
+                _userManager.ChangePassword(CurrentUser.UserName, model.NewPassword);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Възникна грешка при смяна на Вашата парола. Моля опитайте отново");
+            }
+        }
+
+        [HttpGet]
+        [Route("api/acocunt/useraccount")]
+        public IHttpActionResult GetUserAccount()
+        {
+            var id = CurrentUser.Id;
+            var user = _userManager.GetUserById(id);
+            var vm = Mapper.Map<UserAccountViewModel>(user);
+            return Ok(vm);
+        }
     }
 }

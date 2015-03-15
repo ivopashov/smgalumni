@@ -1,5 +1,5 @@
-﻿using Core.Membership;
-using Core.Settings;
+﻿using SmgAlumni.Utils.Membership;
+using SmgAlumni.Utils.Settings;
 using Microsoft.Owin.Security;
 using Microsoft.Owin;
 using System;
@@ -9,7 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Identity
+namespace SmgAlumni.Utils.Identity
 {
     public class UserManager
     {
@@ -29,6 +29,10 @@ namespace Core.Identity
             identity.AddClaim(new Claim(ClaimTypes.Name, username));
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
             identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+            foreach (var role in user.Roles)
+            {
+                identity.AddClaim(new Claim(ClaimTypes.Role, role.Name));
+            }
             identity.AddClaim(new Claim("Verified", user.Verified ? "true" : "false"));
             return identity;
         }

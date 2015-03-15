@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Net.Mail;
-using Core.Messaging;
+using SmgAlumni.Utils.Messaging;
 
-namespace Core.EmailQuerer.Serialization
+namespace SmgAlumni.Utils.EmailQuerer.Serialization
 {
     [Serializable]
     public class SerializeableMailMessage : IMsmqMessage

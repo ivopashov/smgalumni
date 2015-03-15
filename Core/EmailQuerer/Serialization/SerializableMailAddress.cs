@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Mail;
 
-namespace Core.EmailQuerer.Serialization
+namespace SmgAlumni.Utils.EmailQuerer.Serialization
 {
     [Serializable]
     public class SerializeableMailAddress

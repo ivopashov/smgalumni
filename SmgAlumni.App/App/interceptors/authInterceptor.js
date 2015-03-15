@@ -13,7 +13,7 @@
     };
 
     var addAuthToken = function (config) {
-        if (!checkNeedAuthToken(config)) return;
+        //if (!checkNeedAuthToken(config)) return;
 
         config.headers = config.headers || {};
         var authData = authHelper.getAuth();

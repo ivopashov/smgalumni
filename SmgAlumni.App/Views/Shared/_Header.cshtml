@@ -3,12 +3,20 @@
         <div ng-if="isLoggedIn()" class="col-sm-4 col-xs-12 pull-right text-right">
             <div class="login-bar">
                 <span class="xs-pull-left">
-                    <span ng-show="username.val">Hello,</span>
-                    @*<a ui-sref="menu.manage" ng-bind="username.val"></a>*@
-                    <span ng-show="username.val">!</span>
+                    <span ng-show="username">Здравей,</span>
+                    <a ui-sref="account">{{username}}</a>
                 </span>
                 <br class="hidden-xs" />
-                <a href="./#/" ng-show="username.val" ng-click="logout()" class="logout-link xs-pull-right">Log out</a>
+                <a ng-show="username" ng-click="logout()" class="logout-link xs-pull-right">Изход</a>
+            </div>
+        </div>
+        <div ng-if="!isLoggedIn()" class="col-sm-4 col-xs-12 pull-right text-right">
+            <div class="login-bar">
+                <span class="xs-pull-left">
+                    <a ui-sref="login">Вход</a>
+                    <br class="hidden-xs" />
+                    <a ui-sref="forgotpassword">Забравена Парола</a>
+                </span>
             </div>
         </div>
     </div>

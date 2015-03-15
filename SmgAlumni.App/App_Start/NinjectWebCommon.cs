@@ -10,7 +10,7 @@ namespace SmgAlumni.App.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    using Core.Settings;
+    using SmgAlumni.Utils.Settings;
     using NLog;
     using System.Data.Entity;
     using SmgAlumni.EF.DAL;

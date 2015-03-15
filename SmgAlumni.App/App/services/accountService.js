@@ -7,8 +7,24 @@
         resetPassword: resetPassword,
         register: register,
         saveAccountData: saveAccountData,
-        getAccountData: getAccountData
+        getAccountData: getAccountData,
+        getUser: getUserName,
+        isUserLoggedIn: isUserLoggedIn,
+        getUserAccount: getUserAccount
     });
+
+    function getUserName() {
+        if (sessionStorage.authenticationData) {
+            var result = JSON.parse(sessionStorage.authenticationData);
+            return result.username;
+        }
+        return '';
+    }
+
+    function isUserLoggedIn() {
+        if (sessionStorage.authenticationData) return true;
+        return false;
+    }
 
     function getAccountData() {
         return commonService.$http.get('api/manage/data');
@@ -34,6 +50,10 @@
 
     function resetPassword(resetPassword) {
         return commonService.$http.post('api/account/resetpassword', resetPassword);
+    }
+
+    function getUserAccount() {
+        return commonService.$http.get('api/account/useraccount');
     }
 
     function register(user) {

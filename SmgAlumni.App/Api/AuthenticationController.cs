@@ -1,6 +1,6 @@
 ﻿using SmgAlumni.App.Models;
-using Core.Identity;
-using Core.Membership;
+using SmgAlumni.Utils.Identity;
+using SmgAlumni.Utils.Membership;
 using NLog;
 using System;
 using System.Collections.Generic;

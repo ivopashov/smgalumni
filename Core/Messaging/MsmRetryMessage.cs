@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Messaging
+namespace SmgAlumni.Utils.Messaging
 {
     [Serializable]
     public class MsmRetryMessage<T> where T : IMsmqMessage

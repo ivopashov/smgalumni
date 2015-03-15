@@ -5,7 +5,7 @@ using System.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Messaging
+namespace SmgAlumni.Utils.Messaging
 {
     /// <summary>
     /// Dequeues messages from MSMQ

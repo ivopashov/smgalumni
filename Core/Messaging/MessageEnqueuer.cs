@@ -5,7 +5,7 @@ using System.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Messaging
+namespace SmgAlumni.Utils.Messaging
 {
 
     public class MessageEnqueuer<T> : MessageQueueBase where T : class

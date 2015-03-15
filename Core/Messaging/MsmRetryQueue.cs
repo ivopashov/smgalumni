@@ -1,9 +1,9 @@
-﻿using Core.Settings;
+﻿using SmgAlumni.Utils.Settings;
 using System;
 using System.Collections.Generic;
 using System.Messaging;
 
-namespace Core.Messaging
+namespace SmgAlumni.Utils.Messaging
 {
     public class MsmRetryQueue<T> : MsmQueueBase where T : class, IMsmqMessage
     {

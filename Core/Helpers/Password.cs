@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Helpers
+namespace SmgAlumni.Utils.Helpers
 {
     public static class Password
     {

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var app = angular.module('app', ['ngSanitize', 'ui.bootstrap', 'ui.router', 'angular-loading-bar', 'ngDialog']);
+var app = angular.module('app', ['ngSanitize', 'ui.bootstrap', 'ui.router', 'angular-loading-bar', 'ngDialog', 'angularFileUpload']);
 
 
 
@@ -48,7 +48,6 @@ app.config([
         $stateProvider.state('home', {
             url: '/',
             templateUrl: '/App/templates/home/home.html'
-            //controller: 'homeController'
         });
     
        
@@ -76,18 +75,23 @@ app.config([
             templateUrl: '/App/templates/account/resetPassword.html',
             controller: 'resetPasswordController'
         });
-        $stateProvider.state('manageaccount', {
+        $stateProvider.state('homeauth', {
+            url: '/home',
+            templateUrl: '/App/templates/home/homeAuth.html',
+            authenticate: true
+        });
+        $stateProvider.state('account', {
+            url: '/account',
+            templateUrl: '/App/templates/account/accountBase.html',
+            authenticate: true
+        });
+        $stateProvider.state('account.manageaccount', {
             url: '/account/manageaccount',
             templateUrl: '/App/templates/account/manageAccount.html',
             controller: 'manageAccountController',
-            authenticate: true,
-            resolve: {
-                managedata: function (accountService) {
-                    return accountService.getAccountData();
-                }
-            }
+            authenticate: true
         });
-        $stateProvider.state('changepassword', {
+        $stateProvider.state('account.changepassword', {
             url: '/account/changepassword',
             templateUrl: '/App/templates/account/changePassword.html',
             controller: 'changePasswordController',
@@ -96,8 +100,7 @@ app.config([
     }]).run(['$rootScope', '$state', function ($rootScope, $state) {
         $rootScope.$on("$stateChangeStart", function (event, toState) {
             if ((toState.authenticate) &&
-                (sessionStorage.authenticationData == undefined ||
-                sessionStorage.authenticationData == '')) {
+                !sessionStorage.authenticationData) {
                 $state.transitionTo('login', { returnUrl: toState.name });
                 event.preventDefault();
             }

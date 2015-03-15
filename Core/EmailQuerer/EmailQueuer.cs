@@ -1,9 +1,9 @@
 ﻿using System;
 using NLog;
-using Core.EmailQuerer.Serialization;
-using Core.Messaging;
+using SmgAlumni.Utils.EmailQuerer.Serialization;
+using SmgAlumni.Utils.Messaging;
 
-namespace Core.EmailQuerer
+namespace SmgAlumni.Utils.EmailQuerer
 {
     public class EmailQueuer
     {

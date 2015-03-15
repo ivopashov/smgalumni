@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Messaging;
-using Core.Settings;
+using SmgAlumni.Utils.Settings;
 
-namespace Core.Messaging
+namespace SmgAlumni.Utils.Messaging
 {
     public class MsmQueue<T> : MsmQueueBase, IMsmQueue<T> where T : class, IMsmqMessage
     {

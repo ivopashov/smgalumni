@@ -13,6 +13,8 @@ namespace SmgAlumni.App
                      "~/Scripts/jquery-{version}.js",
                      "~/Scripts/angular.js",
                      "~/Scripts/angular-ui-router.js",
+                     "~/Scripts/angular-file-upload-shim.min.js",
+                     "~/Scripts/angular-file-upload.min.js",
                      "~/Scripts/loading-bar.js",
                      "~/Scripts/toastr.min.js",
                      "~/Scripts/ngDialog.min.js",

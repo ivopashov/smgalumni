@@ -1,4 +1,4 @@
-﻿namespace Core.EmailQuerer.Serialization
+﻿namespace SmgAlumni.Utils.EmailQuerer.Serialization
 {
     public class EmailNotificationOptions
     {

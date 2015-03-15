@@ -1,8 +1,8 @@
-﻿using Core.EmailQuerer.Serialization;
-using Core.Settings;
+﻿using SmgAlumni.Utils.EmailQuerer.Serialization;
+using SmgAlumni.Utils.Settings;
 using System.Net.Mail;
 
-namespace Core.EmailQuerer
+namespace SmgAlumni.Utils.EmailQuerer
 {
     public class NotificationSender : INotificationSender
     {

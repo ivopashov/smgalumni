@@ -40,3 +40,69 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+.help-inline {
+    display: inline-block;
+}
+
+.comment-alert {
+    background: #f86872;
+}
+
+.comment-arrow{
+    position: relative;
+    color: white;
+    display: inline-block;
+    font-size: 12px;
+    padding: 8px;
+    font-family: Helvetica Neue LT STD BD;
+    margin-left: 10px;
+    border-radius:5px;
+}
+
+.comment-arrow:after, .qccu-comment-arrow:before {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.account-menu
+.nav-pills > li {
+  margin-top: 0;
+  margin-left: 0;
+}
+.account-menu
+.nav-pills > li > a {
+  text-align: right;
+  border-radius: 0;
+  color: #000;
+  text-decoration: none;
+}
+.account-menu
+.nav-pills > li > a.active {
+  color: #fff;
+  background-color: #428bca;
+}
+
+main-menu
+.nav-pills > li {
+  margin-top: 0;
+  margin-left: 0;
+}
+main-menu 
+.nav-pills > li > a {
+  text-align: right;
+  border-radius: 0;
+  color: #000;
+  text-decoration: none;
+}
+main-menu 
+.nav-pills > li > a.active {
+  color: #fff;
+  background-color: #428bca;
+}

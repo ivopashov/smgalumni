@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 
-namespace Core.Mapping
+namespace SmgAlumni.Utils.Mapping
 {
     public static class Extensions
     {

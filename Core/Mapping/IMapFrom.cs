@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Mapping
+namespace SmgAlumni.Utils.Mapping
 {
     internal interface IMapFrom<T>
     {

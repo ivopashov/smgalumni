@@ -17,7 +17,7 @@ namespace SmgAlumni.Data.Repositories
         }
 
         //just in case trim the parameter and compare string after tolower-ing them
-        public Role GetByName(RoleType name)
+        public Role GetByName(string name)
         {
             return this.Find(a => a.Name.Equals(name)).SingleOrDefault();
         }

@@ -1,7 +1,7 @@
 ﻿using System;
-using Core.EmailQuerer.Serialization;
+using SmgAlumni.Utils.EmailQuerer.Serialization;
 
-namespace Core.EmailQuerer.Templates
+namespace SmgAlumni.Utils.EmailQuerer.Templates
 {
     public class ResetPasswordTemplate : IEmailNotificationTemplate
     {

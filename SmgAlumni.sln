@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{BB73FDE0-95AF-400A-8A3C-5380EACD809E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmgAlumni.Utils", "Core\SmgAlumni.Utils.csproj", "{BB73FDE0-95AF-400A-8A3C-5380EACD809E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender", "EmailSender\EmailSender.csproj", "{6FAC4509-DA7E-456F-B5E7-CC6B2A212CC1}"
 EndProject

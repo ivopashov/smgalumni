@@ -1,5 +1,5 @@
-﻿using Core.EmailQuerer.Serialization;
-using Core.Settings;
+﻿using SmgAlumni.Utils.EmailQuerer.Serialization;
+using SmgAlumni.Utils.Settings;
 using NLog;
 using System;
 using System.Collections.Generic;

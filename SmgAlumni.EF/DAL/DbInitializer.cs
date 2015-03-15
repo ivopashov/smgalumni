@@ -25,10 +25,14 @@ namespace SmgAlumni.EF.DAL
                 {
                     new Role()
                     {
-                        Name=RoleType.MasterAdmin
+                        Name="MasterAdmin"
                     }   
                 },
-                DateJoined=DateTime.Now
+                DateJoined=DateTime.Now,
+                Verified=true,
+                FirstName="Ivaylo",
+                MiddleName="Dinkov",
+                LastName="Pashov"
 
             };
 
