@@ -1,0 +1,38 @@
+﻿<form novalidate ng-submit="findUser()">
+    <div class="form-group">
+        <label for="username" class="control-label">Потребителско име: </label>
+        <input type="text" id="username" ng-model="searchedUserName" ng-required="true" />
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-sm btn-primary"value="Търси"/>
+    </div>
+</form>
+
+<div ng-if="user">
+    <div class="form-group">
+        <label class="control-label">Номер: {{user.id}}</label>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Първо име: {{user.firstName}}</label>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Фамилия: {{user.lastName}}</label>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Налични Роли: </label>
+        <select ng-model="tempRole" ng-change="addRole(tempRole)" ng-options="role for role in roles"></select>
+    </div>
+    <table>
+        <thead>
+            <th>Роля</th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="role in user.roles">
+                <td>{{role}}</td>
+                <td><div class="btn btn-sm btn-primary" ng-click="deleteRole(role)">Изтрий</div></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="btn btn-sm btn-primary" ng-click="updateUserRoles()">Обнови</div>
+</div>

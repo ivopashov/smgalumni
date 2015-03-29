@@ -166,7 +166,6 @@ namespace SmgAlumni.Utils.Membership
         {
             var index = user.PasswordResets.SingleOrDefault(x => x.Id == record.Id);
             if (index == null) throw new Exception("Could not retrieve password reset "+ record.Id +" for user "+user.UserName);
-            index.DateUsed = DateTime.Now;
             index.Used = true;
             _userRepository.Update(user);
         }

@@ -1,4 +1,4 @@
-﻿using SmgAlumni.Utils.EmailQuerer.Serialization;
+﻿using SmgAlumni.Utils.EfEmailQuerer.Serialization;
 using SmgAlumni.Utils.Messaging;
 using System;
 using System.Collections.Generic;

@@ -8,6 +8,8 @@
 
                 $scope.menuItems = [
                     { title: "Одобри Потребители", sref: "admin.verifyusers", statename: "admin.verifyusers" },
+                    { title: "Новини", sref: "admin.news", statename: "admin.news" },
+                    { title: "Каузи", sref: "admin.causes", statename: "admin.causes" },
                 ];
             }
         ]

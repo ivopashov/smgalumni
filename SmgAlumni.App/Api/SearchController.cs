@@ -1,6 +1,8 @@
 ﻿using NLog;
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
+using SmgAlumni.Utils.Identity;
+using SmgAlumni.Utils.Membership;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +15,15 @@ namespace SmgAlumni.App.Api
     public class SearchController : BaseApiController
     {
         private UserRepository _userRepository;
+        private EFUserManager _userManager;
 
-        public SearchController(Logger logger, UserRepository userRepository):base(logger)
+        public SearchController(Logger logger, UserRepository userRepository, EFUserManager userManager)
+            : base(logger)
         {
             _userRepository = userRepository;
             VerifyNotNull(_userRepository);
+            _userManager = userManager;
+            VerifyNotNull(_userManager);
         }
 
         [HttpGet]
@@ -30,6 +36,15 @@ namespace SmgAlumni.App.Api
             if (user == null) return BadRequest("Възникна грешка. Моля опитайте отново");
 
             var vm = AutoMapper.Mapper.Map<UserAccountViewModel>(user);
+            return Ok(vm);
+        }
+
+        [HttpGet]
+        [Route("api/search/byusername")]
+        public IHttpActionResult GetUserByUserName([FromUri]string username)
+        {
+            var user = _userManager.GetUserByUserName(username);
+            var vm = AutoMapper.Mapper.Map<UserAccountShortWithRolesViewModel>(user);
             return Ok(vm);
         }
 

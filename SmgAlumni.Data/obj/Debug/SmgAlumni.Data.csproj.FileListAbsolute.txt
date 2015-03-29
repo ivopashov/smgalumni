@@ -1,6 +1,5 @@
-C:\Repositories\SMG alumni\SmgAlumni.Data\bin\Debug\SmgAlumni.Data.dll.config
 C:\Repositories\SMG alumni\SmgAlumni.Data\bin\Debug\SmgAlumni.Data.dll
-C:\Repositories\SMG alumni\SmgAlumni.Data\bin\Debug\SmgAlumni.Data.pdb
+C:\Repositories\SMG alumni\SmgAlumni.Data\bin\Debug\SmgAlumni.Data.dll.config
 C:\Repositories\SMG alumni\SmgAlumni.Data\bin\Debug\EntityFramework.dll
 C:\Repositories\SMG alumni\SmgAlumni.Data\bin\Debug\EntityFramework.SqlServer.dll
 C:\Repositories\SMG alumni\SmgAlumni.Data\bin\Debug\SmgAlumni.EF.dll
@@ -10,3 +9,4 @@ C:\Repositories\SMG alumni\SmgAlumni.Data\bin\Debug\EntityFramework.SqlServer.xm
 C:\Repositories\SMG alumni\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.csprojResolveAssemblyReference.cache
 C:\Repositories\SMG alumni\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.dll
 C:\Repositories\SMG alumni\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.pdb
+C:\Repositories\SMG alumni\SmgAlumni.Data\bin\Debug\SmgAlumni.Data.pdb

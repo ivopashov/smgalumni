@@ -8,7 +8,9 @@
 
                 $scope.menuItems = [
                     { title: "Редактирай Си Профила", sref: "account.manageaccount", statename: "account.manageaccount" },
-                    { title: "Смени Си Паролата", sref: "account.changepassword", statename: "account.changepassword" }
+                    { title: "Преглед на Профила", sref: "account.viewaccount", statename: "account.viewaccount" },
+                    { title: "Смени Си Паролата", sref: "account.changepassword", statename: "account.changepassword" },
+
                 ];
             }
         ]

@@ -1,0 +1,46 @@
+﻿<div>
+    <h5>Добави настройка</h5>
+    <div class="form-group">
+        <label for="settKeyAdd" class="control-label">Ключ</label>
+        <input type="text" ng-required="true" id="settKeyAdd" ng-model="addedSetting.settingKey" />
+    </div>
+    <div class="form-group">
+        <label for="settValAdd" class="control-label">Стойност</label>
+        <input type="text" ng-required="true" id="settValAdd" ng-model="addedSetting.settingValue" />
+    </div>
+    <div class="form-group">
+        <div class="btn btn-sm btn-primary" ng-click="addSetting()">Добави</div>
+    </div>
+</div>
+
+<table class="table table-striped table-condensed" ng-if="settings.length>0">
+    <thead>
+    <th>Ключ</th>
+    <th>Стойност</th>
+    <th></th>
+    <th></th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="setting in settings">
+            <td>{{setting.settingKey}}</td>
+            <td>{{setting.settingName}}</td>
+            <td><div class="btn btn-sm btn-primary" ng-click="selectSetting(setting)">Обнови</div></td>
+            <td><div class="btn btn-sm btn-primary" ng-click="deleteSetting(setting)">Изтрий</div></td>
+        </tr>
+    </tbody>
+</table>
+
+<div ng-if="edittedSetting">
+    <h5>Редактирай настройка</h5>
+    <div class="form-group">
+        <label for="settKey" class="control-label">Ключ</label>
+        <input type="text" ng-required="true" id="settKey" ng-model="edittedSetting.settingKey" />
+    </div>
+    <div class="form-group">
+        <label for="settVal" class="control-label">Стойност</label>
+        <textarea ng-required="true" id="settVal" ng-model="edittedSetting.settingName" ></textarea>
+    </div>
+    <div class="form-group">
+        <div class="btn btn-sm btn-primary" ng-click="saveSetting()">Обнови</div>
+    </div>
+</div>

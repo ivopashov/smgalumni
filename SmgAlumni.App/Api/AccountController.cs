@@ -1,7 +1,7 @@
 ﻿using SmgAlumni.App.Models;
-using SmgAlumni.Utils.EmailQuerer;
-using SmgAlumni.Utils.EmailQuerer.Serialization;
-using SmgAlumni.Utils.EmailQuerer.Templates;
+using SmgAlumni.Utils.EfEmailQuerer;
+using SmgAlumni.Utils.EfEmailQuerer.Serialization;
+using SmgAlumni.Utils.EfEmailQuerer.Templates;
 using SmgAlumni.Utils.Membership;
 using NLog;
 using System;
@@ -19,11 +19,12 @@ namespace SmgAlumni.App.Api
     public class AccountController : BaseApiController
     {
         private readonly EFUserManager _userManager;
-        private readonly NotificationSender _sender;
+        private readonly NotificationEnqueuer _sender;
         private readonly UserRepository _userRepository;
 
 
-        public AccountController(EFUserManager userManager, NotificationSender sender,Logger logger, UserRepository userRepository):base(logger)
+        public AccountController(EFUserManager userManager, NotificationEnqueuer sender, Logger logger, UserRepository userRepository)
+            : base(logger)
         {
             _userManager = userManager;
             VerifyNotNull(_userManager);
@@ -81,6 +82,7 @@ namespace SmgAlumni.App.Api
             }
             catch (Exception ex)
             {
+                _logger.Error(ex.Message);
                 return BadRequest("Възникна грешка. Моля опитайте отново.");
             }
         }
@@ -89,23 +91,17 @@ namespace SmgAlumni.App.Api
         {
             var guid = Guid.NewGuid();
             if (_userManager.AddResetPassRequest(user, guid))
-            {
-                var urlBuilder = new UriBuilder(Request.RequestUri.AbsoluteUri)
-                {
-                    Path = Url.Link("ResetPassword", "Account")
-                };
-                string ff = Request.RequestUri.AbsoluteUri;
-                string path = urlBuilder.ToString();
-                string link = path + "/#/account/resetpassword" + "?guid=" + guid + "&email=" + user.Email;
-                WriteResetPassLinkToMsmq(link, user.Email, user.UserName);
+            {                
+                string link = Request.RequestUri.Scheme+"://"+Request.RequestUri.Authority + "/#/account/resetpassword" + "?guid=" + guid + "&email=" + user.Email;
+                CreateAndEnqueueMessage(link, user.Email, user.UserName);
             }
         }
 
-        private void WriteResetPassLinkToMsmq(string link, string email, string username)
+        private void CreateAndEnqueueMessage(string link, string email, string username)
         {
             if (!string.IsNullOrEmpty(email))
             {
-                _sender.SendEmailNotification(new EmailNotificationOptions
+                _sender.EnqueueNotification(new EmailNotificationOptions
                 {
                     To = email,
                     Template = new ResetPasswordTemplate
@@ -113,7 +109,7 @@ namespace SmgAlumni.App.Api
                         UserName = username,
                         Link = link
                     }
-                });
+                },EF.Models.enums.NotificationKind.ForgotPassword);
             }
         }
 

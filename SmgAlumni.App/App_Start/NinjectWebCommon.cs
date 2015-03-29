@@ -65,7 +65,7 @@ namespace SmgAlumni.App.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IAppSettingsRetriever>().To<ConfigFileRetriever>();
+            kernel.Bind<IAppSettingsRetriever>().To<EFSettingsRetriever>();
             kernel.Bind<DbContext>().To<SmgAlumniContext>();
             kernel.Bind<Logger>().ToMethod(x => LogManager.GetLogger(x.Request.ParentRequest.Service.FullName));
         }        

@@ -26,17 +26,31 @@ namespace SmgAlumni.EF.DAL
                     new Role()
                     {
                         Name="MasterAdmin"
-                    }   
+                    },
+                    new Role()
+                    {
+                        Name="Admin"
+                    },
+                    new Role(){
+                    Name="User"
+                    }
                 },
-                DateJoined=DateTime.Now,
-                Verified=true,
-                FirstName="Ivaylo",
-                MiddleName="Dinkov",
-                LastName="Pashov"
+                DateJoined = DateTime.Now,
+                Verified = true,
+                FirstName = "Ivaylo",
+                MiddleName = "Dinkov",
+                LastName = "Pashov"
 
             };
 
+            var setting = new Setting()
+            {
+                SettingKey = "auth_TokenExpirationMinutes",
+                SettingName="120"
+            };
+
             context.Users.Add(user);
+            context.Settings.Add(setting);
             context.SaveChanges();
         }
     }

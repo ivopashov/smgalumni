@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var app = angular.module('app', ['ngSanitize', 'ui.bootstrap', 'ui.router', 'angular-loading-bar', 'ngDialog', 'angularFileUpload']);
+var app = angular.module('app', ['ngCkeditor','ngSanitize', 'ui.bootstrap', 'ui.router', 'angular-loading-bar', 'ngDialog', 'angularFileUpload']);
 
 
 
@@ -45,12 +45,11 @@ app.config([
             templateUrl: '/App/templates/menu.html'
         });
 
-        $stateProvider.state('home', {
-            url: '/',
-            templateUrl: '/App/templates/home/home.html'
-        });
-    
-       
+        //$stateProvider.state('home', {
+        //    url: '/',
+        //    templateUrl: '/App/templates/home/home.html'
+        //});
+
         $stateProvider.state('login', {
             url: '/account/login',
             templateUrl: '/App/templates/account/login.html',
@@ -76,8 +75,14 @@ app.config([
             controller: 'resetPasswordController'
         });
         $stateProvider.state('homeauth', {
-            url: '/home',
+            url: '/',
             templateUrl: '/App/templates/home/homeAuth.html',
+            authenticate: true
+        });
+        $stateProvider.state('homeauth.search', {
+            url: 'search',
+            templateUrl: '/App/templates/search/userSearch.html',
+            controller: 'userSearchController',
             authenticate: true
         });
         $stateProvider.state('account', {
@@ -107,6 +112,36 @@ app.config([
             url: '/verifyusers',
             templateUrl: '/App/templates/admin/verifyUsers.html',
             controller: 'verifyUsersController',
+            authenticate: true
+        });
+        $stateProvider.state('admin.news', {
+            url: '/news',
+            templateUrl: '/App/templates/admin/news.html',
+            controller: 'adminNewsController',
+            authenticate: true
+        });
+        $stateProvider.state('admin.causes', {
+            url: '/causes',
+            templateUrl: '/App/templates/admin/causes.html',
+            controller: 'adminCausesController',
+            authenticate: true
+        });
+        //masteradmin
+        $stateProvider.state('masteradmin', {
+            url: '/masteradmin',
+            templateUrl: '/App/templates/masteradmin/masterAdminBase.html',
+            authenticate: true
+        });
+        $stateProvider.state('masteradmin.manageroles', {
+            url: '/manageroles',
+            templateUrl: '/App/templates/masteradmin/manageroles.html',
+            controller: 'manageRolesController',
+            authenticate: true
+        });
+        $stateProvider.state('masteradmin.settings', {
+            url: '/settings',
+            templateUrl: '/App/templates/masteradmin/settings.html',
+            controller: 'settingsController',
             authenticate: true
         });
     }]).run(['$rootScope', '$state', function ($rootScope, $state) {

@@ -50,11 +50,17 @@
   <ItemGroup>
     <Compile Include="DAL\DbInitializer.cs" />
     <Compile Include="DAL\SmgAlumniContext.cs" />
+    <Compile Include="Models\Cause.cs" />
     <Compile Include="Models\enums\ClassDivision.cs" />
     <Compile Include="Models\enums\Country.cs" />
+    <Compile Include="Models\enums\NotificationKind.cs" />
     <Compile Include="Models\IEntity.cs" />
+    <Compile Include="Models\INews.cs" />
+    <Compile Include="Models\News.cs" />
+    <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\PasswordReset.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Setting.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

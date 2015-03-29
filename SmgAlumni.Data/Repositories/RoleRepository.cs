@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmgAlumni.Data.Repositories
 {
-    class RoleRepository : GenericRepository<Role>
+    public class RoleRepository : GenericRepository<Role>
     {
         public RoleRepository(DbContext context):base(context)
         {

@@ -8,7 +8,7 @@
 
                 $scope.menuItems = [
                     { title: "Моят Акаунт", sref: "account", statename: "account" },
-                    { title: "Търсене", sref: "search", statename: "search" },
+                    { title: "Търсене", sref: "homeauth.search", statename: "homeauth.search" },
                     { title: "Новини", sref: "news", statename: "news" },
                 ];
             }

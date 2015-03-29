@@ -19,7 +19,10 @@ namespace SmgAlumni.App
                      "~/Scripts/toastr.min.js",
                      "~/Scripts/ngDialog.min.js",
                      "~/Scripts/angular-ui/ui-bootstrap-tpls.min.js",
-                     "~/Scripts/angular-sanitize.min.js"));
+                     "~/Scripts/angular-sanitize.min.js",
+                     "~/Scripts/ng-ckeditor.js"));
+
+            
 
             bundles.Add(
                 new ScriptBundle("~/bundles/js/spa")
@@ -42,7 +45,8 @@ namespace SmgAlumni.App
                     "~/Content/less/ng-table.css",
                     "~/Content/loading-bar.css",
                     "~/Content/ngDialog.css",
-                    "~/Content/ngDialog-theme-default.css"));
+                    "~/Content/ngDialog-theme-default.css",
+                    "~/Content/ng-ckeditor.css"));
         }
     }
 }

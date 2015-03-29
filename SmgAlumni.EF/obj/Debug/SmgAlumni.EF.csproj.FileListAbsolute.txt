@@ -7,4 +7,3 @@ C:\Repositories\SMG alumni\SmgAlumni.EF\bin\Debug\EntityFramework.xml
 C:\Repositories\SMG alumni\SmgAlumni.EF\bin\Debug\EntityFramework.SqlServer.xml
 C:\Repositories\SMG alumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.dll
 C:\Repositories\SMG alumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.pdb
-C:\Repositories\SMG alumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csprojResolveAssemblyReference.cache

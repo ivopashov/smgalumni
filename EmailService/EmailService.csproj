@@ -76,12 +76,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EmailSender\EmailSender.csproj">
-      <Project>{6fac4509-da7e-456f-b5e7-cc6b2a212cc1}</Project>
-      <Name>EmailSender</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -195,6 +195,7 @@
     <Compile Include="Api\AdminController.cs" />
     <Compile Include="Api\AuthenticationController.cs" />
     <Compile Include="Api\BaseApiController.cs" />
+    <Compile Include="Api\MasterAdminController.cs" />
     <Compile Include="Api\SearchController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -207,7 +208,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CauseNewsViewModelWithoutId.cs" />
+    <Compile Include="Models\CauseNewsViewModes.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\SearchByDivisionAndYearViewModel.cs" />
+    <Compile Include="Models\SettingViewModel.cs" />
+    <Compile Include="Models\UserAccountShortWithRolesViewModel.cs" />
+    <Compile Include="Models\UserAccountShortViewModel.cs" />
     <Compile Include="Models\UserAccountViewModel.cs" />
     <Compile Include="Models\UserForVerifyViewModel.cs" />
     <Compile Include="Models\UserIdsToVerifyOrDeleteViewModel.cs" />
@@ -216,25 +223,35 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
+    <Content Include="App\controllers\adminCausesController.js" />
     <Content Include="App\controllers\changePasswordController.js" />
     <Content Include="App\controllers\forgotPasswordController.js" />
     <Content Include="App\controllers\headerController.js" />
     <Content Include="App\controllers\loginController.js" />
     <Content Include="App\controllers\manageAccountController.js" />
+    <Content Include="App\controllers\adminNewsController.js" />
+    <Content Include="App\controllers\settingsController.js" />
     <Content Include="App\controllers\registerController.js" />
     <Content Include="App\controllers\resetPasswordController.js" />
+    <Content Include="App\controllers\userSearchController.js" />
+    <Content Include="App\controllers\manageRolesController.js" />
     <Content Include="App\controllers\verifyUsersController.js" />
     <Content Include="App\directives\accountMenu.js" />
+    <Content Include="App\directives\masterAdminMenu.js" />
     <Content Include="App\directives\adminMenu.js" />
     <Content Include="App\directives\mainMenu.js" />
     <Content Include="App\factories\notificationService.js" />
     <Content Include="App\interceptors\authInterceptor.js" />
     <Content Include="App\factories\authHelper.js" />
     <Content Include="App\services\accountService.js" />
+    <Content Include="App\services\masterAdminService.js" />
     <Content Include="App\services\adminService.js" />
     <Content Include="App\services\authHelper.js" />
     <Content Include="App\services\authService.js" />
     <Content Include="App\services\commonService.js" />
+    <Content Include="App\services\newsCauseService.js" />
+    <Content Include="App\services\settingsService.js" />
+    <Content Include="App\services\searchService.js" />
     <Content Include="App\templates\account\accountBase.html" />
     <Content Include="App\templates\account\changePassword.html" />
     <Content Include="App\templates\account\forgotPassword.html" />
@@ -244,16 +261,27 @@
     <Content Include="App\templates\account\registersuccess.html" />
     <Content Include="App\templates\account\resetPassword.html" />
     <Content Include="App\templates\admin\adminBase.html" />
+    <Content Include="App\templates\admin\causes.html" />
+    <Content Include="App\templates\admin\news.html" />
     <Content Include="App\templates\admin\verifyUsers.html" />
+    <Content Include="App\templates\dialog\confirmDeleteDialog.html" />
+    <Content Include="App\templates\dialog\editCauseNews.html" />
+    <Content Include="App\templates\dialog\userDetails.html" />
     <Content Include="App\templates\directives\accountMenu.html" />
     <Content Include="App\templates\directives\adminMenu.html" />
     <Content Include="App\templates\directives\mainMenu.html" />
+    <Content Include="App\templates\directives\masterAdminMenu.html" />
     <Content Include="App\templates\home\home.html" />
     <Content Include="App\templates\home\homeAuth.html" />
+    <Content Include="App\templates\masteradmin\manageroles.html" />
+    <Content Include="App\templates\masteradmin\masterAdminBase.html" />
+    <Content Include="App\templates\masteradmin\settings.html" />
+    <Content Include="App\templates\search\userSearch.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\loading-bar.css" />
     <Content Include="Content\loading-bar.min.css" />
+    <Content Include="Content\ng-ckeditor.css" />
     <Content Include="Content\ngDialog-theme-default.css" />
     <Content Include="Content\ngDialog.css" />
     <Content Include="Content\toastr.css" />
@@ -1074,6 +1102,7 @@
     <Content Include="Scripts\loading-bar.js" />
     <Content Include="Scripts\loading-bar.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\ng-ckeditor.js" />
     <Content Include="Scripts\ng-file-upload-all.js" />
     <Content Include="Scripts\ng-file-upload-all.min.js" />
     <Content Include="Scripts\ngDialog.js" />

@@ -1,4 +1,4 @@
-﻿using SmgAlumni.Utils.EmailQuerer.Serialization;
+﻿using SmgAlumni.Utils.EfEmailQuerer.Serialization;
 using SmgAlumni.Utils.Settings;
 using NLog;
 using System;
