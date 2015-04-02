@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SimpleInjector;
+using SmgAlumni.Utils.DomainEvents.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,34 +10,32 @@ namespace SmgAlumni.Utils.DomainEvents
 {
     public static class DomainEvents
     {
-        //private static Container Container { get; set; }
-        //private static NLog.Logger _logger;
+        private static Container Container { get; set; }
+        private static NLog.Logger _logger;
 
-        //public static void SetContainer(Container container)
-        //{
-        //    if (container == null) throw new ArgumentNullException("container");
+        public static void SetContainer(Container container)
+        {
+            if (container == null) throw new ArgumentNullException("container");
 
-        //    Container = container;
-        //    _logger = container.GetInstance<ILogger>();
+            Container = container;
+        }
+        public static void Raise<T>(T eventArg) where T : IDomainEvent
+        {
+            if (Container != null)
+            {
+                var handlers = Container.GetAllInstances<IHandleDomainEvent<T>>();
+                var handlerText = handlers.Any()
+                    ? handlers.Select(h => h.GetType().Name).Aggregate((a, b) => a + "; " + b)
+                    : "None";
+                ;
+                _logger.Debug("Received event " + eventArg.GetType() + ". Following handlers will be called: " +
+                              handlerText);
 
-        //}
-        //public static void Raise<T>(T eventArg) where T : IDomainEvent
-        //{
-        //    if (Container != null)
-        //    {
-        //        var handlers = Container.GetAllInstances<IHandleDomainEvent<T>>();
-        //        var handlerText = handlers.Any()
-        //            ? handlers.Select(h => h.GetType().Name).Aggregate((a, b) => a + "; " + b)
-        //            : "None";
-        //        ;
-        //        _logger.Debug("Received event " + eventArg.GetType() + ". Following handlers will be called: " +
-        //                      handlerText);
-
-        //        foreach (var handler in handlers)
-        //        {
-        //            handler.Handle(eventArg);
-        //        }
-        //    }
-        //}
+                foreach (var handler in handlers)
+                {
+                    handler.Handle(eventArg);
+                }
+            }
+        }
     }
 }

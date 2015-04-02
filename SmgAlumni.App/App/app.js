@@ -70,7 +70,7 @@ app.config([
             controller: 'forgotPasswordController'
         });
         $stateProvider.state('resetpassword', {
-            url: '/account/resetpassword?guid&email',
+            url: '/resetpassword/{guid}/{email}',
             templateUrl: '/App/templates/account/resetPassword.html',
             controller: 'resetPasswordController'
         });
@@ -81,8 +81,20 @@ app.config([
         });
         $stateProvider.state('homeauth.search', {
             url: 'search',
-            templateUrl: '/App/templates/search/userSearch.html',
+            templateUrl: '/App/templates/user/search.html',
             controller: 'userSearchController',
+            authenticate: true
+        });
+        $stateProvider.state('homeauth.news', {
+            url: 'news',
+            templateUrl: '/App/templates/user/news.html',
+            controller: 'userNewsController',
+            authenticate: true
+        });
+        $stateProvider.state('homeauth.causes', {
+            url: 'causes',
+            templateUrl: '/App/templates/user/causes.html',
+            controller: 'userCausesController',
             authenticate: true
         });
         $stateProvider.state('account', {

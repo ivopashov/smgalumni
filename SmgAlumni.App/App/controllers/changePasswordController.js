@@ -17,7 +17,7 @@ app.controller('changePasswordController',
                accountService.changePassword(data).then(
                function (success) {
                    commonService.notification.success("Паролата Ви е сменена успешно");
-                   commonService.$state.go('home');
+                   commonService.$state.go('homeauth');
                },
                function (error) {
                    commonService.notification.error(error.data.message);

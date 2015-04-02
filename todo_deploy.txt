@@ -5,5 +5,24 @@ email_FromAddress
 email_SmtpHost
 email_SmtpPort
 email_UseSecureConnection
+USE [SmgAlumni]
+GO
+
+INSERT INTO [dbo].[Setting]
+           ([SettingKey]
+           ,[SettingName])
+     VALUES
+           ('email_SmtpLogin',''),
+		   ('email_SmtpPassword',''),
+		   ('email_FromAddress',''),
+		   ('email_SmtpHost',''),
+		   ('email_SmtpPort',''),
+		   ('email_UseSecureConnection','')
+GO
+
 
 - throttling
+
+- set the link in the verify user email template
+
+- set workers intervals

@@ -5,7 +5,7 @@ namespace SmgAlumni.Utils.EfEmailQuerer.Templates
 {
     public class ResetPasswordTemplate : IEmailNotificationTemplate
     {
-        public string Subject { get { return "Reset Password"; } }
+        public string Subject { get { return "Възстановяване на парола"; } }
 
         public string Template
         {

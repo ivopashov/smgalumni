@@ -1,6 +1,6 @@
 ﻿app.controller('headerController',
-    ['$scope', 'authHelper', 'authService', '$http', 'accountService', '$state', '$rootScope',
-    function ($scope, authHelper, authService, $http, accountService, $state, $rootScope) {
+    ['$scope', 'authHelper', 'authService', '$http', 'accountService', '$state', '$rootScope', 'commonService',
+    function ($scope, authHelper, authService, $http, accountService, $state, $rootScope, commonService) {
 
         (function () {
             $scope.username = accountService.getUser();
@@ -12,7 +12,7 @@
 
         $scope.logout = function () {
             authService.logout();
-            $state.go('login');
+            commonService.$state.go('homeauth');
         }
         $scope.isLoggedIn = function () {
             return accountService.isUserLoggedIn();

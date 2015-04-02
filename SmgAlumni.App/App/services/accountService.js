@@ -43,9 +43,9 @@
         return commonService.$http.post('api/account/changepassword', password);
     }
 
-    function checkGuid(values) {
+    function checkGuid(guid,email) {
         return commonService.$http.get('api/account/checkguid', {
-            params: { guid: values.guid, email: values.email }
+            params: { guid: guid, email: email }
         });
     }
 

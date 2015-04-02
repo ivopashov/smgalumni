@@ -20,7 +20,8 @@ namespace SmgAlumni.App
                      "~/Scripts/ngDialog.min.js",
                      "~/Scripts/angular-ui/ui-bootstrap-tpls.min.js",
                      "~/Scripts/angular-sanitize.min.js",
-                     "~/Scripts/ng-ckeditor.js"));
+                     "~/Scripts/ng-ckeditor.js",
+                     "~/Scripts/ng-table.js"));
 
             
 
@@ -46,7 +47,8 @@ namespace SmgAlumni.App
                     "~/Content/loading-bar.css",
                     "~/Content/ngDialog.css",
                     "~/Content/ngDialog-theme-default.css",
-                    "~/Content/ng-ckeditor.css"));
+                    "~/Content/ng-ckeditor.css",
+                    "~/Content/ng-table.css"));
         }
     }
 }

@@ -143,7 +143,7 @@ namespace SmgAlumni.Utils.Membership
             ChangePassword(user, password);
         }
 
-        public void ResetPasswordBasedOnToken(User user, SmgAlumni.EF.Models.PasswordReset token, string password)
+        public void ResetPasswordBasedOnToken(User user, Guid token, string password)
         {
             ChangePassword(user, password);
             InvalidatePasswordRequestToken(user, token);
@@ -162,10 +162,10 @@ namespace SmgAlumni.Utils.Membership
             _userRepository.Update(user);
         }
 
-        private void InvalidatePasswordRequestToken(User user, SmgAlumni.EF.Models.PasswordReset record)
+        private void InvalidatePasswordRequestToken(User user, Guid guid)
         {
-            var index = user.PasswordResets.SingleOrDefault(x => x.Id == record.Id);
-            if (index == null) throw new Exception("Could not retrieve password reset "+ record.Id +" for user "+user.UserName);
+            var index = user.PasswordResets.SingleOrDefault(x => x.Guid==guid);
+            if (index == null) throw new Exception();
             index.Used = true;
             _userRepository.Update(user);
         }
