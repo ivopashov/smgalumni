@@ -204,6 +204,7 @@
     <Compile Include="Api\AuthenticationController.cs" />
     <Compile Include="Api\BaseApiController.cs" />
     <Compile Include="Api\CauseController.cs" />
+    <Compile Include="Api\FileController.cs" />
     <Compile Include="Api\MasterAdminController.cs" />
     <Compile Include="Api\NewsController.cs" />
     <Compile Include="Api\SearchController.cs" />
@@ -254,7 +255,7 @@
     <Content Include="App\directives\masterAdminMenu.js" />
     <Content Include="App\directives\adminMenu.js" />
     <Content Include="App\directives\mainMenu.js" />
-    <Content Include="App\directives\pager.js" />
+    <Content Include="App\directives\customPager.js" />
     <Content Include="App\factories\notificationService.js" />
     <Content Include="App\interceptors\authInterceptor.js" />
     <Content Include="App\factories\authHelper.js" />
@@ -286,7 +287,7 @@
     <Content Include="App\templates\directives\adminMenu.html" />
     <Content Include="App\templates\directives\mainMenu.html" />
     <Content Include="App\templates\directives\masterAdminMenu.html" />
-    <Content Include="App\templates\directives\pager.html" />
+    <Content Include="App\templates\directives\customPager.html" />
     <Content Include="App\templates\home\home.html" />
     <Content Include="App\templates\home\homeAuth.html" />
     <Content Include="App\templates\masteradmin\manageroles.html" />

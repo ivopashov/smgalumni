@@ -1,13 +1,13 @@
-ngTable - news and cause admin ctrl
+
 form errors - style and logic behind
 text on first page
 
 admin-delete users
 admin-reset pass
 
-user-news
-user-causes
 user-pic upload
+
+listings
 
 throttling lib
 
