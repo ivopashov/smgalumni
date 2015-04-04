@@ -26,3 +26,5 @@ GO
 - set the link in the verify user email template
 
 - set workers intervals
+
+- db context setup

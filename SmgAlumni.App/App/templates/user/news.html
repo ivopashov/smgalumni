@@ -1,24 +1,4 @@
-﻿<div class="ng-cloak ng-table-pager">
-    <ul class="pagination ng-table-pagination">
-        <li>
-            <a ng-click="firstPage()" href="">&laquo;</a>
-        </li>
-        <li>
-            <a ng-click="previousPage()" href="">Предишна</a>
-        </li>
-        <li ng-class="{'active': page.current}" ng-repeat="page in pages">
-            <a ng-click="switchPage(page)" href="">
-                <span ng-bind="page.number"></span>
-            </a>
-        </li>
-        <li>
-            <a ng-click="nextPage()" href="">Следваща</a>
-        </li>
-        <li>
-            <a ng-click="lastPage()" href="">&raquo;</a>
-        </li>
-    </ul>
-</div> 
+﻿<div custom-pager kind="kind" items="items" params="params" total-count="totalCount"></div>
 
 
 

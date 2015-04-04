@@ -1,0 +1,21 @@
+﻿<div class="ng-cloak ng-table-pager">
+    <ul class="pagination ng-table-pagination">
+        <li ng-if="showFirstPageButton()">
+            <a ng-click="firstPage()" href="">&laquo;</a>
+        </li>
+        <li ng-if="showPreviousButton()">
+            <a ng-click="previousPage()" href="">Предишна</a>
+        </li>
+        <li ng-class="{'active': page.current}" ng-repeat="page in pages">
+            <a ng-click="switchPage(page)" href="">
+                <span ng-bind="page.number"></span>
+            </a>
+        </li>
+        <li ng-if="showNextButton()">
+            <a ng-click="nextPage()" href="">Следваща</a>
+        </li>
+        <li ng-if="showLastPageButton()">
+            <a ng-click="lastPage()" href="">&raquo;</a>
+        </li>
+    </ul>
+</div> 

@@ -12,7 +12,7 @@
 
     function itemsPerPage() {
         var params = {};
-        params.itemsPerPage = 20;
+        params.itemsPerPage = 10;
         params.visiblePages = 5;
         return params;
     }
