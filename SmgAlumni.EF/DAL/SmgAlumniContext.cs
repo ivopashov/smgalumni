@@ -22,6 +22,7 @@ namespace SmgAlumni.EF.DAL
         public DbSet<PasswordReset> PasswordResets{ get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Cause> Causes{ get; set; }
+        public DbSet<Listing> Listings{ get; set; }
         public DbSet<News> NewsCollection { get; set; }
         public DbSet<Notification> Notifications { get; set; }
 

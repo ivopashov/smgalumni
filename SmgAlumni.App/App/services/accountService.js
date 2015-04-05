@@ -11,8 +11,14 @@
         getUser: getUserName,
         isUserLoggedIn: isUserLoggedIn,
         getUserAccount: getUserAccount,
-        updateUser: updateUser
+        updateUser: updateUser,
+        deleteUser: deleteUser,
+        resetUserPass: resetUserPass
     });
+
+    function resetUserPass(model) {
+        return commonService.$http.post('api/account/resetuserpass', model);
+    }
 
     function getUserName() {
         if (sessionStorage.authenticationData) {
@@ -29,6 +35,10 @@
 
     function getAccountData() {
         return commonService.$http.get('api/manage/data');
+    }
+
+    function deleteUser(username) {
+        return commonService.$http.get('api/account/delele?username='+username);
     }
 
     function saveAccountData(managedata) {

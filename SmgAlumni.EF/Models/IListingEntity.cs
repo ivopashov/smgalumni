@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SmgAlumni.EF.Models
 {
-    public interface INews
+    public interface IListingEntity
     {
         
     }

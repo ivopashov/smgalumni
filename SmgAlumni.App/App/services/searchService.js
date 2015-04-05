@@ -3,7 +3,8 @@
     return ({
         getUsersByYearAndDivision: getUsersByYearAndDivision,
         getUserByUserName: getUserByUserName,
-        getUserById: getUserById
+        getUserById: getUserById,
+        getUserByUserNameContains: getUserByUserNameContains
     });
 
     function getUsersByYearAndDivision(vm) {
@@ -11,7 +12,12 @@
     }
     
     function getUserByUserName(username) {
-        return commonService.$http.get('api/search/byusername?username='+username);
+        return commonService.$http.get('api/search/short/byusername?username=' + username);
+    }
+
+    //returns long vm of users whose usernames contain the searched criteria
+    function getUserByUserNameContains(username) {
+        return commonService.$http.get('api/search/long/byusernamecontains?username=' + username);
     }
 
     function getUserById(id) {

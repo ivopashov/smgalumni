@@ -24,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="student in students | orderBy : firstName" ng-click="selectUser(student.id)">
+            <tr ng-repeat="student in students | orderBy : firstName" ng-click="selectUser(student.id)" style="cursor:pointer">
                 <td>{{student.firstName}}</td>
                 <td>{{student.lastName}}</td>
             </tr>

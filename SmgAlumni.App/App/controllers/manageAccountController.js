@@ -21,7 +21,7 @@ app.controller('manageAccountController',
             $scope.image = {};
 
             $scope.upload = function (file) {
-
+                $scope.fileUploaded = false;
                 $scope.image = file[0];
 
                 if (!file || file.length==0) return;
@@ -31,7 +31,8 @@ app.controller('manageAccountController',
                     fields: { 'username': $scope.username },
                     file: file
                 }).success(function (data, status, headers, config) {
-                    commonService.notification.success('Файлът ' + config.file.name + 'е качен успешно.');
+                    commonService.notification.success('Файлът е качен успешно.');
+                    $scope.fileUploaded = true;
                 });
             }
         }]);

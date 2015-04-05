@@ -40,11 +40,20 @@ namespace SmgAlumni.App.Api
         }
 
         [HttpGet]
-        [Route("api/search/byusername")]
-        public IHttpActionResult GetUserByUserName([FromUri]string username)
+        [Route("api/search/short/byusername")]
+        public IHttpActionResult GetUserByUserNameShortVM([FromUri]string username)
         {
             var user = _userManager.GetUserByUserName(username);
             var vm = AutoMapper.Mapper.Map<UserAccountShortWithRolesViewModel>(user);
+            return Ok(vm);
+        }
+
+        [HttpGet]
+        [Route("api/search/long/byusernamecontains")]
+        public IHttpActionResult GetUserByUserNameLongVM([FromUri]string username)
+        {
+            var users = _userRepository.GetAll().Where(a => a.UserName.Contains(username)).ToList();
+            var vm = AutoMapper.Mapper.Map<List<UserAccountViewModel>>(users);
             return Ok(vm);
         }
 

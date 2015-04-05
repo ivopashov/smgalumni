@@ -11,19 +11,18 @@ using System.Web.Http;
 
 namespace SmgAlumni.App.Api
 {
-    [Authorize(Roles = "Admin, MasterAdmin")]
     public class NewsController : BaseApiController
     {
         private readonly NewsRepository _newsRepository;
 
-        public NewsController(NewsRepository newsRepository, Logger logger) :base(logger)
+        public NewsController(NewsRepository newsRepository, Logger logger)
+            : base(logger)
         {
             _newsRepository = newsRepository;
             VerifyNotNull(_newsRepository);
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, MasterAdmin, User")]
         [Route("api/news/allnews")]
         public IHttpActionResult GetAllNews()
         {
@@ -32,7 +31,6 @@ namespace SmgAlumni.App.Api
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, MasterAdmin, User")]
         [Route("api/news/count")]
         public IHttpActionResult GetNewsCount()
         {
@@ -42,9 +40,18 @@ namespace SmgAlumni.App.Api
 
         [HttpPost]
         [Route("api/news/createnews")]
+        [Authorize(Roles = "Admin, MasterAdmin")]
         public IHttpActionResult CreateNews(CauseNewsViewModelWithoutId vm)
         {
-            var news = new News() { Body = vm.Body, Heading = vm.Heading, DateCreated = DateTime.Now, CreatedBy = User.Identity.Name };
+            var news = new News()
+            {
+                Body = vm.Body,
+                Heading = vm.Heading,
+                DateCreated = DateTime.Now,
+                CreatedBy = User.Identity.Name,
+                Enabled = true
+            };
+
             try
             {
                 _newsRepository.Add(news);
@@ -58,7 +65,6 @@ namespace SmgAlumni.App.Api
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, MasterAdmin, User")]
         [Route("api/news/newsbyid")]
         public IHttpActionResult GetNewsById([FromUri] int id)
         {
@@ -67,16 +73,16 @@ namespace SmgAlumni.App.Api
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, MasterAdmin, User")]
         [Route("api/news/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
         {
-            var news = _newsRepository.GetAll().Take(take).OrderBy(a=>a.DateCreated).Skip(skip).Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id }).ToList();
+            var news = _newsRepository.GetAll().Take(take).OrderBy(a => a.DateCreated).Skip(skip).Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, CreatedBy = a.CreatedBy }).ToList();
             return Ok(news);
         }
 
         [HttpPost]
         [Route("api/news/updatenews")]
+        [Authorize(Roles = "Admin, MasterAdmin")]
         public IHttpActionResult UpdateNews(News vm)
         {
             if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");

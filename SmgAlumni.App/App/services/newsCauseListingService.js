@@ -1,4 +1,4 @@
-﻿app.service('newsCauseService', ['commonService', function (commonService) {
+﻿app.service('newsCauseListingService', ['commonService', function (commonService) {
 
     return ({
         getAll: getAll,

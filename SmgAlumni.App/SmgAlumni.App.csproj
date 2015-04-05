@@ -222,6 +222,7 @@
     <Compile Include="Models\CauseNewsViewModelWithoutId.cs" />
     <Compile Include="Models\CauseNewsViewModes.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ResetUserPassViewModel.cs" />
     <Compile Include="Models\SearchByDivisionAndYearViewModel.cs" />
     <Compile Include="Models\SettingViewModel.cs" />
     <Compile Include="Models\UserAccountShortWithRolesViewModel.cs" />
@@ -248,6 +249,7 @@
     <Content Include="App\controllers\settingsController.js" />
     <Content Include="App\controllers\registerController.js" />
     <Content Include="App\controllers\resetPasswordController.js" />
+    <Content Include="App\controllers\adminManageUsersController.js" />
     <Content Include="App\controllers\userSearchController.js" />
     <Content Include="App\controllers\manageRolesController.js" />
     <Content Include="App\controllers\verifyUsersController.js" />
@@ -279,8 +281,10 @@
     <Content Include="App\templates\admin\adminBase.html" />
     <Content Include="App\templates\admin\causes.html" />
     <Content Include="App\templates\admin\news.html" />
+    <Content Include="App\templates\admin\manageUsers.html" />
     <Content Include="App\templates\admin\verifyUsers.html" />
     <Content Include="App\templates\dialog\confirmDeleteDialog.html" />
+    <Content Include="App\templates\dialog\resetUserPass.html" />
     <Content Include="App\templates\dialog\editCauseNews.html" />
     <Content Include="App\templates\dialog\userDetails.html" />
     <Content Include="App\templates\directives\accountMenu.html" />

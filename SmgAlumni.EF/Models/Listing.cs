@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SmgAlumni.EF.Models
 {
-    public class News : IListingEntity, IEntity
+    public class Listing : IListingEntity, IEntity
     {
         public int Id { get; set; }
         public DateTime DateCreated { get; set; }

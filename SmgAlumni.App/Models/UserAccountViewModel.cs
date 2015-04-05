@@ -28,6 +28,9 @@ namespace SmgAlumni.App.Models
         public string PhoneNumber { get; set; }
         public string City { get; set; }
 
+        //metadata
+        public bool HasPicture { get; set; }
+
         public void CreateMappings(AutoMapper.IConfiguration configuration)
         {
             configuration.CreateMap<User, UserAccountViewModel>()
@@ -46,6 +49,7 @@ namespace SmgAlumni.App.Models
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City))
+                .ForMember(dest => dest.HasPicture, opt => opt.MapFrom(src => DoesUserHasPicture(src)))
                 ;
 
             configuration.CreateMap<UserAccountViewModel, User>()
@@ -65,6 +69,14 @@ namespace SmgAlumni.App.Models
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City))
                 ;
+
+
+        }
+
+        private bool DoesUserHasPicture(User user)
+        {
+            if (user.AvatarImage.Length > 0) return true;
+            return false;
         }
     }
 }

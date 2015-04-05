@@ -138,6 +138,12 @@ app.config([
             controller: 'adminCausesController',
             authenticate: true
         });
+        $stateProvider.state('admin.manageusers', {
+            url: '/manage',
+            templateUrl: '/App/templates/admin/manageUsers.html',
+            controller: 'adminManageUsersController',
+            authenticate: true
+        });
         //masteradmin
         $stateProvider.state('masteradmin', {
             url: '/masteradmin',

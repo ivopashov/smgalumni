@@ -2,12 +2,9 @@
 form errors - style and logic behind
 text on first page
 
-admin-delete users
-admin-reset pass
-
-user-pic upload
-
 listings
 
 throttling lib
+
+news and causes list
 

@@ -11,7 +11,6 @@ using System.Web.Http;
 
 namespace SmgAlumni.App.Api
 {
-    [Authorize(Roles = "Admin, MasterAdmin")]
     public class CauseController : BaseApiController
     {
         private readonly CauseRepository _causeRepository;
@@ -25,9 +24,18 @@ namespace SmgAlumni.App.Api
 
         [HttpPost]
         [Route("api/cause/createcause")]
+        [Authorize(Roles = "Admin, MasterAdmin")]
         public IHttpActionResult CreateCause(CauseNewsViewModelWithoutId vm)
         {
-            var cause = new Cause() { Body = vm.Body, Heading = vm.Heading, DateCreated = DateTime.Now, CreatedBy = User.Identity.Name };
+            var cause = new Cause() 
+            { 
+                Body = vm.Body, 
+                Heading = vm.Heading, 
+                DateCreated = DateTime.Now, 
+                CreatedBy = User.Identity.Name,
+                Enabled=true
+            };
+
             try
             {
                 _causeRepository.Add(cause);
@@ -41,7 +49,6 @@ namespace SmgAlumni.App.Api
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, MasterAdmin, User")]
         [Route("api/cause/causebyid")]
         public IHttpActionResult GetCauseById([FromUri] int id)
         {
@@ -50,7 +57,6 @@ namespace SmgAlumni.App.Api
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, MasterAdmin, User")]
         [Route("api/cause/allcauses")]
         public IHttpActionResult GetAllCauses()
         {
@@ -59,7 +65,6 @@ namespace SmgAlumni.App.Api
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, MasterAdmin, User")]
         [Route("api/cause/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
         {
@@ -68,7 +73,6 @@ namespace SmgAlumni.App.Api
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, MasterAdmin, User")]
         [Route("api/cause/count")]
         public IHttpActionResult GetCausesCount()
         {
@@ -78,6 +82,7 @@ namespace SmgAlumni.App.Api
 
         [HttpPost]
         [Route("api/cause/updatecause")]
+        [Authorize(Roles = "Admin, MasterAdmin")]
         public IHttpActionResult UpdateCause(Cause vm)
         {
             if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");

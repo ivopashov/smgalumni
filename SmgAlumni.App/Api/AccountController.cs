@@ -15,6 +15,7 @@ using AutoMapper;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.Utils.DomainEvents;
 using SmgAlumni.Utils.DomainEvents.Interfaces;
+using SmgAlumni.Utils.Helpers;
 
 namespace SmgAlumni.App.Api
 {
@@ -170,6 +171,49 @@ namespace SmgAlumni.App.Api
             
             var vm = Mapper.Map<UserAccountViewModel>(user);
             return Ok(vm);
+        }
+
+        [Authorize(Roles="Admin, MasterAdmin")]
+        [HttpGet,Route("api/account/delete")]
+        public IHttpActionResult DeleteUser([FromUri] string username)
+        {
+            var user = _userManager.GetUserByUserName(username);
+            if (user == null) return BadRequest("Потребителят не беше намерен");
+            try
+            {
+                _userRepository.Delete(user);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e.Message);
+                return BadRequest("Възникна грешка. Моля опитайте отново");
+            }
+        }
+
+        [Authorize(Roles = "Admin, MasterAdmin")]
+        [HttpPost, Route("api/account/resetuserpass")]
+        public IHttpActionResult ResetUserPass(ResetUserPassViewModel vm)
+        {
+            if (!ModelState.IsValid) return BadRequest("Невярни входни данни");
+
+            var user = _userManager.GetUserById(vm.Id);
+            if (user == null) return BadRequest("Потребителят не беше намерен");
+
+            var salt = Password.CreateSalt();
+            user.Password = Password.HashPassword(vm.Password + salt);
+            user.PasswordSalt = salt;
+            
+            try
+            {
+                _userRepository.Update(user);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e.Message);
+                return BadRequest("Възникна грешка. Моля опитайте отново");
+            }
         }
 
         [HttpPost]

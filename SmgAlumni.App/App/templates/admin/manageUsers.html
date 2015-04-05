@@ -1,0 +1,44 @@
+﻿<h1>Въведете потребителско име</h1>
+<div class="row">
+    <form name="studentSearchForm" novalidate ng-submit="getUsers()">
+        <div class="form-group">
+            <label for="userName" class="control-label">Потребителско име</label>
+            <input type="text" name="userName" ng-model="search.userName" class="form-control" ng-required="true"/>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-sm btn-primary" value="Търси" />
+        </div>
+    </form>
+</div>
+
+<div ng-if="students.length>0">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Първо Име</th>
+                <th>Фамилия</th>
+                <th>Потребителско име</th>
+                <th>Година на завършване</th>
+                <th>Паралелка</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="student in students | orderBy : firstName">
+                <td>{{student.firstName}}</td>
+                <td>{{student.lastName}}</td>
+                <td>{{student.userName}}</td>
+                <td>{{student.yearOfGraduation}}</td>
+                <td>{{student.division}}</td>
+                <td>
+                    <div class="btn btn-sm btn-primary" ng-click="deleteStudent(student)">Изтрий</div>
+                    <div class="btn btn-sm btn-primary" ng-click="resetStudentPass(student)">Смени парола</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-if="students.length==0">
+    <label class="control-label">Няма резултати</label>
+</div>
+
