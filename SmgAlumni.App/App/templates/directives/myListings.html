@@ -1,20 +1,22 @@
-﻿<h1>Новини</h1>
+﻿<div class="btn btn-sm btn-primary" ng-click="createNew()">Създай нова</div>
 
-<table class="table table-striped table-condensed" ng-if="totalCount > 0">
+<table ng-if="items.length > 0" class="table table-striped table-condensed" style="margin-top:20px">
     <thead>
         <tr>
             <th>Дата</th>
-            <th>Новина</th>
+            <th>Обява</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="item in items" style="cursor:pointer" ng-click="selectItem(item)">
+        <tr ng-repeat="item in items" style="cursor:pointer" >
             <td class="dateCell">
                 <div class="dateHolder">
                     {{item.dateCreated | date : 'dd/MM/yyyy'}}
                 </div>
             </td>
-            <td>
+            <td ng-click="selectItem(item)">
                 <h4>
                     {{item.heading}}
                 </h4>
@@ -22,10 +24,16 @@
                     <div html-container html="{{item.body}}"></div>
                 </div>
             </td>
+            <td ng-click="editItem(item)">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </td>
+            <td>
+                <span class="glyphicon glyphicon-remove"></span>
+            </td>
         </tr>
     </tbody>
 </table>
-
+<div ng-if="items.length==0">Няма обяви</div>
 <div ng-if="totalCount > 0"
      custom-pager kind="kind"
      items="items"
@@ -33,6 +41,3 @@
      total-count="totalCount"
      current-selected-page="currentSelectedPage">
 </div>
-
-
-

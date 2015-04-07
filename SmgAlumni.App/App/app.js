@@ -77,6 +77,7 @@ app.config([
         $stateProvider.state('homeauth', {
             url: '/',
             templateUrl: '/App/templates/home/homeAuth.html',
+            controller:'homeAuthController',
             authenticate: true
         });
         $stateProvider.state('homeauth.search', {
@@ -95,6 +96,18 @@ app.config([
             url: 'causes',
             templateUrl: '/App/templates/user/causes.html',
             controller: 'userCausesController',
+            authenticate: true
+        });
+        $stateProvider.state('homeauth.listings', {
+            url: 'listings',
+            templateUrl: '/App/templates/user/listings.html',
+            controller: 'userListingsController',
+            authenticate: true
+        });
+        $stateProvider.state('homeauth.forum', {
+            url: 'forum',
+            templateUrl: '/App/templates/user/forum.html',
+            controller: 'userForumController',
             authenticate: true
         });
         $stateProvider.state('account', {

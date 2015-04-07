@@ -6,6 +6,9 @@
 <div class="row">
     <span main-menu></span>
     <div class="col-sm-10">
+        <div ng-if="$state.is('homeauth')">
+            In home auth
+        </div>
         <div ui-view></div>
     </div>
 </div>

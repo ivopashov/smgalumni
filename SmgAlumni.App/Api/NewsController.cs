@@ -26,7 +26,7 @@ namespace SmgAlumni.App.Api
         [Route("api/news/allnews")]
         public IHttpActionResult GetAllNews()
         {
-            var news = _newsRepository.GetAll().Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id }).ToList();
+            var news = _newsRepository.GetAll().Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled }).ToList();
             return Ok(news);
         }
 
@@ -34,8 +34,8 @@ namespace SmgAlumni.App.Api
         [Route("api/news/count")]
         public IHttpActionResult GetNewsCount()
         {
-            //var count = _newsRepository.GetAll().ToList().Count;
-            return Ok(140);
+            var count = _newsRepository.GetAll().ToList().Count;
+            return Ok(count);
         }
 
         [HttpPost]
@@ -76,7 +76,8 @@ namespace SmgAlumni.App.Api
         [Route("api/news/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
         {
-            var news = _newsRepository.GetAll().Take(take).OrderBy(a => a.DateCreated).Skip(skip).Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, CreatedBy = a.CreatedBy }).ToList();
+            var news = _newsRepository.GetAll().Take(take).OrderBy(a => a.DateCreated).Skip(skip)
+                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, CreatedBy = a.CreatedBy, Enabled = a.Enabled }).ToList();
             return Ok(news);
         }
 

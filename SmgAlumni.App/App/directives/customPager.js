@@ -1,15 +1,14 @@
-﻿app.directive('customPager', ['newsCauseService', function (newsCauseService) {
+﻿app.directive('customPager', ['newsCauseListingService', function (newsCauseListingService) {
 
-    var pagerController = function ($scope, newsCauseService) {
+    var pagerController = function ($scope, newsCauseListingService) {
 
         $scope.pages = [];
-        $scope.currentSelectedPage = { number: -1 };
 
         $scope.$watch('totalCount', function () {
             if ($scope.totalCount % $scope.params.itemsPerPage == 0) {
                 $scope.totalNumberOfPages = $scope.totalCount / $scope.params.itemsPerPage;
             } else {
-                $scope.totalNumberOfPages = ($scope.totalCount / $scope.params.itemsPerPage) + 1;
+                $scope.totalNumberOfPages = parseInt($scope.totalCount / $scope.params.itemsPerPage) + 1;
             }
 
             $scope.visiblePages = $scope.totalNumberOfPages > $scope.params.visiblePages ? $scope.params.visiblePages : $scope.totalNumberOfPages;
@@ -84,8 +83,7 @@
         }
 
         $scope.setCurrentPage = function (page) {
-            $scope.currentSelectedPage = page;
-            $scope.retrieveItems(page.number);
+            $scope.currentSelectedPage.number = page.number;
         }
 
         $scope.makeCurrentPageInactive = function () {
@@ -123,25 +121,19 @@
             return false;
         }
 
-        $scope.retrieveItems = function (pageNumber) {
-            var skip = (pageNumber - 1) * $scope.params.itemsPerPage;
-            newsCauseService.skipAndTake($scope.kind, skip, $scope.params.itemsPerPage).then(function (success) {
-                $scope.items = success.data;
-            }, function (error) {
-                commonService.notification.error('Новините не можаха да бъдат заредени');
-            })
-        }
     }
 
     return {
         restrict: 'AE',
         templateUrl: '/App/templates/directives/customPager.html',
         scope: {
-            items: '=items',
-            params: '=params',
-            kind: '=kind',
-            totalCount: '=totalCount'
+            items: '=',
+            params: '=',
+            kind: '=',
+            totalCount: '=',
+            currentSelectedPage: '='
         },
-        controller: ['$scope', 'newsCauseService', pagerController]
+        //scope:false,
+        controller: ['$scope', 'newsCauseListingService', pagerController]
     }
 }]);

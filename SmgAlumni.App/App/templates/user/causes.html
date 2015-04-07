@@ -1,1 +1,29 @@
-﻿<div custom-pager kind="kind" items="items" params="params" total-count="totalCount"></div>
+﻿<h1>Новини</h1>
+
+<table class="table table-striped table-condensed" ng-if="items.length > 0">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Кауза</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in items" style="cursor:pointer" ng-click="selectItem(item)">
+            <td class="dateCell">
+                <div class="dateHolder">
+                    {{item.dateCreated | date : 'dd/MM/yyyy'}}
+                </div>
+            </td>
+            <td>
+                <h4>
+                    {{item.heading}}
+                </h4>
+                <div ng-if="item.selected && item.body">
+                    <div html-container html="{{item.body}}"></div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div ng-if="items.length > 0" custom-pager kind="kind" items="items" params="params" total-count="totalCount"></div>

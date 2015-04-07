@@ -7,8 +7,19 @@
         addNew: addNew,
         getCount: getCount,
         skipAndTake: skipAndTake,
-        itemsPerPage: itemsPerPage
+        itemsPerPage: itemsPerPage,
+        myListingsCount: myListingsCount,
+        myListingsSkipAndTake: myListingsSkipAndTake
+
     });
+
+    function myListingsCount() {
+        return commonService.$http.get('api/listing/my/count');
+    }
+
+    function myListingsSkipAndTake(skip, take) {
+        return commonService.$http.get('api/listing/my/skiptake?take=' + take + '&skip=' + skip);
+    }
 
     function itemsPerPage() {
         var params = {};
@@ -22,6 +33,8 @@
             return commonService.$http.get('api/news/allnews');
         } else if (kind == 'cause') {
             return commonService.$http.get('api/cause/allcauses');
+        } else if (kind == 'listing') {
+            return commonService.$http.get('api/listing/alllistings');
         }
     }
 
@@ -30,6 +43,8 @@
             return commonService.$http.get('api/news/newsbyid?id=' + id);
         } else if (kind == 'cause') {
             return commonService.$http.get('api/cause/causebyid?id=' + id);
+        } else if (kind == 'listing') {
+            return commonService.$http.get('api/listing/listingbyid?id=' + id);
         }
     }
 
@@ -38,6 +53,8 @@
             return commonService.$http.post('api/news/updatenews', vm);
         } else if (kind == 'cause') {
             return commonService.$http.post('api/cause/updatecause', vm);
+        } else if (kind == 'listing') {
+            return commonService.$http.post('api/listing/updatelisting', vm);
         }
     }
 
@@ -46,6 +63,8 @@
             return commonService.$http.post('api/news/createnews', vm);
         } else if (kind == 'cause') {
             return commonService.$http.post('api/cause/createcause', vm);
+        } else if (kind == 'listing') {
+            return commonService.$http.post('api/listing/createlisting', vm);
         }
     }
 
@@ -54,6 +73,8 @@
             return commonService.$http.get('api/news/count');
         } else if (kind == 'cause') {
             return commonService.$http.get('api/cause/count');
+        } else if (kind == 'listing') {
+            return commonService.$http.get('api/listing/count');
         }
     }
 
@@ -62,6 +83,8 @@
             return commonService.$http.get('api/news/skiptake?take=' + take + '&skip=' + skip);
         } else if (kind == 'cause') {
             return commonService.$http.get('api/cause/skiptake?take=' + take + '&skip=' + skip);
+        } else if (kind == 'listing') {
+            return commonService.$http.get('api/listing/skiptake?take=' + take + '&skip=' + skip);
         }
     }
 }])

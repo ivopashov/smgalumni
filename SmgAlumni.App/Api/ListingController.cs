@@ -59,7 +59,8 @@ namespace SmgAlumni.App.Api
         [Route("api/listing/alllistings")]
         public IHttpActionResult GetAllListings()
         {
-            var news = _listingRepository.GetAll().Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id }).ToList();
+            var news = _listingRepository.GetAll()
+                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled }).ToList();
             return Ok(news);
         }
 
@@ -67,7 +68,17 @@ namespace SmgAlumni.App.Api
         [Route("api/listing/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
         {
-            var news = _listingRepository.GetAll().Take(take).Skip(skip).Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id }).ToList();
+            var news = _listingRepository.GetAll().OrderBy(a=>a.DateCreated).Take(take).Skip(skip).Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.CreatedBy }).ToList();
+            return Ok(news);
+        }
+
+        [HttpGet]
+        [Route("api/listing/my/skiptake")]
+        public IHttpActionResult MyListingsSkipAndTake([FromUri] int take, [FromUri]int skip)
+        {
+            var news = _listingRepository.GetAll().Where(a => a.CreatedBy.ToLower().Equals(User.Identity.Name.ToLower()))
+                .OrderBy(a => a.DateCreated).Take(take).Skip(skip)
+                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.CreatedBy }).ToList();
             return Ok(news);
         }
 
@@ -75,8 +86,28 @@ namespace SmgAlumni.App.Api
         [Route("api/listing/count")]
         public IHttpActionResult GetListingsCount()
         {
+            var count = _listingRepository.GetAll()
+                .Where(a => a.CreatedBy.ToLower().Equals(User.Identity.Name.ToLower())).ToList().Count;
+            return Ok(count);
+        }
+
+        [HttpGet]
+        [Route("api/listing/my/count")]
+        public IHttpActionResult GetMyListingsCount()
+        {
             var count = _listingRepository.GetAll().ToList().Count;
             return Ok(count);
+        }
+
+        [HttpGet]
+        [Route("api/listing/mylistings")]
+        public IHttpActionResult MyListings()
+        {
+            var listings = _listingRepository.GetAll()
+                .Where(a=>a.CreatedBy.ToLower().Equals(User.Identity.Name.ToLower()))
+                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.CreatedBy })
+                .ToList();
+            return Ok(listings);
         }
 
         [HttpPost]

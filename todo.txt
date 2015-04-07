@@ -6,5 +6,8 @@ listings
 
 throttling lib
 
-news and causes list
+white space break on tables
 
+activity logs for delete/verify user, create/delete news, cause, listing
+
+admin news/causes - expand and shrink news

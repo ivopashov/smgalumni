@@ -9,8 +9,19 @@
     </thead>
     <tbody>
         <tr ng-repeat="item in causes" ng-click="updateNews(item)">
-            <td>{{item.dateCreated | date : 'dd/MM/yyyy'}}</td>
-            <td>{{item.heading}}</td>
+            <td class="dateCell">
+                <div class="dateHolder">
+                    {{item.dateCreated | date : 'dd/MM/yyyy'}}
+                </div>
+            </td>
+            <td>
+                <h4>
+                    {{item.heading}}
+                </h4>
+                <div ng-if="item.selected && item.body">
+                    <div html-container html="{{item.body}}"></div>
+                </div>
+            </td>
         </tr>
     </tbody>
 </table>

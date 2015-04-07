@@ -1,0 +1,10 @@
+﻿<h1>Малки обяви</h1>
+<tabset>
+    <tab heading="Моите обяви" select="myListings()"></tab>
+    <tab heading="Всички обяви" select="allListings()"></tab>
+</tabset>
+
+<div ng-if="showMyListings" my-listings></div>
+<div ng-if="showAllListings" all-listings></div>
+
+

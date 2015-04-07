@@ -9,6 +9,12 @@ app.controller('registerController',
             $scope.user.division = { division: $scope.divisions[0]};
 
             $scope.register = function () {
+
+                $scope.trySentInvalidForm = false;
+                if ($scope.registerForm.$invalid) {
+                    $scope.trySentInvalidForm = true;
+                }
+
                 accountService.register($scope.user).then(
                 function (success) {
                     commonService.$state.go('successfullregistration');

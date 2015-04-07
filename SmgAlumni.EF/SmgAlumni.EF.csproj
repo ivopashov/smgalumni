@@ -55,7 +55,8 @@
     <Compile Include="Models\enums\Country.cs" />
     <Compile Include="Models\enums\NotificationKind.cs" />
     <Compile Include="Models\IEntity.cs" />
-    <Compile Include="Models\INews.cs" />
+    <Compile Include="Models\IListingEntity.cs" />
+    <Compile Include="Models\Listing.cs" />
     <Compile Include="Models\News.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\PasswordReset.cs" />

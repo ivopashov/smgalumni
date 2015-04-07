@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 app.controller('adminNewsController',
-    ['$scope', 'commonService', 'newsCauseService',
-        function ($scope, commonService, newsCauseService) {
+    ['$scope', 'commonService', 'newsCauseListingService',
+        function ($scope, commonService, newsCauseListingService) {
 
             $scope.news = [];
 
@@ -11,23 +11,23 @@ app.controller('adminNewsController',
                 uiColor: '#000000'
             };
 
-            newsCauseService.getAll('news').then(function (success) {
+            newsCauseListingService.getAll('news').then(function (success) {
                 $scope.news = success.data;
             }, function (err) {
                 commonService.notification.error(err.data.message);
             });
 
             $scope.updateNews = function (news) {
-                newsCauseService.getById('news',news.id).then(function (success) {
+                newsCauseListingService.getById('news',news.id).then(function (success) {
                     $scope.selectedItem = success.data;
                     commonService.ngDialog.openConfirm({
                         templateUrl: '/App/templates/dialog/editCauseNews.html',
                         scope: $scope
                     }).then(function (success) {
-                        newsCauseService.update($scope.selectedItem,'news').then(function (success) {
+                        newsCauseListingService.update($scope.selectedItem,'news').then(function (success) {
                             commonService.notification.success("Успешно обновихте новината");
                             $scope.selectedItem = {};
-                            newsCauseService.getAll('news').then(function (success) {
+                            newsCauseListingService.getAll('news').then(function (success) {
                                 $scope.news = success.data;
                             }, function (err) {
                                 commonService.notification.error(err.data.message);
@@ -49,10 +49,10 @@ app.controller('adminNewsController',
                     templateUrl: '/App/templates/dialog/editCauseNews.html',
                     scope: $scope
                 }).then(function (success) {
-                    newsCauseService.addNew($scope.selectedItem, 'news').then(function (success) {
+                    newsCauseListingService.addNew($scope.selectedItem, 'news').then(function (success) {
                         commonService.notification.success("Успешно добавихте новината");
                         $scope.selectedItem = {};
-                        newsCauseService.getAll('news').then(function (success) {
+                        newsCauseListingService.getAll('news').then(function (success) {
                             $scope.news = success.data;
                         }, function (err) {
                             commonService.notification.error(err.data.message);

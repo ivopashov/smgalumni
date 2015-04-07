@@ -203,6 +203,7 @@
     <Compile Include="Api\AdminController.cs" />
     <Compile Include="Api\AuthenticationController.cs" />
     <Compile Include="Api\BaseApiController.cs" />
+    <Compile Include="Api\ListingController.cs" />
     <Compile Include="Api\CauseController.cs" />
     <Compile Include="Api\FileController.cs" />
     <Compile Include="Api\MasterAdminController.cs" />
@@ -237,8 +238,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
+    <Content Include="App\controllers\homeAuthContoller.js" />
     <Content Include="App\controllers\userCausesController.js" />
     <Content Include="App\controllers\adminCausesController.js" />
+    <Content Include="App\controllers\userForumController.js" />
+    <Content Include="App\controllers\userListingsController.js" />
     <Content Include="App\controllers\userNewsController.js" />
     <Content Include="App\controllers\changePasswordController.js" />
     <Content Include="App\controllers\forgotPasswordController.js" />
@@ -254,6 +258,9 @@
     <Content Include="App\controllers\manageRolesController.js" />
     <Content Include="App\controllers\verifyUsersController.js" />
     <Content Include="App\directives\accountMenu.js" />
+    <Content Include="App\directives\allListings.js" />
+    <Content Include="App\directives\htmlContainer.js" />
+    <Content Include="App\directives\myListings.js" />
     <Content Include="App\directives\masterAdminMenu.js" />
     <Content Include="App\directives\adminMenu.js" />
     <Content Include="App\directives\mainMenu.js" />
@@ -267,7 +274,7 @@
     <Content Include="App\services\authHelper.js" />
     <Content Include="App\services\authService.js" />
     <Content Include="App\services\commonService.js" />
-    <Content Include="App\services\newsCauseService.js" />
+    <Content Include="App\services\newsCauseListingService.js" />
     <Content Include="App\services\settingsService.js" />
     <Content Include="App\services\searchService.js" />
     <Content Include="App\templates\account\accountBase.html" />
@@ -289,6 +296,8 @@
     <Content Include="App\templates\dialog\userDetails.html" />
     <Content Include="App\templates\directives\accountMenu.html" />
     <Content Include="App\templates\directives\adminMenu.html" />
+    <Content Include="App\templates\directives\allListings.html" />
+    <Content Include="App\templates\directives\myListings.html" />
     <Content Include="App\templates\directives\mainMenu.html" />
     <Content Include="App\templates\directives\masterAdminMenu.html" />
     <Content Include="App\templates\directives\customPager.html" />
@@ -297,6 +306,8 @@
     <Content Include="App\templates\masteradmin\manageroles.html" />
     <Content Include="App\templates\masteradmin\masterAdminBase.html" />
     <Content Include="App\templates\masteradmin\settings.html" />
+    <Content Include="App\templates\user\listings.html" />
+    <Content Include="App\templates\user\forum.html" />
     <Content Include="App\templates\user\news.html" />
     <Content Include="App\templates\user\causes.html" />
     <Content Include="App\templates\user\search.html" />

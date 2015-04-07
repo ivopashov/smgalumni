@@ -60,7 +60,8 @@ namespace SmgAlumni.App.Api
         [Route("api/cause/allcauses")]
         public IHttpActionResult GetAllCauses()
         {
-            var news = _causeRepository.GetAll().Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id }).ToList();
+            var news = _causeRepository.GetAll().
+                Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled }).ToList();
             return Ok(news);
         }
 
@@ -68,7 +69,8 @@ namespace SmgAlumni.App.Api
         [Route("api/cause/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
         {
-            var news = _causeRepository.GetAll().Take(take).Skip(skip).Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id }).ToList();
+            var news = _causeRepository.GetAll().OrderBy(a=>a.DateCreated).Take(take).Skip(skip).
+                Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, CreatedBy=a.CreatedBy, Enabled=a.Enabled }).ToList();
             return Ok(news);
         }
 
