@@ -9,7 +9,7 @@
     };
 
     var clearAuth = function () {
-        sessionStorage.authenticationData = undefined;
+        sessionStorage.authenticationData = '';
     };
     
     var getUserName = function (update) {

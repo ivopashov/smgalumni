@@ -9,6 +9,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using SmgAlumni.Utils;
 using SmgAlumni.Utils.Mapping;
+using SmgAlumni.Utils.DomainEvents;
 
 namespace SmgAlumni.App
 {
@@ -23,6 +24,7 @@ namespace SmgAlumni.App
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             WebApiConfig.UseJsonFormatter();
             MapInitializer.Initialize();
+            SimpleInjectorConfig.Initialize();
         }
     }
 }

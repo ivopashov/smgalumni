@@ -4,8 +4,17 @@ app.controller('changePasswordController',
     ['$scope', 'commonService', 'accountService',
        function ($scope, commonService, accountService) {
            $scope.send = function () {
+
+               $scope.trySentInvalidForm = true;
+
                if ($scope.newpassword != $scope.confirmpassword) {
-                   commonService.notification.error("Двете пароли не съвпадат");
+                   $scope.changePasswordForm.confirmpassword.$error.match = true;
+                   return;
+               } else {
+                   $scope.changePasswordForm.confirmpassword.$error.match = false;
+               }
+
+               if ($scope.changePasswordForm.$invalid) {
                    return;
                }
 

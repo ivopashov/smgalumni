@@ -2,6 +2,9 @@
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
+using SmgAlumni.Utils.DomainEvents;
+using SmgAlumni.Utils.DomainEvents.Interfaces;
+using SmgAlumni.Utils.Membership;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +17,17 @@ namespace SmgAlumni.App.Api
     public class NewsController : BaseApiController
     {
         private readonly NewsRepository _newsRepository;
+        private readonly EFUserManager _userManager;
+        private User _user;
 
-        public NewsController(NewsRepository newsRepository, Logger logger)
+        public NewsController(NewsRepository newsRepository, Logger logger, EFUserManager userManager)
             : base(logger)
         {
             _newsRepository = newsRepository;
             VerifyNotNull(_newsRepository);
+            _userManager = userManager;
+            VerifyNotNull(_userManager);
+            _user = _userManager.GetUserByUserName(User.Identity.Name);
         }
 
         [HttpGet]
@@ -38,23 +46,50 @@ namespace SmgAlumni.App.Api
             return Ok(count);
         }
 
+
+        [HttpGet]
+        [Route("api/news/delete")]
+        [Authorize(Roles = "Admin, MasterAdmin")]
+        public IHttpActionResult DeleteNews(int id)
+        {
+            var user = _userManager.GetUserByUserName(User.Identity.Name);
+            var listings = _newsRepository.GetById(id);
+            if (listings == null) return BadRequest("Новината не беше намерена. Моля опитайте отново.");
+            try
+            {
+                _newsRepository.Delete(listings);
+                DomainEvents.Raise<DeleteNewsDomainEvent>(new DeleteNewsDomainEvent() { Heading = listings.Heading, UserId = _user == null ? 0 : _user.Id });
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e.Message);
+                return BadRequest("Новината не можа да бъде изтрита");
+            }
+
+        }
+
         [HttpPost]
         [Route("api/news/createnews")]
         [Authorize(Roles = "Admin, MasterAdmin")]
         public IHttpActionResult CreateNews(CauseNewsViewModelWithoutId vm)
         {
+            var user = _userManager.GetUserByUserName(User.Identity.Name);
+
             var news = new News()
             {
                 Body = vm.Body,
                 Heading = vm.Heading,
                 DateCreated = DateTime.Now,
                 CreatedBy = User.Identity.Name,
-                Enabled = true
+                Enabled = true,
+                UserId = user == null ? 0 : user.Id
             };
 
             try
             {
                 _newsRepository.Add(news);
+                DomainEvents.Raise<AddNewsDomainEvent>(new AddNewsDomainEvent() { Heading = news.Heading, UserId = news.UserId });
                 return Ok();
             }
             catch (Exception e)
@@ -94,9 +129,18 @@ namespace SmgAlumni.App.Api
             news.Heading = vm.Heading;
             news.DateCreated = DateTime.Now;
             news.CreatedBy = User.Identity.Name;
-            _newsRepository.Update(news);
+            try
+            {
+                _newsRepository.Update(news);
+                DomainEvents.Raise<ModifyNewsDomainEvent>(new ModifyNewsDomainEvent() { Heading = news.Heading, UserId = _user == null ? 0 : _user.Id });
+                return Ok();
 
-            return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e.Message);
+                return BadRequest("Новината не можа да бъде променена");
+            }
         }
     }
 }

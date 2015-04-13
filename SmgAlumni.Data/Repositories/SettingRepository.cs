@@ -10,7 +10,7 @@ namespace SmgAlumni.Data.Repositories
 {
     public class SettingRepository : GenericRepository<Setting>
     {
-        public SettingRepository(DbContext context)
+        public SettingRepository(SmgAlumni.EF.DAL.SmgAlumniContext context)
             : base(context)
         {
 

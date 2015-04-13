@@ -2,6 +2,9 @@
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
+using SmgAlumni.Utils.DomainEvents;
+using SmgAlumni.Utils.DomainEvents.Interfaces;
+using SmgAlumni.Utils.Membership;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,25 +17,33 @@ namespace SmgAlumni.App.Api
     public class ListingController : BaseApiController
     {
         private readonly ListingRepository _listingRepository;
+        private readonly EFUserManager _userManager;
+        private User _user;
 
-        public ListingController(ListingRepository listingRepository, Logger logger)
+        public ListingController(ListingRepository listingRepository, Logger logger, EFUserManager userManager)
             : base(logger)
         {
             _listingRepository = listingRepository;
             VerifyNotNull(_listingRepository);
+            _userManager = userManager;
+            VerifyNotNull(_userManager);
+            _user = _userManager.GetUserByUserName(User.Identity.Name);
         }
 
         [HttpPost]
         [Route("api/listing/createlisting")]
         public IHttpActionResult CreateListing(CauseNewsViewModelWithoutId vm)
         {
-            var listing = new Listing() 
-            { 
-                Body = vm.Body, 
-                Heading = vm.Heading, 
-                DateCreated = DateTime.Now, 
+            var user = _userManager.GetUserByUserName(User.Identity.Name);
+
+            var listing = new Listing()
+            {
+                Body = vm.Body,
+                Heading = vm.Heading,
+                DateCreated = DateTime.Now,
                 CreatedBy = User.Identity.Name,
-                Enabled=true
+                Enabled = true,
+                UserId = User == null ? 0 : user.Id
             };
 
             try
@@ -68,7 +79,7 @@ namespace SmgAlumni.App.Api
         [Route("api/listing/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
         {
-            var news = _listingRepository.GetAll().OrderBy(a=>a.DateCreated).Take(take).Skip(skip).Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.CreatedBy }).ToList();
+            var news = _listingRepository.GetAll().OrderBy(a => a.DateCreated).Take(take).Skip(skip).Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.CreatedBy }).ToList();
             return Ok(news);
         }
 
@@ -104,10 +115,34 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult MyListings()
         {
             var listings = _listingRepository.GetAll()
-                .Where(a=>a.CreatedBy.ToLower().Equals(User.Identity.Name.ToLower()))
+                .Where(a => a.CreatedBy.ToLower().Equals(User.Identity.Name.ToLower()))
                 .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.CreatedBy })
                 .ToList();
             return Ok(listings);
+        }
+
+        [HttpGet]
+        [Route("api/listing/delete")]
+        public IHttpActionResult DeleteListing(int id)
+        {
+            var user = _userManager.GetUserByUserName(User.Identity.Name);
+            var listings = _listingRepository.GetById(id);
+            if (listings == null) return BadRequest("Обявата не беше намерена. Моля опитайте отново.");
+            //if user is not the creator, not admin or super admin - refuse
+            if (user.Id != listings.UserId && (!user.Roles.Any(a => a.Equals("Admin")) || !user.Roles.Any(a => a.Equals("MasterAdmin")))) 
+                return BadRequest("Нямате права да изтриете тази обява. Тя е създадена от друг.");
+            try
+            {
+                _listingRepository.Delete(listings);
+                DomainEvents.Raise<DeleteListingDomainEvent>(new DeleteListingDomainEvent() {Heading=listings.Heading,UserId=_user==null?0:_user.Id });
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e.Message);
+                return BadRequest("Обявата не можа да бъде изтрита");
+            }
+            
         }
 
         [HttpPost]

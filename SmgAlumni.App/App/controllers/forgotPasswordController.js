@@ -6,8 +6,11 @@ app.controller('forgotPasswordController',
 
             $scope.send = function () {
 
-                if (!$scope.forgotPasswordForm.$valid)
+                $scope.trySentInvalidForm = false;
+                if ($scope.forgotPasswordForm.$invalid) {
+                    $scope.trySentInvalidForm = true;
                     return;
+                }
 
                 accountService.forgotPassword($scope.email).then(
                     function (success) {

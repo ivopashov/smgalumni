@@ -19,12 +19,13 @@ namespace SmgAlumni.EF.DAL
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<PasswordReset> PasswordResets{ get; set; }
+        public DbSet<PasswordReset> PasswordResets { get; set; }
         public DbSet<Setting> Settings { get; set; }
-        public DbSet<Cause> Causes{ get; set; }
-        public DbSet<Listing> Listings{ get; set; }
+        public DbSet<Cause> Causes { get; set; }
+        public DbSet<Listing> Listings { get; set; }
         public DbSet<News> NewsCollection { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Activity> Activities { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -5,6 +5,7 @@
         $scope.pages = [];
 
         $scope.$watch('totalCount', function () {
+            $scope.pages = [];
             if ($scope.totalCount % $scope.params.itemsPerPage == 0) {
                 $scope.totalNumberOfPages = $scope.totalCount / $scope.params.itemsPerPage;
             } else {
@@ -84,6 +85,7 @@
 
         $scope.setCurrentPage = function (page) {
             $scope.currentSelectedPage.number = page.number;
+            $scope.currentSelectedPage.dateChange = new Date();
         }
 
         $scope.makeCurrentPageInactive = function () {

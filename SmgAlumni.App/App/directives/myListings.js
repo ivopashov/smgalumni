@@ -1,4 +1,4 @@
-﻿app.directive('myListings', ['newsCauseListingService', 'commonService', function (newsCauseListingService, commonService) {
+﻿app.directive('myListings', ['newsCauseListingService', 'commonService', 'ngDialog', function (newsCauseListingService, commonService, ngDialog) {
 
     var myListingsController = function ($scope, newsCauseListingService, commonService) {
 
@@ -37,7 +37,7 @@
                 scope: $scope
             }).then(function (success) {
                 newsCauseListingService.addNew($scope.selectedItem, 'listing').then(function (success) {
-                    commonService.notification.success("Успешно добавихте новината");
+                    commonService.notification.success("Успешно добавихте обявата");
                     $scope.selectedItem = {};
                     $scope.init();
                 }, function (err) {
@@ -80,9 +80,24 @@
             })
         }
 
-        $scope.$watch('currentSelectedPage.number', function (val) {
-            if (val > 0) $scope.retrieveItems(val);
+        $scope.$watch('currentSelectedPage.dateChange', function () {
+            if ($scope.currentSelectedPage.number == 0) $scope.items = [];
+            if ($scope.currentSelectedPage.number > 0) $scope.retrieveItems($scope.currentSelectedPage.number);
         })
+
+        $scope.deleteItem = function (item) {
+            ngDialog.openConfirm({
+                templateUrl: '/App/templates/dialog/confirmDeleteDialog.html',
+                scope: $scope
+            }).then(function (success) {
+                newsCauseListingService.deleteItem('listing', item).then(function () {
+                    commonService.notification.success("Обявата беше изтрита успешно");
+                    $scope.init();
+                }, function (error) {
+                    commonService.notification.error(error.data.message);
+                })
+            })
+        }
 
     }
 

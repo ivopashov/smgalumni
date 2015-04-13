@@ -94,11 +94,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainEvents\DomainEvents.cs" />
+    <Compile Include="DomainEvents\Handlers\ActivityLogger.cs" />
     <Compile Include="DomainEvents\Handlers\ForgotPasswordRequestHandler.cs" />
     <Compile Include="DomainEvents\Handlers\VerifiedUserHandler.cs" />
+    <Compile Include="DomainEvents\Interfaces\AddCauseDomainEvent.cs" />
+    <Compile Include="DomainEvents\Interfaces\AddNewsDomainEvent.cs" />
+    <Compile Include="DomainEvents\Interfaces\DeleteCauseDomainEvent.cs" />
+    <Compile Include="DomainEvents\Interfaces\DeleteListingDomainEvent.cs" />
+    <Compile Include="DomainEvents\Interfaces\DeleteNewsDomainEvent.cs" />
     <Compile Include="DomainEvents\Interfaces\ForgotPasswordEvent.cs" />
     <Compile Include="DomainEvents\Interfaces\IDomainEvent.cs" />
     <Compile Include="DomainEvents\Interfaces\IHandleDomainEvent.cs" />
+    <Compile Include="DomainEvents\Interfaces\ListingDomainEvent.cs" />
+    <Compile Include="DomainEvents\Interfaces\ModifyCayseDomainEvent.cs" />
+    <Compile Include="DomainEvents\Interfaces\ModifyNewsDomainEvent.cs" />
     <Compile Include="DomainEvents\Interfaces\VerifyUserEvent.cs" />
     <Compile Include="EfEmailQuerer\INotificationEnqueuer.cs" />
     <Compile Include="EfEmailQuerer\NotificationEnqueuer.cs" />

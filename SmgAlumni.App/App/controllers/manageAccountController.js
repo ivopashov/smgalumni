@@ -12,6 +12,13 @@ app.controller('manageAccountController',
             });
 
             $scope.update = function () {
+
+                $scope.trySentInvalidForm = false;
+                if ($scope.editProfile.$invalid) {
+                    $scope.trySentInvalidForm = true;
+                    return;
+                }
+
                 accountService.updateUser($scope.user).then(function (success) {
                     commonService.notification.success("Потребителят е обновен успешно");
                     $state.go('homeauth');

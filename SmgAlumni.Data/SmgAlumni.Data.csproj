@@ -51,6 +51,7 @@
     <Compile Include="GenericRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ActivityRepository.cs" />
     <Compile Include="Repositories\CauseRepository.cs" />
     <Compile Include="Repositories\ListingRepository.cs" />
     <Compile Include="Repositories\NewsRepository.cs" />

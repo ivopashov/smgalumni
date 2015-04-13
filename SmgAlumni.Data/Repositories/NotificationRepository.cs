@@ -10,7 +10,7 @@ namespace SmgAlumni.Data.Repositories
 {
     public class NotificationRepository : GenericRepository<Notification>
     {
-        public NotificationRepository(DbContext context)
+        public NotificationRepository(SmgAlumni.EF.DAL.SmgAlumniContext context)
             : base(context)
         {
 

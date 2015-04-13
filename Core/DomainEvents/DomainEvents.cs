@@ -24,13 +24,6 @@ namespace SmgAlumni.Utils.DomainEvents
             if (Container != null)
             {
                 var handlers = Container.GetAllInstances<IHandleDomainEvent<T>>();
-                var handlerText = handlers.Any()
-                    ? handlers.Select(h => h.GetType().Name).Aggregate((a, b) => a + "; " + b)
-                    : "None";
-                ;
-                _logger.Debug("Received event " + eventArg.GetType() + ". Following handlers will be called: " +
-                              handlerText);
-
                 foreach (var handler in handlers)
                 {
                     handler.Handle(eventArg);

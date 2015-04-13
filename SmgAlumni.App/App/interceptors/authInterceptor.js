@@ -19,6 +19,7 @@
 
     var responseError = function (rejection) {
         if (rejection.status === 403 || rejection.status === 401) {
+            authHelper.clearAuth();
             $window.location = $window.location.origin;
         }
         return $q.reject(rejection);

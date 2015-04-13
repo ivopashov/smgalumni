@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http;
+using WebApiThrottle;
 
 namespace SmgAlumni.App.App_Start
 {
@@ -26,6 +27,17 @@ namespace SmgAlumni.App.App_Start
             config.Formatters.Remove(config.Formatters.XmlFormatter);
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+
+
+            config.MessageHandlers.Add(new ThrottlingHandler()
+            {
+                Policy = new ThrottlePolicy(perSecond: 1, perMinute: 20, perHour: 200, perDay: 1500, perWeek: 3000)
+                {
+                    IpThrottling = true,
+                   EndpointThrottling=true 
+                },
+                Repository = new CacheRepository()
+            });
         }
 
         public static void UseJsonFormatter()

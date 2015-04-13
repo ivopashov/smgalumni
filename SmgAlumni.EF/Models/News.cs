@@ -14,5 +14,6 @@ namespace SmgAlumni.EF.Models
         public string Heading { get; set; }
         public string Body { get; set; }
         public bool Enabled { get; set; }
+        public int UserId { get; set; }
     }
 }

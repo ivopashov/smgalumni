@@ -10,7 +10,7 @@ namespace SmgAlumni.Data.Repositories
 {
     public class CauseRepository : GenericRepository<Cause>
     {
-        public CauseRepository(DbContext context)
+        public CauseRepository(SmgAlumni.EF.DAL.SmgAlumniContext context)
             : base(context)
         {
 

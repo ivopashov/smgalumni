@@ -1,13 +1,1 @@
-
-form errors - style and logic behind
 text on first page
-
-listings
-
-throttling lib
-
-white space break on tables
-
-activity logs for delete/verify user, create/delete news, cause, listing
-
-admin news/causes - expand and shrink news

@@ -50,7 +50,9 @@
   <ItemGroup>
     <Compile Include="DAL\DbInitializer.cs" />
     <Compile Include="DAL\SmgAlumniContext.cs" />
+    <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Cause.cs" />
+    <Compile Include="Models\enums\ActivityType.cs" />
     <Compile Include="Models\enums\ClassDivision.cs" />
     <Compile Include="Models\enums\Country.cs" />
     <Compile Include="Models\enums\NotificationKind.cs" />

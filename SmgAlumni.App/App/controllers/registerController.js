@@ -10,9 +10,25 @@ app.controller('registerController',
 
             $scope.register = function () {
 
+                $scope.trySentInvalidForm = true;
+
+                if ($scope.user.confirmpassword != $scope.user.password) {
+                    $scope.registerForm.confirmpassword.$error.match = true;
+                    return;
+                } else {
+                    $scope.registerForm.confirmpassword.$error.match = false;
+                }
+
+                if ($scope.user.confirmemail != $scope.user.email) {
+                    $scope.registerForm.emailConfirmInput.$error.match = true;
+                    return;
+                } else {
+                    $scope.registerForm.emailConfirmInput.$error.match = false;
+                }
+                
                 $scope.trySentInvalidForm = false;
                 if ($scope.registerForm.$invalid) {
-                    $scope.trySentInvalidForm = true;
+                    return;
                 }
 
                 accountService.register($scope.user).then(

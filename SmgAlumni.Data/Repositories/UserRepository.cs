@@ -10,7 +10,8 @@ namespace SmgAlumni.Data.Repositories
 {
     public class UserRepository : GenericRepository<User>
     {
-        public UserRepository(DbContext context):base(context)
+        public UserRepository(SmgAlumni.EF.DAL.SmgAlumniContext context)
+            : base(context)
         {
 
         }        

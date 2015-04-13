@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace SmgAlumni.Utils.DomainEvents.Interfaces
 {
-    public class VerifyUserEvent : IDomainEvent
+    public class ListingDomainEvent :IDomainEvent
     {
-        public string UserName { get; set; }
-        public int AdminId { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public string Heading { get; set; }
     }
 }

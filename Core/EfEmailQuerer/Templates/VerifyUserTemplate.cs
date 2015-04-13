@@ -16,16 +16,16 @@ namespace SmgAlumni.Utils.EfEmailQuerer.Templates
             get
             {
                 return String.Format(@"<p>Здравейте, {0}</p>
-                        <p>Здравейте, Вашата регистрация за СМГ Алумни е одобрена. Може да се логнете тук: <a href='{1}'>линк</a>. </p>");
+                        <p>Вашата регистрация за СМГ Алумни е одобрена. Може да се логнете тук: <a href='{1}'>линк</a>. </p>", UserName, Link);
             }
         }
 
         public object Data
         {
-            get { return new { UserName,Link }; }
+            get { return new { UserName, Link }; }
         }
 
         public string UserName { get; set; }
-        public string Link = "";
+        public string Link { get; set; }
     }
 }

@@ -38,6 +38,7 @@ app.controller('userNewsController',
             }
 
             $scope.$watch('currentSelectedPage.number', function (val) {
+                if (val == 0) $scope.items = [];
                 if (val > 0) $scope.retrieveItems(val);
             })
 

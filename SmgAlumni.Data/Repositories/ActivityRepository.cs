@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SmgAlumni.Data.Repositories
 {
-    public class ListingRepository : GenericRepository<Listing>
+    public class ActivityRepository : GenericRepository<Activity>
     {
-        public ListingRepository(SmgAlumni.EF.DAL.SmgAlumniContext context)
+        public ActivityRepository(SmgAlumni.EF.DAL.SmgAlumniContext context)
             : base(context)
         {
 

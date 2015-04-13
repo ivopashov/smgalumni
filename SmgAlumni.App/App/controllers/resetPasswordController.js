@@ -17,6 +17,18 @@ app.controller('resetPasswordController',
 
                 if (!$scope.requestVerified) return;
 
+                if ($scope.resetPassword.password != $scope.resetPassword.confirmpassword) {
+                    $scope.resetPasswordForm.confirmpassword.$error.match = true;
+                } else {
+                    $scope.resetPasswordForm.confirmpassword.$error.match = false;
+                }
+
+                $scope.trySentInvalidForm = false;
+                if ($scope.resetPasswordForm.$invalid) {
+                    $scope.trySentInvalidForm = true;
+                    return;
+                }
+
                 $scope.resetPassword.token = $stateParams.guid;
                 $scope.resetPassword.email = $stateParams.email;
 

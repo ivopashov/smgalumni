@@ -9,9 +9,20 @@
         skipAndTake: skipAndTake,
         itemsPerPage: itemsPerPage,
         myListingsCount: myListingsCount,
-        myListingsSkipAndTake: myListingsSkipAndTake
+        myListingsSkipAndTake: myListingsSkipAndTake,
+        deleteItem:deleteItem
 
     });
+
+    function deleteItem(kind,item) {
+        if (kind == 'news') {
+            return commonService.$http.get('api/news/delete?id='+item.id);
+        } else if (kind == 'cause') {
+            return commonService.$http.get('api/cause/delete?id=' + item.id);
+        } else if (kind == 'listing') {
+            return commonService.$http.get('api/listing/delete?id=' + item.id);
+        }
+    }
 
     function myListingsCount() {
         return commonService.$http.get('api/listing/my/count');

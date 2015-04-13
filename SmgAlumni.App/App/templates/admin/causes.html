@@ -1,20 +1,22 @@
 ﻿<h1>Каузи</h1>
 <div class="btn btn-sm btn-primary" ng-click="createNew()">Създай нова</div>
-<table class="table table-striped table-condensed" ng-if="causes.length > 0">
+<table class="table table-striped table-condensed" ng-if="totalCount > 0">
     <thead>
         <tr>
             <th>Дата</th>
             <th>Заглавие</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="item in causes" ng-click="updateNews(item)">
+        <tr ng-repeat="item in items">
             <td class="dateCell">
                 <div class="dateHolder">
                     {{item.dateCreated | date : 'dd/MM/yyyy'}}
                 </div>
             </td>
-            <td>
+            <td ng-click="selectItem(item)">
                 <h4>
                     {{item.heading}}
                 </h4>
@@ -22,9 +24,22 @@
                     <div html-container html="{{item.body}}"></div>
                 </div>
             </td>
+            <td>
+                <span class="glyphicon glyphicon-pencil" ng-click="updateItem(item)"></span>
+            </td>
+            <td>
+                <span class="glyphicon glyphicon-remove" ng-click="deleteItem(item)"></span>
+            </td>
         </tr>
     </tbody>
 </table>
-<div ng-if="causes.length==0">
+<div ng-if="totalCount==0">
     <span>Няма резултати</span>
+</div>
+<div ng-if="totalCount > 0"
+     custom-pager kind="kind"
+     items="items"
+     params="params"
+     total-count="totalCount"
+     current-selected-page="currentSelectedPage">
 </div>

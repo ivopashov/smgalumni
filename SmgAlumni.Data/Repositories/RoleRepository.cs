@@ -11,7 +11,8 @@ namespace SmgAlumni.Data.Repositories
 {
     public class RoleRepository : GenericRepository<Role>
     {
-        public RoleRepository(DbContext context):base(context)
+        public RoleRepository(SmgAlumni.EF.DAL.SmgAlumniContext context)
+            : base(context)
         {
 
         }
