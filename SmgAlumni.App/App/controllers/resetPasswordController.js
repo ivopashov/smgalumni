@@ -15,17 +15,18 @@ app.controller('resetPasswordController',
 
             $scope.changePassword = function () {
 
+                $scope.trySentInvalidForm = true;
+
                 if (!$scope.requestVerified) return;
 
                 if ($scope.resetPassword.password != $scope.resetPassword.confirmpassword) {
                     $scope.resetPasswordForm.confirmpassword.$error.match = true;
+                    return;
                 } else {
                     $scope.resetPasswordForm.confirmpassword.$error.match = false;
                 }
 
-                $scope.trySentInvalidForm = false;
                 if ($scope.resetPasswordForm.$invalid) {
-                    $scope.trySentInvalidForm = true;
                     return;
                 }
 

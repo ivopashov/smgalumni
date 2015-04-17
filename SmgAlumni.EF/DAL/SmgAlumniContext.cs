@@ -26,6 +26,9 @@ namespace SmgAlumni.EF.DAL
         public DbSet<News> NewsCollection { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<ForumThread> Threads { get; set; }
+        public DbSet<ForumAnswer> Answers { get; set; }
+        public DbSet<ForumComment> Comments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

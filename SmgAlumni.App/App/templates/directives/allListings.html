@@ -23,7 +23,9 @@
         </tr>
     </tbody>
 </table>
-<div ng-if="items.length==0">Няма обяви</div>
+<div ng-if="totalCount==0">
+    <span>Няма резултати</span>
+</div>
 <div ng-if="totalCount > 0"
      custom-pager kind="kind"
      items="items"

@@ -17,17 +17,15 @@ namespace SmgAlumni.App.Api
     public class NewsController : BaseApiController
     {
         private readonly NewsRepository _newsRepository;
-        private readonly EFUserManager _userManager;
-        private User _user;
+        private readonly UserRepository _userRepository;
 
-        public NewsController(NewsRepository newsRepository, Logger logger, EFUserManager userManager)
+        public NewsController(NewsRepository newsRepository, Logger logger, UserRepository userRepository)
             : base(logger)
         {
             _newsRepository = newsRepository;
             VerifyNotNull(_newsRepository);
-            _userManager = userManager;
-            VerifyNotNull(_userManager);
-            _user = _userManager.GetUserByUserName(User.Identity.Name);
+            _userRepository = userRepository;
+            VerifyNotNull(_userRepository);
         }
 
         [HttpGet]
@@ -52,13 +50,12 @@ namespace SmgAlumni.App.Api
         [Authorize(Roles = "Admin, MasterAdmin")]
         public IHttpActionResult DeleteNews(int id)
         {
-            var user = _userManager.GetUserByUserName(User.Identity.Name);
             var listings = _newsRepository.GetById(id);
             if (listings == null) return BadRequest("Новината не беше намерена. Моля опитайте отново.");
             try
             {
                 _newsRepository.Delete(listings);
-                DomainEvents.Raise<DeleteNewsDomainEvent>(new DeleteNewsDomainEvent() { Heading = listings.Heading, UserId = _user == null ? 0 : _user.Id });
+                DomainEvents.Raise<DeleteNewsDomainEvent>(new DeleteNewsDomainEvent() { Heading = listings.Heading, User = CurrentUser });
                 return Ok();
             }
             catch (Exception e)
@@ -74,22 +71,19 @@ namespace SmgAlumni.App.Api
         [Authorize(Roles = "Admin, MasterAdmin")]
         public IHttpActionResult CreateNews(CauseNewsViewModelWithoutId vm)
         {
-            var user = _userManager.GetUserByUserName(User.Identity.Name);
-
             var news = new News()
             {
                 Body = vm.Body,
                 Heading = vm.Heading,
                 DateCreated = DateTime.Now,
-                CreatedBy = User.Identity.Name,
                 Enabled = true,
-                UserId = user == null ? 0 : user.Id
             };
 
             try
             {
-                _newsRepository.Add(news);
-                DomainEvents.Raise<AddNewsDomainEvent>(new AddNewsDomainEvent() { Heading = news.Heading, UserId = news.UserId });
+                CurrentUser.News.Add(news);
+                _userRepository.Update(CurrentUser);
+                DomainEvents.Raise<AddNewsDomainEvent>(new AddNewsDomainEvent() { Heading = news.Heading, User = CurrentUser });
                 return Ok();
             }
             catch (Exception e)
@@ -112,7 +106,7 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
         {
             var news = _newsRepository.GetAll().Take(take).OrderBy(a => a.DateCreated).Skip(skip)
-                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, CreatedBy = a.CreatedBy, Enabled = a.Enabled }).ToList();
+                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, CreatedBy = a.User.UserName, Enabled = a.Enabled }).ToList();
             return Ok(news);
         }
 
@@ -128,11 +122,11 @@ namespace SmgAlumni.App.Api
             news.Body = vm.Body;
             news.Heading = vm.Heading;
             news.DateCreated = DateTime.Now;
-            news.CreatedBy = User.Identity.Name;
+
             try
             {
                 _newsRepository.Update(news);
-                DomainEvents.Raise<ModifyNewsDomainEvent>(new ModifyNewsDomainEvent() { Heading = news.Heading, UserId = _user == null ? 0 : _user.Id });
+                DomainEvents.Raise<ModifyNewsDomainEvent>(new ModifyNewsDomainEvent() { Heading = news.Heading, User = CurrentUser });
                 return Ok();
 
             }

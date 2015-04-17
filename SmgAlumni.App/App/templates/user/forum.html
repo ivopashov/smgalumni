@@ -1,4 +1,43 @@
-﻿<h1>Очаквайте скоро</h1>
-
-
-
+﻿<h1>Форум</h1>
+<ol class="breadcrumb">
+    <li><a href="#" ng-click="createNew()">Нова тема</a></li>
+    <li><a href="#">Library</a></li>
+</ol>
+<table class="table table-striped table-condensed" ng-if="totalCount > 0">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Автор</th>
+            <th>Новина</th>
+            <th>Отговори</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in items" style="cursor:pointer" ng-click="selectItem(item)">
+            <td class="dateCell">
+                <div class="dateHolder">
+                    {{item.dateCreated | date : 'dd/MM/yyyy'}}
+                </div>
+            </td>
+           <td>
+               <span>{{item.createdBy}}</span>
+           </td>
+            <td>
+                <h4>
+                    {{item.heading}}
+                </h4>
+            </td>
+            <td>{{item.numberOfAnswers}}</td>
+        </tr>
+    </tbody>
+</table>
+<div ng-if="totalCount==0">
+    <span>Няма резултати</span>
+</div>
+<div ng-if="totalCount > 0"
+     custom-pager kind="kind"
+     items="items"
+     params="params"
+     total-count="totalCount"
+     current-selected-page="currentSelectedPage">
+</div>

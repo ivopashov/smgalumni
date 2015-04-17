@@ -1,6 +1,16 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-size: medium;
+    font-family: 'Palatino Linotype';
+background: rgba(250,247,204,1);
+background: -moz-linear-gradient(left, rgba(250,247,204,1) 0%, rgba(255,224,174,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(250,247,204,1)), color-stop(100%, rgba(255,224,174,1)));
+background: -webkit-linear-gradient(left, rgba(250,247,204,1) 0%, rgba(255,224,174,1) 100%);
+background: -o-linear-gradient(left, rgba(250,247,204,1) 0%, rgba(255,224,174,1) 100%);
+background: -ms-linear-gradient(left, rgba(250,247,204,1) 0%, rgba(255,224,174,1) 100%);
+background: linear-gradient(to right, rgba(250,247,204,1) 0%, rgba(255,224,174,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#faf7cc', endColorstr='#ffe0ae', GradientType=1 );
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -49,7 +59,7 @@ input[type="checkbox"].input-validation-error {
     background: #f86872;
 }
 
-.comment-arrow{
+.comment-arrow {
     position: relative;
     color: white;
     display: inline-block;
@@ -57,64 +67,62 @@ input[type="checkbox"].input-validation-error {
     padding: 8px;
     font-family: Helvetica Neue LT STD BD;
     margin-left: 10px;
-    border-radius:5px;
+    border-radius: 5px;
 }
 
-.comment-arrow:after, .qccu-comment-arrow:before {
-    right: 100%;
-    top: 50%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
+    .comment-arrow:after, .qccu-comment-arrow:before {
+        right: 100%;
+        top: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+.account-menu .nav-pills > li {
+    margin-top: 0;
+    margin-left: 0;
 }
 
-.account-menu
-.nav-pills > li {
-  margin-top: 0;
-  margin-left: 0;
-}
-.account-menu
-.nav-pills > li > a {
-  text-align: right;
-  border-radius: 0;
-  color: #000;
-  text-decoration: none;
-}
-.account-menu
-.nav-pills > li > a.active {
-  color: #fff;
-  background-color: #428bca;
+    .account-menu .nav-pills > li > a {
+        text-align: right;
+        border-radius: 0;
+        color: #000;
+        text-decoration: none;
+    }
+
+        .account-menu .nav-pills > li > a.active {
+            color: #fff;
+            background-color: #428bca;
+        }
+
+main-menu, admin-menu .nav-pills > li {
+    margin-top: 0;
+    margin-left: 0;
 }
 
-main-menu, admin-menu 
-.nav-pills > li {
-  margin-top: 0;
-  margin-left: 0;
-}
-main-menu, admin-menu 
-.nav-pills > li > a {
-  text-align: right;
-  border-radius: 0;
-  color: #000;
-  text-decoration: none;
-}
-main-menu, admin-menu  
-.nav-pills > li > a.active {
-  color: #fff;
-  background-color: #428bca;
+    main-menu, admin-menu .nav-pills > li > a {
+        text-align: right;
+        border-radius: 0;
+        color: #000;
+        text-decoration: none;
+    }
+
+        main-menu, admin-menu .nav-pills > li > a.active {
+            color: #fff;
+            background-color: #428bca;
+        }
+
+.dateCell {
+    width: 120px;
 }
 
-.dateCell{
-    width:120px;
-}
-
-.dateHolder{
-     margin-top:10px;
-    margin-bottom:10px;
-    margin-left:10px;
+.dateHolder {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
 }
 
 .truncate {
@@ -125,8 +133,52 @@ main-menu, admin-menu
     max-width: 400px;
 }
 
-input.small-input{
+input.small-input {
     width: 250px;
     display: inline-block;
     margin-right: 10px;
+}
+
+#footer {
+    margin: 20px;
+    padding: 20px;
+    font-size: small;
+}
+
+.main-menu {
+    background-color: #f1f1f1;
+    padding: 15px;
+    font-size: large;
+    border-radius: 5px;
+}
+
+.vertical-line {
+    border-right: thick solid #808080;
+}
+
+.main-content {
+    background-color: #fafafa;
+}
+
+.nav > li > a:hover {
+    background-color: gray !important;
+    color: white;
+}
+
+@font-face {
+    font-family: "CaviarDreams.ttf";
+    font-style: normal;
+    src: url(../fonts/CaviarDreams/CaviarDreams.ttf); /*if IE */
+    src: local("CaviarDreams"), url("../fonts/CaviarDreams/CaviarDreams.ttf") format("truetype"); /* non-IE */
+}
+
+.content-holder {
+    padding-left: 40px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+
+.welcome-screen {
+    margin-top: 20px;
+    font-size: large;
 }

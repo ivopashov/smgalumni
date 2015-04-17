@@ -9,8 +9,10 @@ app.controller('userSearchController',
             $scope.students = [];
 
             $scope.getUsers = function () {
+
+                $scope.trySentInvalidForm = true;
+
                 if ($scope.studentSearchForm.$invalid) {
-                    commonService.notification.error("Формата е невалидна");
                     return;
                 };
 

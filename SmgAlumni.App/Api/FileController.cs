@@ -15,14 +15,11 @@ namespace SmgAlumni.App.Api
 {
     public class FileController : BaseApiController
     {
-        private readonly EFUserManager _userManager;
         private readonly UserRepository _userRepository;
 
-        public FileController(Logger logger, EFUserManager userManager, UserRepository userRepository)
+        public FileController(Logger logger, UserRepository userRepository)
             : base(logger)
         {
-            _userManager = userManager;
-            VerifyNotNull(_userManager);
             _userRepository = userRepository;
             VerifyNotNull(_userRepository);
         }

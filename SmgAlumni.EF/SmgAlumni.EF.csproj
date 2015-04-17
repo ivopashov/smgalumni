@@ -52,10 +52,13 @@
     <Compile Include="DAL\SmgAlumniContext.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Cause.cs" />
+    <Compile Include="Models\ForumComment.cs" />
     <Compile Include="Models\enums\ActivityType.cs" />
     <Compile Include="Models\enums\ClassDivision.cs" />
     <Compile Include="Models\enums\Country.cs" />
     <Compile Include="Models\enums\NotificationKind.cs" />
+    <Compile Include="Models\ForumAnswer.cs" />
+    <Compile Include="Models\ForumThread.cs" />
     <Compile Include="Models\IEntity.cs" />
     <Compile Include="Models\IListingEntity.cs" />
     <Compile Include="Models\Listing.cs" />

@@ -43,7 +43,7 @@ namespace SmgAlumni.App.Api
 
             if (!user.Verified) return BadRequest("Вашият акаунт все още не е одобрен.");
 
-            return Ok(GetToken(user.UserName, user.Email));
+            return Ok(GetToken(user.UserName, user.Email, user.Roles.Select(a => a.Name).ToList()));
         }
 
         private string CreateToken(string username)
@@ -54,13 +54,14 @@ namespace SmgAlumni.App.Api
             return token;
         }
 
-        private object GetToken(string username, string email)
+        private object GetToken(string username, string email, List<string> roles)
         {
             return new
             {
                 Token = CreateToken(username),
                 Username = username,
-                Email = email
+                Email = email,
+                Roles = roles
             };
         }
 

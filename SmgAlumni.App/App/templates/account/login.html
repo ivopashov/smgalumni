@@ -1,8 +1,12 @@
-﻿<h1>Вход</h1>
-<div class="row">
+﻿<div class="row">
     <form name="loginForm" role="form" valid-submit="login()" novalidate class="form-horizontal col-sm-6 col-sm-offset-3">
         <div class="form-group">
-            <div class="col-sm-10 input-group input-group">
+            <div class="col-sm-10">
+                <h1>Вход</h1>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 input-group">
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-user"></span>
                 </span>
@@ -20,21 +24,17 @@
                        ng-model="user.password" ng-minlength="6" placeholder="Парола"
                        class="form-control" ng-required="true" />
             </div>
-           
+
         </div>
         <div class="form-group">
-            <input data-val="true" data-val-required="The Remember me field is required." id="RememberMe" name="RememberMe" title="Remember me" type="checkbox" value="true">
-            <input name="RememberMe" type="hidden" value="false">
-            <span class="field-validation-valid" data-valmsg-for="RememberMe" data-valmsg-replace="true"></span>
-            <label for="RememberMe">Запомни ме</label>
-        </div>
-        <div class="col-sm-10">
-            <button type="submit" ng-click="formlogin()" class="btn btn-primary">Вход</button>
-            <a class="col-sm-offset-2" ui-sref="forgotpassword">Забравена парола?</a>
+            <div class="col-sm-10">
+                <button type="submit" ng-click="formlogin()" class="btn btn-primary">Вход</button>
+                <a class="col-sm-offset-2" ui-sref="forgotpassword">Забравена парола?</a>
+            </div>
         </div>
     </form>
 </div>
-<div class="form-group">
+<div class="row">
     <div class="col-sm-offset-3">
         Ако нямате още акаунт може да се регистрирате <a ui-sref="register">тук.</a>
     </div>

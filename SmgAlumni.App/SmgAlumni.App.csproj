@@ -220,6 +220,9 @@
     <Compile Include="Api\AdminController.cs" />
     <Compile Include="Api\AuthenticationController.cs" />
     <Compile Include="Api\BaseApiController.cs" />
+    <Compile Include="Api\ForumCommentController.cs" />
+    <Compile Include="Api\ForumAnswerController.cs" />
+    <Compile Include="Api\ForumThreadController.cs" />
     <Compile Include="Api\ListingController.cs" />
     <Compile Include="Api\CauseController.cs" />
     <Compile Include="Api\FileController.cs" />
@@ -240,6 +243,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CauseNewsViewModelWithoutId.cs" />
     <Compile Include="Models\CauseNewsViewModes.cs" />
+    <Compile Include="Models\ItemWithBodyAndParentIdViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ResetUserPassViewModel.cs" />
     <Compile Include="Models\SearchByDivisionAndYearViewModel.cs" />
@@ -287,6 +291,9 @@
     <Content Include="App\interceptors\authInterceptor.js" />
     <Content Include="App\factories\authHelper.js" />
     <Content Include="App\services\accountService.js" />
+    <Content Include="App\services\forumCommentService.js" />
+    <Content Include="App\services\forumAnswerService.js" />
+    <Content Include="App\services\forumThreadService.js" />
     <Content Include="App\services\masterAdminService.js" />
     <Content Include="App\services\adminService.js" />
     <Content Include="App\services\authHelper.js" />
@@ -309,6 +316,7 @@
     <Content Include="App\templates\admin\manageUsers.html" />
     <Content Include="App\templates\admin\verifyUsers.html" />
     <Content Include="App\templates\dialog\confirmDeleteDialog.html" />
+    <Content Include="App\templates\dialog\editItemWithBodyOnly.html" />
     <Content Include="App\templates\dialog\resetUserPass.html" />
     <Content Include="App\templates\dialog\editCauseNews.html" />
     <Content Include="App\templates\dialog\userDetails.html" />
@@ -385,6 +393,10 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="fonts\CaviarDreams\CaviarDreams.ttf" />
+    <Content Include="fonts\CaviarDreams\CaviarDreams_BoldItalic.ttf" />
+    <Content Include="fonts\CaviarDreams\CaviarDreams_Italic.ttf" />
+    <Content Include="fonts\CaviarDreams\Caviar_Dreams_Bold.ttf" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

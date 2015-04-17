@@ -40,7 +40,6 @@ namespace SmgAlumni.App.App_Start
                     container.RegisterAll,
                     AppDomain.CurrentDomain.GetAssemblies());
             container.Register<ActivityRepository, ActivityRepository>();
-            //container.RegisterWebApiRequest<SmgAlumni.EF.DAL.SmgAlumniContext>();
             container.Register<SmgAlumni.EF.DAL.SmgAlumniContext, SmgAlumni.EF.DAL.SmgAlumniContext>();
             container.Register<UserRepository, UserRepository>();
             container.Register<EFUserManager, EFUserManager>();

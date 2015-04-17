@@ -12,7 +12,7 @@
 
         $scope.logout = function () {
             authService.logout();
-            commonService.$state.go('homeauth');
+            $state.transitionTo('login');
         }
         $scope.isLoggedIn = function () {
             return accountService.isUserLoggedIn();

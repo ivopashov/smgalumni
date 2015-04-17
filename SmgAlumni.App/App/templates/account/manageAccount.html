@@ -1,11 +1,11 @@
 ﻿<h1>Редактирайте Вашият профил</h1>
 <div class="row" style="margin-left: 2px;">
-    <div class="col-sm-8">
+    <div class="col-sm-9">
         <div class="row">
-            <form name="editProfile" class="form-horizontal col-sm-12" ng-submit="update()">
+            <form name="editProfile" class="form-horizontal col-sm-12" novalidate>
                 <div class="form-group">
-                    <label for="usernameInputEdit" class="col-sm-4 control-label">Потребителско Име *</label>
-                    <div class="col-sm-8">
+                    <label for="usernameInputEdit" class="col-sm-3 control-label">Потребителско Име *</label>
+                    <div class="col-sm-9">
                         <input ng-model="user.userName" type="text" id="usernameInputEdit" name="usernameInputEdit" class="form-control" required />
                         <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && editProfile.usernameInputEdit.$error.required">
                             Задължително поле
@@ -13,8 +13,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="emailInputEdit" class="col-sm-4 control-label">E-mail *</label>
-                    <div class="col-sm-8">
+                    <label for="emailInputEdit" class="col-sm-3 control-label">E-mail *</label>
+                    <div class="col-sm-9">
                         <input type="email" ng-model="user.email" id="emailInputEdit" name="emailInput" class="form-control" required />
                         <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && editProfile.emailInput.$error.required">
                             Задължително поле
@@ -25,8 +25,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="yearOfGraduationInputEdit" class="col-sm-4 control-label">Година На Завършване *</label>
-                    <div class="col-sm-8">
+                    <label for="yearOfGraduationInputEdit" class="col-sm-3 control-label">Година На Завършване *</label>
+                    <div class="col-sm-9">
                         <input type="number" ng-model="user.yearOfGraduation" id="yearOfGraduationInputEdit" name="yearOfGraduationInputEdit" class="form-control" min="1950" max="2020" required />
                         <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && editProfile.yearOfGraduationInputEdit.$error.required">
                             Задължително поле
@@ -43,8 +43,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="divisionInputEdit" class="col-sm-4 control-label">Паралелка *</label>
-                    <div class="col-sm-8">
+                    <label for="divisionInputEdit" class="col-sm-3 control-label">Паралелка *</label>
+                    <div class="col-sm-9">
                         <select ng-model="user.division" id="divisionInputEdit" name="divisionInputEdit" ng-options="division for division in divisions"></select>
                         <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && editProfile.divisionInputEdit.$error.required">
                             Задължително поле
@@ -52,8 +52,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="firstNameInputEdit" class="col-sm-4 control-label">Първо Име *</label>
-                    <div class="col-sm-8">
+                    <label for="firstNameInputEdit" class="col-sm-3 control-label">Първо Име *</label>
+                    <div class="col-sm-9">
                         <input type="text" ng-model="user.firstName" id="firstNameInputEdit" name="firstNameInputEdit" class="form-control" required />
                         <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && editProfile.firstNameInputEdit.$error.required">
                             Задължително поле
@@ -61,8 +61,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="middleNameInputEdit" class="col-sm-4 control-label">Средно Име *</label>
-                    <div class="col-sm-8">
+                    <label for="middleNameInputEdit" class="col-sm-3 control-label">Средно Име *</label>
+                    <div class="col-sm-9">
                         <input type="text" ng-model="user.middleName" id="middleNameInputEdit" name="middleNameInputEdit" class="form-control" required />
                         <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && editProfile.middleNameInputEdit.$error.required">
                             Задължително поле
@@ -70,8 +70,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="familyNameInputEdit" class="col-sm-4 control-label">Фамилно Име *</label>
-                    <div class="col-sm-8">
+                    <label for="familyNameInputEdit" class="col-sm-3 control-label">Фамилно Име *</label>
+                    <div class="col-sm-9">
                         <input type="text" ng-model="user.lastName" id="familyNameInputEdit" name="familyNameInputEdit" class="form-control" required />
                         <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && editProfile.familyNameInputEdit.$error.required">
                             Задължително поле
@@ -79,56 +79,56 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="descriptionInputEdit" class="col-sm-4 control-label">Описание</label>
-                    <div class="col-sm-8">
+                    <label for="descriptionInputEdit" class="col-sm-3 control-label">Описание</label>
+                    <div class="col-sm-9">
                         <textarea ng-model="user.description" id="descriptionInputEdit" name="descriptionInputEdit" class="form-control"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="phoneNumberInputEdit" class="col-sm-4 control-label">Телефон</label>
-                    <div class="col-sm-8">
+                    <label for="phoneNumberInputEdit" class="col-sm-3 control-label">Телефон</label>
+                    <div class="col-sm-9">
                         <input type="text" ng-model="user.phoneNumber" id="phoneNumberInputEdit" name="phoneNumberInputEdit" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="dwellingCountryInputEdit" class="col-sm-4 control-label">Държава</label>
-                    <div class="col-sm-8">
+                    <label for="dwellingCountryInputEdit" class="col-sm-3 control-label">Държава</label>
+                    <div class="col-sm-9">
                         <input type="text" ng-model="user.dwellingCountry" id="dwellingCountryInputEdit" name="dwellingCountryInputEdit" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="cityInputEdit" class="col-sm-4 control-label">Град</label>
-                    <div class="col-sm-8">
+                    <label for="cityInputEdit" class="col-sm-3 control-label">Град</label>
+                    <div class="col-sm-9">
                         <input type="text" ng-model="user.city" id="cityInputEdit" name="cityInputEdit" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="universityGraduatedInputEdit" class="col-sm-4 control-label">Университет</label>
-                    <div class="col-sm-8">
+                    <label for="universityGraduatedInputEdit" class="col-sm-3 control-label">Университет</label>
+                    <div class="col-sm-9">
                         <input type="text" ng-model="user.universityGraduated" id="universityGraduatedInputEdit" name="universityGraduatedInputEdit" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="professionInputEdit" class="col-sm-4 control-label">Професия</label>
-                    <div class="col-sm-8">
+                    <label for="professionInputEdit" class="col-sm-3 control-label">Професия</label>
+                    <div class="col-sm-9">
                         <input type="text" ng-model="user.profession" id="professionInputEdit" name="professionInputEdit" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="companyInputEdit" class="col-sm-4 control-label">Компания</label>
-                    <div class="col-sm-8">
+                    <label for="companyInputEdit" class="col-sm-3 control-label">Компания</label>
+                    <div class="col-sm-9">
                         <input type="text" ng-model="user.company" id="companyInputEdit" name="companyInputEdit" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-offset-4 col-sm-10">
-                        <button type="submit" class="btn btn-default">Обнови</button>
+                    <div class="col-sm-offset-3 col-sm-10">
+                        <button type="submit" class="btn btn-default btn-primary" ng-click="update()">Обнови</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <div class="form-group">
             <div class="btn btn-lg btn-primary" ng-file-select
                  ng-model="image"

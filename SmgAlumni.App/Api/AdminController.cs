@@ -88,7 +88,7 @@ namespace SmgAlumni.App.Api
                             if (user == null) throw new Exception("Tried to verify user with id: " + item + " but user does not exist");
                             user.Verified = true;
                             context.SaveChanges();
-                            DomainEvents.Raise<VerifyUserEvent>(new VerifyUserEvent() { UserName = user.UserName, AdminId = _user == null ? 0 : _user.Id });
+                            DomainEvents.Raise<VerifyUserEvent>(new VerifyUserEvent() { UserName = user.UserName, User = _user});
                         }
 
                         transaction.Commit();

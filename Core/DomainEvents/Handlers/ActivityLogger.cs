@@ -22,10 +22,12 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
         IHandleDomainEvent<VerifyUserEvent>
     {
         private ActivityRepository _activityRepositorty;
+        private UserRepository _userRepository;
 
-        public ActivityLogger(ActivityRepository activityRepository)
+        public ActivityLogger(ActivityRepository activityRepository, UserRepository userRepository)
         {
             _activityRepositorty = activityRepository;
+            _userRepository = userRepository;
         }
 
         public void Handle(AddNewsDomainEvent args)
@@ -35,11 +37,10 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
                 ActivityType = ActivityType.AddNews,
                 Date = DateTime.Now,
                 Description = "News with heading " + args.Heading + " was created.",
-                UserId = args.UserId,
             };
 
-                _activityRepositorty.Add(activity);
-
+            args.User.Activities.Add(activity);
+            _userRepository.Update(args.User);
         }
 
         public void Handle(DeleteNewsDomainEvent args)
@@ -49,10 +50,10 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
                 ActivityType = ActivityType.DeleteNews,
                 Date = DateTime.Now,
                 Description = "News with heading " + args.Heading + " was deleted.",
-                UserId = args.UserId,
             };
 
-                _activityRepositorty.Add(activity);
+            args.User.Activities.Add(activity);
+            _userRepository.Update(args.User);
 
         }
 
@@ -63,10 +64,10 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
                 ActivityType = ActivityType.ModifyNews,
                 Date = DateTime.Now,
                 Description = "News with heading " + args.Heading + " was modified.",
-                UserId = args.UserId,
             };
 
-                _activityRepositorty.Add(activity);
+            args.User.Activities.Add(activity);
+            _userRepository.Update(args.User);
         }
 
         public void Handle(AddCauseDomainEvent args)
@@ -76,10 +77,10 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
                 ActivityType = ActivityType.AddCause,
                 Date = DateTime.Now,
                 Description = "Cause with heading " + args.Heading + " was added.",
-                UserId = args.UserId,
             };
 
-                _activityRepositorty.Add(activity);
+            args.User.Activities.Add(activity);
+            _userRepository.Update(args.User);
 
         }
 
@@ -90,10 +91,10 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
                 ActivityType = ActivityType.DeleteCause,
                 Date = DateTime.Now,
                 Description = "Cause with heading " + args.Heading + " was deleted.",
-                UserId = args.UserId,
             };
 
-                _activityRepositorty.Add(activity);
+            args.User.Activities.Add(activity);
+            _userRepository.Update(args.User);
 
         }
 
@@ -104,10 +105,10 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
                 ActivityType = ActivityType.DeleteListing,
                 Date = DateTime.Now,
                 Description = "Listing with heading " + args.Heading + " was deleted.",
-                UserId = args.UserId,
             };
 
-                _activityRepositorty.Add(activity);
+            args.User.Activities.Add(activity);
+            _userRepository.Update(args.User);
 
         }
 
@@ -120,10 +121,10 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
                 ActivityType = ActivityType.ModifyCause,
                 Date = DateTime.Now,
                 Description = "Cause with heading " + args.Heading + " was modified.",
-                UserId = args.UserId,
             };
 
-                _activityRepositorty.Add(activity);
+            args.User.Activities.Add(activity);
+            _userRepository.Update(args.User);
 
         }
 
@@ -134,10 +135,10 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
                 ActivityType = ActivityType.VerifyUser,
                 Date = DateTime.Now,
                 Description = "User with username: " + args.UserName + " was verified",
-                UserId = args.AdminId,
             };
 
-                _activityRepositorty.Add(activity);
+            args.User.Activities.Add(activity);
+            _userRepository.Update(args.User);
 
         }
     }

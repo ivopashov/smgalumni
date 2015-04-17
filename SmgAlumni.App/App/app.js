@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var app = angular.module('app', ['ngCkeditor','ngSanitize', 'ui.bootstrap', 'ui.router', 'angular-loading-bar', 'ngDialog', 'angularFileUpload']);
+var app = angular.module('app', ['ngCkeditor', 'ngSanitize', 'ui.bootstrap', 'ui.router', 'angular-loading-bar', 'ngDialog', 'angularFileUpload']);
 
 
 
@@ -77,7 +77,7 @@ app.config([
         $stateProvider.state('homeauth', {
             url: '/',
             templateUrl: '/App/templates/home/homeAuth.html',
-            controller:'homeAuthController',
+            controller: 'homeAuthController',
             authenticate: true
         });
         $stateProvider.state('homeauth.search', {
@@ -127,6 +127,7 @@ app.config([
             controller: 'changePasswordController',
             authenticate: true
         });
+        
         //admin
         $stateProvider.state('admin', {
             url: '/admin',
@@ -175,12 +176,25 @@ app.config([
             controller: 'settingsController',
             authenticate: true
         });
-    }]).run(['$rootScope', '$state', function ($rootScope, $state) {
+    }]).run(['$rootScope', '$state', 'authHelper', function ($rootScope, $state, authHelper) {
         $rootScope.$on("$stateChangeStart", function (event, toState) {
-            if ((toState.authenticate) &&
-                !sessionStorage.authenticationData) {
+            if ((toState.authenticate) && !sessionStorage.authenticationData) {
                 $state.transitionTo('login', { returnUrl: toState.name });
                 event.preventDefault();
+            }
+            if (toState.name.indexOf('admin') > -1) {
+                var authData = authHelper.getAuth();
+                if (authData.roles.indexOf('Admin') == -1) {
+                    $state.transitionTo('homeauth');
+                    event.preventDefault();
+                }
+            }
+            if (toState.name.indexOf('masteradmin') > -1) {
+                var authData = authHelper.getAuth();
+                if (authData.roles.indexOf('MasterAdmin') == -1) {
+                    $state.transitionTo('homeauth');
+                    event.preventDefault();
+                }
             }
         });
     }

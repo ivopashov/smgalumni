@@ -1,5 +1,10 @@
 ﻿<header ng-controller="headerController">
     <div class="row">
+        <h2>
+            СМГ Алумни Мрежа
+        </h2>
+    </div>
+    <div class="row">
         <div ng-if="isLoggedIn()" class="col-sm-4 col-xs-12 pull-right text-right">
             <div class="login-bar">
                 <span class="xs-pull-left">
@@ -8,7 +13,7 @@
                     <a ui-sref="homeauth">Начало</a>
                 </span>
                 <br class="hidden-xs" />
-                <a ng-show="username" ng-click="logout()" class="logout-link xs-pull-right">Изход</a>
+                <a ng-show="username" ng-click="logout()" class="logout-link xs-pull-right" style="cursor:pointer">Изход</a>
             </div>
         </div>
         <div ng-if="!isLoggedIn()" class="col-sm-4 col-xs-12 pull-right text-right">

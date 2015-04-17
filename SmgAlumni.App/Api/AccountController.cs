@@ -43,14 +43,14 @@ namespace SmgAlumni.App.Api
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Invlid Model");
+                return BadRequest("Входните данни не са валидни");
             }
             try
             {
                 var getUserByEmail = _userManager.GetUserByEmail(model.Email);
                 if (getUserByEmail != null)
                 {
-                    return BadRequest("User Already Exists");
+                    return BadRequest("Потребител с такъв имейл съществува");
                 }
 
                 var user = Mapper.Map<User>(model);

@@ -13,9 +13,8 @@ app.controller('manageAccountController',
 
             $scope.update = function () {
 
-                $scope.trySentInvalidForm = false;
+                $scope.trySentInvalidForm = true;
                 if ($scope.editProfile.$invalid) {
-                    $scope.trySentInvalidForm = true;
                     return;
                 }
 

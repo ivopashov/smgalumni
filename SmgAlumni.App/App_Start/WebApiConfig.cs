@@ -31,7 +31,7 @@ namespace SmgAlumni.App.App_Start
 
             config.MessageHandlers.Add(new ThrottlingHandler()
             {
-                Policy = new ThrottlePolicy(perSecond: 1, perMinute: 20, perHour: 200, perDay: 1500, perWeek: 3000)
+                Policy = new ThrottlePolicy(perSecond: 2, perMinute: 30, perHour: 200, perDay: 1500, perWeek: 3000)
                 {
                     IpThrottling = true,
                    EndpointThrottling=true 

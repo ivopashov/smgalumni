@@ -1,17 +1,20 @@
-﻿<pre>{{registerForm.confirmpassword | json}}</pre>
-<h2>Регистрация</h2>
-<div class="form-group">
-    Моля регистрирайте Вашият акаунт.
-    След като го регистрирате, той трябва да бъде одобрен от нашите администратори, за да сме
-    сигурни, че само възпитаници на СМГ се регистрират тук. Това може да отнеме няколко дни, след което ще
-    получите e-mail с потвърждение.
+﻿<div class="form-group">
+    <h2>Регистрация</h2>
 </div>
-<form name="registerForm" role="form" class="form-horizontal col-sm-12">
+<div class="form-group">
+    <div class="col-sm-12" id="registerText">
+        Моля регистрирайте Вашият акаунт.
+        След като го регистрирате, той трябва да бъде одобрен от нашите администратори, за да сме
+        сигурни, че само възпитаници на СМГ се регистрират тук. Това може да отнеме няколко дни, след което ще
+        получите e-mail с потвърждение.
+    </div>
+</div>
+<form name="registerForm" role="form" class="form-horizontal col-sm-12" novalidate>
     <div class="form-group">
         <label for="usernameInput" class="col-sm-4 control-label">Потребителско Име *</label>
         <div class="col-sm-8">
             <input ng-model="user.username" type="text" id="usernameInput" name="usernameInput" class="form-control small-input" ng-required="true" />
-            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && registerForm.usernameInput.$error.required">
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.usernameInput.$error.required">
                 Задължително поле
             </span>
         </div>
@@ -20,7 +23,7 @@
         <label for="emailInput" class="col-sm-4 control-label">E-mail *</label>
         <div class="col-sm-8">
             <input type="email" ng-model="user.email" id="emailInput" name="emailInput" class="form-control small-input" ng-required="true" />
-            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && registerForm.emailInput.$error.required">
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.emailInput.$error.required">
                 Задължително поле
             </span>
         </div>
@@ -29,11 +32,11 @@
         <label for="emailConfirmInput" class="col-sm-4 control-label">Потвърди E-mail *</label>
         <div class="col-sm-8">
             <input type="email" ng-model="user.confirmemail" id="emailConfirmInput" name="emailConfirmInput" class="form-control small-input" ng-required="true" />
-            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && registerForm.emailConfirmInput.$error.required">
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.emailConfirmInput.$error.required">
                 Задължително поле
             </span>
-            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && registerForm.emailConfirmInput.$error.match">
-                Паролите не съвпадат
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.emailConfirmInput.$error.match">
+                Имейлите не съвпадат
             </span>
         </div>
     </div>
@@ -41,7 +44,7 @@
         <label for="passwordInput" class="col-sm-4 control-label">Парола *</label>
         <div class="col-sm-8">
             <input type="password" ng-model="user.password" id="passwordInput" name="passwordInput" class="form-control small-input" ng-required="true" />
-            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && registerForm.passwordInput.$error.required">
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.passwordInput.$error.required">
                 Задължително поле
             </span>
         </div>
@@ -50,10 +53,10 @@
         <label for="passwordConfirmInput" class="col-sm-4 control-label">Потвърди Паролата *</label>
         <div class="col-sm-8">
             <input type="password" name="confirmpassword" ng-model="user.confirmpassword" id="passwordConfirmInput" class="form-control small-input" ng-required="true" />
-            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && registerForm.confirmpassword.$error.match">
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.confirmpassword.$error.match">
                 Паролите не съвпадат
             </span>
-            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && registerForm.confirmpassword.$error.required">
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.confirmpassword.$error.required">
                 Задължително поле
             </span>
         </div>
@@ -62,13 +65,16 @@
         <label for="yearOfGraduationInput" class="col-sm-4 control-label">Година На Завършване *</label>
         <div class="col-sm-8">
             <input type="number" name="yearOfGraduation" ng-model="user.yearOfGraduation" id="yearOfGraduationInput" class="form-control small-input" ng-required="true" min="1950" max="2020" />
-            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && registerForm.yearOfGraduation.$error.number">
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.yearOfGraduation.$error.number">
                 Въведете число
             </span>
-            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && registerForm.yearOfGraduation.$error.min">
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.yearOfGraduation.$error.required">
+                Задължително поле
+            </span>
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.yearOfGraduation.$error.min">
                 Годината трябва да е след 1950
             </span>
-            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && registerForm.yearOfGraduation.$error.max">
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.yearOfGraduation.$error.max">
                 Годината трябва да е преди 2020
             </span>
         </div>
@@ -77,7 +83,7 @@
         <label for="divisionInput" class="col-sm-4 control-label">Паралелка *</label>
         <div class="col-sm-8">
             <select ng-model="user.division" id="divisionInput" name="divisionInput" ng-options="division for division in divisions"></select>
-            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && registerForm.divisionInput.$error.required">
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.divisionInput.$error.required">
                 Задължително поле
             </span>
         </div>
@@ -86,7 +92,7 @@
         <label for="firstNameInput" class="col-sm-4 control-label">Първо Име *</label>
         <div class="col-sm-8">
             <input type="text" ng-model="user.firstName" id="firstNameInput" name="firstNameInput" class="form-control small-input" ng-required="true" />
-            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && registerForm.firstNameInput.$error.required">
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.firstNameInput.$error.required">
                 Задължително поле
             </span>
         </div>
@@ -95,7 +101,7 @@
         <label for="middleNameInput" class="col-sm-4 control-label">Средно Име *</label>
         <div class="col-sm-8">
             <input type="text" ng-model="user.middleName" id=middleNameInput" name="middleNameInput" class="form-control small-input" ng-required="true" />
-            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && registerForm.middleNameInput.$error.required">
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.middleNameInput.$error.required">
                 Задължително поле
             </span>
         </div>
@@ -104,7 +110,7 @@
         <label for="familyNameInput" class="col-sm-4 control-label">Фамилно Име *</label>
         <div class="col-sm-8">
             <input type="text" ng-model="user.lastName" id=familyNameInput" name="familyNameInput" class="form-control small-input" ng-required="true" />
-            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && registerForm.familyNameInput.$error.required">
+            <span class="comment-alert comment-arrow" ng-if="validation.trySentInvalidForm && registerForm.familyNameInput.$error.required">
                 Задължително поле
             </span>
         </div>

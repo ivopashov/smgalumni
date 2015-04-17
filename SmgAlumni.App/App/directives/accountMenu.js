@@ -8,8 +8,8 @@
 
                 $scope.menuItems = [
                     { title: "Начало", sref: "homeauth", statename: "homeauth" },
-                    { title: "Редактирай Си Профила", sref: "account.manageaccount", statename: "account.manageaccount" },
-                    { title: "Смени Си Паролата", sref: "account.changepassword", statename: "account.changepassword" },
+                    { title: "Редакция на профил", sref: "account.manageaccount", statename: "account.manageaccount" },
+                    { title: "Смяна на парола", sref: "account.changepassword", statename: "account.changepassword" },
 
                 ];
             }

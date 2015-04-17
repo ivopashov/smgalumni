@@ -17,7 +17,7 @@
         };
 
         var logout = function () {
-            sessionStorage.authenticationData = '';
+            sessionStorage.removeItem('authenticationData');
             $rootScope.$broadcast('logout');
         };
         return ({
