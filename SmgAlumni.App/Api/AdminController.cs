@@ -19,22 +19,19 @@ namespace SmgAlumni.App.Api
     public class AdminController : BaseApiController
     {
 
-        private readonly UserRepository _userRepository;
         private readonly RoleRepository _roleRepository;
         private readonly NewsRepository _newsRepository;
         private readonly CauseRepository _causeRepository;
         private readonly EFUserManager _userManager;
         private User _user;
 
-        public AdminController(Logger logger, UserRepository userRepository,
+        public AdminController(Logger logger,
             RoleRepository roleRepository,
             NewsRepository newsRepository,
             CauseRepository causeRepository,
             EFUserManager userManager)
             : base(logger)
         {
-            _userRepository = userRepository;
-            VerifyNotNull(_userRepository);
             _roleRepository = roleRepository;
             VerifyNotNull(_roleRepository);
             _newsRepository = newsRepository;
@@ -53,7 +50,7 @@ namespace SmgAlumni.App.Api
             var vm = new List<UserForVerifyViewModel>();
             try
             {
-                var unverifiedUsers = _userRepository.GetAll().Where(a => !a.Verified).ToList();
+                var unverifiedUsers = Users.GetAll().Where(a => !a.Verified).ToList();
                 if (unverifiedUsers.Any())
                 {
                     vm = AutoMapper.Mapper.Map<List<UserForVerifyViewModel>>(unverifiedUsers);

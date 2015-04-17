@@ -12,19 +12,16 @@ namespace SmgAlumni.App.Api
 {
     public class ForumCommentController : BaseApiController
     {
-        private readonly UserRepository _userRepository;
         private readonly ForumAnswerRepository _forumAnswerRepository;
         private readonly ForumThreadRepository _forumThreadRepository;
         private readonly ForumCommentsRepository _forumCommentRepository;
 
         public ForumCommentController(ForumAnswerRepository forumAnswerRepository, Logger logger,
-            UserRepository userRepository, ForumThreadRepository forumThreadRepository,ForumCommentsRepository forumCommentRepository)
+             ForumThreadRepository forumThreadRepository,ForumCommentsRepository forumCommentRepository)
             : base(logger)
         {
             _forumAnswerRepository = forumAnswerRepository;
             VerifyNotNull(_forumAnswerRepository);
-            _userRepository = userRepository;
-            VerifyNotNull(_userRepository);
             _forumThreadRepository = forumThreadRepository;
             VerifyNotNull(_forumThreadRepository);
             _forumCommentRepository = forumCommentRepository;
@@ -47,7 +44,7 @@ namespace SmgAlumni.App.Api
             fa.Comments.Add(comment);
             _forumAnswerRepository.Update(fa);
             CurrentUser.ForumComments.Add(comment);
-            _userRepository.Update(CurrentUser);
+            Users.Update(CurrentUser);
 
             return Ok();
         }

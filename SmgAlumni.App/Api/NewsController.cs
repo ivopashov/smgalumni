@@ -17,15 +17,13 @@ namespace SmgAlumni.App.Api
     public class NewsController : BaseApiController
     {
         private readonly NewsRepository _newsRepository;
-        private readonly UserRepository _userRepository;
 
-        public NewsController(NewsRepository newsRepository, Logger logger, UserRepository userRepository)
+        public NewsController(NewsRepository newsRepository, Logger logger)
             : base(logger)
         {
             _newsRepository = newsRepository;
             VerifyNotNull(_newsRepository);
-            _userRepository = userRepository;
-            VerifyNotNull(_userRepository);
+          
         }
 
         [HttpGet]
@@ -82,7 +80,7 @@ namespace SmgAlumni.App.Api
             try
             {
                 CurrentUser.News.Add(news);
-                _userRepository.Update(CurrentUser);
+                Users.Update(CurrentUser);
                 DomainEvents.Raise<AddNewsDomainEvent>(new AddNewsDomainEvent() { Heading = news.Heading, User = CurrentUser });
                 return Ok();
             }

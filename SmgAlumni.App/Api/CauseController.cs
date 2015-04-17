@@ -17,15 +17,13 @@ namespace SmgAlumni.App.Api
     public class CauseController : BaseApiController
     {
         private readonly CauseRepository _causeRepository;
-        private readonly UserRepository _userRepository;
 
-        public CauseController(CauseRepository causeRepository, Logger logger, UserRepository userRepository)
+        public CauseController(CauseRepository causeRepository, Logger logger)
             : base(logger)
         {
             _causeRepository = causeRepository;
             VerifyNotNull(_causeRepository);
-            _userRepository = userRepository;
-            VerifyNotNull(_userRepository);
+
         }
 
         [HttpPost]
@@ -45,7 +43,7 @@ namespace SmgAlumni.App.Api
             try
             {
                 CurrentUser.Causes.Add(cause);
-                _userRepository.Update(CurrentUser);
+                Users.Update(CurrentUser);
                 DomainEvents.Raise<AddCauseDomainEvent>(new AddCauseDomainEvent() { Heading = cause.Heading, User = CurrentUser});
                 return Ok();
             }

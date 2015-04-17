@@ -17,15 +17,13 @@ namespace SmgAlumni.App.Api
     public class ListingController : BaseApiController
     {
         private readonly ListingRepository _listingRepository;
-        private readonly UserRepository _userRepository;
 
-        public ListingController(ListingRepository listingRepository, Logger logger, UserRepository userRepository)
+        public ListingController(ListingRepository listingRepository, Logger logger)
             : base(logger)
         {
             _listingRepository = listingRepository;
             VerifyNotNull(_listingRepository);
-            _userRepository = userRepository;
-            VerifyNotNull(_userRepository);
+
         }
 
         [HttpPost]
@@ -44,7 +42,7 @@ namespace SmgAlumni.App.Api
             try
             {
                 CurrentUser.Listings.Add(listing);
-                _userRepository.Update(CurrentUser);
+                Users.Update(CurrentUser);
                 return Ok();
             }
             catch (Exception e)

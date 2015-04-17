@@ -12,16 +12,13 @@ namespace SmgAlumni.App.Api
 {
     public class ForumThreadController : BaseApiController
     {
-        private readonly UserRepository _userRepository;
         private readonly ForumThreadRepository _forumThreadRepository;
 
-        public ForumThreadController(ForumThreadRepository forumThreadRepository, Logger logger, UserRepository userRepository)
+        public ForumThreadController(ForumThreadRepository forumThreadRepository, Logger logger)
             : base(logger)
         {
             _forumThreadRepository = forumThreadRepository;
             VerifyNotNull(_forumThreadRepository);
-            _userRepository = userRepository;
-            VerifyNotNull(_userRepository);
         }
 
         [HttpPost]
@@ -39,7 +36,7 @@ namespace SmgAlumni.App.Api
             try
             {
                 CurrentUser.ForumThreads.Add(ft);
-                _userRepository.Update(CurrentUser);
+                Users.Update(CurrentUser);
                 return Ok();
             }
             catch (Exception e)

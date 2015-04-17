@@ -23,18 +23,15 @@ namespace SmgAlumni.App.Api
     {
         private readonly EFUserManager _userManager;
         private readonly NotificationEnqueuer _sender;
-        private readonly UserRepository _userRepository;
 
 
-        public AccountController(EFUserManager userManager, NotificationEnqueuer sender, Logger logger, UserRepository userRepository)
+        public AccountController(EFUserManager userManager, NotificationEnqueuer sender, Logger logger)
             : base(logger)
         {
             _userManager = userManager;
             VerifyNotNull(_userManager);
             _sender = sender;
             VerifyNotNull(_sender);
-            _userRepository = userRepository;
-            VerifyNotNull(_userRepository);
         }
 
         [AllowAnonymous]
@@ -181,7 +178,7 @@ namespace SmgAlumni.App.Api
             if (user == null) return BadRequest("Потребителят не беше намерен");
             try
             {
-                _userRepository.Delete(user);
+                Users.Delete(user);
                 return Ok();
             }
             catch (Exception e)
@@ -206,7 +203,7 @@ namespace SmgAlumni.App.Api
             
             try
             {
-                _userRepository.Update(user);
+                Users.Update(user);
                 return Ok();
             }
             catch (Exception e)
@@ -238,7 +235,7 @@ namespace SmgAlumni.App.Api
                 CurrentUser.Profession = model.Profession;
                 CurrentUser.PhoneNumber = model.PhoneNumber;
 
-                _userRepository.Update(CurrentUser);
+                Users.Update(CurrentUser);
                 return Ok();
             }
             catch(Exception e)

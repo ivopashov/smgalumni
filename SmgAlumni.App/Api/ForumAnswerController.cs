@@ -12,18 +12,15 @@ namespace SmgAlumni.App.Api
 {
     public class ForumAnswerController : BaseApiController
     {
-        private readonly UserRepository _userRepository;
         private readonly ForumAnswerRepository _forumAnswerRepository;
         private readonly ForumThreadRepository _forumThreadRepository;
 
         public ForumAnswerController(ForumAnswerRepository forumAnswerRepository, Logger logger,
-            UserRepository userRepository, ForumThreadRepository forumThreadRepository)
+            ForumThreadRepository forumThreadRepository)
             : base(logger)
         {
             _forumAnswerRepository = forumAnswerRepository;
             VerifyNotNull(_forumAnswerRepository);
-            _userRepository = userRepository;
-            VerifyNotNull(_userRepository);
             _forumThreadRepository = forumThreadRepository;
             VerifyNotNull(_forumThreadRepository);
         }
@@ -46,7 +43,7 @@ namespace SmgAlumni.App.Api
                 ft.Answers.Add(fa);
                 _forumThreadRepository.Update(ft);
                 CurrentUser.ForumAnswers.Add(fa);
-                _userRepository.Update(CurrentUser);
+                Users.Update(CurrentUser);
                 return Ok();
             }
             catch (Exception e)
