@@ -34,16 +34,17 @@ namespace SmgAlumni.App.Api
             {
                 Body = vm.Body,
                 CreatedOn = DateTime.Now,
-                Likes = 0
+                Likes = 0,
+                UserId=CurrentUser.Id
             };
 
             try
             {
+
                 var ft = _forumThreadRepository.GetById(vm.ParentId);
                 ft.Answers.Add(fa);
                 _forumThreadRepository.Update(ft);
-                CurrentUser.ForumAnswers.Add(fa);
-                Users.Update(CurrentUser);
+
                 return Ok();
             }
             catch (Exception e)
@@ -85,7 +86,25 @@ namespace SmgAlumni.App.Api
         {
             var answers = _forumThreadRepository.GetById(forumthreadid).Answers.OrderBy(a => a.CreatedOn)
                 .Take(take).Skip(skip)
-                .Select(a => new { Answer = a, CanEdit = a.User.Id == CurrentUser.Id ? true : false }).ToList();
+                .Select(a => new
+                {
+                    Body = a.Body,
+                    CreatedOn = a.CreatedOn,
+                    CreatedBy = a.User.UserName,
+                    Id = a.Id,
+                    Likes = a.Likes,
+                    CanEdit = a.User.Id == CurrentUser.Id ? true : false,
+                    Comments = a.Comments.Select(b => new
+                    {
+                        Body = b.Body,
+                        CreatedOn = b.CreatedOn,
+                        CreatedBy = b.User.UserName,
+                        Id = b.Id,
+                        CanEdit = b.User.Id == CurrentUser.Id ? true : false,
+                    }).ToList()
+                })
+                .ToList();
+
             return Ok(answers);
         }
 
@@ -106,7 +125,7 @@ namespace SmgAlumni.App.Api
 
             var fa = _forumAnswerRepository.GetById(vm.Id);
             if (fa == null) return BadRequest("Темата с такова id не можа да бъде намерена");
-            if(fa.User.Id!=CurrentUser.Id)
+            if (fa.User.Id != CurrentUser.Id)
                 return BadRequest("Нямате права да променяте отговорът");
             fa.Body = vm.Body;
             fa.CreatedOn = DateTime.Now;
@@ -122,6 +141,16 @@ namespace SmgAlumni.App.Api
                 return BadRequest("Темата не можа да бъде променена");
             }
 
+        }
+
+        [HttpGet]
+        [Route("api/forumanswer/modifylikescount")]
+        public IHttpActionResult ModifyLikesCount([FromUri] int Id,[FromUri] int Like)
+        {
+            var answer = _forumAnswerRepository.GetById(Id);
+            answer.Likes += Like;
+            _forumAnswerRepository.Update(answer);
+            return Ok();
         }
     }
 }

@@ -264,6 +264,7 @@
     <Content Include="App\controllers\userCausesController.js" />
     <Content Include="App\controllers\adminCausesController.js" />
     <Content Include="App\controllers\userForumController.js" />
+    <Content Include="App\controllers\userForumThreadController.js" />
     <Content Include="App\controllers\userListingsController.js" />
     <Content Include="App\controllers\userNewsController.js" />
     <Content Include="App\controllers\changePasswordController.js" />
@@ -332,6 +333,7 @@
     <Content Include="App\templates\masteradmin\manageroles.html" />
     <Content Include="App\templates\masteradmin\masterAdminBase.html" />
     <Content Include="App\templates\masteradmin\settings.html" />
+    <Content Include="App\templates\user\forumThread.html" />
     <Content Include="App\templates\user\listings.html" />
     <Content Include="App\templates\user\forum.html" />
     <Content Include="App\templates\user\news.html" />

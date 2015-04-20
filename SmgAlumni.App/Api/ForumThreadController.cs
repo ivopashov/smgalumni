@@ -51,7 +51,9 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult GetById([FromUri] int id)
         {
             var ft = _forumThreadRepository.GetById(id);
-            return Ok(ft);
+            if (ft == null) return BadRequest("Темата не можа да бъде намерена");
+
+            return Ok(new { Body = ft.Body, Id = ft.Id, Heading = ft.Heading, CreatedOn = ft.CreatedOn, CreatedBy = ft.User.UserName });
         }
 
         [HttpGet]
@@ -59,7 +61,7 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult GetAll()
         {
             var ft = _forumThreadRepository.GetAll().
-                Select(a => new { Heading = a.Heading, DateCreated = a.CreatedOn, Id = a.Id, CreatedBy=a.User.UserName}).ToList();
+                Select(a => new { Heading = a.Heading, DateCreated = a.CreatedOn, Id = a.Id, CreatedBy = a.User.UserName }).ToList();
             return Ok(ft);
         }
 
@@ -87,7 +89,7 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
         {
             var news = _forumThreadRepository.GetAll().OrderBy(a => a.CreatedOn).Take(take).Skip(skip).
-                Select(a => new { Heading = a.Heading, DateCreated = a.CreatedOn, Id = a.Id, CreatedBy = a.User.UserName, NumberOfAnswers=a.Answers.Count }).ToList();
+                Select(a => new { Heading = a.Heading, DateCreated = a.CreatedOn, Id = a.Id, CreatedBy = a.User.UserName, NumberOfAnswers = a.Answers.Count }).ToList();
             return Ok(news);
         }
 

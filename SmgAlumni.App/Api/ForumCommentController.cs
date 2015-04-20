@@ -17,7 +17,7 @@ namespace SmgAlumni.App.Api
         private readonly ForumCommentsRepository _forumCommentRepository;
 
         public ForumCommentController(ForumAnswerRepository forumAnswerRepository, Logger logger,
-             ForumThreadRepository forumThreadRepository,ForumCommentsRepository forumCommentRepository)
+             ForumThreadRepository forumThreadRepository, ForumCommentsRepository forumCommentRepository)
             : base(logger)
         {
             _forumAnswerRepository = forumAnswerRepository;
@@ -39,14 +39,20 @@ namespace SmgAlumni.App.Api
             {
                 Body = vm.Body,
                 CreatedOn = DateTime.Now,
+                UserId = CurrentUser.Id
             };
 
             fa.Comments.Add(comment);
             _forumAnswerRepository.Update(fa);
-            CurrentUser.ForumComments.Add(comment);
-            Users.Update(CurrentUser);
 
-            return Ok();
+            return Ok(new
+            {
+                Body = comment.Body,
+                CreatedOn = comment.CreatedOn,
+                CreatedBy = CurrentUser.UserName,
+                Id = comment.Id,
+                CanEdit = comment.UserId == CurrentUser.Id ? true : false,
+            });
         }
 
         [HttpGet]

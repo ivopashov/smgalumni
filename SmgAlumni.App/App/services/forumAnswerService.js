@@ -5,8 +5,8 @@
             return commonService.$http.get('api/forumanswer/delete?id=' + item.id);
         }
 
-        function count() {
-            return commonService.$http.get('api/forumanswer/count');
+        function count(id) {
+            return commonService.$http.get('api/forumanswer/count?forumthreadid=' + id);
         }
 
         function skipandtake(skip, take, forumthreadid) {
@@ -24,6 +24,10 @@
             return commonService.$http.get('api/forumanswer/forumanswerbyid?id=' + id);
         }
 
+        function modifyLikes(id, like) {
+            return commonService.$http.get('api/forumanswer/modifylikescount?id=' + id + '&like=' + like);
+        }
+
         function update(vm) {
             return commonService.$http.post('api/forumanswer/update', vm);
 
@@ -39,6 +43,8 @@
             skipandtake: skipandtake,
             getById: getById,
             update: update,
-            addNew: addNew
+            addNew: addNew,
+            itemsPerPage: itemsPerPage,
+            modifyLikes: modifyLikes
         });
     }])

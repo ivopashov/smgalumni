@@ -110,6 +110,12 @@ app.config([
             controller: 'userForumController',
             authenticate: true
         });
+        $stateProvider.state('homeauth.forumthread', {
+            url: 'forumthread/:id',
+            templateUrl: '/App/templates/user/forumThread.html',
+            controller: 'userForumThreadController',
+            authenticate: true
+        });
         $stateProvider.state('account', {
             url: '/account',
             templateUrl: '/App/templates/account/accountBase.html',

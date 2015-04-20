@@ -39,6 +39,7 @@
             skipandtake: skipandtake,
             getById: getById,
             update: update,
-            addNew: addNew
+            addNew: addNew,
+            itemsPerPage:itemsPerPage
         });
     }])

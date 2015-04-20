@@ -1,0 +1,83 @@
+﻿<h1>Тема</h1>
+<ol class="breadcrumb">
+    <li><a href="#" ng-click="gotoForum()">Обратно във Форум</a></li>
+    <li><a href="#" ng-click="createAnswer()">Отговор</a></li>
+</ol>
+
+<div class="forumThreadHolder">
+    <h3>
+        {{forumThread.heading}}
+    </h3>
+    <div class="forumThreadBody">
+        <div ng-if="forumThread.body" html-container html="{{forumThread.body}}"></div>
+        <br />
+        <br />
+    </div>
+    <div class="createdByOn">
+        <div class="createdBy">
+            {{forumThread.createdBy}}
+        </div>
+        <div class="createdOn">
+            {{forumThread.createdOn | date : 'dd/MM/yyyy'}}
+        </div>
+    </div>
+</div>
+
+<div ng-repeat="answer in items" class="forumAnswerHolder">
+    <hr />
+    <table>
+        <tr>
+            <td class="votecell">
+                <span class="glyphicon glyphicon-chevron-up" ng-click="modifyLikes('increase',answer)"></span>
+                <span ng-bind="answer.likes" style="text-align:center"></span>
+                <span class="glyphicon glyphicon-chevron-down" ng-click="modifyLikes('decrease',answer)"></span>
+            </td>
+            <td>
+                <div class="forumAnswerBody">
+                    <div html-container html="{{answer.body}}"></div>
+                    <br />
+                    <br />
+                    <div class="createdByOn">
+                        <div class="createdBy">
+                            {{answer.createdBy}}
+                        </div>
+                        <div class="createdOn">
+                            {{answer.createdOn | date : 'dd/MM/yyyy'}}
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    
+    <div ng-if="answer.comments.length>0"><strong><u>Коментари</u></strong></div>
+    <div ng-repeat="comment in answer.comments" class="forumCommentHolder">
+        <hr />
+        <div class="forumCommentBody">
+            <div html-container html="{{comment.body}}"></div>
+            <br />
+            <br />
+        </div>
+        <div class="createdByOn">
+            <div class="createdBy">
+                {{comment.createdBy}}
+            </div>
+            <div class="createdOn">
+                {{comment.createdOn | date : 'dd/MM/yyyy'}}
+            </div>
+        </div>
+    </div>
+    <div>
+        <a href="#" ng-click="createComment(answer)">
+            Добави коментар
+        </a>
+    </div>
+</div>
+
+<div ng-if="totalCount > 0"
+     custom-pager kind="kind"
+     items="items"
+     params="params"
+     total-count="totalCount"
+     current-selected-page="currentSelectedPage">
+</div>
