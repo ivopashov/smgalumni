@@ -14,7 +14,6 @@ namespace SmgAlumni.EF.DAL
         public SmgAlumniContext()
             : base("SmgAlumniContext")
         {
-
         }
 
         public DbSet<User> Users { get; set; }

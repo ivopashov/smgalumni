@@ -1,4 +1,4 @@
-﻿app.directive('htmlContainer', ['$compile', function ($compile) {
+﻿app.directive('htmlContainer', [function () {
 
     return {
         restrict: 'AE',

@@ -1,6 +1,6 @@
 ﻿app.service('commonService', [
-    '$http', '$q', '$location', '$rootScope', 'notificationService', 'ngDialog', '$timeout', '$parse', '$compile', '$location', '$state',
-    function ($http, $q, $location, $rootScope, notificationService, ngDialog, $timeout, $parse, $compile, $location, $state) {
+    '$http', '$q', '$location', '$rootScope', 'notificationService', 'ngDialog', '$timeout', '$parse', '$compile', '$state',
+    function ($http, $q, $location, $rootScope, notificationService, ngDialog, $timeout, $parse, $compile,  $state) {
 
         return ({
             $q: $q,

@@ -75,11 +75,37 @@ app.controller('userForumThreadController',
             }
 
             $scope.editAnswer = function (answer) {
-
+                $scope.selectedItem = {body:answer.body};
+                commonService.ngDialog.openConfirm({
+                    templateUrl: '/App/templates/dialog/editItemWithBodyOnly.html',
+                    scope: $scope
+                }).then(function (success) {
+                    var vm = { body: $scope.selectedItem.body, id: answer.id }
+                    forumAnswerService.update(vm).then(function () {
+                        answer.body = $scope.selectedItem.body;
+                        $scope.selectedItem = {};
+                        commonService.notification.success("Отговорът беше редактиран успешно");
+                    }, function (error) {
+                        commonService.notification.error(error.data.message);
+                    })
+                })
             }
 
-            $scope.editComment = function (answer) {
-
+            $scope.editComment = function (comment) {
+                $scope.selectedItem = { body: comment.body };
+                commonService.ngDialog.openConfirm({
+                    templateUrl: '/App/templates/dialog/editItemWithBodyOnly.html',
+                    scope: $scope
+                }).then(function (success) {
+                    var vm = { body: $scope.selectedItem.body, id: comment.id }
+                    forumCommentService.update(vm).then(function () {
+                        comment.body = $scope.selectedItem.body;
+                        $scope.selectedItem = {};
+                        commonService.notification.success("Коментарът беше редактиран успешно");
+                    }, function (error) {
+                        commonService.notification.error(error.data.message);
+                    })
+                })
             }
 
             $scope.deleteAnswer = function (item) {
@@ -102,8 +128,9 @@ app.controller('userForumThreadController',
                     scope: $scope
                 }).then(function (success) {
                     forumCommentService.deleteItem(item).then(function () {
-                        $scope.items[parentId].comments.splice($scope.items[parentId].comments.indexOf(item), 1);
-                        commonService.notification.success("Отговорът беше изтрит успешно");
+                        var answer = $scope.items.filter(function (x) { return x.id == parentId })[0];
+                        answer.comments.splice(answer.comments.indexOf(item), 1);
+                        commonService.notification.success("Коментарът беше изтрит успешно");
                     }, function (error) {
                         commonService.notification.error(error.data.message);
                     })
@@ -132,7 +159,7 @@ app.controller('userForumThreadController',
                     templateUrl: '/App/templates/dialog/editItemWithBodyOnly.html',
                     scope: $scope
                 }).then(function (success) {
-                    var vm = { body: $scope.selectedItem.body, parentId: $stateParams.id }
+                    var vm = { body: $scope.selectedItem.body, parentId: answer.id }
                     forumCommentService.addNew(vm).then(function (success1) {
                         $scope.selectedItem = {};
                         answer.comments.push(success1.data);

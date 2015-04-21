@@ -83,7 +83,7 @@ namespace SmgAlumni.App.Api
 
         [HttpPost]
         [Route("api/forumcomment/update")]
-        public IHttpActionResult Update(ForumComment vm)
+        public IHttpActionResult Update(AnswerBodyViewModel vm)
         {
             if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");
 

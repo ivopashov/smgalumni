@@ -14,15 +14,18 @@ namespace SmgAlumni.App.Api
     {
         private readonly ForumAnswerRepository _forumAnswerRepository;
         private readonly ForumThreadRepository _forumThreadRepository;
+        private readonly ForumCommentsRepository _forumCommentsRepositoty;
 
         public ForumAnswerController(ForumAnswerRepository forumAnswerRepository, Logger logger,
-            ForumThreadRepository forumThreadRepository)
+            ForumThreadRepository forumThreadRepository, ForumCommentsRepository forumCommentsRepositoty)
             : base(logger)
         {
             _forumAnswerRepository = forumAnswerRepository;
             VerifyNotNull(_forumAnswerRepository);
             _forumThreadRepository = forumThreadRepository;
             VerifyNotNull(_forumThreadRepository);
+            _forumCommentsRepositoty = forumCommentsRepositoty;
+            VerifyNotNull(_forumCommentsRepositoty);
         }
 
         [HttpPost]
@@ -35,7 +38,7 @@ namespace SmgAlumni.App.Api
                 Body = vm.Body,
                 CreatedOn = DateTime.Now,
                 Likes = 0,
-                UserId=CurrentUser.Id
+                UserId = CurrentUser.Id
             };
 
             try
@@ -68,9 +71,17 @@ namespace SmgAlumni.App.Api
         {
             var fa = _forumAnswerRepository.GetById(id);
             if (fa == null) return BadRequest("Темата не беше намерена. Моля опитайте отново.");
+
+            var comments = _forumCommentsRepositoty.GetAll().Where(a => a.ForumAnswerId == fa.Id).ToList();
             try
             {
+                foreach (var item in comments)
+                {
+                    _forumCommentsRepositoty.Delete(item);
+                }
+
                 _forumAnswerRepository.Delete(fa);
+
                 return Ok();
             }
             catch (Exception e)
@@ -85,8 +96,8 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip, [FromUri]int forumthreadid)
         {
             var answers = _forumThreadRepository.GetById(forumthreadid).Answers.OrderBy(a => a.CreatedOn)
-                .Take(take).Skip(skip)
-                .Select(a => new
+                .Take(take).Skip(skip);
+            var flattenedAnswers = answers.Select(a => new
                 {
                     Body = a.Body,
                     CreatedOn = a.CreatedOn,
@@ -101,11 +112,11 @@ namespace SmgAlumni.App.Api
                         CreatedBy = b.User.UserName,
                         Id = b.Id,
                         CanEdit = b.User.Id == CurrentUser.Id ? true : false,
-                    }).ToList()
+                    })
                 })
                 .ToList();
 
-            return Ok(answers);
+            return Ok(flattenedAnswers);
         }
 
         [HttpGet]
@@ -119,7 +130,7 @@ namespace SmgAlumni.App.Api
 
         [HttpPost]
         [Route("api/forumanswer/update")]
-        public IHttpActionResult Update(ForumAnswer vm)
+        public IHttpActionResult Update(AnswerBodyViewModel vm)
         {
             if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");
 
@@ -145,7 +156,7 @@ namespace SmgAlumni.App.Api
 
         [HttpGet]
         [Route("api/forumanswer/modifylikescount")]
-        public IHttpActionResult ModifyLikesCount([FromUri] int Id,[FromUri] int Like)
+        public IHttpActionResult ModifyLikesCount([FromUri] int Id, [FromUri] int Like)
         {
             var answer = _forumAnswerRepository.GetById(Id);
             answer.Likes += Like;

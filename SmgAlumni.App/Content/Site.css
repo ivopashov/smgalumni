@@ -197,21 +197,16 @@ input.small-input {
 .forumAnswerHolder {
     position: relative;
     padding: 15px;
-    /*border: 1px solid #428bca;
-    border-radius: 5px;*/
     margin: 10px;
 }
 
-.forumAnswerBody{
-    position:relative;
-}
 
 .createdByOn {
     font-size: small;
-    position: absolute;
     bottom: 0;
     right: 0;
     margin: 12px;
+    float:right;
 }
 
 .forumThreadBody {
@@ -223,9 +218,19 @@ input.small-input {
     padding-right:20px;
     vertical-align:top;
     font-size:100%;
+    width:100px;
+    text-align:left;
 }
 
 .votecell span{
     display: block;
     margin:7px;
+}
+
+#likes{
+    padding-left:4px;
+}
+hr{
+    margin-bottom:7px !important;
+    margin-top:7px !important;
 }

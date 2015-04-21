@@ -1,0 +1,9 @@
+C:\Repositories\SMG alumni\SmgAlumni.EF\bin\Release\SmgAlumni.EF.dll.config
+C:\Repositories\SMG alumni\SmgAlumni.EF\bin\Release\SmgAlumni.EF.dll
+C:\Repositories\SMG alumni\SmgAlumni.EF\bin\Release\SmgAlumni.EF.pdb
+C:\Repositories\SMG alumni\SmgAlumni.EF\bin\Release\EntityFramework.dll
+C:\Repositories\SMG alumni\SmgAlumni.EF\bin\Release\EntityFramework.SqlServer.dll
+C:\Repositories\SMG alumni\SmgAlumni.EF\bin\Release\EntityFramework.xml
+C:\Repositories\SMG alumni\SmgAlumni.EF\bin\Release\EntityFramework.SqlServer.xml
+C:\Repositories\SMG alumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.dll
+C:\Repositories\SMG alumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.pdb

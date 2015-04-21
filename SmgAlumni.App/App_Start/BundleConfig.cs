@@ -40,7 +40,7 @@ namespace SmgAlumni.App
 
             bundles.Add(
                 new StyleBundle("~/bundles/css/site").Include(
-                    "~/Content/bootstrap.css",
+                    "~/Content/bootstrap/bootstrap.css",
                     "~/Content/Site.css",
                     "~/Content/toastr.css",
                     "~/Content/less/ng-table.css",
@@ -49,6 +49,10 @@ namespace SmgAlumni.App
                     "~/Content/ngDialog-theme-default.css",
                     "~/Content/ng-ckeditor.css",
                     "~/Content/ng-table.css"));
+
+
+            BundleTable.EnableOptimizations = true;
         }
+        
     }
 }

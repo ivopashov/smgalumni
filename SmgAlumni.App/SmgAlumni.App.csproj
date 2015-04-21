@@ -241,6 +241,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AnswerBodyViewModel.cs" />
     <Compile Include="Models\CauseNewsViewModelWithoutId.cs" />
     <Compile Include="Models\CauseNewsViewModes.cs" />
     <Compile Include="Models\ItemWithBodyAndParentIdViewModel.cs" />
@@ -339,8 +340,9 @@
     <Content Include="App\templates\user\news.html" />
     <Content Include="App\templates\user\causes.html" />
     <Content Include="App\templates\user\search.html" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\bootstrap.css" />
+    <Content Include="Content\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\loading-bar.css" />
     <Content Include="Content\loading-bar.min.css" />
     <Content Include="Content\ng-ckeditor.css" />
@@ -350,7 +352,6 @@
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\angular-animate.js" />
@@ -395,10 +396,13 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="fonts\CaviarDreams\CaviarDreams.ttf" />
-    <Content Include="fonts\CaviarDreams\CaviarDreams_BoldItalic.ttf" />
-    <Content Include="fonts\CaviarDreams\CaviarDreams_Italic.ttf" />
-    <Content Include="fonts\CaviarDreams\Caviar_Dreams_Bold.ttf" />
+    <Content Include="Content\fonts\CaviarDreams\Caviar_Dreams_Bold.ttf" />
+    <Content Include="Content\fonts\CaviarDreams\CaviarDreams.ttf" />
+    <Content Include="Content\fonts\CaviarDreams\CaviarDreams_BoldItalic.ttf" />
+    <Content Include="Content\fonts\CaviarDreams\CaviarDreams_Italic.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -413,6 +417,7 @@
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
+    <None Include="Properties\PublishProfiles\smg-alumni.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\FileAPI.flash.swf" />
     <Content Include="Scripts\FileAPI.min.js" />
@@ -1208,9 +1213,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
