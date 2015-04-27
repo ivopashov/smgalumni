@@ -1,9 +1,6 @@
-﻿using SmgAlumni.EF.Models;
+﻿using AutoMapper;
+using SmgAlumni.EF.Models;
 using SmgAlumni.Utils.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace SmgAlumni.App.Models
 {
@@ -13,7 +10,7 @@ namespace SmgAlumni.App.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public void CreateMappings(AutoMapper.IConfiguration configuration)
+        public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<User, UserAccountShortViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

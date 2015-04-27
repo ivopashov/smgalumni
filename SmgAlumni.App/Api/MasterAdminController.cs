@@ -1,12 +1,9 @@
-﻿using NLog;
+﻿using System;
+using System.Linq;
+using System.Web.Http;
+using NLog;
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
 using SmgAlumni.EF.Models;
 
 namespace SmgAlumni.App.Api

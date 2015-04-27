@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace SmgAlumni.App.Models
+﻿namespace SmgAlumni.App.Models
 {
     public class CauseNewsViewModes
     {

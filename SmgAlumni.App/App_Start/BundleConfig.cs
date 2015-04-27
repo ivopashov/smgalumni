@@ -1,4 +1,4 @@
-﻿using SmgAlumni.App.App_Start;
+using SmgAlumni.App.App_Start;
 using System.Web;
 using System.Web.Optimization;
 

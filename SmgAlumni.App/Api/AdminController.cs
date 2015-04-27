@@ -1,4 +1,9 @@
-﻿using NLog;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using AutoMapper;
+using NLog;
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.DAL;
@@ -6,12 +11,6 @@ using SmgAlumni.EF.Models;
 using SmgAlumni.Utils.DomainEvents;
 using SmgAlumni.Utils.DomainEvents.Interfaces;
 using SmgAlumni.Utils.Membership;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
 
 namespace SmgAlumni.App.Api
 {
@@ -53,7 +52,7 @@ namespace SmgAlumni.App.Api
                 var unverifiedUsers = Users.GetAll().Where(a => !a.Verified).ToList();
                 if (unverifiedUsers.Any())
                 {
-                    vm = AutoMapper.Mapper.Map<List<UserForVerifyViewModel>>(unverifiedUsers);
+                    vm = Mapper.Map<List<UserForVerifyViewModel>>(unverifiedUsers);
                 }
                 return Ok(vm);
             }

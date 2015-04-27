@@ -12,7 +12,7 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             ContextKey = "SmgAlumni.EF.DAL.SmgAlumniContext";
             AutomaticMigrationDataLossAllowed = false;
         }

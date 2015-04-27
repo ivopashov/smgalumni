@@ -1,20 +1,20 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SmgAlumni.App.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(SmgAlumni.App.App_Start.NinjectWebCommon), "Stop")]
+using System;
+using System.Data.Entity;
+using System.Web;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using Ninject;
+using Ninject.Web.Common;
+using NLog;
+using SmgAlumni.App.App_Start;
+using SmgAlumni.EF.DAL;
+using SmgAlumni.Utils.Settings;
+using WebActivatorEx;
+
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
+[assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
 namespace SmgAlumni.App.App_Start
 {
-    using System;
-    using System.Web;
-
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
-    using Ninject;
-    using Ninject.Web.Common;
-    using SmgAlumni.Utils.Settings;
-    using NLog;
-    using System.Data.Entity;
-    using SmgAlumni.EF.DAL;
-
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();

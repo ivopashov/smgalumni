@@ -1,16 +1,12 @@
-﻿using SimpleInjector;
-using SimpleInjector.Integration.WebApi;
+﻿using System;
+using SimpleInjector;
+using SimpleInjector.Extensions;
+using SmgAlumni.Data.Repositories;
+using SmgAlumni.EF.DAL;
 using SmgAlumni.Utils.DomainEvents;
 using SmgAlumni.Utils.DomainEvents.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using SimpleInjector.Extensions;
-using System.Web.Http;
-using SmgAlumni.Data.Repositories;
-using SmgAlumni.Utils.Membership;
 using SmgAlumni.Utils.EfEmailQuerer;
+using SmgAlumni.Utils.Membership;
 using SmgAlumni.Utils.Settings;
 
 namespace SmgAlumni.App.App_Start
@@ -40,7 +36,7 @@ namespace SmgAlumni.App.App_Start
                     container.RegisterAll,
                     AppDomain.CurrentDomain.GetAssemblies());
             container.Register<ActivityRepository, ActivityRepository>();
-            container.Register<SmgAlumni.EF.DAL.SmgAlumniContext, SmgAlumni.EF.DAL.SmgAlumniContext>();
+            container.Register<SmgAlumniContext, SmgAlumniContext>();
             container.Register<UserRepository, UserRepository>();
             container.Register<EFUserManager, EFUserManager>();
             container.Register<NotificationEnqueuer, NotificationEnqueuer>();

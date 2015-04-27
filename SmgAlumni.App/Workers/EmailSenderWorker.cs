@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Web;
-using System.Web.Hosting;
 using System.Net.Mail;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
-using SmgAlumni.Utils.Settings;
+using System.Web.Hosting;
+using SmgAlumni.App.Workers;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.DAL;
-using FluentEmail;
-using SmgAlumni.Utils.EfEmailQuerer.Serialization;
 using SmgAlumni.EF.Models;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
-using SmgAlumni.App.Workers;
+using SmgAlumni.Utils.EfEmailQuerer.Serialization;
+using SmgAlumni.Utils.Settings;
+using WebActivatorEx;
 
-[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(EmailSenderWorker), "StartTimer")]
+[assembly: PostApplicationStartMethod(typeof(EmailSenderWorker), "StartTimer")]
 
 namespace SmgAlumni.App.Workers
 {

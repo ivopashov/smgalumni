@@ -1,14 +1,11 @@
-﻿using NLog;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using AutoMapper;
+using NLog;
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
-using SmgAlumni.Utils.Identity;
 using SmgAlumni.Utils.Membership;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
 
 namespace SmgAlumni.App.Api
 {
@@ -35,7 +32,7 @@ namespace SmgAlumni.App.Api
             var user = _userRepository.GetById(id);
             if (user == null) return BadRequest("Възникна грешка. Моля опитайте отново");
 
-            var vm = AutoMapper.Mapper.Map<UserAccountViewModel>(user);
+            var vm = Mapper.Map<UserAccountViewModel>(user);
             return Ok(vm);
         }
 
@@ -44,7 +41,7 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult GetUserByUserNameShortVM([FromUri]string username)
         {
             var user = _userManager.GetUserByUserName(username);
-            var vm = AutoMapper.Mapper.Map<UserAccountShortWithRolesViewModel>(user);
+            var vm = Mapper.Map<UserAccountShortWithRolesViewModel>(user);
             return Ok(vm);
         }
 
@@ -53,7 +50,7 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult GetUserByUserNameLongVM([FromUri]string username)
         {
             var users = _userRepository.GetAll().Where(a => a.UserName.Contains(username)).ToList();
-            var vm = AutoMapper.Mapper.Map<List<UserAccountViewModel>>(users);
+            var vm = Mapper.Map<List<UserAccountViewModel>>(users);
             return Ok(vm);
         }
 
@@ -65,7 +62,7 @@ namespace SmgAlumni.App.Api
             if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");
 
             var users = _userRepository.GetAll().Where(a=>a.Division==vm.Division && a.YearOfGraduation==vm.YearOfGraduation).ToList();
-            if (users.Any()) foundUsers = AutoMapper.Mapper.Map<List<UserAccountShortViewModel>>(users);
+            if (users.Any()) foundUsers = Mapper.Map<List<UserAccountShortViewModel>>(users);
             
             return Ok(foundUsers);
         }

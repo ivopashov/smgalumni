@@ -1,9 +1,8 @@
 ﻿using Microsoft.Owin;
-using Microsoft.Owin.Security.OAuth;
 using Owin;
-using System;
+using SmgAlumni.App;
 
-[assembly: OwinStartupAttribute(typeof(SmgAlumni.App.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 
 namespace SmgAlumni.App
 {

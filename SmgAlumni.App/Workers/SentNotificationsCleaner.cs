@@ -1,15 +1,14 @@
-﻿using SmgAlumni.App.Workers;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Web.Hosting;
+using SmgAlumni.App.Workers;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.DAL;
 using SmgAlumni.Utils.Settings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Web;
-using System.Web.Hosting;
+using WebActivatorEx;
 
-[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(SentNotificationsCleaner), "StartTimer")]
+[assembly: PostApplicationStartMethod(typeof(SentNotificationsCleaner), "StartTimer")]
 
 namespace SmgAlumni.App.Workers
 {

@@ -1,15 +1,15 @@
-﻿using NLog;
-using SmgAlumni.Data.Repositories;
-using SmgAlumni.Utils.Membership;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
+using NLog;
+using SmgAlumni.Data.Repositories;
 
 namespace SmgAlumni.App.Api
 {
@@ -70,7 +70,7 @@ namespace SmgAlumni.App.Api
             ms.Position = 0;
             var response = new HttpResponseMessage(HttpStatusCode.OK);
             response.Content = new StreamContent(ms);
-            response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
             response.Content.Headers.ContentLength = ms.Length;
             return response;
         }
@@ -99,7 +99,7 @@ namespace SmgAlumni.App.Api
             var outms = new MemoryStream();
             try
             {
-                image.Save(outms, System.Drawing.Imaging.ImageFormat.Png);
+                image.Save(outms, ImageFormat.Png);
                 return outms.ToArray();
             }
             catch (Exception e)

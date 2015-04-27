@@ -1,21 +1,14 @@
-﻿using SmgAlumni.App.Models;
-using SmgAlumni.Utils.EfEmailQuerer;
-using SmgAlumni.Utils.EfEmailQuerer.Serialization;
-using SmgAlumni.Utils.EfEmailQuerer.Templates;
-using SmgAlumni.Utils.Membership;
-using NLog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System;
 using System.Web.Http;
-using SmgAlumni.EF.Models;
 using AutoMapper;
-using SmgAlumni.Data.Repositories;
+using NLog;
+using SmgAlumni.App.Models;
+using SmgAlumni.EF.Models;
 using SmgAlumni.Utils.DomainEvents;
 using SmgAlumni.Utils.DomainEvents.Interfaces;
+using SmgAlumni.Utils.EfEmailQuerer;
 using SmgAlumni.Utils.Helpers;
+using SmgAlumni.Utils.Membership;
 
 namespace SmgAlumni.App.Api
 {

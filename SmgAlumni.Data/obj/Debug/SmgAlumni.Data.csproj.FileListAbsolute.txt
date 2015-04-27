@@ -10,3 +10,15 @@ C:\Repositories\SMG alumni\SmgAlumni.Data\bin\Debug\EntityFramework.SqlServer.xm
 C:\Repositories\SMG alumni\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.csprojResolveAssemblyReference.cache
 C:\Repositories\SMG alumni\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.dll
 C:\Repositories\SMG alumni\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.pdb
+D:\Projects\SmgAlumni\SmgAlumni.Data\bin\Debug\SmgAlumni.Data.dll.config
+D:\Projects\SmgAlumni\SmgAlumni.Data\bin\Debug\SmgAlumni.Data.dll
+D:\Projects\SmgAlumni\SmgAlumni.Data\bin\Debug\SmgAlumni.Data.pdb
+D:\Projects\SmgAlumni\SmgAlumni.Data\bin\Debug\EntityFramework.dll
+D:\Projects\SmgAlumni\SmgAlumni.Data\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\SmgAlumni\SmgAlumni.Data\bin\Debug\SmgAlumni.EF.dll
+D:\Projects\SmgAlumni\SmgAlumni.Data\bin\Debug\SmgAlumni.EF.pdb
+D:\Projects\SmgAlumni\SmgAlumni.Data\bin\Debug\EntityFramework.xml
+D:\Projects\SmgAlumni\SmgAlumni.Data\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\SmgAlumni\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.csprojResolveAssemblyReference.cache
+D:\Projects\SmgAlumni\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.dll
+D:\Projects\SmgAlumni\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.pdb

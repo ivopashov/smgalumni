@@ -1,8 +1,9 @@
-﻿using SmgAlumni.EF.Models.enums;
-using SmgAlumni.Utils.Mapping;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using SmgAlumni.EF.Models;
+using SmgAlumni.EF.Models.enums;
+using SmgAlumni.Utils.Mapping;
 
 namespace SmgAlumni.App.Models
 {
@@ -131,7 +132,7 @@ namespace SmgAlumni.App.Models
         public ClassDivision Division { get; set; }
 
 
-        public void CreateMappings(AutoMapper.IConfiguration configuration)
+        public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<RegisterViewModel, User>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Username))
