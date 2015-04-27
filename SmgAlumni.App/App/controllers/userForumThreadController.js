@@ -22,10 +22,10 @@ app.controller('userForumThreadController',
             });
 
             $scope.initAnswers = function () {
-                forumAnswerService.count($stateParams.id).then(function (success) {
+                forumAnswerService.count($stateParams.id).then(function(success) {
                     $scope.totalCount = success.data;
                     $scope.params = forumThreadService.itemsPerPage();
-                })
+                });
             }
             $scope.initAnswers();
 
@@ -36,11 +36,11 @@ app.controller('userForumThreadController',
 
             $scope.retrieveItems = function (pageNumber) {
                 var skip = (pageNumber - 1) * $scope.params.itemsPerPage;
-                forumAnswerService.skipandtake(skip, $scope.params.itemsPerPage, $stateParams.id).then(function (success) {
+                forumAnswerService.skipandtake(skip, $scope.params.itemsPerPage, $stateParams.id).then(function(success) {
                     $scope.items = success.data;
-                }, function (error) {
+                }, function() {
                     commonService.notification.error('Отговорите не можаха да бъдат заредени');
-                })
+                });
             }
 
             $scope.modifyLikes = function (action,answer) {
@@ -57,20 +57,20 @@ app.controller('userForumThreadController',
                 }
 
                 if (action == 'increase') {
-                    forumAnswerService.modifyLikes(answer.id, 1).then(function (success) {
+                    forumAnswerService.modifyLikes(answer.id, 1).then(function(success) {
                         temp.push(answer.id);
                         sessionStorage.votes = JSON.stringify(temp);
                         commonService.notification.success('Успешно гласувахте');
                         answer.likes++;
-                    })
+                    });
                 }
                 if (action == 'decrease') {
-                    forumAnswerService.modifyLikes(answer.id, -1).then(function (success) {
+                    forumAnswerService.modifyLikes(answer.id, -1).then(function(success) {
                         temp.push(answer.id);
                         sessionStorage.votes = JSON.stringify(temp);
                         commonService.notification.success('Успешно гласувахте');
                         answer.likes--;
-                    })
+                    });
                 }
             }
 
@@ -79,16 +79,16 @@ app.controller('userForumThreadController',
                 commonService.ngDialog.openConfirm({
                     templateUrl: '/App/templates/dialog/editItemWithBodyOnly.html',
                     scope: $scope
-                }).then(function (success) {
+                }).then(function() {
                     var vm = { body: $scope.selectedItem.body, id: answer.id }
-                    forumAnswerService.update(vm).then(function () {
+                    forumAnswerService.update(vm).then(function() {
                         answer.body = $scope.selectedItem.body;
                         $scope.selectedItem = {};
                         commonService.notification.success("Отговорът беше редактиран успешно");
-                    }, function (error) {
+                    }, function(error) {
                         commonService.notification.error(error.data.message);
-                    })
-                })
+                    });
+                });
             }
 
             $scope.editComment = function (comment) {
@@ -96,45 +96,45 @@ app.controller('userForumThreadController',
                 commonService.ngDialog.openConfirm({
                     templateUrl: '/App/templates/dialog/editItemWithBodyOnly.html',
                     scope: $scope
-                }).then(function (success) {
+                }).then(function() {
                     var vm = { body: $scope.selectedItem.body, id: comment.id }
-                    forumCommentService.update(vm).then(function () {
+                    forumCommentService.update(vm).then(function() {
                         comment.body = $scope.selectedItem.body;
                         $scope.selectedItem = {};
                         commonService.notification.success("Коментарът беше редактиран успешно");
-                    }, function (error) {
+                    }, function(error) {
                         commonService.notification.error(error.data.message);
-                    })
-                })
+                    });
+                });
             }
 
             $scope.deleteAnswer = function (item) {
                 commonService.ngDialog.openConfirm({
                     templateUrl: '/App/templates/dialog/confirmDeleteDialog.html',
                     scope: $scope
-                }).then(function (success) {
-                    forumAnswerService.deleteItem(item).then(function () {
+                }).then(function() {
+                    forumAnswerService.deleteItem(item).then(function() {
                         $scope.items.splice($scope.items.indexOf(item), 1);
                         commonService.notification.success("Отговорът беше изтрит успешно");
-                    }, function (error) {
+                    }, function(error) {
                         commonService.notification.error(error.data.message);
-                    })
-                })
+                    });
+                });
             }
 
             $scope.deleteComment = function (item,parentId) {
                 commonService.ngDialog.openConfirm({
                     templateUrl: '/App/templates/dialog/confirmDeleteDialog.html',
                     scope: $scope
-                }).then(function (success) {
-                    forumCommentService.deleteItem(item).then(function () {
-                        var answer = $scope.items.filter(function (x) { return x.id == parentId })[0];
+                }).then(function() {
+                    forumCommentService.deleteItem(item).then(function() {
+                        var answer = $scope.items.filter(function(x) { return x.id == parentId })[0];
                         answer.comments.splice(answer.comments.indexOf(item), 1);
                         commonService.notification.success("Коментарът беше изтрит успешно");
-                    }, function (error) {
+                    }, function(error) {
                         commonService.notification.error(error.data.message);
-                    })
-                })
+                    });
+                });
             }
 
             $scope.createAnswer = function () {
@@ -142,7 +142,7 @@ app.controller('userForumThreadController',
                 commonService.ngDialog.openConfirm({
                     templateUrl: '/App/templates/dialog/editItemWithBodyOnly.html',
                     scope: $scope
-                }).then(function (success) {
+                }).then(function () {
                     var vm = { body: $scope.selectedItem.body, parentId: $stateParams.id }
                     forumAnswerService.addNew(vm).then(function () {
                         $scope.selectedItem = {};
@@ -158,7 +158,7 @@ app.controller('userForumThreadController',
                 commonService.ngDialog.openConfirm({
                     templateUrl: '/App/templates/dialog/editItemWithBodyOnly.html',
                     scope: $scope
-                }).then(function (success) {
+                }).then(function () {
                     var vm = { body: $scope.selectedItem.body, parentId: answer.id }
                     forumCommentService.addNew(vm).then(function (success1) {
                         $scope.selectedItem = {};
@@ -168,5 +168,10 @@ app.controller('userForumThreadController',
                     commonService.notification.error(err.data.message);
                 });
             }
+
+            $scope.$watch('currentSelectedPage.dateChange', function () {
+                if ($scope.currentSelectedPage.number == 0) $scope.items = [];
+                if ($scope.currentSelectedPage.number > 0) $scope.retrieveItems($scope.currentSelectedPage.number);
+            });
 
         }]);

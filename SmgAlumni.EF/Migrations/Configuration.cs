@@ -1,4 +1,4 @@
-namespace SmgAlumni.EF.Migrations
+﻿namespace SmgAlumni.EF.Migrations
 {
     using SmgAlumni.EF.Models;
     using SmgAlumni.EF.Models.enums;
@@ -36,7 +36,7 @@ namespace SmgAlumni.EF.Migrations
                     YearOfGraduation = 2005,
                     Password = "/VHOxTfur8M+4m6M8xTIkW12uZgEv+jzN+eltLO+fhwyr2Q/PC/6BYjTbXBFqIWCEkm0jgCPLtxASciFWWK2vQ==",
                     PasswordSalt = "4e1bFqSrVt9tZJgF7e/aig/w23mRLQbxqRLGMjNrpLVSZLsgpQPcWr2E/mP+nweoPQvLXBvIvD6/1s+9AX0/ng==",
-                    Division = ClassDivision.�,
+                    Division = ClassDivision.А,
                     Roles = new List<Role>()
                 {
                     new Role()

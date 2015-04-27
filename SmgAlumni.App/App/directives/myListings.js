@@ -7,12 +7,16 @@
         $scope.kind = "news";
         $scope.currentSelectedPage = { number: -1 };
 
-        
+
         $scope.init = function () {
             newsCauseListingService.myListingsCount().then(function (success) {
-                $scope.totalCount = success.data;
+
+                if (success.data == 0) { $scope.totalCount = -1; }
+                else {
+                    $scope.totalCount = success.data;
+                }
                 $scope.params = newsCauseListingService.itemsPerPage();
-            })
+            });
         }
         $scope.init();
 
@@ -26,7 +30,7 @@
                     item.body = success.data.body;
                 }, function (err) {
                     commonService.notification.error(err.data.message);
-                })
+                });
             }
         }
 
@@ -42,7 +46,7 @@
                     $scope.init();
                 }, function (err) {
                     commonService.notification.error(err.data.message);
-                })
+                });
             }, function (err) {
                 commonService.notification.error(err.data.message);
             });
@@ -57,14 +61,14 @@
                 }).then(function (success) {
                     newsCauseListingService.update($scope.selectedItem, 'listing').then(function (success) {
                         commonService.notification.success("Успешно обновихте Обявата");
-                        var temp = $scope.items.filter(function (x) {return x.id == $scope.selectedItem.id })[0];
+                        var temp = $scope.items.filter(function (x) { return x.id == $scope.selectedItem.id })[0];
                         var tempIndex = $scope.items.indexOf(temp);
                         $scope.items[tempIndex].heading = $scope.selectedItem.heading;
                         $scope.items[tempIndex].body = $scope.selectedItem.body;
                         $scope.selectedItem = {};
                     }, function (err) {
                         commonService.notification.error(err.data.message);
-                    })
+                    });
                 });
             }, function (err) {
                 commonService.notification.error(err.data.message);
@@ -77,13 +81,13 @@
                 $scope.items = success.data;
             }, function (error) {
                 commonService.notification.error('Новините не можаха да бъдат заредени');
-            })
+            });
         }
 
         $scope.$watch('currentSelectedPage.dateChange', function () {
             if ($scope.currentSelectedPage.number == 0) $scope.items = [];
             if ($scope.currentSelectedPage.number > 0) $scope.retrieveItems($scope.currentSelectedPage.number);
-        })
+        });
 
         $scope.deleteItem = function (item) {
             ngDialog.openConfirm({
@@ -95,8 +99,8 @@
                     $scope.init();
                 }, function (error) {
                     commonService.notification.error(error.data.message);
-                })
-            })
+                });
+            });
         }
 
     }

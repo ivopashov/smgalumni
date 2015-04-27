@@ -4,7 +4,7 @@
 
         $scope.pages = [];
 
-        $scope.$watch('totalCount', function () {
+        $scope.$watch('totalCount', function() {
             $scope.pages = [];
             if ($scope.totalCount % $scope.params.itemsPerPage == 0) {
                 $scope.totalNumberOfPages = $scope.totalCount / $scope.params.itemsPerPage;
@@ -17,12 +17,11 @@
                 if (i == 1) {
                     $scope.pages.push({ number: i, current: true });
                     $scope.setCurrentPage($scope.pages[0]);
-                }
-                else {
+                } else {
                     $scope.pages.push({ number: i });
                 }
             }
-        })
+        });
 
         $scope.firstPage = function () {
             $scope.pages = [];
