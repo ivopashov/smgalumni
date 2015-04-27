@@ -7,3 +7,6 @@ C:\Repositories\SMG alumni\SmgAlumni.EF\bin\Release\EntityFramework.xml
 C:\Repositories\SMG alumni\SmgAlumni.EF\bin\Release\EntityFramework.SqlServer.xml
 C:\Repositories\SMG alumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.dll
 C:\Repositories\SMG alumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.pdb
+C:\Repositories\SMG alumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.csprojResolveAssemblyReference.cache
+C:\Repositories\SMG alumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.Migrations.InitialCreate.resources
+C:\Repositories\SMG alumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.csproj.GenerateResource.Cache

@@ -42,7 +42,7 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
                 Template = new VerifyUserTemplate
                 {
                     UserName = user.UserName,
-                    Link = "dfsf"
+                    Link = "http://smg-alumni.com"
                 }
             }, EF.Models.enums.NotificationKind.UserVerified);
         }

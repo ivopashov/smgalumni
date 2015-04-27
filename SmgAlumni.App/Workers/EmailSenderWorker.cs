@@ -21,7 +21,7 @@ namespace SmgAlumni.App.Workers
 {
     public class EmailSenderWorker : IRegisteredObject
     {
-        private const int CheckForMailIntervalSeconds = 30;
+        private const int CheckForMailIntervalSeconds = 600;
 
         private readonly object _lock = new object();
         private bool _shuttingDown;

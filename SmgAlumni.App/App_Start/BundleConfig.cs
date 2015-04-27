@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using SmgAlumni.App.App_Start;
+using System.Web;
 using System.Web.Optimization;
 
 namespace SmgAlumni.App
@@ -9,8 +10,8 @@ namespace SmgAlumni.App
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(
-                 new ScriptBundle("~/bundles/js/lib").Include(
-                     "~/Scripts/jquery-{version}.js",
+                 new BundleRelaxed("~/bundles/js/lib").Include(
+                     "~/Scripts/jquery-1.10.2.js",
                      "~/Scripts/angular.js",
                      "~/Scripts/angular-ui-router.js",
                      "~/Scripts/angular-file-upload-shim.min.js",
@@ -23,19 +24,16 @@ namespace SmgAlumni.App
                      "~/Scripts/ng-ckeditor.js",
                      "~/Scripts/ng-table.js"));
 
-            
+
 
             bundles.Add(
-                new ScriptBundle("~/bundles/js/spa")
+                new BundleRelaxed("~/bundles/js/spa")
                     .Include("~/App/app.js")
-                    .IncludeDirectory("~/App/interceptors", "*.js", true)
-                    .IncludeDirectory("~/App/directives", "*.js", true)
-                    .IncludeDirectory("~/App/services", "*.js", true)
-                    .IncludeDirectory("~/App/factories", "*.js", true)
-                    .IncludeDirectory("~/App/controllers", "*.js",true)
-                    .IncludeDirectory("~/App/controllers/account", "*.js", true)
-                    .IncludeDirectory("~/App/controllers/authentication", "*.js", true)
-                    .IncludeDirectory("~/App/filters", "*.js", true));
+                     .IncludeDirectory("~/App/interceptors", "*.js", true)
+                     .IncludeDirectory("~/App/directives", "*.js", true)
+                     .IncludeDirectory("~/App/services", "*.js", true)
+                     .IncludeDirectory("~/App/factories", "*.js", true)
+                     .IncludeDirectory("~/App/controllers", "*.js", true));
 
 
             bundles.Add(
@@ -43,7 +41,6 @@ namespace SmgAlumni.App
                     "~/Content/bootstrap/bootstrap.css",
                     "~/Content/Site.css",
                     "~/Content/toastr.css",
-                    "~/Content/less/ng-table.css",
                     "~/Content/loading-bar.css",
                     "~/Content/ngDialog.css",
                     "~/Content/ngDialog-theme-default.css",
@@ -51,8 +48,8 @@ namespace SmgAlumni.App
                     "~/Content/ng-table.css"));
 
 
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
         }
-        
+
     }
 }

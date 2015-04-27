@@ -15,7 +15,7 @@ namespace SmgAlumni.App.Workers
 {
     public class SentNotificationsCleaner : IRegisteredObject
     {
-        private const int cleanIntervalInSecs = 30;
+        private const int cleanIntervalInSecs = 43200;
 
         private readonly object _lock = new object();
         private bool _shuttingDown;

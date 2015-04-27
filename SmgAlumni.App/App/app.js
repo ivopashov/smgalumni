@@ -182,7 +182,8 @@ app.config([
             controller: 'settingsController',
             authenticate: true
         });
-    }]).run(['$rootScope', '$state', 'authHelper', function ($rootScope, $state, authHelper) {
+    }])
+    .run(['$rootScope', '$state', 'authHelper', function ($rootScope, $state, authHelper) {
         $rootScope.$on("$stateChangeStart", function (event, toState) {
             if ((toState.authenticate) && !sessionStorage.authenticationData) {
                 $state.transitionTo('login', { returnUrl: toState.name });

@@ -165,13 +165,6 @@ input.small-input {
     color: white;
 }
 
-@font-face {
-    font-family: "CaviarDreams.ttf";
-    font-style: normal;
-    src: url(../fonts/CaviarDreams/CaviarDreams.ttf); /*if IE */
-    src: local("CaviarDreams"), url("../fonts/CaviarDreams/CaviarDreams.ttf") format("truetype"); /* non-IE */
-}
-
 .content-holder {
     padding-left: 40px;
     padding-right: 20px;
