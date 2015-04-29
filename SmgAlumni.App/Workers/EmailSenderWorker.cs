@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Web.Hosting;
+using NLog;
 using SmgAlumni.App.Workers;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.DAL;
@@ -29,7 +30,7 @@ namespace SmgAlumni.App.Workers
         private static EmailSenderWorker _jobHost = new EmailSenderWorker();
         private static readonly AppSettings _appSettings = new AppSettings(new EFSettingsRetriever(new SettingRepository(_context)));
         private static NotificationRepository _notificationRepository = new NotificationRepository(_context);
-
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public static void StartTimer()
         {
@@ -65,8 +66,15 @@ namespace SmgAlumni.App.Workers
                     return;
                 }
 
-                var unsentNotification = _notificationRepository.GetAll().Where(a => !a.Sent).ToList();
-                SendEmailsViaSmtpClient(unsentNotification);
+                try
+                {
+                    var unsentNotification = _notificationRepository.GetAll().Where(a => !a.Sent).ToList();
+                    SendEmailsViaSmtpClient(unsentNotification);
+                }
+                catch (Exception e)
+                {
+                    _logger.Error(e.Message);
+                }
 
             }
         }

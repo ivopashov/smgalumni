@@ -12,7 +12,7 @@ namespace SmgAlumni.EF.DAL
     public class SmgAlumniContext : DbContext
     {
         public SmgAlumniContext()
-            : base("SmgAlumniContext")
+            : base("name=SmgAlumniContext")
         {
         }
 

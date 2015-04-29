@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Web.Hosting;
+using NLog;
 using SmgAlumni.App.Workers;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.DAL;
@@ -23,6 +24,7 @@ namespace SmgAlumni.App.Workers
         private static SentNotificationsCleaner _jobHost = new SentNotificationsCleaner();
         private static readonly AppSettings _appSettings = new AppSettings(new EFSettingsRetriever(new SettingRepository(_context)));
         private static NotificationRepository _notificationRepository = new NotificationRepository(_context);
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public SentNotificationsCleaner()
         {
@@ -57,7 +59,14 @@ namespace SmgAlumni.App.Workers
                     return;
                 }
 
-                DeleteSentNotifications();
+                try
+                {
+                    DeleteSentNotifications();
+                }
+                catch (Exception EX_NAME)
+                {
+                    _logger.Error(EX_NAME.Message);
+                }
 
             }
         }
