@@ -16,7 +16,7 @@ namespace SmgAlumni.Utils.EfEmailQuerer.Templates
             get
             {
                 return String.Format(@"<p>Здравейте, {0}</p>
-                        <p>Вашата регистрация за СМГ Алумни е одобрена. Може да се логнете тук: <a href='{1}'>линк</a>. </p>", UserName, Link);
+                        <p>Вашата регистрация за СМГ Алумни е одобрена. Може да се логнете тук: <a href='smg-alumni.com'>smg-alumni.com</a>. </p>", UserName);
             }
         }
 
