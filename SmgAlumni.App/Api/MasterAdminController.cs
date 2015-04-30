@@ -124,7 +124,6 @@ namespace SmgAlumni.App.Api
                     SettingKey = vm.SettingKey,
                     SettingName = vm.SettingValue
                 });
-                _settingRepository.Save();
                 return Ok();
             }
             catch (Exception e)
