@@ -29,7 +29,9 @@ namespace SmgAlumni.Utils.Membership
             {
                 return null;
             }
-            return _userRepository.Find(a => a.UserName.Equals(username)).SingleOrDefault();
+            var result=_userRepository.Find(a => a.UserName.Equals(username)).ToList();
+            if (!result.Any()) return null;
+            return result[0];
         }
 
         public User GetUserByEmail(string email)

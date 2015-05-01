@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using NLog;
+using SmgAlumni.App.Logging;
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
@@ -12,7 +13,7 @@ namespace SmgAlumni.App.Api
     {
         private readonly ForumThreadRepository _forumThreadRepository;
 
-        public ForumThreadController(ForumThreadRepository forumThreadRepository, Logger logger)
+        public ForumThreadController(ForumThreadRepository forumThreadRepository, ILogger logger)
             : base(logger)
         {
             _forumThreadRepository = forumThreadRepository;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using AutoMapper;
 using NLog;
+using SmgAlumni.App.Logging;
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.DAL;
@@ -24,7 +25,7 @@ namespace SmgAlumni.App.Api
         private readonly EFUserManager _userManager;
         private User _user;
 
-        public AdminController(Logger logger,
+        public AdminController(ILogger logger,
             RoleRepository roleRepository,
             NewsRepository newsRepository,
             CauseRepository causeRepository,

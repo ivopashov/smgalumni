@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Http;
 using NLog;
+using SmgAlumni.App.Logging;
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
@@ -13,7 +14,7 @@ namespace SmgAlumni.App.Api
         private readonly ForumThreadRepository _forumThreadRepository;
         private readonly ForumCommentsRepository _forumCommentRepository;
 
-        public ForumCommentController(ForumAnswerRepository forumAnswerRepository, Logger logger,
+        public ForumCommentController(ForumAnswerRepository forumAnswerRepository, ILogger logger,
              ForumThreadRepository forumThreadRepository, ForumCommentsRepository forumCommentRepository)
             : base(logger)
         {

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using NLog;
+using SmgAlumni.App.Logging;
 using SmgAlumni.App.Models;
 using SmgAlumni.Utils.Identity;
 using SmgAlumni.Utils.Membership;
@@ -13,7 +14,7 @@ namespace SmgAlumni.App.Api
         private readonly UserManager _userManager;
         private readonly EFUserManager membership;
 
-        public AuthenticationController(UserManager userManager, EFUserManager surveyMasterMembership, Logger logger)
+        public AuthenticationController(UserManager userManager, EFUserManager surveyMasterMembership, ILogger logger)
             : base(logger)
         {
             _userManager = userManager;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmgAlumni.EF.DAL
 {
-    public class SmgAlumniContext : DbContext
+    public class SmgAlumniContext : DbContext, ISmgAlumniContext
     {
         public SmgAlumniContext()
             : base("name=SmgAlumniContext")

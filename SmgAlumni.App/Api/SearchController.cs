@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Http;
 using AutoMapper;
 using NLog;
+using SmgAlumni.App.Logging;
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.Utils.Membership;
@@ -11,14 +12,11 @@ namespace SmgAlumni.App.Api
 {
     public class SearchController : BaseApiController
     {
-        private UserRepository _userRepository;
         private EFUserManager _userManager;
 
-        public SearchController(Logger logger, UserRepository userRepository, EFUserManager userManager)
+        public SearchController(ILogger logger, EFUserManager userManager)
             : base(logger)
         {
-            _userRepository = userRepository;
-            VerifyNotNull(_userRepository);
             _userManager = userManager;
             VerifyNotNull(_userManager);
         }
@@ -29,7 +27,7 @@ namespace SmgAlumni.App.Api
         {
             if (id == default(int)) return BadRequest("Невалидни входни данни");
 
-            var user = _userRepository.GetById(id);
+            var user = Users.GetById(id);
             if (user == null) return BadRequest("Възникна грешка. Моля опитайте отново");
 
             var vm = Mapper.Map<UserAccountViewModel>(user);
@@ -49,7 +47,7 @@ namespace SmgAlumni.App.Api
         [Route("api/search/long/byusernamecontains")]
         public IHttpActionResult GetUserByUserNameLongVM([FromUri]string username)
         {
-            var users = _userRepository.GetAll().Where(a => a.UserName.Contains(username)).ToList();
+            var users = Users.GetAll().Where(a => a.UserName.Contains(username)).ToList();
             var vm = Mapper.Map<List<UserAccountViewModel>>(users);
             return Ok(vm);
         }
@@ -61,7 +59,7 @@ namespace SmgAlumni.App.Api
             var foundUsers = new List<UserAccountShortViewModel>();
             if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");
 
-            var users = _userRepository.GetAll().Where(a=>a.Division==vm.Division && a.YearOfGraduation==vm.YearOfGraduation).ToList();
+            var users = Users.GetAll().Where(a=>a.Division==vm.Division && a.YearOfGraduation==vm.YearOfGraduation).ToList();
             if (users.Any()) foundUsers = Mapper.Map<List<UserAccountShortViewModel>>(users);
             
             return Ok(foundUsers);

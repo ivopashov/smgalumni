@@ -9,19 +9,17 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using NLog;
+using SmgAlumni.App.Logging;
 using SmgAlumni.Data.Repositories;
 
 namespace SmgAlumni.App.Api
 {
     public class FileController : BaseApiController
     {
-        private readonly UserRepository _userRepository;
 
-        public FileController(Logger logger, UserRepository userRepository)
+        public FileController(ILogger logger)
             : base(logger)
         {
-            _userRepository = userRepository;
-            VerifyNotNull(_userRepository);
         }
 
         [HttpPost, Route("api/file/upload")]
@@ -37,12 +35,12 @@ namespace SmgAlumni.App.Api
             {
                 var filename = file.Headers.ContentDisposition.FileName.Trim('\"');
                 var buffer = await file.ReadAsByteArrayAsync();
-                var user = _userRepository.Find(a => a.UserName.Equals(User.Identity.Name)).SingleOrDefault();
+                var user = Users.Find(a => a.UserName.Equals(User.Identity.Name)).SingleOrDefault();
                 if (user == null) return BadRequest("Възникна грешка - моля опитайте отново");
                 user.AvatarImage =ResizeImage(buffer);
                 try
                 {
-                    _userRepository.Update(user);
+                    Users.Update(user);
                     return Ok();
                 }
                 catch (Exception e)
@@ -59,7 +57,7 @@ namespace SmgAlumni.App.Api
         [HttpGet, Route("api/file/download")]
         public HttpResponseMessage DownloadFile([FromUri]string username)
         {
-            var user = _userRepository.Find(a => a.UserName.Equals(username)).SingleOrDefault();
+            var user = Users.Find(a => a.UserName.Equals(username)).SingleOrDefault();
             if (user == null)
             {
                 var badresponse = new HttpResponseMessage(HttpStatusCode.BadRequest);

@@ -21,4 +21,3 @@ D:\Projects\SmgAlumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.Migrations.InitialCrea
 D:\Projects\SmgAlumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csproj.GenerateResource.Cache
 D:\Projects\SmgAlumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.dll
 D:\Projects\SmgAlumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.pdb
-D:\Projects\SmgAlumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csprojResolveAssemblyReference.cache

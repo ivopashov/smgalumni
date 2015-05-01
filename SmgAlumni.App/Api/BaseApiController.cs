@@ -4,8 +4,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 using Microsoft.Owin.Security;
-using Ninject;
-using NLog;
+using SmgAlumni.App.Logging;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
 
@@ -14,14 +13,13 @@ namespace SmgAlumni.App.Api
     [Authorize]
     public class BaseApiController : ApiController
     {
-        protected Logger _logger;
+        protected ILogger _logger;
 
-        public BaseApiController(Logger logger)
+        public BaseApiController(ILogger logger)
         {
             _logger = logger;
         }
 
-        [Inject]
         public UserRepository Users { get; set; }
 
         private User currentUser;

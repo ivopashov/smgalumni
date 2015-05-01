@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using NLog;
+using SmgAlumni.App.Logging;
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
@@ -14,7 +15,7 @@ namespace SmgAlumni.App.Api
     {
         private readonly NewsRepository _newsRepository;
 
-        public NewsController(NewsRepository newsRepository, Logger logger)
+        public NewsController(NewsRepository newsRepository, ILogger logger)
             : base(logger)
         {
             _newsRepository = newsRepository;

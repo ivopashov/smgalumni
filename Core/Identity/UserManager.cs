@@ -1,13 +1,8 @@
-﻿using SmgAlumni.Utils.Membership;
-using SmgAlumni.Utils.Settings;
-using Microsoft.Owin.Security;
-using Microsoft.Owin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Owin.Security;
+using SmgAlumni.Utils.Membership;
+using SmgAlumni.Utils.Settings;
 
 namespace SmgAlumni.Utils.Identity
 {

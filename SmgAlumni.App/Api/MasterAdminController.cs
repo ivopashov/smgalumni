@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using NLog;
+using SmgAlumni.App.Logging;
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
@@ -11,15 +12,12 @@ namespace SmgAlumni.App.Api
     [Authorize(Roles = "MasterAdmin")]
     public class MasterAdminController : BaseApiController
     {
-        private readonly UserRepository _userRepository;
         private readonly RoleRepository _roleRepository;
         private readonly SettingRepository _settingRepository;
 
-        public MasterAdminController(Logger logger, UserRepository userRepository, RoleRepository roleRepository, SettingRepository settingRepository)
+        public MasterAdminController(ILogger logger, RoleRepository roleRepository, SettingRepository settingRepository)
             : base(logger)
         {
-            _userRepository = userRepository;
-            VerifyNotNull(_userRepository);
             _roleRepository = roleRepository;
             VerifyNotNull(_roleRepository);
             _settingRepository = settingRepository;
@@ -41,7 +39,7 @@ namespace SmgAlumni.App.Api
             if (!ModelState.IsValid) return BadRequest("Невярни входни данни");
             try
             {
-                var user = _userRepository.GetById(vm.Id);
+                var user = Users.GetById(vm.Id);
                 var deletedRoles = user.Roles.Where(a => !vm.Roles.Contains(a.Name)).ToList();
                 var addedRoles = vm.Roles.Where(a => !user.Roles.Select(r => r.Name).Contains(a));
 
@@ -55,7 +53,7 @@ namespace SmgAlumni.App.Api
                     user.Roles.Add(new Role() { Name = item });
                 }
 
-                _userRepository.Update(user);
+                Users.Update(user);
                 return Ok();
             }
             catch (Exception e)

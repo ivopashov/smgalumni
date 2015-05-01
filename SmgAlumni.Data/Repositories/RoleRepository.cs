@@ -1,17 +1,12 @@
-﻿using SmgAlumni.EF.Models;
-using SmgAlumni.EF.Models.enums;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using SmgAlumni.EF.DAL;
+using SmgAlumni.EF.Models;
 
 namespace SmgAlumni.Data.Repositories
 {
     public class RoleRepository : GenericRepository<Role>
     {
-        public RoleRepository(SmgAlumni.EF.DAL.SmgAlumniContext context)
+        public RoleRepository(SmgAlumniContext context)
             : base(context)
         {
 

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using NLog;
+using SmgAlumni.App.Logging;
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
@@ -14,7 +15,7 @@ namespace SmgAlumni.App.Api
     {
         private readonly CauseRepository _causeRepository;
 
-        public CauseController(CauseRepository causeRepository, Logger logger)
+        public CauseController(CauseRepository causeRepository, ILogger logger)
             : base(logger)
         {
             _causeRepository = causeRepository;

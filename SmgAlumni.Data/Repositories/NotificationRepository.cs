@@ -1,16 +1,11 @@
-﻿using SmgAlumni.EF.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SmgAlumni.EF.DAL;
+using SmgAlumni.EF.Models;
 
 namespace SmgAlumni.Data.Repositories
 {
     public class NotificationRepository : GenericRepository<Notification>
     {
-        public NotificationRepository(SmgAlumni.EF.DAL.SmgAlumniContext context)
+        public NotificationRepository(SmgAlumniContext context)
             : base(context)
         {
 
