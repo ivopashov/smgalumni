@@ -2,8 +2,11 @@
 
     return {
         restrict: 'AE',
+        scope: {
+          html:'='  
+        },
         link: function (scope, element, attrs) {
-            element.append(attrs.html);
+            element.append(scope.html);
         }
     }
 }]);

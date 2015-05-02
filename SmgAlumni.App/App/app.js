@@ -46,6 +46,11 @@ app.config([
             controller: 'menuController'
         });
 
+        $stateProvider.state('menu.history', {
+            url: 'history',
+            templateUrl: '/App/templates/home/history.html',
+        });
+
         $stateProvider.state('menu.login', {
             url: 'account/login/:returnUrl',
             templateUrl: '/App/templates/account/login.html',

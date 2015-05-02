@@ -267,11 +267,9 @@
     <Content Include="App\controllers\userForumThreadController.js" />
     <Content Include="App\controllers\userListingsController.js" />
     <Content Include="App\controllers\userNewsController.js" />
-    <Content Include="App\controllers\changePasswordController.js" />
     <Content Include="App\controllers\forgotPasswordController.js" />
     <Content Include="App\controllers\headerController.js" />
     <Content Include="App\controllers\loginController.js" />
-    <Content Include="App\controllers\manageAccountController.js" />
     <Content Include="App\controllers\adminNewsController.js" />
     <Content Include="App\controllers\settingsController.js" />
     <Content Include="App\controllers\registerController.js" />
@@ -323,7 +321,7 @@
     <Content Include="App\templates\directives\myListings.html" />
     <Content Include="App\templates\directives\masterAdminMenu.html" />
     <Content Include="App\templates\directives\customPager.html" />
-    <Content Include="App\templates\home\home.html" />
+    <Content Include="App\templates\home\history.html" />
     <Content Include="App\templates\home\menu.html" />
     <Content Include="App\templates\masteradmin\manageroles.html" />
     <Content Include="App\templates\masteradmin\masteradminmenu.html" />
@@ -339,6 +337,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\images\background-patterns\brickwall.png" />
     <Content Include="Content\images\favicon.ico" />
+    <Content Include="Content\images\paisii.jpg" />
     <Content Include="Content\images\smg-panorama.png" />
     <Content Include="Content\images\smg.jpg" />
     <Content Include="Content\loading-bar.css" />

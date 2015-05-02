@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 app.controller('userForumThreadController',
-    ['$scope', 'commonService', 'forumThreadService', '$state', '$stateParams', 'forumAnswerService', 'forumCommentService',
-        function ($scope, commonService, forumThreadService, $state, $stateParams, forumAnswerService, forumCommentService) {
+    ['$scope', 'commonService', 'forumThreadService', '$state', '$stateParams', 'forumAnswerService', 'forumCommentService','$sce',
+        function ($scope, commonService, forumThreadService, $state, $stateParams, forumAnswerService, forumCommentService,$sce) {
 
             $scope.params = {};
             $scope.items = [];

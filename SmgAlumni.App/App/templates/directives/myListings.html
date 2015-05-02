@@ -22,7 +22,7 @@
                     {{item.heading}}
                 </h4>
                 <div ng-if="item.selected && item.body">
-                    <div html-container html="{{item.body}}"></div>
+                    <div ng-bind-html="item.body"></div>
                 </div>
             </td>
             <td ng-click="editItem(item)">

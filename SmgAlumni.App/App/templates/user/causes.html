@@ -1,4 +1,4 @@
-﻿<h1>Благотворителни Каузи</h1>
+﻿<h2>Благотворителни Каузи</h2>
 
 <table class="table table-striped table-condensed" ng-if="totalCount > 0">
     <thead>
@@ -19,7 +19,7 @@
                     {{item.heading}}
                 </h4>
                 <div ng-if="item.selected && item.body">
-                    <div html-container html="{{item.body}}"></div>
+                    <div ng-bind-html="item.body"></div>
                 </div>
             </td>
         </tr>

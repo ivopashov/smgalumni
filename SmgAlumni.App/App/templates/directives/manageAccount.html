@@ -1,4 +1,10 @@
-﻿    <div class="col-sm-9">
+﻿<ol class="breadcrumb">
+    <li><a href="#" ng-file-select
+   ng-model="image"
+   ng-file-change="upload($files, $event)">Качи снимка</a></li>
+</ol>
+<div class="col-sm-12" style="margin-top: 20px;">
+    <div class="col-sm-9">
         <div class="row">
             <form name="editProfile" class="form-horizontal col-sm-12" novalidate>
                 <div class="form-group">
@@ -30,7 +36,7 @@
                             Задължително поле
                         </span>
                         <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && editProfile.yearOfGraduationInputEdit.$error.number">
-                           Въведете номер
+                            Въведете номер
                         </span>
                         <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && editProfile.yearOfGraduation.$error.min">
                             Годината трябва да е след 1950
@@ -127,15 +133,10 @@
         </div>
     </div>
     <div class="col-sm-3">
-        <div class="form-group">
-            <div class="btn btn-lg btn-primary" ng-file-select
-                 ng-model="image"
-                 ng-file-change="upload($files, $event)">
-                Качи снимка
-            </div>
-        </div>
         <div ng-if="fileUploaded || user.hasPicture" class="form-group">
             <img src="api/file/download?username={{user.userName}}" />
         </div>
     </div>
-   
+</div>
+
+

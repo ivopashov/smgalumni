@@ -1,4 +1,4 @@
-﻿<h1>Тема</h1>
+﻿<h2>Тема</h2>
 <ol class="breadcrumb">
     <li><a href="#" ng-click="gotoForum()">Обратно във Форум</a></li>
     <li><a href="#" ng-click="createAnswer()">Отговор</a></li>
@@ -15,8 +15,8 @@
         </tr>
         <tr>
             <td class="forumThreadBody">
-                <div ng-if="forumThread.body" html-container html="{{forumThread.body}}">
-                   
+                <div ng-if="forumThread.body" ng-bind-html="forumThread.body">
+
                 </div>
             </td>
         </tr>
@@ -54,7 +54,7 @@
                 <table>
                     <tr class="col-sm-12">
                         <td>
-                            <div html-container html="{{answer.body}}"></div>
+                            <div ng-bind-html="answer.body"></div>
                         </td>
                     </tr>
                 </table>
@@ -88,7 +88,7 @@
             </tr>
             <tr>
                 <td>
-                    <div html-container html="{{comment.body}}"></div>
+                    <div ng-bind-html="comment.body"></div>
                 </td>
             </tr>
             <tr>
