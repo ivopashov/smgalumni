@@ -19,13 +19,6 @@ app.controller('registerController',
                 } else {
                     $scope.registerForm.confirmpassword.$error.match = false;
                 }
-
-                if ($scope.user.confirmemail != $scope.user.email) {
-                    $scope.registerForm.emailConfirmInput.$error.match = true;
-                    return;
-                } else {
-                    $scope.registerForm.emailConfirmInput.$error.match = false;
-                }
                 
                 if ($scope.registerForm.$invalid) {
                     return;

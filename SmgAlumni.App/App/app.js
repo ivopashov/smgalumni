@@ -40,77 +40,67 @@ app.config([
         //================================================ 
         $urlRouterProvider.otherwise("/");
 
-        $stateProvider.state('menu',
-        {
-            templateUrl: '/App/templates/menu.html'
+        $stateProvider.state('menu', {
+            url: '/',
+            templateUrl: '/App/templates/home/menu.html',
+            controller: 'menuController'
         });
 
-        //$stateProvider.state('home', {
-        //    url: '/',
-        //    templateUrl: '/App/templates/home/home.html'
-        //});
-
-        $stateProvider.state('login', {
-            url: '/account/login',
+        $stateProvider.state('menu.login', {
+            url: 'account/login/:returnUrl',
             templateUrl: '/App/templates/account/login.html',
-            controller: 'loginController',
+            controller: 'loginController'
         });
-        $stateProvider.state('register', {
-            url: '/account/register',
+        $stateProvider.state('menu.register', {
+            url: 'account/register',
             templateUrl: '/App/templates/account/register.html',
-            controller: 'registerController',
+            controller: 'registerController'
         });
-        $stateProvider.state('successfullregistration', {
-            url: '/account/register/success',
+        $stateProvider.state('menu.successfullregistration', {
+            url: 'account/register/success',
             templateUrl: '/App/templates/account/registersuccess.html'
         });
-        $stateProvider.state('forgotpassword', {
-            url: '/account/forgotpassword',
+        $stateProvider.state('menu.forgotpassword', {
+            url: 'account/forgotpassword',
             templateUrl: '/App/templates/account/forgotPassword.html',
             controller: 'forgotPasswordController'
         });
-        $stateProvider.state('resetpassword', {
-            url: '/resetpassword/{guid}/{email}',
+        $stateProvider.state('menu.resetpassword', {
+            url: 'resetpassword/{guid}/{email}',
             templateUrl: '/App/templates/account/resetPassword.html',
             controller: 'resetPasswordController'
         });
-        $stateProvider.state('homeauth', {
-            url: '/',
-            templateUrl: '/App/templates/home/homeAuth.html',
-            controller: 'homeAuthController',
-            authenticate: true
-        });
-        $stateProvider.state('homeauth.search', {
+        $stateProvider.state('menu.search', {
             url: 'search',
             templateUrl: '/App/templates/user/search.html',
             controller: 'userSearchController',
             authenticate: true
         });
-        $stateProvider.state('homeauth.news', {
+        $stateProvider.state('menu.news', {
             url: 'news',
             templateUrl: '/App/templates/user/news.html',
             controller: 'userNewsController',
             authenticate: true
         });
-        $stateProvider.state('homeauth.causes', {
+        $stateProvider.state('menu.causes', {
             url: 'causes',
             templateUrl: '/App/templates/user/causes.html',
             controller: 'userCausesController',
             authenticate: true
         });
-        $stateProvider.state('homeauth.listings', {
+        $stateProvider.state('menu.listings', {
             url: 'listings',
             templateUrl: '/App/templates/user/listings.html',
             controller: 'userListingsController',
             authenticate: true
         });
-        $stateProvider.state('homeauth.forum', {
+        $stateProvider.state('menu.forum', {
             url: 'forum',
             templateUrl: '/App/templates/user/forum.html',
             controller: 'userForumController',
             authenticate: true
         });
-        $stateProvider.state('homeauth.forumthread', {
+        $stateProvider.state('menu.forumthread', {
             url: 'forumthread/:id',
             templateUrl: '/App/templates/user/forumThread.html',
             controller: 'userForumThreadController',
@@ -186,20 +176,20 @@ app.config([
     .run(['$rootScope', '$state', 'authHelper', function ($rootScope, $state, authHelper) {
         $rootScope.$on("$stateChangeStart", function (event, toState) {
             if ((toState.authenticate) && !sessionStorage.authenticationData) {
-                $state.transitionTo('login', { returnUrl: toState.name });
+                $state.go('menu.login', { returnUrl: toState.name });
                 event.preventDefault();
             }
             if (toState.name.indexOf('admin') > -1) {
                 var authData = authHelper.getAuth();
                 if (authData.roles.indexOf('Admin') == -1) {
-                    $state.transitionTo('homeauth');
+                    $state.go('menu');
                     event.preventDefault();
                 }
             }
             if (toState.name.indexOf('masteradmin') > -1) {
-                var authData = authHelper.getAuth();
-                if (authData.roles.indexOf('MasterAdmin') == -1) {
-                    $state.transitionTo('homeauth');
+                var authData1 = authHelper.getAuth();
+                if (authData1.roles.indexOf('MasterAdmin') == -1) {
+                    $state.go('menu');
                     event.preventDefault();
                 }
             }

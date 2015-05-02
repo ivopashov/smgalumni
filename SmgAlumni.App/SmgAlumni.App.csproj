@@ -260,6 +260,7 @@
   <ItemGroup>
     <Content Include="App\app.js" />
     <Content Include="App\controllers\homeAuthContoller.js" />
+    <Content Include="App\controllers\menuController.js" />
     <Content Include="App\controllers\userCausesController.js" />
     <Content Include="App\controllers\adminCausesController.js" />
     <Content Include="App\controllers\userForumController.js" />
@@ -329,6 +330,7 @@
     <Content Include="App\templates\directives\customPager.html" />
     <Content Include="App\templates\home\home.html" />
     <Content Include="App\templates\home\homeAuth.html" />
+    <Content Include="App\templates\home\menu.html" />
     <Content Include="App\templates\masteradmin\manageroles.html" />
     <Content Include="App\templates\masteradmin\masterAdminBase.html" />
     <Content Include="App\templates\masteradmin\settings.html" />
@@ -341,8 +343,13 @@
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\background-patterns\brickwall.png" />
+    <Content Include="Content\images\favicon.ico" />
+    <Content Include="Content\images\smg-panorama.png" />
+    <Content Include="Content\images\smg.jpg" />
     <Content Include="Content\loading-bar.css" />
     <Content Include="Content\loading-bar.min.css" />
+    <Content Include="Content\menustyles.css" />
     <Content Include="Content\ng-ckeditor.css" />
     <Content Include="Content\ng-table.css" />
     <Content Include="Content\ngDialog-theme-default.css" />

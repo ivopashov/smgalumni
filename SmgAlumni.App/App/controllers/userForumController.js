@@ -54,7 +54,7 @@ app.controller('userForumController',
             });
 
             $scope.selectItem = function (item) {
-                $state.go('homeauth.forumthread', { id: item.id });
+                $state.go('menu.forumthread', { id: item.id });
             }
 
         }]);

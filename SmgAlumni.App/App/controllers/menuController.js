@@ -1,11 +1,11 @@
 ﻿'use strict';
 
-app.controller('homeAuthController',
+app.controller('menuController',
     ['$scope', '$state',
         function ($scope, $state) {
 
             $scope.$state = $state;
 
-           
+
 
         }]);

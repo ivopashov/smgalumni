@@ -32,7 +32,7 @@ app.controller('verifyUsersController',
                 var vm = { IdsToVerify: $scope.verifiedIds };
                 adminService.postVerifiedUsers(vm).then(function (success) {
                     commonService.notification.success("Потребителите бяха одобрени успешно");
-                    commonService.$state.go('homeauth');
+                    commonService.$state.go('menu');
                 }, function (error) {
                     commonService.notification.error(error.data.message);
                 });

@@ -1,10 +1,10 @@
 ﻿app.controller('headerController',
-    ['$scope', 'authHelper', 'authService', '$http', 'accountService', '$state', '$rootScope', 'commonService',
-    function ($scope, authHelper, authService, $http, accountService, $state, $rootScope, commonService) {
+    ['$scope', 'authHelper', 'authService', '$http', 'accountService', '$state', '$rootScope',
+    function ($scope, authHelper, authService, $http, accountService, $state, $rootScope) {
 
-        (function () {
+        (function() {
             $scope.username = accountService.getUser();
-        }())
+        }());
         
         $rootScope.$on('login', function () {
             $scope.username = accountService.getUser();

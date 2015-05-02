@@ -1,27 +1,21 @@
-﻿<header ng-controller="headerController">
-    <div class="row">
-        <h2>
-            СМГ Алумни Мрежа
-        </h2>
-    </div>
-    <div class="row">
+﻿<div id="header-wrap" ng-controller="headerController">
+    <img src="~/Content/images/smg-panorama.png" />
+    @*<div class="login">
         <div ng-if="isLoggedIn()" class="col-sm-4 col-xs-12 pull-right text-right">
             <div class="login-bar">
                 <span class="xs-pull-left">
                     <span ng-show="username">Здравей,</span>
                     <a ui-sref="account">{{username}}&nbsp;/</a>
-                    <a ui-sref="homeauth">Начало</a>
+                    <a ng-show="username" ng-click="logout()" class="logout-link xs-pull-right" style="cursor: pointer">Изход</a>
                 </span>
-                <br class="hidden-xs" />
-                <a ng-show="username" ng-click="logout()" class="logout-link xs-pull-right" style="cursor:pointer">Изход</a>
             </div>
         </div>
         <div ng-if="!isLoggedIn()" class="col-sm-4 col-xs-12 pull-right text-right">
-            <div class="login-bar">
+            <div>
                 <span class="xs-pull-left">
                     <a ui-sref="forgotpassword">Забравена Парола</a>
                 </span>
             </div>
         </div>
-    </div>
-</header>
+    </div>*@
+</div>

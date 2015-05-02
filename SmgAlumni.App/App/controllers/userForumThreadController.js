@@ -14,7 +14,7 @@ app.controller('userForumThreadController',
             };
 
             $scope.gotoForum = function () {
-                $state.go('homeauth.forum');
+                $state.go('menu.forum');
             }
 
             forumThreadService.getById($stateParams.id).then(function (success) {

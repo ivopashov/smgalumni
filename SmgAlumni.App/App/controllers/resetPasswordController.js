@@ -36,7 +36,7 @@ app.controller('resetPasswordController',
                 accountService.resetPassword($scope.resetPassword).then(
                 function (success) {
                     commonService.notification.success("Паролата Ви беше променена успешно");
-                    commonService.$state.go('homeauth');
+                    commonService.$state.go('menu');
                 },
                 function (error) {
                     commonService.notification.error(error.data.message);

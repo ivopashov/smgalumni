@@ -14,7 +14,7 @@ app.controller('forgotPasswordController',
 
                 accountService.forgotPassword($scope.email).then(
                     function (success) {
-                        commonService.$state.go('homeauth');
+                        commonService.$state.go('menu');
                         commonService.notification.success(success.data);
                     },
                     function (error) {

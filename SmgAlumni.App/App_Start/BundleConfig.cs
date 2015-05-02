@@ -10,7 +10,7 @@ namespace SmgAlumni.App
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(
-                 new BundleRelaxed("~/bundles/js/lib").Include(
+                 new ScriptBundle("~/bundles/js/lib").Include(
                      "~/Scripts/jquery-1.10.2.js",
                      "~/Scripts/angular.js",
                      "~/Scripts/angular-ui-router.js",
@@ -27,7 +27,7 @@ namespace SmgAlumni.App
 
 
             bundles.Add(
-                new BundleRelaxed("~/bundles/js/spa")
+                new ScriptBundle("~/bundles/js/spa")
                     .Include("~/App/app.js")
                      .IncludeDirectory("~/App/interceptors", "*.js", true)
                      .IncludeDirectory("~/App/directives", "*.js", true)
@@ -45,7 +45,9 @@ namespace SmgAlumni.App
                     "~/Content/ngDialog.css",
                     "~/Content/ngDialog-theme-default.css",
                     "~/Content/ng-ckeditor.css",
-                    "~/Content/ng-table.css"));
+                    "~/Content/ng-table.css",
+                    "~/Content/menustyles.css"
+                    ));
 
 
             BundleTable.EnableOptimizations = false;

@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 app.controller('manageAccountController',
-    ['authHelper', '$scope', 'accountService', 'commonService', '$upload','$state',
+    ['authHelper', '$scope', 'accountService', 'commonService', '$upload', '$state',
         function (authHelper, $scope, accountService, commonService, $upload, $state) {
 
             $scope.divisions = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М'];
@@ -20,8 +20,8 @@ app.controller('manageAccountController',
 
                 accountService.updateUser($scope.user).then(function (success) {
                     commonService.notification.success("Потребителят е обновен успешно");
-                    $state.go('homeauth');
-                })
+                    $state.go('menu');
+                });
             };
 
             $scope.image = {};
@@ -30,8 +30,8 @@ app.controller('manageAccountController',
                 $scope.fileUploaded = false;
                 $scope.image = file[0];
 
-                if (!file || file.length==0) return;
-                if (file[0].type.indexOf('image') < 0)commonService.notification.error('Файлът не е снимка');
+                if (!file || file.length == 0) return;
+                if (file[0].type.indexOf('image') < 0) commonService.notification.error('Файлът не е снимка');
                 $upload.upload({
                     url: 'api/file/upload',
                     fields: { 'username': $scope.username },
