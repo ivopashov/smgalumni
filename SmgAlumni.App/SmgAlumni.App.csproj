@@ -259,7 +259,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
-    <Content Include="App\controllers\homeAuthContoller.js" />
+    <Content Include="App\controllers\accountController.js" />
     <Content Include="App\controllers\menuController.js" />
     <Content Include="App\controllers\userCausesController.js" />
     <Content Include="App\controllers\adminCausesController.js" />
@@ -280,13 +280,11 @@
     <Content Include="App\controllers\userSearchController.js" />
     <Content Include="App\controllers\manageRolesController.js" />
     <Content Include="App\controllers\verifyUsersController.js" />
-    <Content Include="App\directives\accountMenu.js" />
     <Content Include="App\directives\allListings.js" />
+    <Content Include="App\directives\changePass.js" />
+    <Content Include="App\directives\editAccount.js" />
     <Content Include="App\directives\htmlContainer.js" />
     <Content Include="App\directives\myListings.js" />
-    <Content Include="App\directives\masterAdminMenu.js" />
-    <Content Include="App\directives\adminMenu.js" />
-    <Content Include="App\directives\mainMenu.js" />
     <Content Include="App\directives\customPager.js" />
     <Content Include="App\factories\notificationService.js" />
     <Content Include="App\interceptors\authInterceptor.js" />
@@ -304,14 +302,14 @@
     <Content Include="App\services\settingsService.js" />
     <Content Include="App\services\searchService.js" />
     <Content Include="App\templates\account\accountBase.html" />
-    <Content Include="App\templates\account\changePassword.html" />
+    <Content Include="App\templates\directives\changePassword.html" />
     <Content Include="App\templates\account\forgotPassword.html" />
     <Content Include="App\templates\account\login.html" />
-    <Content Include="App\templates\account\manageAccount.html" />
+    <Content Include="App\templates\directives\manageAccount.html" />
     <Content Include="App\templates\account\register.html" />
     <Content Include="App\templates\account\registersuccess.html" />
     <Content Include="App\templates\account\resetPassword.html" />
-    <Content Include="App\templates\admin\adminBase.html" />
+    <Content Include="App\templates\admin\adminmenu.html" />
     <Content Include="App\templates\admin\causes.html" />
     <Content Include="App\templates\admin\news.html" />
     <Content Include="App\templates\admin\manageUsers.html" />
@@ -321,18 +319,14 @@
     <Content Include="App\templates\dialog\resetUserPass.html" />
     <Content Include="App\templates\dialog\editCauseNews.html" />
     <Content Include="App\templates\dialog\userDetails.html" />
-    <Content Include="App\templates\directives\accountMenu.html" />
-    <Content Include="App\templates\directives\adminMenu.html" />
     <Content Include="App\templates\directives\allListings.html" />
     <Content Include="App\templates\directives\myListings.html" />
-    <Content Include="App\templates\directives\mainMenu.html" />
     <Content Include="App\templates\directives\masterAdminMenu.html" />
     <Content Include="App\templates\directives\customPager.html" />
     <Content Include="App\templates\home\home.html" />
-    <Content Include="App\templates\home\homeAuth.html" />
     <Content Include="App\templates\home\menu.html" />
     <Content Include="App\templates\masteradmin\manageroles.html" />
-    <Content Include="App\templates\masteradmin\masterAdminBase.html" />
+    <Content Include="App\templates\masteradmin\masteradminmenu.html" />
     <Content Include="App\templates\masteradmin\settings.html" />
     <Content Include="App\templates\user\forumThread.html" />
     <Content Include="App\templates\user\listings.html" />

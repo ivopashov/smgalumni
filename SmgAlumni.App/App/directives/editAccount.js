@@ -1,8 +1,7 @@
-﻿'use strict';
+﻿app.directive('editAccount', [
+    'authHelper', 'accountService', 'commonService', '$upload', '$state', function (authHelper, accountService, commonService, $upload, $state) {
 
-app.controller('manageAccountController',
-    ['authHelper', '$scope', 'accountService', 'commonService', '$upload', '$state',
-        function (authHelper, $scope, accountService, commonService, $upload, $state) {
+        var editAccountCtrl = function (authHelper, $scope, accountService, commonService, $upload, $state) {
 
             $scope.divisions = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М'];
             accountService.getUserAccount().then(function (success) {
@@ -41,4 +40,14 @@ app.controller('manageAccountController',
                     $scope.fileUploaded = true;
                 });
             }
-        }]);
+        }
+
+        return {
+            restrict: 'AE',
+            templateUrl: '/App/templates/directives/manageAccount.html',
+            scope: {},
+            controller: ['authHelper', '$scope', 'accountService', 'commonService', '$upload', '$state', editAccountCtrl]
+        }
+
+    }
+]);

@@ -1,10 +1,8 @@
-﻿<div class="row main-content">
-    <span account-menu></span>
-    <div class="col-sm-10 content-holder">
-        <div ng-if="$state.is('account')" class="welcome-screen">
-            Използвайте менюто в ляво, за да редактирате детайли по Вашият профил или за да 
-            смените Вашата парола.
-        </div>
-        <div ui-view></div>
-    </div>
-</div>
+﻿<h2>Акаунт</h2>
+<tabset>
+    <tab heading="Редактирай Акаунт" select="editAccount()" style="cursor:pointer"></tab>
+    <tab heading="Смени Парола" select="changePass()" style="cursor:pointer"></tab>
+</tabset>
+
+<div ng-if="showEditAccount" edit-account></div>
+<div ng-if="showChangePass" change-pass></div>

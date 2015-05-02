@@ -106,28 +106,16 @@ app.config([
             controller: 'userForumThreadController',
             authenticate: true
         });
-        $stateProvider.state('account', {
-            url: '/account',
+        $stateProvider.state('menu.account', {
+            url: 'account',
             templateUrl: '/App/templates/account/accountBase.html',
+            controller:'accountController',
             authenticate: true
         });
-        $stateProvider.state('account.manageaccount', {
-            url: '/manageaccount',
-            templateUrl: '/App/templates/account/manageAccount.html',
-            controller: 'manageAccountController',
-            authenticate: true
-        });
-        $stateProvider.state('account.changepassword', {
-            url: '/changepassword',
-            templateUrl: '/App/templates/account/changePassword.html',
-            controller: 'changePasswordController',
-            authenticate: true
-        });
-        
         //admin
         $stateProvider.state('admin', {
             url: '/admin',
-            templateUrl: '/App/templates/admin/adminBase.html',
+            templateUrl: '/App/templates/admin/adminmenu.html',
             authenticate: true
         });
         $stateProvider.state('admin.verifyusers', {
@@ -157,7 +145,7 @@ app.config([
         //masteradmin
         $stateProvider.state('masteradmin', {
             url: '/masteradmin',
-            templateUrl: '/App/templates/masteradmin/masterAdminBase.html',
+            templateUrl: '/App/templates/masteradmin/masteradminmenu.html',
             authenticate: true
         });
         $stateProvider.state('masteradmin.manageroles', {

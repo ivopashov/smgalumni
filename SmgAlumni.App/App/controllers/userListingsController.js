@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 app.controller('userListingsController',
-    ['$scope', 'commonService', 'newsCauseListingService',
-        function ($scope, commonService, newsCauseListingService) {
+    ['$scope',
+        function ($scope) {
 
             $scope.showMyListings = true;
             $scope.showAllListings = false;
