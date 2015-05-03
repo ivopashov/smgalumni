@@ -29,8 +29,8 @@ namespace SmgAlumni.App.App_Start
             Container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
             Container.RegisterWebApiFilterProvider(GlobalConfiguration.Configuration);
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(Container);
-            Container.Verify();
             RegisterTypes(Container);
+            Container.Verify();
             DomainEvents.SetContainer(Container);
         }
 

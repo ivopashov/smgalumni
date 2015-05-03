@@ -73,6 +73,7 @@ namespace SmgAlumni.App.Workers
 
         private void DeleteSentNotifications()
         {
+            _logger.Info("Starting clean of notification repo");
             var sentNotifications = _notificationRepository.GetAll().Where(a => a.Sent).ToList();
             foreach (var item in sentNotifications)     
             {

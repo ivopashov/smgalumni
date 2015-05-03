@@ -82,6 +82,7 @@ namespace SmgAlumni.App.Workers
         private void SendEmailsViaSmtpClient(List<Notification> notifications)
         {
             var emailSettings = new EmailSettings(new EFSettingsRetriever(new SettingRepository(_context)));
+            _logger.Info("Starting email send");
 
             using (var client = emailSettings.GetSmtpClient())
             {

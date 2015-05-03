@@ -1,14 +1,10 @@
-﻿using NLog;
-using SmgAlumni.Data.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NLog;
+using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
 using SmgAlumni.Utils.Helpers;
-using System.Security.Claims;
-using SmgAlumni.EF.Models.enums;
 
 namespace SmgAlumni.Utils.Membership
 {

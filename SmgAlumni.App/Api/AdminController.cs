@@ -23,7 +23,6 @@ namespace SmgAlumni.App.Api
         private readonly NewsRepository _newsRepository;
         private readonly CauseRepository _causeRepository;
         private readonly EFUserManager _userManager;
-        private User _user;
 
         public AdminController(ILogger logger,
             RoleRepository roleRepository,
@@ -40,7 +39,6 @@ namespace SmgAlumni.App.Api
             VerifyNotNull(_causeRepository);
             _userManager = userManager;
             VerifyNotNull(_userManager);
-            _user = _userManager.GetUserByUserName(User.Identity.Name);
         }
 
         [HttpGet]
@@ -72,34 +70,28 @@ namespace SmgAlumni.App.Api
             if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");
             if (vm.IdsToVerify.Count == 0) return Ok();
             //put everything in a transaction so that if anything fails nothing goes through
-            using (var context = new SmgAlumniContext())
-            {
-                using (var transaction = context.Database.BeginTransaction())
-                {
-                    User user;
-                    try
-                    {
-                        foreach (var item in vm.IdsToVerify)
-                        {
-                            user = context.Users.SingleOrDefault(a => a.Id == item);
-                            if (user == null) throw new Exception("Tried to verify user with id: " + item + " but user does not exist");
-                            user.Verified = true;
-                            context.SaveChanges();
-                            DomainEvents.Raise<VerifyUserEvent>(new VerifyUserEvent() { UserName = user.UserName, User = _user});
-                        }
 
-                        transaction.Commit();
-                        return Ok();
-                    }
-                    catch (Exception e)
-                    {
-                        _logger.Error(e.Message);
-                        transaction.Rollback();
-                        return BadRequest("Възникна грешка и операцията не беше изпълнена. Моля опитайте отново");
-                    }
+            User user;
+            try
+            {
+                foreach (var item in vm.IdsToVerify)
+                {
+                    user = Users.GetById(item);
+                    if (user == null) throw new Exception("Tried to verify user with id: " + item + " but user does not exist");
+                    user.Verified = true;
+                    Users.Update(user);
+                    DomainEvents.Raise(new VerifyUserEvent() { UserName = user.UserName, User = CurrentUser });
                 }
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e.Message + "\nInner Exception: " + e.InnerException);
+                return BadRequest("Възникна грешка и операцията не беше изпълнена. Моля опитайте отново");
             }
         }
-
     }
 }
+
+

@@ -1,15 +1,11 @@
-﻿using SmgAlumni.Data.Repositories;
+﻿using System;
+using SmgAlumni.Data.Repositories;
+using SmgAlumni.EF.Models.enums;
 using SmgAlumni.Utils.DomainEvents.Interfaces;
 using SmgAlumni.Utils.EfEmailQuerer;
 using SmgAlumni.Utils.EfEmailQuerer.Serialization;
 using SmgAlumni.Utils.EfEmailQuerer.Templates;
-using SmgAlumni.Utils.Identity;
 using SmgAlumni.Utils.Membership;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmgAlumni.Utils.DomainEvents.Handlers
 {
@@ -56,7 +52,7 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
                         UserName = username,
                         Link = link
                     }
-                }, EF.Models.enums.NotificationKind.ForgotPassword);
+                }, NotificationKind.ForgotPassword);
             }
         }
     }

@@ -1,13 +1,8 @@
-﻿using NLog;
+﻿using System;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
 using SmgAlumni.EF.Models.enums;
 using SmgAlumni.Utils.DomainEvents.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmgAlumni.Utils.DomainEvents.Handlers
 {
