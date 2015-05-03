@@ -73,13 +73,13 @@ namespace SmgAlumni.App.Workers
                 }
                 catch (Exception e)
                 {
-                    _logger.Error(e.Message);
+                    _logger.Error("Error while sending email: " + e.Message + "\n Inner Exception: " + e.InnerException);
                 }
 
             }
         }
 
-        private static void SendEmailsViaSmtpClient(List<Notification> notifications)
+        private void SendEmailsViaSmtpClient(List<Notification> notifications)
         {
             var emailSettings = new EmailSettings(new EFSettingsRetriever(new SettingRepository(_context)));
 
@@ -91,6 +91,7 @@ namespace SmgAlumni.App.Workers
                 foreach (var notification in notifications)
                 {
                     var mailMessage = DeserializeEmail(notification.Message);
+                    _logger.Info("Sending email to: " + mailMessage.To);
                     client.Send(mailMessage);
                     notification.Sent = true;
                     _notificationRepository.Update(notification);

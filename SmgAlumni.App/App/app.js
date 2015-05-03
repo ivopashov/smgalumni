@@ -166,6 +166,7 @@ app.config([
             if ((toState.authenticate) && !sessionStorage.authenticationData) {
                 $state.go('menu.login', { returnUrl: toState.name });
                 event.preventDefault();
+                return;
             }
             if (toState.name.indexOf('admin') > -1) {
                 var authData = authHelper.getAuth();

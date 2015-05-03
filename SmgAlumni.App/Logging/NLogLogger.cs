@@ -5,9 +5,9 @@ namespace SmgAlumni.App.Logging
     public class NLogLogger : ILogger
     {
         private readonly Logger _logger;
-        public NLogLogger(string loggerName)
+        public NLogLogger()
         {
-            _logger = LogManager.GetLogger(loggerName);
+            _logger = LogManager.GetCurrentClassLogger();
         }
         public void Info(string message)
         {

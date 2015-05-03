@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Reflection;
 using System.Web.Http;
-using System.Web.Mvc;
 using SimpleInjector;
 using SimpleInjector.Extensions;
 using SimpleInjector.Integration.WebApi;
@@ -31,6 +29,7 @@ namespace SmgAlumni.App.App_Start
             Container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
             Container.RegisterWebApiFilterProvider(GlobalConfiguration.Configuration);
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(Container);
+            Container.Verify();
             RegisterTypes(Container);
             DomainEvents.SetContainer(Container);
         }
@@ -43,6 +42,7 @@ namespace SmgAlumni.App.App_Start
 
             var webLifestyle = new WebApiRequestLifestyle();
             container.Register<SmgAlumniContext, SmgAlumniContext>(webLifestyle);
+
             container.Register<ActivityRepository, ActivityRepository>();
             container.Register<UserRepository, UserRepository>();
             container.Register<EFUserManager, EFUserManager>();
@@ -52,10 +52,10 @@ namespace SmgAlumni.App.App_Start
             container.Register<SettingRepository, SettingRepository>();
             container.Register<AppSettings, AppSettings>();
             container.Register<IAppSettingsRetriever, EFSettingsRetriever>();
+            
             container.RegisterWithContext<ILogger>(dependencyContext =>
             {
-                var name = "WebAPI";
-                return new NLogLogger(name);
+                return new NLogLogger();
             });
             container.RegisterInitializer<BaseApiController>(ctrl =>
             {

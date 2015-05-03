@@ -15,11 +15,9 @@ namespace SmgAlumni.Utils.EfEmailQuerer
     {
         private readonly AppSettings _appSettings;
         private readonly NotificationRepository _repo;
-        private readonly Logger _logger;
 
         public NotificationEnqueuer(AppSettings appSettings, NotificationRepository repo)
         {
-            _logger = LogManager.GetCurrentClassLogger();
             _appSettings = appSettings;
             _repo = repo;
         }
@@ -31,20 +29,14 @@ namespace SmgAlumni.Utils.EfEmailQuerer
 
             var notification = new Notification()
             {
-                CreatedOn=DateTime.Now,
-                Kind=kind,
-                Sent=false,
+                CreatedOn = DateTime.Now,
+                Kind = kind,
+                Sent = false,
                 Message = binaryFormattedMessage
             };
-            try
-            {
-                _repo.Add(notification);
-            }
-            catch(Exception e)
-            {
-                _logger.Error(e.Message);
-                throw new Exception(e.Message);
-            }
+
+            _repo.Add(notification);
+
         }
 
         private SerializeableMailMessage ComposeEmail(EmailNotificationOptions options)

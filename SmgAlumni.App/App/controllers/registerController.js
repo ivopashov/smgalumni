@@ -27,7 +27,7 @@ app.controller('registerController',
                 $scope.validation.trySentInvalidForm = false;
                 accountService.register($scope.user).then(
                 function (success) {
-                    commonService.$state.go('successfullregistration');
+                    commonService.$state.go('menu.successfullregistration');
                     commonService.notification.success("Successfully registered");
                 },
                 function (error) {

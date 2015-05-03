@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SmgAlumni.EF.Models.enums;
 using SmgAlumni.Utils.DomainEvents.Interfaces;
 using SmgAlumni.Utils.EfEmailQuerer;
-using SmgAlumni.Data.Repositories;
-using SmgAlumni.Utils.Membership;
 using SmgAlumni.Utils.EfEmailQuerer.Serialization;
 using SmgAlumni.Utils.EfEmailQuerer.Templates;
+using SmgAlumni.Utils.Membership;
 
 namespace SmgAlumni.Utils.DomainEvents.Handlers
 {
@@ -16,14 +12,12 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
     {
 
         private readonly NotificationEnqueuer _sender;
-        private readonly UserRepository _userRepository;
         private readonly EFUserManager _userManager;
 
-        public VerifiedUserHandler(NotificationEnqueuer sender, UserRepository userRepository, EFUserManager usermanager)
+        public VerifiedUserHandler(NotificationEnqueuer sender, EFUserManager usermanager)
         {
             _sender = sender;
             _userManager = usermanager;
-            _userRepository = userRepository;
         }
 
         public void Handle(VerifyUserEvent args)
@@ -44,7 +38,7 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
                     UserName = user.UserName,
                     Link = "http://smg-alumni.com"
                 }
-            }, EF.Models.enums.NotificationKind.UserVerified);
+            }, NotificationKind.UserVerified);
         }
     }
 }
