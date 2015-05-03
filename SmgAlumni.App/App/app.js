@@ -84,32 +84,27 @@ app.config([
         $stateProvider.state('menu.news', {
             url: 'news',
             templateUrl: '/App/templates/user/news.html',
-            controller: 'userNewsController',
-            authenticate: true
+            controller: 'userNewsController'
         });
         $stateProvider.state('menu.causes', {
             url: 'causes',
             templateUrl: '/App/templates/user/causes.html',
-            controller: 'userCausesController',
-            authenticate: true
+            controller: 'userCausesController'
         });
         $stateProvider.state('menu.listings', {
             url: 'listings',
             templateUrl: '/App/templates/user/listings.html',
-            controller: 'userListingsController',
-            authenticate: true
+            controller: 'userListingsController'
         });
         $stateProvider.state('menu.forum', {
             url: 'forum',
             templateUrl: '/App/templates/user/forum.html',
-            controller: 'userForumController',
-            authenticate: true
+            controller: 'userForumController'
         });
         $stateProvider.state('menu.forumthread', {
             url: 'forumthread/:id',
             templateUrl: '/App/templates/user/forumThread.html',
-            controller: 'userForumThreadController',
-            authenticate: true
+            controller: 'userForumThreadController'
         });
         $stateProvider.state('menu.account', {
             url: 'account',

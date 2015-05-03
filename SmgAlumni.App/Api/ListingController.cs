@@ -49,6 +49,7 @@ namespace SmgAlumni.App.Api
             }
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/listing/listingbyid")]
         public IHttpActionResult GetListingById([FromUri] int id)
@@ -57,6 +58,7 @@ namespace SmgAlumni.App.Api
             return Ok(news);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/listing/alllistings")]
         public IHttpActionResult GetAllListings()
@@ -66,6 +68,7 @@ namespace SmgAlumni.App.Api
             return Ok(news);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/listing/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
@@ -84,12 +87,13 @@ namespace SmgAlumni.App.Api
             return Ok(news);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/listing/count")]
         public IHttpActionResult GetListingsCount()
         {
             var count = _listingRepository.GetAll()
-                .Where(a => a.User.Id.Equals(CurrentUser.Id)).ToList().Count;
+                .ToList().Count;
             return Ok(count);
         }
 
@@ -97,7 +101,7 @@ namespace SmgAlumni.App.Api
         [Route("api/listing/my/count")]
         public IHttpActionResult GetMyListingsCount()
         {
-            var count = _listingRepository.GetAll().ToList().Count;
+            var count = _listingRepository.GetAll().Where(a => a.User.Id.Equals(CurrentUser.Id)).ToList().Count;
             return Ok(count);
         }
 
@@ -106,7 +110,7 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult MyListings()
         {
             var listings = _listingRepository.GetAll()
-                .Where(a => a.User.UserName.ToLower().Equals(User.Identity.Name.ToLower()))
+                .Where(a => a.User.Id.Equals(CurrentUser.Id))
                 .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName })
                 .ToList();
             return Ok(listings);
@@ -119,7 +123,7 @@ namespace SmgAlumni.App.Api
             var listings = _listingRepository.GetById(id);
             if (listings == null) return BadRequest("Обявата не беше намерена. Моля опитайте отново.");
             //if user is not the creator, not admin or super admin - refuse
-            if (CurrentUser.Id != listings.User.Id && (!CurrentUser.Roles.Any(a => a.Equals("Admin")) || !CurrentUser.Roles.Any(a => a.Equals("MasterAdmin"))))
+            if (CurrentUser.Id != listings.User.Id && (!CurrentUser.Roles.Any(a => a.Name.Equals("Admin")) || !CurrentUser.Roles.Any(a => a.Equals("MasterAdmin"))))
                 return BadRequest("Нямате права да изтриете тази обява. Тя е създадена от друг.");
             try
             {
@@ -143,6 +147,7 @@ namespace SmgAlumni.App.Api
 
             var listing = _listingRepository.GetById(vm.Id);
             if (listing == null) return BadRequest("Новина с такова id не можа да бъде намерена");
+            if(listing.User.Id!=CurrentUser.Id)return Unauthorized();
             listing.Body = vm.Body;
             listing.Heading = vm.Heading;
             listing.DateCreated = DateTime.Now;

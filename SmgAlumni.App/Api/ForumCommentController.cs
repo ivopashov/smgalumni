@@ -53,6 +53,7 @@ namespace SmgAlumni.App.Api
             });
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/forumcomment/forumcommentbyid")]
         public IHttpActionResult GetById([FromUri] int id)

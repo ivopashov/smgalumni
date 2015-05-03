@@ -56,6 +56,7 @@ namespace SmgAlumni.App.Api
             }
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/forumanswer/forumanswerbyid")]
         public IHttpActionResult GetById([FromUri] int id)
@@ -90,10 +91,19 @@ namespace SmgAlumni.App.Api
             }
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/forumanswer/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip, [FromUri]int forumthreadid)
         {
+            Func<int,bool> canEdit = (x) =>
+            {
+                if (CurrentUser == null)
+                {
+                    return false;
+                }
+                return CurrentUser.Id == x;
+            }; 
             var answers = _forumThreadRepository.GetById(forumthreadid).Answers.OrderBy(a => a.CreatedOn)
                 .Take(take).Skip(skip);
             var flattenedAnswers = answers.Select(a => new
@@ -103,14 +113,15 @@ namespace SmgAlumni.App.Api
                     CreatedBy = a.User.UserName,
                     Id = a.Id,
                     Likes = a.Likes,
-                    CanEdit = a.User.Id == CurrentUser.Id ? true : false,
+                    //CanEdit = a.User.Id == CurrentUser.Id ? true : false,
+                    CanEdit = canEdit(a.UserId),
                     Comments = a.Comments.Select(b => new
                     {
                         Body = b.Body,
                         CreatedOn = b.CreatedOn,
                         CreatedBy = b.User.UserName,
                         Id = b.Id,
-                        CanEdit = b.User.Id == CurrentUser.Id ? true : false,
+                        CanEdit = canEdit(a.UserId)
                     })
                 })
                 .ToList();
@@ -118,6 +129,7 @@ namespace SmgAlumni.App.Api
             return Ok(flattenedAnswers);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/forumanswer/count")]
         public IHttpActionResult GetCount([FromUri]int forumthreadid)
@@ -136,7 +148,7 @@ namespace SmgAlumni.App.Api
             var fa = _forumAnswerRepository.GetById(vm.Id);
             if (fa == null) return BadRequest("Темата с такова id не можа да бъде намерена");
             if (fa.User.Id != CurrentUser.Id)
-                return BadRequest("Нямате права да променяте отговорът");
+                return Unauthorized();
             fa.Body = vm.Body;
             fa.CreatedOn = DateTime.Now;
 

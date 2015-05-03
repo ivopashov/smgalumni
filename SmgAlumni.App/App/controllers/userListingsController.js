@@ -1,13 +1,18 @@
 ﻿'use strict';
 
 app.controller('userListingsController',
-    ['$scope',
-        function ($scope) {
+    ['$scope','$state',
+        function ($scope, $state) {
 
-            $scope.showMyListings = true;
-            $scope.showAllListings = false;
+            $scope.showMyListings = false;
+            $scope.showAllListings = true;
 
             $scope.myListings = function () {
+                if (!sessionStorage.authenticationData) {
+                    $state.go('menu.login', { returnUrl:'menu.listings' });
+                    event.preventDefault();
+                    return;
+                }
                 $scope.showMyListings = true;
                 $scope.showAllListings = false;
             }

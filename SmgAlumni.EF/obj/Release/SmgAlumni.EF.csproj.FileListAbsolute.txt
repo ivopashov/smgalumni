@@ -18,3 +18,7 @@ C:\Repositories\SMG alumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.csprojResolveAs
 C:\Repositories\SMG alumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.Migrations.InitialCreate.resources
 C:\Repositories\SMG alumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.csproj.GenerateResource.Cache
 D:\Projects\SmgAlumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.pdb
+D:\Projects\SmgAlumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.csprojResolveAssemblyReference.cache
+D:\Projects\SmgAlumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.Migrations.InitialCreate.resources
+D:\Projects\SmgAlumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.csproj.GenerateResource.Cache
+D:\Projects\SmgAlumni\SmgAlumni.EF\obj\Release\SmgAlumni.EF.dll

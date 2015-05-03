@@ -44,6 +44,12 @@ app.controller('userForumThreadController',
             }
 
             $scope.modifyLikes = function (action,answer) {
+
+                if (!sessionStorage.authenticationData) {
+                    commonService.notification.warning("Трябва да влезете в системата за да гласувате");
+                    return;
+                }
+
                 var temp = [];
                 
                 if (!sessionStorage.votes) {
@@ -138,6 +144,12 @@ app.controller('userForumThreadController',
             }
 
             $scope.createAnswer = function () {
+                if (!sessionStorage.authenticationData) {
+                    $state.go('menu.login', { returnUrl: 'menu.forumthread' });
+                    event.preventDefault();
+                    return;
+                }
+
                 $scope.selectedItem = {};
                 commonService.ngDialog.openConfirm({
                     templateUrl: '/App/templates/dialog/editItemWithBodyOnly.html',

@@ -9,10 +9,10 @@ app.controller('userForumController',
             $scope.currentSelectedPage = { number: -1 };
 
             $scope.init = function () {
-                forumThreadService.count().then(function (success) {
+                forumThreadService.count().then(function(success) {
                     $scope.totalCount = success.data;
                     $scope.params = forumThreadService.itemsPerPage();
-                })
+                });
             }
             $scope.init();
 
@@ -23,14 +23,19 @@ app.controller('userForumController',
 
             $scope.retrieveItems = function (pageNumber) {
                 var skip = (pageNumber - 1) * $scope.params.itemsPerPage;
-                forumThreadService.skipandtake(skip, $scope.params.itemsPerPage).then(function (success) {
+                forumThreadService.skipandtake(skip, $scope.params.itemsPerPage).then(function(success) {
                     $scope.items = success.data;
-                }, function (error) {
+                }, function(error) {
                     commonService.notification.error('Темите не можаха да бъдат заредени');
-                })
+                });
             }
 
             $scope.createNew = function () {
+                if (!sessionStorage.authenticationData) {
+                    $state.go('menu.login', { returnUrl: 'menu.forum' });
+                    event.preventDefault();
+                    return;
+                }
                 $scope.selectedItem = {};
                 commonService.ngDialog.openConfirm({
                     templateUrl: '/App/templates/dialog/editCauseNews.html',

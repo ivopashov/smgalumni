@@ -45,6 +45,7 @@ namespace SmgAlumni.App.Api
             }
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/forumthread/forumthreadbyid")]
         public IHttpActionResult GetById([FromUri] int id)
@@ -55,6 +56,7 @@ namespace SmgAlumni.App.Api
             return Ok(new { Body = ft.Body, Id = ft.Id, Heading = ft.Heading, CreatedOn = ft.CreatedOn, CreatedBy = ft.User.UserName });
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/forumthread/allforumthreads")]
         public IHttpActionResult GetAll()
@@ -83,6 +85,7 @@ namespace SmgAlumni.App.Api
             }
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/forumthread/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
@@ -92,6 +95,7 @@ namespace SmgAlumni.App.Api
             return Ok(news);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/forumthread/count")]
         public IHttpActionResult GetCount()

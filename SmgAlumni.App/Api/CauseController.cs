@@ -11,6 +11,7 @@ using SmgAlumni.Utils.DomainEvents.Interfaces;
 
 namespace SmgAlumni.App.Api
 {
+    [AllowAnonymous]
     public class CauseController : BaseApiController
     {
         private readonly CauseRepository _causeRepository;

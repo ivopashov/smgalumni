@@ -11,6 +11,7 @@ using SmgAlumni.Utils.DomainEvents.Interfaces;
 
 namespace SmgAlumni.App.Api
 {
+    [AllowAnonymous]
     public class NewsController : BaseApiController
     {
         private readonly NewsRepository _newsRepository;
