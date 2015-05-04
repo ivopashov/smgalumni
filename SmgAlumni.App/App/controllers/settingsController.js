@@ -49,14 +49,14 @@ app.controller('settingsController',
             $scope.deleteSetting = function (setting) {
                 commonService.ngDialog.openConfirm({
                     templateUrl: '/App/templates/dialog/confirmDeleteDialog.html',
-                }).then(function () {
-                    settingsService.deleteSetting(setting).then(function (success) {
+                }).then(function() {
+                    settingsService.deleteSetting(setting).then(function(success) {
                         commonService.notification.success("Настройката беше изтрита успешно");
                         $scope.settings.splice($scope.settings.indexOf(setting), 1);
-                    }, function (err) {
+                    }, function(err) {
                         commonService.notification.error(err.data.message);
-                    })
-                })
+                    });
+                });
             }
 
         }]);

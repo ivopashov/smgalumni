@@ -25,21 +25,21 @@ app.controller('adminManageUsersController',
                 ngDialog.openConfirm({
                     templateUrl: '/App/templates/dialog/confirmDeleteDialog.html',
                     scope: $scope
-                }).then(function (success) {
-                    accountService.deleteUser(student.userName).then(function () {
+                }).then(function(success) {
+                    accountService.deleteUser(student.userName).then(function() {
                         commonService.notification.success("Потребителят беше изтрит успешно");
                         $scope.students.splice($scope.students.indexOf(student), 1);
-                    }, function (error) {
+                    }, function(error) {
                         commonService.notification.error(error.data.message);
-                    })
-                })
+                    });
+                });
             }
 
             $scope.resetStudentPass = function (student) {
                 ngDialog.openConfirm({
                     templateUrl: '/App/templates/dialog/resetUserPass.html',
                     scope: $scope
-                }).then(function (success) {
+                }).then(function(success) {
 
                     if (success.password != success.newpassword) {
                         commonService.notification.error("Паролите не съвпадат");
@@ -51,12 +51,12 @@ app.controller('adminManageUsersController',
                         password: success.password,
                         newpassword: success.newpassword,
                     }
-                    accountService.resetUserPass(model).then(function () {
+                    accountService.resetUserPass(model).then(function() {
                         commonService.notification.success("Потребителската парола беше сменена успешно");
-                    }, function (error) {
+                    }, function(error) {
                         commonService.notification.error(error.data.message);
-                    })
-                })
+                    });
+                });
             }
 
         }]);

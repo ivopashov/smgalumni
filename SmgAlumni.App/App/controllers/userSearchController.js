@@ -27,12 +27,12 @@ app.controller('userSearchController',
             }
 
             $scope.selectUser = function (id) {
-                searchService.getUserById(id).then(function (success) {
+                searchService.getUserById(id).then(function(success) {
                     $scope.selectedUser = success.data;
                     ngDialog.openConfirm({
                         templateUrl: '/App/templates/dialog/userDetails.html',
                         scope: $scope
-                    })
-                })
+                    });
+                });
             }
         }]);

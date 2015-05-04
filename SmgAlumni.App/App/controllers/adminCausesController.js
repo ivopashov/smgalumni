@@ -38,9 +38,7 @@ app.controller('adminCausesController',
                             $scope.selectedItem = {};
                         }, function (err) {
                             commonService.notification.error(err.data.message);
-                        })
-                    }, function (err) {
-                        commonService.notification.error(err.data.message);
+                        });
                     });
                 }, function (err) {
                     commonService.notification.error(err.data.message);
@@ -59,9 +57,7 @@ app.controller('adminCausesController',
                         $scope.init();
                     }, function (err) {
                         commonService.notification.error(err.data.message);
-                    })
-                }, function (err) {
-                    commonService.notification.error(err.data.message);
+                    });
                 });
             }
 
@@ -75,8 +71,8 @@ app.controller('adminCausesController',
                         $scope.init();
                     }, function (error) {
                         commonService.notification.error(error.data.message);
-                    })
-                })
+                    });
+                });
             }
 
             $scope.retrieveItems = function (pageNumber) {

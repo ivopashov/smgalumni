@@ -159,9 +159,9 @@ app.controller('userForumThreadController',
                     forumAnswerService.addNew(vm).then(function () {
                         $scope.selectedItem = {};
                         $scope.initAnswers();
+                    },function(err) {
+                        commonService.notification.error(err.data.message);
                     });
-                }, function (err) {
-                    commonService.notification.error(err.data.message);
                 });
             }
 
@@ -175,9 +175,9 @@ app.controller('userForumThreadController',
                     forumCommentService.addNew(vm).then(function (success1) {
                         $scope.selectedItem = {};
                         answer.comments.push(success1.data);
+                    }, function (err) {
+                        commonService.notification.error(err.data.message);
                     });
-                }, function (err) {
-                    commonService.notification.error(err.data.message);
                 });
             }
 

@@ -50,7 +50,7 @@ namespace SmgAlumni.App
                     ));
 
 
-            BundleTable.EnableOptimizations = false;
+            BundleTable.EnableOptimizations = true;
         }
 
     }

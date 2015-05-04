@@ -41,15 +41,13 @@ app.controller('userForumController',
                     templateUrl: '/App/templates/dialog/editCauseNews.html',
                     scope: $scope
                 }).then(function (success) {
-                    forumThreadService.addNew($scope.selectedItem).then(function (success) {
+                    forumThreadService.addNew($scope.selectedItem).then(function(success) {
                         commonService.notification.success("Успешно добавихте темата");
                         $scope.selectedItem = {};
                         $scope.init();
-                    }, function (err) {
+                    }, function(err) {
                         commonService.notification.error(err.data.message);
-                    })
-                }, function (err) {
-                    commonService.notification.error(err.data.message);
+                    });
                 });
             }
 

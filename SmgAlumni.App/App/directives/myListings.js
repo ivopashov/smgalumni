@@ -47,8 +47,6 @@
                 }, function (err) {
                     commonService.notification.error(err.data.message);
                 });
-            }, function (err) {
-                commonService.notification.error(err.data.message);
             });
         }
 

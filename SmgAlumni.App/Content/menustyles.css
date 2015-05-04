@@ -99,7 +99,7 @@ nav {
 
 /* Displays the dropdown on hover and moves back into position */
 .menu li:hover ul {
-    background: rgba(255,255,255,1);
+    background: rgba(250,128,114,1);
     -ms-border-radius: 6px;
     border-radius: 6px;
     -webkit-box-shadow: inset 0px 2px 4px rgba(0,0,0,0.4);
@@ -120,7 +120,8 @@ nav {
     -webkit-box-shadow: inset 0px 0px 1px 1px rgba(0,0,0,0.1);
     -ms-box-shadow: inset 0px 0px 1px 1px rgba(0,0,0,0.1);
     box-shadow: inset 0px 0px 1px 1px rgba(0,0,0,0.1);
-	color: #222;
+	    color: white;
+
 }
 
 .menu li:hover ul a {
@@ -141,4 +142,5 @@ nav {
     -webkit-box-shadow: inset 0px 0px 4px 2px rgba(0,0,0,0.3);
     -ms-box-shadow: inset 0px 0px 4px 2px rgba(0,0,0,0.3);
     box-shadow: inset 0px 0px 4px 2px rgba(0,0,0,0.3);
+    color: #222222;
 }
