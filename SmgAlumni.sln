@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmgAlumni.Utils", "Core\SmgAlumni.Utils.csproj", "{BB73FDE0-95AF-400A-8A3C-5380EACD809E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmgAlumni.Utils", "SmgAlumni.Utils\SmgAlumni.Utils.csproj", "{BB73FDE0-95AF-400A-8A3C-5380EACD809E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmgAlumni.App", "SmgAlumni.App\SmgAlumni.App.csproj", "{41C5714D-4FF2-4762-BB65-F30C0E21E001}"
 EndProject
