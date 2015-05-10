@@ -1,18 +1,32 @@
-﻿<div class="wrap">
-    <nav>
-        <ul class="menu">
-            <li>
-                <a ui-sref="masteradmin.settings"><span class="glyphicon glyphicon-cog"></span> Настройки</a>
-            </li>
-            <li>
-                <a ui-sref="masteradmin.manageroles"><span class="glyphicon glyphicon-user"></span>Управлявай Роли</a>
-            </li>
-           
-        </ul>
-        <div class="clearfix"></div>
-    </nav>
+﻿<div class="header-image-holder">
+</div>
+<div ng-controller="masterAdminHeaderController">
+    <div class="menu">
+        <div class="menu-holder">
+            <div class="menu-nav-header">
+                <a ui-sref="menu">
+                    <i class="glyphicon glyphicon-home"></i>
+                </a>
+            </div>
+            <nav class="menu-nav">
+                <ul class="menu-items">
+                    <li ng-repeat="item in menuItems">
+                        <a ui-sref="{{item.state}}">{{item.name}}</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+    <ul ng-if="!isLoggedIn()" class="account-menu">
+        <li><a ui-sref="menu.login">Вход &nbsp; /</a></li>
+        <li><a ui-sref="menu.register">&nbsp; Регистрация</a></li>
+    </ul>
+    <ul ng-if="isLoggedIn()" class="account-menu">
+        <li><a ui-sref="menu.account">Моят Акаунт &nbsp; /</a></li>
+        <li><a ng-click="logout()">&nbsp; Изход</a></li>
+    </ul>
+</div>
     <div class="site-content">
         <div ui-view class="row"></div>
     </div>
-    <hr />
-</div>

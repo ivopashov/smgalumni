@@ -10,7 +10,11 @@
                     sessionStorage.authenticationData = JSON.stringify(authenticationResponse.data);
                     $rootScope.$broadcast('login');
                     commonService.notification.success('Успешно влизане');
-                    $state.go(loginData.returnUrl);
+                    if (!loginData.returnUrl) {
+                        $state.go('menu');
+                    } else {
+                        $state.go(loginData.returnUrl);
+                    }
                 }, function (error) {
                     commonService.notification.error(error.data.message);
                 });

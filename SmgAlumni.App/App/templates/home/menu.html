@@ -1,41 +1,35 @@
-﻿<div class="wrap">
-    <nav>
-        <ul class="menu">
-            <li>
-                <a style="padding:6px 6px;" href="#"><span class="glyphicon glyphicon-home"></span> СМГ Алумни</a>
-                <ul>
-                    <li><a style="padding:6px 6px;" ui-sref="menu">Начало</a></li>
-                    <li><a style="padding:6px 6px;" ui-sref="menu.history">История</a></li>
-                </ul>
-            </li>
-            <li>
-                <a style="padding:6px 6px;" ui-sref="menu.account"><span class="glyphicon glyphicon-user"></span> Акаунт</a>
-            </li>
-            <li>
-                <a style="padding:6px 6px;" ui-sref="menu.news"><span class="glyphicon glyphicon-list-alt"></span> Новини</a>
-            </li>
-            <li>
-                <a style="padding:6px 6px;" ui-sref="menu.causes"><span class="glyphicon glyphicon-euro"></span> Благотворителност</a>
-            </li>
-            <li>
-                <a style="padding:6px 6px;" ui-sref="menu.listings">
-                    <span class="glyphicon glyphicon-euro"></span> Обяви
+﻿<div class="header-image-holder">
+
+</div>
+<div ng-controller="headerController">
+    <div class="menu">
+        <div class="menu-holder">
+            <div class="menu-nav-header">
+                <a ui-sref="menu">
+                    <i class="glyphicon glyphicon-home"></i>
                 </a>
-            </li>
-            <li>
-                <a style="padding:6px 6px;" ui-sref="menu.search"><span class="glyphicon glyphicon-search"></span> Търсене</a>
-                <!--<ul>
-                    <li><a style="padding:6px 6px;" href="#">Contact Us</a></li>
-                    <li><a style="padding:6px 6px;" href="#">Directions</a></li>
-                </ul>-->
-            </li>
-            <li>
-                <a style="padding:6px 6px;" ui-sref="menu.forum"><span class="glyphicon glyphicon-comment"></span> Форум</a>
-            </li>
-        </ul>
-        <div class="clearfix"></div>
-    </nav>
-    <div ng-if="$state.is('menu')" class="welcome-screen">
+            </div>
+            <nav class="menu-nav">
+                <ul class="menu-items">
+                    <li ng-repeat="item in menuItems">
+                        <a ui-sref="{{item.state}}">{{item.name}}</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+    <ul ng-if="!isLoggedIn()" class="account-menu">
+        <li><a ui-sref="menu.login">Вход &nbsp; /</a></li>
+        <li><a ui-sref="menu.register">&nbsp; Регистрация</a></li>
+    </ul>
+    <ul ng-if="isLoggedIn()" class="account-menu">
+        <li><a ui-sref="menu.account">Моят Акаунт &nbsp; /</a></li>
+        <li><a ng-click="logout()">&nbsp; Изход</a></li>
+    </ul>
+</div>
+<div class="site-content">
+    <div ng-if="$state.is('menu')">
         Добре дошли в сайта на СМГ Алумни Мрежа!
         Целта на този сайт е да събере всички завършили възпитаници на СМГ
         на едно място, за да
@@ -58,8 +52,6 @@
         Сайтът се разработва pro bono и е open source - може да видите Github адреса във footer-a. Ако искате
         и можете да допринесете, не се колебайте да го направите.
     </div>
-    <div class="site-content">
-        <div ui-view class="row"></div>
+    <div ui-view class="row">
     </div>
-    <hr/>
 </div>

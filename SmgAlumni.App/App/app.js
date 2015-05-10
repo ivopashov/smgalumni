@@ -168,6 +168,7 @@ app.config([
                 event.preventDefault();
                 return;
             }
+            
             if (toState.name.indexOf('admin') > -1) {
                 var authData = authHelper.getAuth();
                 if (authData.roles.indexOf('Admin') == -1) {

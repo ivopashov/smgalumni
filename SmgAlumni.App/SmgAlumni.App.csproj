@@ -340,6 +340,8 @@
     <Content Include="Content\images\paisii.jpg" />
     <Content Include="Content\images\smg-panorama.png" />
     <Content Include="Content\images\smg.jpg" />
+    <Content Include="Content\images\smg_750px.jpg" />
+    <Content Include="Content\images\smg_970px.jpg" />
     <Content Include="Content\loading-bar.css" />
     <Content Include="Content\loading-bar.min.css" />
     <Content Include="Content\menustyles.css" />

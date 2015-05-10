@@ -1,11 +1,11 @@
-﻿app.controller('headerController',
+﻿app.controller('adminHeaderController',
     ['$scope', 'authHelper', 'authService', '$http', 'accountService', '$state', '$rootScope',
     function ($scope, authHelper, authService, $http, accountService, $state, $rootScope) {
 
-        (function() {
+        (function () {
             $scope.username = accountService.getUser();
         }());
-        
+
         $rootScope.$on('login', function () {
             $scope.username = accountService.getUser();
         });
@@ -19,11 +19,10 @@
         }
 
         $scope.menuItems = [
-            { name: 'Новини',state:'menu.news' },
-            { name: 'Обяви',state:'menu.listings' },
-            { name: 'Благотворителност', state: 'menu.causes' },
-            { name: 'Търсене', state: 'menu.search' },
-            { name: 'Форум',state:'menu.forum' },
+            { name: 'Новини', state: 'admin.news' },
+            { name: 'Благотворителност', state: 'admin.causes' },
+            { name: 'Одобри Юзери', state: 'admin.verifyusers' },
+            { name: 'Управлявай Юзери', state: 'admin.manageusers' },
         ];
     }
     ]);
