@@ -2,7 +2,7 @@
 <html ng-app="app">
 <head>
     <meta charset="utf-8" />
-    <link rel="favicon" href="/Content/images/favicon.ico" type="image/ico" />
+    <link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAECSURBVDhPpZI7aoVAFIZnJa4h3BW4h2wgW/CBCgo+Ci20UVEbRVQsb3FXcLu7h9SBFJIqTcoT5g8OMeaGqD98eGY488HMkdHBCIEsy5uY8yW4nn5lGIYFfd+DoiiEhPFGvsjzHGRZJng9P5AkSajTNF3Az0zTRIwXQRAA3/dXeJ63wnVdwM9CoOv6LoSgbdtdCMERMIVnm2GhKAoZhkG2beP+YRhSHMd4tLIsqa5r6roOvXNWAtM0yXEcPGoURZQkCaZQVRU1TYMx3hWoqkqWZaG+B/8f+HeOEGiaJvgrP3uEYBxHbPwn33sheIkZvV0esbE1ELwPjD5uT9jYGgj2h+gTaxD5fWABEMwAAAAASUVORK5CYII=" rel="icon" type="image/x-icon" />
     <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,10 +10,11 @@
     @RenderSection("styles", false)
 </head>
 <body role="document" class="custom-font custom-background-image">
+@Html.Partial("_Header")
 <div class="container" role="main">
-        @RenderBody()
+    @RenderBody()
 </div>
-    @Html.Partial("_Footer")
+@Html.Partial("_Footer")
 
 <script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
 @Scripts.Render("~/bundles/js/lib")

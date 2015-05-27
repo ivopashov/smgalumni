@@ -230,6 +230,7 @@
     <Compile Include="App_Start\SimpleInjectorConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -260,6 +261,8 @@
   <ItemGroup>
     <Content Include="App\app.js" />
     <Content Include="App\controllers\accountController.js" />
+    <Content Include="App\controllers\adminHeaderController.js" />
+    <Content Include="App\controllers\masterAdminHeaderController.js" />
     <Content Include="App\controllers\menuController.js" />
     <Content Include="App\controllers\userCausesController.js" />
     <Content Include="App\controllers\adminCausesController.js" />
@@ -1205,6 +1208,9 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\ServerError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\filters\" />
