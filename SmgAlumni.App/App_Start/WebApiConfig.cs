@@ -1,9 +1,11 @@
 ﻿using System.Net.Http.Formatting;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using WebApiThrottle;
+using SmgAlumni.App.ExceptionHandlers;
 
 namespace SmgAlumni.App.App_Start
 {
@@ -28,6 +30,7 @@ namespace SmgAlumni.App.App_Start
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new StringEnumConverter());
 
+            config.Services.Add(typeof(IExceptionHandler), new WebApiGlobalExceptionHandler());
 
             config.MessageHandlers.Add(new ThrottlingHandler()
             {
