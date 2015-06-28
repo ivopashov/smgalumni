@@ -1,0 +1,55 @@
+﻿
+<form name="studentSearchForm" novalidate>
+    <h2>Въведете година и паралелка</h2>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label for="searchYearOfGraduation" class="control-label col-sm-3">Година на завършване</label>
+            <input type="number" ng-model="yearOfGraduation" name="yearOfGraduation" id="searchYearOfGraduation" ng-required="true" min="1960" max="2020" />
+            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && studentSearchForm.yearOfGraduation.$error.required">
+                Полето е задължително
+            </span>
+            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && studentSearchForm.yearOfGraduation.$error.number">
+                Въведете число
+            </span>
+            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && studentSearchForm.yearOfGraduation.$error.min">
+                Годината трябва да е след 1950
+            </span>
+            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && studentSearchForm.yearOfGraduation.$error.max">
+                Годината трябва да е преди 2020
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label for="searchDivision" class="control-label col-sm-3">Паралелка</label>
+            <select ng-model="division" name="division" id="searchDivision" ng-options="division for division in divisions" ng-required="true"></select>
+            <span class="comment-alert comment-arrow" ng-if="trySentInvalidForm && studentSearchForm.division.$error.required">
+                Полето е задължително
+            </span>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-sm btn-primary" ng-click="getUsers()" value="Търси" />
+    </div>
+</form>
+
+<div ng-if="students.length>0">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Първо Име</th>
+                <th>Фамилия</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="student in students | orderBy : firstName" ng-click="selectUser(student.id)" style="cursor:pointer">
+                <td>{{student.firstName}}</td>
+                <td>{{student.lastName}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-if="students.length==0">
+    <label class="control-label">Няма резултати</label>
+</div>

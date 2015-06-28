@@ -1,12 +1,5 @@
 ﻿app.service('searchService', ['commonService', function (commonService) {
 
-    return ({
-        getUsersByYearAndDivision: getUsersByYearAndDivision,
-        getUserByUserName: getUserByUserName,
-        getUserById: getUserById,
-        getUserByUserNameContains: getUserByUserNameContains
-    });
-
     function getUsersByYearAndDivision(vm) {
         return commonService.$http.post('api/search/bydivisionandyear', vm);
     }
@@ -23,5 +16,12 @@
     function getUserById(id) {
         return commonService.$http.get('api/search/byid?id=' + id);
     }
+
+    return ({
+        getUsersByYearAndDivision: getUsersByYearAndDivision,
+        getUserByUserName: getUserByUserName,
+        getUserById: getUserById,
+        getUserByUserNameContains: getUserByUserNameContains
+    });
 
 }])

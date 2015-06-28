@@ -39,7 +39,7 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult GetUserByUserNameShortVM([FromUri]string username)
         {
             var user = _userManager.GetUserByUserName(username);
-            var vm = Mapper.Map<UserAccountShortWithRolesViewModel>(user);
+            var vm = Mapper.Map<UserAccountShortViewModel>(user);
             return Ok(vm);
         }
 

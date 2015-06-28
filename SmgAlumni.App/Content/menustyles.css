@@ -129,7 +129,8 @@
 
     .menu-items > li:hover {
         text-decoration: none;
-        background-color: RGBA(178,34,34,1);
+        /*background-color: RGBA(178,34,34,1);*/
+        background-color: RGBA(114,108,108,1);
         color: white !important;
         -moz-transition: all .3s ease-in;
         -o-transition: all .3s ease-in;
@@ -138,7 +139,7 @@
         -moz-box-shadow: inset -3px -3px 10px #fff;
         -webkit-box-shadow: inset -3px -3px 10px #fff;
         box-shadow: inset -3px -3px 10px #fff;
-        border-radius: 12px;
+        border-radius: 6px;
         -ms-word-wrap: break-word;
         word-wrap: break-word;
         border-right: darkgrey solid 2px;
@@ -162,7 +163,8 @@
 
     .menu-nav-header:hover {
         text-decoration: none;
-        background-color: RGBA(178,34,34,1);
+        /*background-color: RGBA(178,34,34,1);*/
+       background-color: RGBA(114,108,108,1);
         color: white !important;
         -moz-transition: all .3s ease-in;
         -o-transition: all .3s ease-in;

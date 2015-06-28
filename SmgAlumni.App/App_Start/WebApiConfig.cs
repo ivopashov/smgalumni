@@ -30,7 +30,7 @@ namespace SmgAlumni.App.App_Start
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new StringEnumConverter());
 
-            config.Services.Add(typeof(IExceptionHandler), new WebApiGlobalExceptionHandler());
+            config.Services.Add(typeof(IExceptionLogger), new WebApiGlobalExceptionHandler());
 
             config.MessageHandlers.Add(new ThrottlingHandler()
             {
