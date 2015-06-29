@@ -38,18 +38,22 @@ namespace SmgAlumni.App.Api
         [Route("api/search/short/byname")]
         public IHttpActionResult GetUserByNameShortVM([FromUri]string name)
         {
-            var user = Users.GetAll().Where(a => a.FirstName.ToLower().Contains(name.ToLower()) || a.MiddleName.ToLower().Contains(name.ToLower()) || a.LastName.ToLower().Contains(name.ToLower())).ToList();
-            var vm = Mapper.Map<UserAccountShortViewModel>(user);
-            return Ok(vm);
+            var foundUsers = new List<UserAccountShortViewModel>();
+            var users = Users.GetAll().Where(a => a.FirstName.ToLower().Contains(name.ToLower()) || a.MiddleName.ToLower().Contains(name.ToLower()) || a.LastName.ToLower().Contains(name.ToLower())).ToList();
+            if (users.Any())
+                foundUsers = Mapper.Map<List<UserAccountShortViewModel>>(users);
+            return Ok(foundUsers);
         }
 
         [HttpGet]
         [Route("api/search/short/byusername")]
         public IHttpActionResult GetUserByUserNameShortVM([FromUri]string username)
         {
-            var user = Users.GetAll().Where(a => a.UserName.ToLower().Contains(username.ToLower())).ToList();
-            var vm = Mapper.Map<UserAccountShortViewModel>(user);
-            return Ok(vm);
+            var foundUsers=new List<UserAccountShortViewModel>();
+            var users = Users.GetAll().Where(a => a.UserName.ToLower().Contains(username.ToLower())).ToList();
+            if (users.Any())
+                foundUsers = Mapper.Map<List<UserAccountShortViewModel>>(users);
+            return Ok(foundUsers);
         }
 
         [HttpGet]

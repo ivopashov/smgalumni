@@ -14,7 +14,8 @@
             };
 
             searchService.getUserByName($scope.name).then(function (success) {
-                $scope.students.push(success.data);
+                $scope.students = [];
+                $scope.students = [].concat(success.data);
             });
         }
 
