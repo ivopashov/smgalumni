@@ -288,6 +288,7 @@
     <Content Include="App\directives\htmlContainer.js" />
     <Content Include="App\directives\myListings.js" />
     <Content Include="App\directives\customPager.js" />
+    <Content Include="App\directives\searchByName.js" />
     <Content Include="App\directives\searchByUserName.js" />
     <Content Include="App\directives\searchByYearAndDivision.js" />
     <Content Include="App\factories\notificationService.js" />
@@ -327,6 +328,7 @@
     <Content Include="App\templates\directives\myListings.html" />
     <Content Include="App\templates\directives\masterAdminMenu.html" />
     <Content Include="App\templates\directives\customPager.html" />
+    <Content Include="App\templates\directives\searchByName.html" />
     <Content Include="App\templates\directives\searchByUserName.html" />
     <Content Include="App\templates\directives\searchByYearAndDivision.html" />
     <Content Include="App\templates\home\history.html" />

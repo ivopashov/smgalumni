@@ -35,10 +35,19 @@ namespace SmgAlumni.App.Api
         }
 
         [HttpGet]
+        [Route("api/search/short/byname")]
+        public IHttpActionResult GetUserByNameShortVM([FromUri]string name)
+        {
+            var user = Users.GetAll().Where(a => a.FirstName.ToLower().Contains(name.ToLower()) || a.MiddleName.ToLower().Contains(name.ToLower()) || a.LastName.ToLower().Contains(name.ToLower())).ToList();
+            var vm = Mapper.Map<UserAccountShortViewModel>(user);
+            return Ok(vm);
+        }
+
+        [HttpGet]
         [Route("api/search/short/byusername")]
         public IHttpActionResult GetUserByUserNameShortVM([FromUri]string username)
         {
-            var user = _userManager.GetUserByUserName(username);
+            var user = Users.GetAll().Where(a => a.UserName.ToLower().Contains(username.ToLower())).ToList();
             var vm = Mapper.Map<UserAccountShortViewModel>(user);
             return Ok(vm);
         }

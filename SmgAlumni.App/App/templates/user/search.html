@@ -2,8 +2,10 @@
 <tabset>
     <tab heading="По година и паралелка" select="searchByYearAndDivision()" style="cursor:pointer"></tab>
     <tab heading="По потребителско име" select="searchByUsername()" style="cursor: pointer"></tab>
+    <tab heading="По име" select="searchByName()" style="cursor: pointer"></tab>
 </tabset>
 
 <div ng-if="showSearchByYearAndDivision" search-by-year-and-division></div>
 <div ng-if="showSearchByUsername" search-by-user-name></div>
+<div ng-if="showSearchByName" search-by-name></div>
 

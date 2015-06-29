@@ -8,6 +8,10 @@
         return commonService.$http.get('api/search/short/byusername?username=' + username);
     }
 
+    function getUserByName(name) {
+        return commonService.$http.get('api/search/short/byname?name=' + name);
+    }
+
     //returns long vm of users whose usernames contain the searched criteria
     function getUserByUserNameContains(username) {
         return commonService.$http.get('api/search/long/byusernamecontains?username=' + username);
@@ -21,7 +25,8 @@
         getUsersByYearAndDivision: getUsersByYearAndDivision,
         getUserByUserName: getUserByUserName,
         getUserById: getUserById,
-        getUserByUserNameContains: getUserByUserNameContains
+        getUserByUserNameContains: getUserByUserNameContains,
+        getUserByName: getUserByName
     });
 
 }])
