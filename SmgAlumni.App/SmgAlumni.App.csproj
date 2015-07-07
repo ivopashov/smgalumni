@@ -331,6 +331,7 @@
     <Content Include="App\templates\directives\searchByName.html" />
     <Content Include="App\templates\directives\searchByUserName.html" />
     <Content Include="App\templates\directives\searchByYearAndDivision.html" />
+    <Content Include="App\templates\documents\documents.html" />
     <Content Include="App\templates\home\history.html" />
     <Content Include="App\templates\home\menu.html" />
     <Content Include="App\templates\masteradmin\manageroles.html" />
@@ -413,6 +414,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\documents\СМГ Алумни Мрежа Конституция Драфт.doc" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -24,6 +24,7 @@
             { name: 'Благотворителност', state: 'menu.causes' },
             { name: 'Търсене', state: 'menu.search' },
             { name: 'Форум',state:'menu.forum' },
+            { name: 'Документи',state:'menu.documents' },
         ];
     }
     ]);

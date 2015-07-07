@@ -112,6 +112,12 @@ app.config([
             controller:'accountController',
             authenticate: true
         });
+
+        $stateProvider.state('menu.documents', {
+            url: 'documents',
+            templateUrl: '/App/templates/documents/documents.html',
+            authenticate: true
+        });
         //admin
         $stateProvider.state('admin', {
             url: '/admin',
