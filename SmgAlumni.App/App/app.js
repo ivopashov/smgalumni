@@ -118,6 +118,12 @@ app.config([
             templateUrl: '/App/templates/documents/documents.html',
             authenticate: true
         });
+
+        $stateProvider.state('menu.bgtogreek', {
+            url: 'fun/bgtogreek',
+            templateUrl: '/App/templates/fun/bgtogreek.html',
+            controller:'funController',
+        });
         //admin
         $stateProvider.state('admin', {
             url: '/admin',

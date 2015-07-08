@@ -218,6 +218,7 @@
     <Compile Include="Api\ForumCommentController.cs" />
     <Compile Include="Api\ForumAnswerController.cs" />
     <Compile Include="Api\ForumThreadController.cs" />
+    <Compile Include="Api\FunController.cs" />
     <Compile Include="Api\ListingController.cs" />
     <Compile Include="Api\CauseController.cs" />
     <Compile Include="Api\FileController.cs" />
@@ -263,6 +264,7 @@
     <Content Include="App\app.js" />
     <Content Include="App\controllers\accountController.js" />
     <Content Include="App\controllers\adminHeaderController.js" />
+    <Content Include="App\controllers\funController.js" />
     <Content Include="App\controllers\masterAdminHeaderController.js" />
     <Content Include="App\controllers\menuController.js" />
     <Content Include="App\controllers\userCausesController.js" />
@@ -298,6 +300,7 @@
     <Content Include="App\services\forumCommentService.js" />
     <Content Include="App\services\forumAnswerService.js" />
     <Content Include="App\services\forumThreadService.js" />
+    <Content Include="App\services\funService.js" />
     <Content Include="App\services\masterAdminService.js" />
     <Content Include="App\services\adminService.js" />
     <Content Include="App\services\authHelper.js" />
@@ -332,6 +335,7 @@
     <Content Include="App\templates\directives\searchByUserName.html" />
     <Content Include="App\templates\directives\searchByYearAndDivision.html" />
     <Content Include="App\templates\documents\documents.html" />
+    <Content Include="App\templates\fun\bgtogreek.html" />
     <Content Include="App\templates\home\history.html" />
     <Content Include="App\templates\home\menu.html" />
     <Content Include="App\templates\masteradmin\manageroles.html" />
