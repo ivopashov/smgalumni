@@ -1,0 +1,17 @@
+﻿<h2>Превод Български към Гръцки</h2>
+<p>Въведете текст на български и той ще бъде преведен на гръцки. Засега се поддържат само малко букви без специални знаци.</p>
+
+<form name="bgtoGreekForm" novalidate>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Текст</label>
+        <div class="col-sm-3">
+            <input type="text" name="textToConvert" ng-required="true" ng-model="textToConvert"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="btn btn-sm btn-default" ng-click="convert()">Преведи</div>
+    </div>
+</form>
+<h6>Превод</h6>
+<div id="convertOutput" ng-bind-html="convertedText">
+</div>
