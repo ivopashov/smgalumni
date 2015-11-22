@@ -23,7 +23,9 @@ namespace SmgAlumni.App
                      "~/Scripts/angular-sanitize.min.js",
                      "~/Scripts/ng-ckeditor.js",
                      "~/Scripts/ng-table.js"));
-
+                     "~/Scripts/spin.js",
+                     "~/Scripts/angular-loading.js",
+                     "~/Scripts/ng-ckeditor.js"));
 
 
             bundles.Add(
@@ -43,6 +45,7 @@ namespace SmgAlumni.App
                     "~/Content/toastr.css",
                     "~/Content/loading-bar.css",
                     "~/Content/ngDialog.css",
+                    "~/Content/angularLoading.css",
                     "~/Content/ngDialog-theme-default.css",
                     "~/Content/ng-ckeditor.css",
                     "~/Content/ng-table.css",
