@@ -19,32 +19,6 @@ app.controller('manageAccountController',
             };
 
 
-            $scope.getDetailsFromIN = function () {
-                IN.User.authorize(function () {
-                    $loading.start('linkedin');
-                    IN.API.Raw("/people/~:(firstName,lastName,emailAddress,headline,industry,positions,summary,location)?format=json")
-                        .result($scope.onLinkedInRetrieveSuccess)
-                        .error($scope.onLinkedInRetrieveError);
-                });
-            };
-
-            $scope.onLinkedInRetrieveSuccess = function (params) {
-                $scope.user.email = params.emailAddress;
-                $scope.user.firstName = params.firstName;
-                $scope.user.lastName = params.lastName;
-                $scope.user.dwellingCountry = params.location.name;
-                $scope.user.profession = params.headline;
-                $scope.user.company = params.positions.values[0].company.name;
-                $loading.finish('linkedin');
-            };
-
-            $scope.onLinkedInRetrieveError = function () {
-                $loading.finish('linkedin');
-            }
-
-            //Client ID:	77z1ecze2nw7oa
-            //Client Secret:	8GYxHFeft6HYlz04
-
             //$scope.image = {};
 
             //$scope.upload = function (file) {

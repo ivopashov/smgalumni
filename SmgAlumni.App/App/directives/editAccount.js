@@ -1,7 +1,7 @@
 ﻿app.directive('editAccount', [
-    'authHelper', 'accountService', 'commonService', '$upload', '$state', function (authHelper, accountService, commonService, $upload, $state) {
+    'authHelper', 'accountService', 'commonService', '$upload', '$state','$loading', function (authHelper, accountService, commonService, $upload, $state, $loading) {
 
-        var editAccountCtrl = function (authHelper, $scope, accountService, commonService, $upload, $state) {
+        var editAccountCtrl = function (authHelper, $scope, accountService, commonService, $upload, $state, $loading) {
 
             $scope.divisions = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М'];
             accountService.getUserAccount().then(function (success) {
@@ -40,13 +40,36 @@
                     $scope.fileUploaded = true;
                 });
             }
+
+            $scope.getDetailsFromIN = function () {
+                IN.User.authorize(function () {
+                    $loading.start('linkedin');
+                    IN.API.Raw("/people/~:(firstName,lastName,emailAddress,headline,industry,positions,summary,location)?format=json")
+                        .result($scope.onLinkedInRetrieveSuccess)
+                        .error($scope.onLinkedInRetrieveError);
+                });
+            };
+
+            $scope.onLinkedInRetrieveSuccess = function (params) {
+                $scope.user.email = params.emailAddress;
+                $scope.user.firstName = params.firstName;
+                $scope.user.lastName = params.lastName;
+                $scope.user.dwellingCountry = params.location.name;
+                $scope.user.profession = params.headline;
+                $scope.user.company = params.positions.values[0].company.name;
+                $loading.finish('linkedin');
+            };
+
+            $scope.onLinkedInRetrieveError = function () {
+                $loading.finish('linkedin');
+            }
         }
 
         return {
             restrict: 'AE',
             templateUrl: '/App/templates/directives/manageAccount.html',
             scope: {},
-            controller: ['authHelper', '$scope', 'accountService', 'commonService', '$upload', '$state', editAccountCtrl]
+            controller: ['authHelper', '$scope', 'accountService', 'commonService', '$upload', '$state','$loading', editAccountCtrl]
         }
 
     }
