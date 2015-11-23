@@ -72,7 +72,11 @@ namespace SmgAlumni.App.Models
 
         private bool DoesUserHasPicture(User user)
         {
-            if (user.AvatarImage.Length > 0) return true;
+            if (user.AvatarImage != null && user.AvatarImage.Length > 0)
+            {
+                return true;
+            }
+
             return false;
         }
     }

@@ -22,7 +22,7 @@ namespace SmgAlumni.App
                      "~/Scripts/angular-ui/ui-bootstrap-tpls.min.js",
                      "~/Scripts/angular-sanitize.min.js",
                      "~/Scripts/ng-ckeditor.js",
-                     "~/Scripts/ng-table.js"));
+                     "~/Scripts/ng-table.js",
                      "~/Scripts/spin.js",
                      "~/Scripts/angular-loading.js",
                      "~/Scripts/ng-ckeditor.js"));
