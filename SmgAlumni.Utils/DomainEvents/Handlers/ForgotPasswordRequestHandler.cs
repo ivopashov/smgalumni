@@ -11,11 +11,11 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
 {
     class ForgotPasswordRequestHandler : IHandleDomainEvent<ForgotPasswordEvent>
     {
-        private readonly NotificationEnqueuer _sender;
+        private readonly INotificationEnqueuer _sender;
         private readonly UserRepository _userRepository;
         private readonly EFUserManager _userManager;
 
-        public ForgotPasswordRequestHandler(NotificationEnqueuer sender, UserRepository userRepository, EFUserManager usermanager)
+        public ForgotPasswordRequestHandler(INotificationEnqueuer sender, UserRepository userRepository, EFUserManager usermanager)
         {
             _sender = sender;
             _userManager = usermanager;

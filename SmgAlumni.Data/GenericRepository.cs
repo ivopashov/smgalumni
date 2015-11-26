@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmgAlumni.Data
 {
@@ -25,12 +23,12 @@ namespace SmgAlumni.Data
             return this.Find(a => a.Id == id).SingleOrDefault();
         }
 
-        public IQueryable<T> GetAll()
+        public IEnumerable<T> GetAll()
         {
             return EntitySet;
         }
 
-        public IQueryable<T> Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public IEnumerable<T> Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {
             return EntitySet.Where(predicate);
         }
@@ -45,7 +43,10 @@ namespace SmgAlumni.Data
         public void Update(T entity)
         {
             var oldEntity = this.Find(a => a.Id == entity.Id).SingleOrDefault();
-            if (oldEntity == null) throw new Exception("Could not find searched for object of type" + typeof(T)+ " with id "+entity.Id);
+            if (oldEntity == null)
+            {
+                throw new Exception("Could not find searched for object of type" + typeof(T) + " with id " + entity.Id);
+            }
 
             _context.Entry(oldEntity).CurrentValues.SetValues(entity);
             

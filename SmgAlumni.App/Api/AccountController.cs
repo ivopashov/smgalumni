@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Http;
 using AutoMapper;
-using NLog;
 using SmgAlumni.App.Logging;
 using SmgAlumni.App.Models;
 using SmgAlumni.EF.Models;
@@ -16,9 +15,9 @@ namespace SmgAlumni.App.Api
     public class AccountController : BaseApiController
     {
         private readonly EFUserManager _userManager;
-        private readonly NotificationEnqueuer _sender;
+        private readonly INotificationEnqueuer _sender;
 
-        public AccountController(EFUserManager userManager, NotificationEnqueuer sender, ILogger logger)
+        public AccountController(EFUserManager userManager, INotificationEnqueuer sender, ILogger logger)
             : base(logger)
         {
             _userManager = userManager;

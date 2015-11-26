@@ -11,10 +11,10 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
     public class VerifiedUserHandler : IHandleDomainEvent<VerifyUserEvent>
     {
 
-        private readonly NotificationEnqueuer _sender;
+        private readonly INotificationEnqueuer _sender;
         private readonly EFUserManager _userManager;
 
-        public VerifiedUserHandler(NotificationEnqueuer sender, EFUserManager usermanager)
+        public VerifiedUserHandler(INotificationEnqueuer sender, EFUserManager usermanager)
         {
             _sender = sender;
             _userManager = usermanager;

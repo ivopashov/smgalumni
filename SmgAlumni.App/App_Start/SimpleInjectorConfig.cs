@@ -4,8 +4,10 @@ using SimpleInjector;
 using SimpleInjector.Extensions;
 using SimpleInjector.Integration.WebApi;
 using SmgAlumni.App.Api;
+using SmgAlumni.Data;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.DAL;
+using SmgAlumni.EF.Models;
 using SmgAlumni.Utils.DomainEvents;
 using SmgAlumni.Utils.DomainEvents.Interfaces;
 using SmgAlumni.Utils.EfEmailQuerer;
@@ -43,13 +45,25 @@ namespace SmgAlumni.App.App_Start
             var webLifestyle = new WebApiRequestLifestyle();
             container.Register<SmgAlumniContext, SmgAlumniContext>(webLifestyle);
 
-            container.Register<ActivityRepository, ActivityRepository>();
-            container.Register<UserRepository, UserRepository>();
+            //Repos
+            container.Register<IRepository<Activity>, ActivityRepository>();
+            container.Register<SettingRepository, SettingRepository>(); //fix
+            container.Register<IRepository<User>, UserRepository>();
+            container.Register<IRepository<Notification>, NotificationRepository>();
+            container.Register<IRepository<Cause>, CauseRepository>();
+            container.Register<IRepository<ForumAnswer>, ForumAnswerRepository>();
+            container.Register<IRepository<ForumComment>, ForumCommentsRepository>();
+            container.Register<IRepository<ForumThread>, ForumThreadRepository>();
+            container.Register<IRepository<Listing>, ListingRepository>();
+            container.Register<IRepository<News>, NewsRepository>();
+            container.Register<RoleRepository, RoleRepository>(); //fix
+
+
             container.Register<EFUserManager, EFUserManager>();
             container.Register<UserManager, UserManager>();
-            container.Register<NotificationEnqueuer, NotificationEnqueuer>();
-            container.Register<NotificationRepository, NotificationRepository>();
-            container.Register<SettingRepository, SettingRepository>();
+            container.Register<INotificationEnqueuer, NotificationEnqueuer>();
+            
+            
             container.Register<AppSettings, AppSettings>();
             container.Register<IAppSettingsRetriever, EFSettingsRetriever>();
             

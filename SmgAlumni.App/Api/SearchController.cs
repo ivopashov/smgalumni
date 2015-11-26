@@ -2,10 +2,8 @@
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using NLog;
 using SmgAlumni.App.Logging;
 using SmgAlumni.App.Models;
-using SmgAlumni.Data.Repositories;
 using SmgAlumni.Utils.Membership;
 
 namespace SmgAlumni.App.Api
@@ -49,7 +47,7 @@ namespace SmgAlumni.App.Api
         [Route("api/search/short/byusername")]
         public IHttpActionResult GetUserByUserNameShortVM([FromUri]string username)
         {
-            var foundUsers=new List<UserAccountShortViewModel>();
+            var foundUsers = new List<UserAccountShortViewModel>();
             var users = Users.GetAll().Where(a => a.UserName.ToLower().Contains(username.ToLower())).ToList();
             if (users.Any())
                 foundUsers = Mapper.Map<List<UserAccountShortViewModel>>(users);
@@ -72,9 +70,9 @@ namespace SmgAlumni.App.Api
             var foundUsers = new List<UserAccountShortViewModel>();
             if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");
 
-            var users = Users.GetAll().Where(a=>a.Division==vm.Division && a.YearOfGraduation==vm.YearOfGraduation).ToList();
+            var users = Users.GetAll().Where(a => a.Division == vm.Division && a.YearOfGraduation == vm.YearOfGraduation).ToList();
             if (users.Any()) foundUsers = Mapper.Map<List<UserAccountShortViewModel>>(users);
-            
+
             return Ok(foundUsers);
         }
     }

@@ -1,5 +1,4 @@
-﻿using NLog;
-using SmgAlumni.Data.Repositories;
+﻿using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
 using SmgAlumni.EF.Models.enums;
 using SmgAlumni.Utils.EfEmailQuerer.Serialization;
