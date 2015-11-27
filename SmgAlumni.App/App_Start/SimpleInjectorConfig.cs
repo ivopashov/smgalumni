@@ -4,18 +4,17 @@ using SimpleInjector;
 using SimpleInjector.Extensions;
 using SimpleInjector.Integration.WebApi;
 using SmgAlumni.App.Api;
-using SmgAlumni.Data;
+using SmgAlumni.App.Logging;
+using SmgAlumni.App.Shared;
+using SmgAlumni.Data.Interfaces;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.DAL;
-using SmgAlumni.EF.Models;
 using SmgAlumni.Utils.DomainEvents;
 using SmgAlumni.Utils.DomainEvents.Interfaces;
 using SmgAlumni.Utils.EfEmailQuerer;
+using SmgAlumni.Utils.Identity;
 using SmgAlumni.Utils.Membership;
 using SmgAlumni.Utils.Settings;
-using SmgAlumni.App.Logging;
-using SmgAlumni.App.Shared;
-using SmgAlumni.Utils.Identity;
 
 namespace SmgAlumni.App.App_Start
 {
@@ -46,18 +45,17 @@ namespace SmgAlumni.App.App_Start
             container.Register<SmgAlumniContext, SmgAlumniContext>(webLifestyle);
 
             //Repos
-            container.Register<IRepository<Activity>, ActivityRepository>();
-            container.Register<SettingRepository, SettingRepository>(); //fix
-            container.Register<IRepository<User>, UserRepository>();
-            container.Register<IRepository<Notification>, NotificationRepository>();
-            container.Register<IRepository<Cause>, CauseRepository>();
-            container.Register<IRepository<ForumAnswer>, ForumAnswerRepository>();
-            container.Register<IRepository<ForumComment>, ForumCommentsRepository>();
-            container.Register<IRepository<ForumThread>, ForumThreadRepository>();
-            container.Register<IRepository<Listing>, ListingRepository>();
-            container.Register<IRepository<News>, NewsRepository>();
-            container.Register<RoleRepository, RoleRepository>(); //fix
-
+            container.Register<IActivityRepository, ActivityRepository>();
+            container.Register<ISettingRepository, SettingRepository>(); //fix
+            container.Register<IUserRepository, UserRepository>();
+            container.Register<INotificationRepository, NotificationRepository>();
+            container.Register<ICauseRepository, CauseRepository>();
+            container.Register<IForumAnswerRepository, ForumAnswerRepository>();
+            container.Register<IForumCommentsRepository, ForumCommentsRepository>();
+            container.Register<IForumThreadRepository, ForumThreadRepository>();
+            container.Register<IListingRepository, ListingRepository>();
+            container.Register<INewsRepository, NewsRepository>();
+            container.Register<IRoleRepository, RoleRepository>(); //fix
 
             container.Register<EFUserManager, EFUserManager>();
             container.Register<UserManager, UserManager>();

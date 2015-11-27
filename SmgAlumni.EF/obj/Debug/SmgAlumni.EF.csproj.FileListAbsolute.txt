@@ -21,3 +21,15 @@ X:\Repos\smg-alumni\SmgAlumni.EF\bin\Debug\EntityFramework.dll
 X:\Repos\smg-alumni\SmgAlumni.EF\bin\Debug\EntityFramework.SqlServer.dll
 X:\Repos\smg-alumni\SmgAlumni.EF\bin\Debug\EntityFramework.xml
 X:\Repos\smg-alumni\SmgAlumni.EF\bin\Debug\EntityFramework.SqlServer.xml
+D:\Repos\smgalumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csprojResolveAssemblyReference.cache
+D:\Repos\smgalumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.Migrations.InitialCreate.resources
+D:\Repos\smgalumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csproj.GenerateResource.Cache
+D:\Repos\smgalumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.dll
+D:\Repos\smgalumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.pdb
+D:\Repos\smgalumni\SmgAlumni.EF\bin\Debug\SmgAlumni.EF.dll.config
+D:\Repos\smgalumni\SmgAlumni.EF\bin\Debug\SmgAlumni.EF.dll
+D:\Repos\smgalumni\SmgAlumni.EF\bin\Debug\SmgAlumni.EF.pdb
+D:\Repos\smgalumni\SmgAlumni.EF\bin\Debug\EntityFramework.dll
+D:\Repos\smgalumni\SmgAlumni.EF\bin\Debug\EntityFramework.SqlServer.dll
+D:\Repos\smgalumni\SmgAlumni.EF\bin\Debug\EntityFramework.xml
+D:\Repos\smgalumni\SmgAlumni.EF\bin\Debug\EntityFramework.SqlServer.xml

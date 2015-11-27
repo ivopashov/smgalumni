@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL\ISmgAlumniContext.cs" />
     <Compile Include="DAL\SmgAlumniContext.cs" />
     <Compile Include="Migrations\201504191938216_InitialCreate.cs" />
     <Compile Include="Migrations\201504191938216_InitialCreate.Designer.cs">
