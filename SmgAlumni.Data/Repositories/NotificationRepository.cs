@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using SmgAlumni.Data.Interfaces;
 using SmgAlumni.EF.DAL;
 using SmgAlumni.EF.Models;
+using System.Linq;
 
 namespace SmgAlumni.Data.Repositories
 {
@@ -15,31 +17,42 @@ namespace SmgAlumni.Data.Repositories
         }        
         public int Add(Notification entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Notifications.Add(entity);
+            Save();
+            return entity.Id;
         }
 
         public void Delete(Notification entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Notifications.Remove(entity);
+            Save();
         }
 
         public Notification GetById(int id)
         {
-            return this._context.Notifications.Find(id);
+            return _context.Notifications.Find(id);
         }
 
         public void Update(Notification entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            var oldEntity = GetById(entity.Id);
+            if (oldEntity == null)
+            {
+                throw new Exception("Could not find searched for object of type" + typeof(Activity) + " with id " + entity.Id);
+            }
+
+            _context.Entry(oldEntity).CurrentValues.SetValues(entity);
+            Save();
         }
 
         public void Save()
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<Notification> GetSentNotifications()
+        {
+            return _context.Notifications.Where(a => a.Sent).ToList();
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace SmgAlumni.Utils.Settings
 {
-    public class AppSettings
+    public class AppSettings : IAppSettings
     {
         private AuthenticationSettings _authentication;
         private IAppSettingsRetriever _retriever;
@@ -11,10 +11,14 @@ namespace SmgAlumni.Utils.Settings
 
         public AppSettings(IAppSettingsRetriever retriever)
         {
-            if (retriever == null) throw new ArgumentNullException("retriever");
+            if (retriever == null)
+            {
+                throw new ArgumentNullException("retriever");
+            }
 
             _retriever = retriever;
         }
+
         public virtual AuthenticationSettings Authentication
         {
             get

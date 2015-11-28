@@ -1,22 +1,22 @@
-﻿using System;
+﻿using SmgAlumni.App.Logging;
+using SmgAlumni.App.Models;
+using SmgAlumni.Data.Interfaces;
+using SmgAlumni.EF.Models;
+using SmgAlumni.Utils;
+using System;
 using System.Linq;
 using System.Web.Http;
-using NLog;
-using SmgAlumni.App.Logging;
-using SmgAlumni.App.Models;
-using SmgAlumni.Data.Repositories;
-using SmgAlumni.EF.Models;
 
 namespace SmgAlumni.App.Api
 {
     [Authorize(Roles = "MasterAdmin")]
     public class MasterAdminController : BaseApiController
     {
-        private readonly RoleRepository _roleRepository;
-        private readonly SettingRepository _settingRepository;
+        private readonly IRoleRepository _roleRepository;
+        private readonly ISettingRepository _settingRepository;
 
-        public MasterAdminController(ILogger logger, RoleRepository roleRepository, SettingRepository settingRepository)
-            : base(logger)
+        public MasterAdminController(ILogger logger, IRoleRepository roleRepository, ISettingRepository settingRepository, IUserRepository userRepository)
+            : base(logger, userRepository)
         {
             _roleRepository = roleRepository;
             VerifyNotNull(_roleRepository);
@@ -28,7 +28,7 @@ namespace SmgAlumni.App.Api
         [Route("api/masteradmin/getallroles")]
         public IHttpActionResult GetAllRoles()
         {
-            var roles = _roleRepository.GetAll().Select(a => a.Name).Distinct().ToList();
+            var roles = _roleRepository.GetAll().Select(a => a.Name).Distinct();
             return Ok(roles);
         }
 
@@ -36,10 +36,14 @@ namespace SmgAlumni.App.Api
         [Route("api/masteradmin/updateuserroles")]
         public IHttpActionResult UpdateRoles(UserAccountShortWithRolesViewModel vm)
         {
-            if (!ModelState.IsValid) return BadRequest("Невярни входни данни");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Невярни входни данни");
+            }
+
             try
             {
-                var user = Users.GetById(vm.Id);
+                var user = _userRepository.GetById(vm.Id);
                 var deletedRoles = user.Roles.Where(a => !vm.Roles.Contains(a.Name)).ToList();
                 var addedRoles = vm.Roles.Where(a => !user.Roles.Select(r => r.Name).Contains(a));
 
@@ -53,7 +57,7 @@ namespace SmgAlumni.App.Api
                     user.Roles.Add(new Role() { Name = item });
                 }
 
-                Users.Update(user);
+                _userRepository.Update(user);
                 return Ok();
             }
             catch (Exception e)
@@ -68,7 +72,7 @@ namespace SmgAlumni.App.Api
         [Route("api/settings/getall")]
         public IHttpActionResult GetAllSettings()
         {
-            var settings = _settingRepository.GetAll().ToList();
+            var settings = _settingRepository.GetAll();
             return Ok(settings);
         }
 
@@ -76,7 +80,10 @@ namespace SmgAlumni.App.Api
         [Route("api/settings/update")]
         public IHttpActionResult UpdateSetting(Setting vm)
         {
-            if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Невалидни входни данни");
+            }
 
             try
             {

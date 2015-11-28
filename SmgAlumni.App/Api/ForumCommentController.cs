@@ -5,23 +5,21 @@ using SmgAlumni.App.Logging;
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
+using SmgAlumni.Data.Interfaces;
+using SmgAlumni.Utils;
 
 namespace SmgAlumni.App.Api
 {
     public class ForumCommentController : BaseApiController
     {
-        private readonly ForumAnswerRepository _forumAnswerRepository;
-        private readonly ForumThreadRepository _forumThreadRepository;
-        private readonly ForumCommentsRepository _forumCommentRepository;
+        private readonly IForumAnswerRepository _forumAnswerRepository;
+        private readonly IForumCommentsRepository _forumCommentRepository;
 
-        public ForumCommentController(ForumAnswerRepository forumAnswerRepository, ILogger logger,
-             ForumThreadRepository forumThreadRepository, ForumCommentsRepository forumCommentRepository)
-            : base(logger)
+        public ForumCommentController(IForumAnswerRepository forumAnswerRepository, ILogger logger, IForumCommentsRepository forumCommentRepository, IUserRepository userRepository)
+            : base(logger, userRepository)
         {
             _forumAnswerRepository = forumAnswerRepository;
             VerifyNotNull(_forumAnswerRepository);
-            _forumThreadRepository = forumThreadRepository;
-            VerifyNotNull(_forumThreadRepository);
             _forumCommentRepository = forumCommentRepository;
             VerifyNotNull(_forumCommentRepository);
         }
@@ -87,9 +85,16 @@ namespace SmgAlumni.App.Api
             if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");
 
             var fa = _forumCommentRepository.GetById(vm.Id);
-            if (fa == null) return BadRequest("Темата с такова id не можа да бъде намерена");
+            if (fa == null)
+            {
+                return BadRequest("Темата с такова id не можа да бъде намерена");
+            }
+
             if (fa.User.Id != CurrentUser.Id)
+            {
                 return BadRequest("Нямате права да променяте отговорът");
+            }
+
             fa.Body = vm.Body;
             fa.CreatedOn = DateTime.Now;
 

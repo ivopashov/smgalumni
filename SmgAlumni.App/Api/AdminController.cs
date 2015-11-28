@@ -1,44 +1,23 @@
-﻿using System;
+﻿using AutoMapper;
+using SmgAlumni.App.Models;
+using SmgAlumni.Data.Interfaces;
+using SmgAlumni.EF.Models;
+using SmgAlumni.Utils;
+using SmgAlumni.Utils.DomainEvents;
+using SmgAlumni.Utils.DomainEvents.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using AutoMapper;
-using NLog;
-using SmgAlumni.App.Logging;
-using SmgAlumni.App.Models;
-using SmgAlumni.Data.Repositories;
-using SmgAlumni.EF.DAL;
-using SmgAlumni.EF.Models;
-using SmgAlumni.Utils.DomainEvents;
-using SmgAlumni.Utils.DomainEvents.Interfaces;
-using SmgAlumni.Utils.Membership;
 
 namespace SmgAlumni.App.Api
 {
     [Authorize(Roles = "Admin, MasterAdmin")]
     public class AdminController : BaseApiController
     {
-
-        private readonly RoleRepository _roleRepository;
-        private readonly NewsRepository _newsRepository;
-        private readonly CauseRepository _causeRepository;
-        private readonly EFUserManager _userManager;
-
-        public AdminController(ILogger logger,
-            RoleRepository roleRepository,
-            NewsRepository newsRepository,
-            CauseRepository causeRepository,
-            EFUserManager userManager)
-            : base(logger)
+        public AdminController(ILogger logger, IUserRepository userRepository)
+            : base(logger, userRepository)
         {
-            _roleRepository = roleRepository;
-            VerifyNotNull(_roleRepository);
-            _newsRepository = newsRepository;
-            VerifyNotNull(_newsRepository);
-            _causeRepository = causeRepository;
-            VerifyNotNull(_causeRepository);
-            _userManager = userManager;
-            VerifyNotNull(_userManager);
         }
 
         [HttpGet]
@@ -48,7 +27,7 @@ namespace SmgAlumni.App.Api
             var vm = new List<UserForVerifyViewModel>();
             try
             {
-                var unverifiedUsers = Users.GetAll().Where(a => !a.Verified).ToList();
+                var unverifiedUsers = _userRepository.UnVerifiedUsers();
                 if (unverifiedUsers.Any())
                 {
                     vm = Mapper.Map<List<UserForVerifyViewModel>>(unverifiedUsers);
@@ -60,7 +39,6 @@ namespace SmgAlumni.App.Api
                 _logger.Error(e.Message);
                 return BadRequest("Възникна грешка с колекцията с неверифицирани потребители. Моля опитайте отново");
             }
-
         }
 
         [HttpPost]
@@ -76,10 +54,10 @@ namespace SmgAlumni.App.Api
             {
                 foreach (var item in vm.IdsToVerify)
                 {
-                    user = Users.GetById(item);
+                    user = _userRepository.GetById(item);
                     if (user == null) throw new Exception("Tried to verify user with id: " + item + " but user does not exist");
                     user.Verified = true;
-                    Users.Update(user);
+                    _userRepository.Update(user);
                     DomainEvents.Raise(new VerifyUserEvent() { UserName = user.UserName, User = CurrentUser });
                 }
 

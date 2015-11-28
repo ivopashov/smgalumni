@@ -1,11 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Web.Http;
-using NLog;
-using SmgAlumni.App.Logging;
+﻿using SmgAlumni.App.Logging;
 using SmgAlumni.App.Models;
+using SmgAlumni.Data.Interfaces;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
+using SmgAlumni.Utils;
+using System;
+using System.Linq;
+using System.Web.Http;
 
 namespace SmgAlumni.App.Api
 {
@@ -16,8 +17,8 @@ namespace SmgAlumni.App.Api
         private readonly ForumCommentsRepository _forumCommentsRepositoty;
 
         public ForumAnswerController(ForumAnswerRepository forumAnswerRepository, ILogger logger,
-            ForumThreadRepository forumThreadRepository, ForumCommentsRepository forumCommentsRepositoty)
-            : base(logger)
+            ForumThreadRepository forumThreadRepository, ForumCommentsRepository forumCommentsRepositoty, IUserRepository userRepository)
+            : base(logger, userRepository)
         {
             _forumAnswerRepository = forumAnswerRepository;
             VerifyNotNull(_forumAnswerRepository);
@@ -70,9 +71,12 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult Delete(int id)
         {
             var fa = _forumAnswerRepository.GetById(id);
-            if (fa == null) return BadRequest("Темата не беше намерена. Моля опитайте отново.");
+            if (fa == null)
+            {
+                return BadRequest("Темата не беше намерена. Моля опитайте отново.");
+            }
 
-            var comments = _forumCommentsRepositoty.GetAll().Where(a => a.ForumAnswerId == fa.Id).ToList();
+            var comments = _forumCommentsRepositoty.GetCommentsForAnswer(fa.Id);
             try
             {
                 foreach (var item in comments)
@@ -96,34 +100,34 @@ namespace SmgAlumni.App.Api
         [Route("api/forumanswer/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip, [FromUri]int forumthreadid)
         {
-            Func<int,bool> canEdit = (x) =>
-            {
-                if (CurrentUser == null)
-                {
-                    return false;
-                }
-                return CurrentUser.Id == x;
-            }; 
+            Func<int, bool> canEdit = (x) =>
+             {
+                 if (CurrentUser == null)
+                 {
+                     return false;
+                 }
+                 return CurrentUser.Id == x;
+             };
             var answers = _forumThreadRepository.GetById(forumthreadid).Answers.OrderBy(a => a.CreatedOn)
                 .Take(take).Skip(skip);
             var flattenedAnswers = answers.Select(a => new
+            {
+                Body = a.Body,
+                CreatedOn = a.CreatedOn,
+                CreatedBy = a.User.UserName,
+                Id = a.Id,
+                Likes = a.Likes,
+                //CanEdit = a.User.Id == CurrentUser.Id ? true : false,
+                CanEdit = canEdit(a.UserId),
+                Comments = a.Comments.Select(b => new
                 {
-                    Body = a.Body,
-                    CreatedOn = a.CreatedOn,
-                    CreatedBy = a.User.UserName,
-                    Id = a.Id,
-                    Likes = a.Likes,
-                    //CanEdit = a.User.Id == CurrentUser.Id ? true : false,
-                    CanEdit = canEdit(a.UserId),
-                    Comments = a.Comments.Select(b => new
-                    {
-                        Body = b.Body,
-                        CreatedOn = b.CreatedOn,
-                        CreatedBy = b.User.UserName,
-                        Id = b.Id,
-                        CanEdit = canEdit(a.UserId)
-                    })
+                    Body = b.Body,
+                    CreatedOn = b.CreatedOn,
+                    CreatedBy = b.User.UserName,
+                    Id = b.Id,
+                    CanEdit = canEdit(a.UserId)
                 })
+            })
                 .ToList();
 
             return Ok(flattenedAnswers);

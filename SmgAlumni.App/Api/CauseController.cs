@@ -1,27 +1,25 @@
-﻿using System;
+﻿using SmgAlumni.App.Models;
+using SmgAlumni.Data.Interfaces;
+using SmgAlumni.EF.Models;
+using SmgAlumni.Utils;
+using SmgAlumni.Utils.DomainEvents;
+using SmgAlumni.Utils.DomainEvents.Models;
+using System;
 using System.Linq;
 using System.Web.Http;
-using NLog;
-using SmgAlumni.App.Logging;
-using SmgAlumni.App.Models;
-using SmgAlumni.Data.Repositories;
-using SmgAlumni.EF.Models;
-using SmgAlumni.Utils.DomainEvents;
-using SmgAlumni.Utils.DomainEvents.Interfaces;
 
 namespace SmgAlumni.App.Api
 {
     [AllowAnonymous]
     public class CauseController : BaseApiController
     {
-        private readonly CauseRepository _causeRepository;
+        private readonly ICauseRepository _causeRepository;
 
-        public CauseController(CauseRepository causeRepository, ILogger logger)
-            : base(logger)
+        public CauseController(ICauseRepository causeRepository, ILogger logger, IUserRepository userRepository)
+            : base(logger, userRepository)
         {
             _causeRepository = causeRepository;
             VerifyNotNull(_causeRepository);
-
         }
 
         [HttpPost]
@@ -35,14 +33,14 @@ namespace SmgAlumni.App.Api
                 Body = vm.Body,
                 Heading = vm.Heading,
                 DateCreated = DateTime.Now,
-                Enabled = true,
+                Enabled = true
             };
 
             try
             {
                 CurrentUser.Causes.Add(cause);
-                Users.Update(CurrentUser);
-                DomainEvents.Raise<AddCauseDomainEvent>(new AddCauseDomainEvent() { Heading = cause.Heading, User = CurrentUser});
+                _userRepository.Update(CurrentUser);
+                DomainEvents.Raise(new AddCauseDomainEvent() { Heading = cause.Heading, User = CurrentUser });
                 return Ok();
             }
             catch (Exception e)
@@ -61,15 +59,6 @@ namespace SmgAlumni.App.Api
         }
 
         [HttpGet]
-        [Route("api/cause/allcauses")]
-        public IHttpActionResult GetAllCauses()
-        {
-            var news = _causeRepository.GetAll().
-                Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled }).ToList();
-            return Ok(news);
-        }
-
-        [HttpGet]
         [Route("api/cause/delete")]
         [Authorize(Roles = "Admin, MasterAdmin")]
         public IHttpActionResult DeleteCause(int id)
@@ -79,7 +68,7 @@ namespace SmgAlumni.App.Api
             try
             {
                 _causeRepository.Delete(listings);
-                DomainEvents.Raise<DeleteCauseDomainEvent>(new DeleteCauseDomainEvent() { Heading = listings.Heading, User = CurrentUser});
+                DomainEvents.Raise(new DeleteCauseDomainEvent() { Heading = listings.Heading, User = CurrentUser });
                 return Ok();
             }
             catch (Exception e)
@@ -93,8 +82,8 @@ namespace SmgAlumni.App.Api
         [Route("api/cause/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
         {
-            var news = _causeRepository.GetAll().OrderBy(a => a.DateCreated).Take(take).Skip(skip).
-                Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, CreatedBy = a.User.UserName, Enabled = a.Enabled }).ToList();
+            var news = _causeRepository.Page(skip, take)
+                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, CreatedBy = a.User.UserName, Enabled = a.Enabled }).ToList();
             return Ok(news);
         }
 
@@ -102,7 +91,7 @@ namespace SmgAlumni.App.Api
         [Route("api/cause/count")]
         public IHttpActionResult GetCausesCount()
         {
-            var count = _causeRepository.GetAll().ToList().Count;
+            var count = _causeRepository.GetCount();
             return Ok(count);
         }
 
@@ -111,7 +100,10 @@ namespace SmgAlumni.App.Api
         [Authorize(Roles = "Admin, MasterAdmin")]
         public IHttpActionResult UpdateCause(Cause vm)
         {
-            if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Невалидни входни данни");
+            }
 
             var cause = _causeRepository.GetById(vm.Id);
             if (cause == null) return BadRequest("Новина с такова id не можа да бъде намерена");
@@ -122,7 +114,7 @@ namespace SmgAlumni.App.Api
             try
             {
                 _causeRepository.Update(cause);
-                DomainEvents.Raise<ModifyCauseDomainEvent>(new ModifyCauseDomainEvent() { Heading = cause.Heading, User = CurrentUser });
+                DomainEvents.Raise(new ModifyCauseDomainEvent() { Heading = cause.Heading, User = CurrentUser });
                 return Ok();
             }
             catch (Exception e)

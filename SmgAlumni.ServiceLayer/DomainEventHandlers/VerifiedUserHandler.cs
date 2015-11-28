@@ -1,23 +1,23 @@
-﻿using System;
+﻿using SmgAlumni.Data.Interfaces;
 using SmgAlumni.EF.Models.enums;
-using SmgAlumni.Utils.DomainEvents.Interfaces;
+using SmgAlumni.Utils.DomainEvents.Models;
 using SmgAlumni.Utils.EfEmailQuerer;
 using SmgAlumni.Utils.EfEmailQuerer.Serialization;
 using SmgAlumni.Utils.EfEmailQuerer.Templates;
-using SmgAlumni.Utils.Membership;
+using System;
+using System.Linq;
 
-namespace SmgAlumni.Utils.DomainEvents.Handlers
+namespace SmgAlumni.ServiceLayer.DomainEventHandlers
 {
     public class VerifiedUserHandler : IHandleDomainEvent<VerifyUserEvent>
     {
-
         private readonly INotificationEnqueuer _sender;
-        private readonly EFUserManager _userManager;
+        private readonly IUserRepository _userRepository;
 
-        public VerifiedUserHandler(INotificationEnqueuer sender, EFUserManager usermanager)
+        public VerifiedUserHandler(INotificationEnqueuer sender, IUserRepository userRepository)
         {
             _sender = sender;
-            _userManager = usermanager;
+            _userRepository = userRepository;
         }
 
         public void Handle(VerifyUserEvent args)
@@ -27,8 +27,11 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
 
         public void CreateAndSaveNotification(VerifyUserEvent args)
         {
-            var user = _userManager.GetUserByUserName(args.UserName);
-            if (user == null) throw new Exception();
+            var user = _userRepository.UsersByUserName(args.UserName).SingleOrDefault();
+            if (user == null)
+            {
+                throw new NullReferenceException("User with username: " + args.UserName + " cound not be retrieved");
+            }
 
             _sender.EnqueueNotification(new EmailNotificationOptions
             {

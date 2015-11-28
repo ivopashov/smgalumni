@@ -15,31 +15,37 @@ namespace SmgAlumni.Data.Repositories
         }
         public int Add(ForumAnswer entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Answers.Add(entity);
+            Save();
+            return entity.Id;
         }
 
         public ForumAnswer GetById(int id)
         {
-            return this._context.Answers.Find(id);
+            return _context.Answers.Find(id);
         }
 
         public void Delete(ForumAnswer entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Answers.Remove(entity);
+            Save();
         }
 
         public void Update(ForumAnswer entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            var oldEntity = GetById(entity.Id);
+            if (oldEntity == null)
+            {
+                throw new Exception("Could not find searched for object of type" + typeof(Activity) + " with id " + entity.Id);
+            }
+
+            _context.Entry(oldEntity).CurrentValues.SetValues(entity);
+            Save();
         }
 
         public void Save()
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
     }
 }

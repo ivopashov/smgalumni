@@ -94,21 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainEvents\DomainEvents.cs" />
-    <Compile Include="DomainEvents\Handlers\ActivityLogger.cs" />
-    <Compile Include="DomainEvents\Handlers\ForgotPasswordRequestHandler.cs" />
-    <Compile Include="DomainEvents\Handlers\VerifiedUserHandler.cs" />
-    <Compile Include="DomainEvents\Interfaces\AddCauseDomainEvent.cs" />
-    <Compile Include="DomainEvents\Interfaces\AddNewsDomainEvent.cs" />
-    <Compile Include="DomainEvents\Interfaces\DeleteCauseDomainEvent.cs" />
-    <Compile Include="DomainEvents\Interfaces\DeleteListingDomainEvent.cs" />
-    <Compile Include="DomainEvents\Interfaces\DeleteNewsDomainEvent.cs" />
-    <Compile Include="DomainEvents\Interfaces\ForgotPasswordEvent.cs" />
-    <Compile Include="DomainEvents\Interfaces\IDomainEvent.cs" />
-    <Compile Include="DomainEvents\Interfaces\IHandleDomainEvent.cs" />
-    <Compile Include="DomainEvents\Interfaces\ListingDomainEvent.cs" />
-    <Compile Include="DomainEvents\Interfaces\ModifyCayseDomainEvent.cs" />
-    <Compile Include="DomainEvents\Interfaces\ModifyNewsDomainEvent.cs" />
-    <Compile Include="DomainEvents\Interfaces\VerifyUserEvent.cs" />
+    <Compile Include="DomainEvents\Models\Events.cs" />
     <Compile Include="EfEmailQuerer\INotificationEnqueuer.cs" />
     <Compile Include="EfEmailQuerer\NotificationEnqueuer.cs" />
     <Compile Include="EfEmailQuerer\Serialization\EmailNotificationOptions.cs" />
@@ -124,12 +110,11 @@
     <Compile Include="EfEmailQuerer\Templates\ResetPasswordTemplate.cs" />
     <Compile Include="EfEmailQuerer\Templates\VerifyUserTemplate.cs" />
     <Compile Include="Helpers\Password.cs" />
-    <Compile Include="Identity\UserManager.cs" />
+    <Compile Include="ILogger.cs" />
     <Compile Include="Mapping\Extensions.cs" />
     <Compile Include="Mapping\IHaveCustomMappings.cs" />
     <Compile Include="Mapping\IMapFrom.cs" />
     <Compile Include="Mapping\MapInitializer.cs" />
-    <Compile Include="Membership\EFUserManager.cs" />
     <Compile Include="Messaging\IMsmqMessage.cs" />
     <Compile Include="Messaging\MessageDequeuer.cs" />
     <Compile Include="Messaging\MessageEnqueuer.cs" />
@@ -141,9 +126,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="Settings\AuthenticationSettings.cs" />
-    <Compile Include="Settings\ConfigFileRetriever.cs" />
     <Compile Include="Settings\EFSettingsRetriever.cs" />
     <Compile Include="Settings\EmailSettings.cs" />
+    <Compile Include="Settings\IAppSettings.cs" />
     <Compile Include="Settings\IAppSettingsRetriever.cs" />
     <Compile Include="Settings\MessagingSettings.cs" />
   </ItemGroup>

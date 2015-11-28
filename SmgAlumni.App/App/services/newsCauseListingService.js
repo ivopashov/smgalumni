@@ -1,7 +1,6 @@
 ﻿app.service('newsCauseListingService', ['commonService', function (commonService) {
 
     return ({
-        getAll: getAll,
         update: update,
         getById: getById,
         addNew: addNew,
@@ -37,16 +36,6 @@
         params.itemsPerPage = 10;
         params.visiblePages = 5;
         return params;
-    }
-
-    function getAll(kind) {
-        if (kind == 'news') {
-            return commonService.$http.get('api/news/allnews');
-        } else if (kind == 'cause') {
-            return commonService.$http.get('api/cause/allcauses');
-        } else if (kind == 'listing') {
-            return commonService.$http.get('api/listing/alllistings');
-        }
     }
 
     function getById(kind, id) {

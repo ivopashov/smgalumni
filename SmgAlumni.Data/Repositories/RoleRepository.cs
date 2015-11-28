@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SmgAlumni.Data.Interfaces;
 using SmgAlumni.EF.DAL;
@@ -17,37 +18,48 @@ namespace SmgAlumni.Data.Repositories
 
         public void Save()
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         public void Update(Role entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            var oldEntity = GetById(entity.Id);
+            if (oldEntity == null)
+            {
+                throw new Exception("Could not find searched for object of type" + typeof(Activity) + " with id " + entity.Id);
+            }
+
+            _context.Entry(oldEntity).CurrentValues.SetValues(entity);
+            Save();
         }
 
         public Role GetById(int id)
         {
-            return this._context.Roles.Find(id);
+            return _context.Roles.Find(id);
         }
 
         public void Delete(Role entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Roles.Remove(entity);
+            Save();
         }
 
         public int Add(Role entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Roles.Add(entity);
+            Save();
+            return entity.Id;
         }
 
         //just in case trim the parameter and compare string after tolower-ing them
         public Role GetByName(string name)
         {
-            return this._context.Roles.Where(a => a.Name.Equals(name)).SingleOrDefault();
+            return _context.Roles.Where(a => a.Name.Equals(name)).SingleOrDefault();
+        }
+
+        public IEnumerable<Role> GetAll()
+        {
+            return _context.Roles.ToList();
         }
     }
 }

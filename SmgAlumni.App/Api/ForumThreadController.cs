@@ -6,6 +6,8 @@ using SmgAlumni.App.Logging;
 using SmgAlumni.App.Models;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
+using SmgAlumni.Data.Interfaces;
+using SmgAlumni.Utils;
 
 namespace SmgAlumni.App.Api
 {
@@ -13,8 +15,8 @@ namespace SmgAlumni.App.Api
     {
         private readonly ForumThreadRepository _forumThreadRepository;
 
-        public ForumThreadController(ForumThreadRepository forumThreadRepository, ILogger logger)
-            : base(logger)
+        public ForumThreadController(ForumThreadRepository forumThreadRepository, ILogger logger, IUserRepository userRepository)
+            : base(logger, userRepository)
         {
             _forumThreadRepository = forumThreadRepository;
             VerifyNotNull(_forumThreadRepository);
@@ -35,7 +37,7 @@ namespace SmgAlumni.App.Api
             try
             {
                 CurrentUser.ForumThreads.Add(ft);
-                Users.Update(CurrentUser);
+                _userRepository.Update(CurrentUser);
                 return Ok();
             }
             catch (Exception e)
@@ -54,16 +56,6 @@ namespace SmgAlumni.App.Api
             if (ft == null) return BadRequest("Темата не можа да бъде намерена");
 
             return Ok(new { Body = ft.Body, Id = ft.Id, Heading = ft.Heading, CreatedOn = ft.CreatedOn, CreatedBy = ft.User.UserName });
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
-        [Route("api/forumthread/allforumthreads")]
-        public IHttpActionResult GetAll()
-        {
-            var ft = _forumThreadRepository.GetAll().
-                Select(a => new { Heading = a.Heading, DateCreated = a.CreatedOn, Id = a.Id, CreatedBy = a.User.UserName }).ToList();
-            return Ok(ft);
         }
 
         [HttpGet]
@@ -90,8 +82,8 @@ namespace SmgAlumni.App.Api
         [Route("api/forumthread/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
         {
-            var news = _forumThreadRepository.GetAll().OrderBy(a => a.CreatedOn).Take(take).Skip(skip).
-                Select(a => new { Heading = a.Heading, DateCreated = a.CreatedOn, Id = a.Id, CreatedBy = a.User.UserName, NumberOfAnswers = a.Answers.Count }).ToList();
+            var news = _forumThreadRepository.Page(skip, take)
+                .Select(a => new { Heading = a.Heading, DateCreated = a.CreatedOn, Id = a.Id, CreatedBy = a.User.UserName, NumberOfAnswers = a.Answers.Count }).ToList();
             return Ok(news);
         }
 
@@ -100,7 +92,7 @@ namespace SmgAlumni.App.Api
         [Route("api/forumthread/count")]
         public IHttpActionResult GetCount()
         {
-            var count = _forumThreadRepository.GetAll().ToList().Count;
+            var count = _forumThreadRepository.GetCount();
             return Ok(count);
         }
 
@@ -109,10 +101,17 @@ namespace SmgAlumni.App.Api
         [Authorize(Roles = "Admin, MasterAdmin")]
         public IHttpActionResult Update(ForumThread vm)
         {
-            if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Невалидни входни данни");
+            }
 
             var ft = _forumThreadRepository.GetById(vm.Id);
-            if (ft == null) return BadRequest("Темата с такова id не можа да бъде намерена");
+            if (ft == null)
+            {
+                return BadRequest("Темата с такова id не можа да бъде намерена");
+            }
+
             ft.Body = vm.Body;
             ft.Heading = vm.Heading;
             ft.CreatedOn = DateTime.Now;

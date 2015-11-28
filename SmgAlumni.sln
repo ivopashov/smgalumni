@@ -11,15 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmgAlumni.EF", "SmgAlumni.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmgAlumni.Data", "SmgAlumni.Data\SmgAlumni.Data.csproj", "{3CD85E68-6E36-495E-85DA-339DB86B78BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmgAlumni.ServiceLayer", "SmgAlumni.ServiceLayer\SmgAlumni.ServiceLayer.csproj", "{b5ffac84-2454-4b7b-9ded-a7c20a73ae53}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmgAlumni.ServiceLayer", "SmgAlumni.ServiceLayer\SmgAlumni.ServiceLayer.csproj", "{B5FFAC84-2454-4B7B-9DED-A7C20A73AE53}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DA13373C-1524-448F-BDE2-1497CE545B67}"
 	ProjectSection(SolutionItems) = preProject
 		todo.txt = todo.txt
 		todo_deploy.txt = todo_deploy.txt
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmgAlumni.ServiceLayer", "SmgAlumni.ServiceLayer\SmgAlumni.ServiceLayer.csproj", "{B5FFAC84-2454-4B7B-9DED-A7C20A73AE53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

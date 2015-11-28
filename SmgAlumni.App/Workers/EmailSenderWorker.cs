@@ -68,7 +68,7 @@ namespace SmgAlumni.App.Workers
 
                 try
                 {
-                    var unsentNotification = _notificationRepository.GetAll().Where(a => !a.Sent).ToList();
+                    var unsentNotification = _notificationRepository.GetSentNotifications();
                     SendEmailsViaSmtpClient(unsentNotification);
                 }
                 catch (Exception e)
@@ -79,7 +79,7 @@ namespace SmgAlumni.App.Workers
             }
         }
 
-        private void SendEmailsViaSmtpClient(List<Notification> notifications)
+        private void SendEmailsViaSmtpClient(IEnumerable<Notification> notifications)
         {
             var emailSettings = new EmailSettings(new EFSettingsRetriever(new SettingRepository(_context)));
             _logger.Info("Starting email send");

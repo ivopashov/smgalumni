@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SmgAlumni.App.Logging;
+using SmgAlumni.Data.Interfaces;
+using SmgAlumni.Utils;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -8,17 +11,13 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
-using NLog;
-using SmgAlumni.App.Logging;
-using SmgAlumni.Data.Repositories;
 
 namespace SmgAlumni.App.Api
 {
     public class FileController : BaseApiController
     {
-
-        public FileController(ILogger logger)
-            : base(logger)
+        public FileController(ILogger logger, IUserRepository userRepository)
+            : base(logger, userRepository)
         {
         }
 
@@ -35,12 +34,12 @@ namespace SmgAlumni.App.Api
             {
                 var filename = file.Headers.ContentDisposition.FileName.Trim('\"');
                 var buffer = await file.ReadAsByteArrayAsync();
-                var user = Users.Find(a => a.UserName.Equals(User.Identity.Name)).SingleOrDefault();
+                var user = _userRepository.UsersByUserName(User.Identity.Name).SingleOrDefault();
                 if (user == null) return BadRequest("Възникна грешка - моля опитайте отново");
-                user.AvatarImage =ResizeImage(buffer);
+                user.AvatarImage = ResizeImage(buffer);
                 try
                 {
-                    Users.Update(user);
+                    _userRepository.Update(user);
                     return Ok();
                 }
                 catch (Exception e)
@@ -57,7 +56,7 @@ namespace SmgAlumni.App.Api
         [HttpGet, Route("api/file/download")]
         public HttpResponseMessage DownloadFile([FromUri]string username)
         {
-            var user = Users.Find(a => a.UserName.Equals(username)).SingleOrDefault();
+            var user = _userRepository.UsersByUserName(username).SingleOrDefault();
             if (user == null)
             {
                 var badresponse = new HttpResponseMessage(HttpStatusCode.BadRequest);
@@ -88,7 +87,7 @@ namespace SmgAlumni.App.Api
                 }
                 if (image.Width > 150)
                 {
-                    double widthProportion = image.Width/ 150.0D;
+                    double widthProportion = image.Width / 150.0D;
                     int wantedHeightSoThatPorportionIsKept = Convert.ToInt32(Convert.ToDouble(image.Height) / widthProportion);
                     image = new Bitmap(image, new Size(150, wantedHeightSoThatPorportionIsKept));
                 }
@@ -104,7 +103,7 @@ namespace SmgAlumni.App.Api
             {
                 throw e;
             }
-            
+
         }
     }
 }

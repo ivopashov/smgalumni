@@ -1,4 +1,4 @@
-﻿using SmgAlumni.Data.Repositories;
+﻿using SmgAlumni.Data.Interfaces;
 using SmgAlumni.EF.Models;
 using SmgAlumni.EF.Models.enums;
 using SmgAlumni.Utils.EfEmailQuerer.Serialization;
@@ -12,10 +12,10 @@ namespace SmgAlumni.Utils.EfEmailQuerer
 {
     public class NotificationEnqueuer : INotificationEnqueuer
     {
-        private readonly AppSettings _appSettings;
-        private readonly NotificationRepository _repo;
+        private readonly IAppSettings _appSettings;
+        private readonly INotificationRepository _repo;
 
-        public NotificationEnqueuer(AppSettings appSettings, NotificationRepository repo)
+        public NotificationEnqueuer(IAppSettings appSettings, INotificationRepository repo)
         {
             _appSettings = appSettings;
             _repo = repo;

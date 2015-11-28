@@ -1,20 +1,20 @@
-﻿using System;
-using System.Web.Http;
-using SimpleInjector;
+﻿using SimpleInjector;
 using SimpleInjector.Extensions;
 using SimpleInjector.Integration.WebApi;
-using SmgAlumni.App.Api;
 using SmgAlumni.App.Logging;
 using SmgAlumni.App.Shared;
 using SmgAlumni.Data.Interfaces;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.DAL;
+using SmgAlumni.ServiceLayer;
+using SmgAlumni.ServiceLayer.Interfaces;
+using SmgAlumni.Utils;
 using SmgAlumni.Utils.DomainEvents;
-using SmgAlumni.Utils.DomainEvents.Interfaces;
+using SmgAlumni.Utils.DomainEvents.Models;
 using SmgAlumni.Utils.EfEmailQuerer;
-using SmgAlumni.Utils.Identity;
-using SmgAlumni.Utils.Membership;
 using SmgAlumni.Utils.Settings;
+using System;
+using System.Web.Http;
 
 namespace SmgAlumni.App.App_Start
 {
@@ -57,22 +57,15 @@ namespace SmgAlumni.App.App_Start
             container.Register<INewsRepository, NewsRepository>();
             container.Register<IRoleRepository, RoleRepository>(); //fix
 
-            container.Register<EFUserManager, EFUserManager>();
-            container.Register<UserManager, UserManager>();
+            container.Register<IUserService, UserService>();
+            container.Register<IAccountService, AccountService>();
             container.Register<INotificationEnqueuer, NotificationEnqueuer>();
-            
-            
-            container.Register<AppSettings, AppSettings>();
+            container.Register<IAppSettings, AppSettings>();
             container.Register<IAppSettingsRetriever, EFSettingsRetriever>();
             
             container.RegisterWithContext<ILogger>(dependencyContext =>
             {
                 return new NLogLogger();
-            });
-            container.RegisterInitializer<BaseApiController>(ctrl =>
-            {
-                ctrl.Users =
-                    container.GetInstance<UserRepository>();
             });
         }
     }

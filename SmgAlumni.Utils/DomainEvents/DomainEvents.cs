@@ -1,10 +1,6 @@
 ﻿using SimpleInjector;
-using SmgAlumni.Utils.DomainEvents.Interfaces;
+using SmgAlumni.Utils.DomainEvents.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmgAlumni.Utils.DomainEvents
 {
@@ -15,10 +11,14 @@ namespace SmgAlumni.Utils.DomainEvents
 
         public static void SetContainer(Container container)
         {
-            if (container == null) throw new ArgumentNullException("container");
+            if (container == null)
+            {
+                throw new ArgumentNullException("container");
+            }
 
             Container = container;
         }
+
         public static void Raise<T>(T eventArg) where T : IDomainEvent
         {
             if (Container != null)

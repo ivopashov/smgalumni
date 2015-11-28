@@ -17,7 +17,7 @@ namespace SmgAlumni.Utils.Messaging
             }
         }
 
-        public MsmQueue(AppSettings appSettings)
+        public MsmQueue(IAppSettings appSettings)
             : base(appSettings)
         {
             SetupQueue();

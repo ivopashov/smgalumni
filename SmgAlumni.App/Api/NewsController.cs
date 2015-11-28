@@ -1,42 +1,32 @@
-﻿using System;
+﻿using SmgAlumni.App.Models;
+using SmgAlumni.Data.Interfaces;
+using SmgAlumni.EF.Models;
+using SmgAlumni.Utils;
+using SmgAlumni.Utils.DomainEvents;
+using SmgAlumni.Utils.DomainEvents.Models;
+using System;
 using System.Linq;
 using System.Web.Http;
-using NLog;
-using SmgAlumni.App.Logging;
-using SmgAlumni.App.Models;
-using SmgAlumni.Data.Repositories;
-using SmgAlumni.EF.Models;
-using SmgAlumni.Utils.DomainEvents;
-using SmgAlumni.Utils.DomainEvents.Interfaces;
 
 namespace SmgAlumni.App.Api
 {
     [AllowAnonymous]
     public class NewsController : BaseApiController
     {
-        private readonly NewsRepository _newsRepository;
+        private readonly INewsRepository _newsRepository;
 
-        public NewsController(NewsRepository newsRepository, ILogger logger)
-            : base(logger)
+        public NewsController(INewsRepository newsRepository, IUserRepository userRepository, ILogger logger)
+            : base(logger, userRepository)
         {
             _newsRepository = newsRepository;
             VerifyNotNull(_newsRepository);
-          
-        }
-
-        [HttpGet]
-        [Route("api/news/allnews")]
-        public IHttpActionResult GetAllNews()
-        {
-            var news = _newsRepository.GetAll().Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled }).ToList();
-            return Ok(news);
         }
 
         [HttpGet]
         [Route("api/news/count")]
         public IHttpActionResult GetNewsCount()
         {
-            var count = _newsRepository.GetAll().ToList().Count;
+            var count = _newsRepository.GetCount();
             return Ok(count);
         }
 
@@ -51,7 +41,7 @@ namespace SmgAlumni.App.Api
             try
             {
                 _newsRepository.Delete(listings);
-                DomainEvents.Raise<DeleteNewsDomainEvent>(new DeleteNewsDomainEvent() { Heading = listings.Heading, User = CurrentUser });
+                DomainEvents.Raise(new DeleteNewsDomainEvent() { Heading = listings.Heading, User = CurrentUser });
                 return Ok();
             }
             catch (Exception e)
@@ -78,8 +68,8 @@ namespace SmgAlumni.App.Api
             try
             {
                 CurrentUser.News.Add(news);
-                Users.Update(CurrentUser);
-                DomainEvents.Raise<AddNewsDomainEvent>(new AddNewsDomainEvent() { Heading = news.Heading, User = CurrentUser });
+                _userRepository.Update(CurrentUser);
+                DomainEvents.Raise(new AddNewsDomainEvent() { Heading = news.Heading, User = CurrentUser });
                 return Ok();
             }
             catch (Exception e)
@@ -101,7 +91,7 @@ namespace SmgAlumni.App.Api
         [Route("api/news/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
         {
-            var news = _newsRepository.GetAll().Take(take).OrderBy(a => a.DateCreated).Skip(skip)
+            var news = _newsRepository.Page(skip, take)
                 .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, CreatedBy = a.User.UserName, Enabled = a.Enabled }).ToList();
             return Ok(news);
         }
@@ -114,7 +104,11 @@ namespace SmgAlumni.App.Api
             if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");
 
             var news = _newsRepository.GetById(vm.Id);
-            if (news == null) return BadRequest("Новина с такова id не можа да бъде намерена");
+            if (news == null)
+            {
+                return BadRequest("Новина с такова id не можа да бъде намерена");
+            }
+
             news.Body = vm.Body;
             news.Heading = vm.Heading;
             news.DateCreated = DateTime.Now;
@@ -122,7 +116,7 @@ namespace SmgAlumni.App.Api
             try
             {
                 _newsRepository.Update(news);
-                DomainEvents.Raise<ModifyNewsDomainEvent>(new ModifyNewsDomainEvent() { Heading = news.Heading, User = CurrentUser });
+                DomainEvents.Raise(new ModifyNewsDomainEvent() { Heading = news.Heading, User = CurrentUser });
                 return Ok();
 
             }

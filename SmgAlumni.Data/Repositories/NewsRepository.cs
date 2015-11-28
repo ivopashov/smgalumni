@@ -2,6 +2,8 @@
 using SmgAlumni.Data.Interfaces;
 using SmgAlumni.EF.DAL;
 using SmgAlumni.EF.Models;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace SmgAlumni.Data.Repositories
 {
@@ -15,31 +17,47 @@ namespace SmgAlumni.Data.Repositories
         }
         public int Add(News entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.NewsCollection.Add(entity);
+            Save();
+            return entity.Id;
         }
 
         public void Delete(News entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.NewsCollection.Remove(entity);
+            Save();
         }
 
         public News GetById(int id)
         {
-            return this._context.NewsCollection.Find(id);
+            return _context.NewsCollection.Find(id);
         }
 
         public void Update(News entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            var oldEntity = GetById(entity.Id);
+            if (oldEntity == null)
+            {
+                throw new Exception("Could not find searched for object of type" + typeof(Activity) + " with id " + entity.Id);
+            }
+
+            _context.Entry(oldEntity).CurrentValues.SetValues(entity);
+            Save();
+        }
+
+        public int GetCount()
+        {
+            return _context.Listings.Count();
+        }
+
+        public IEnumerable<News> Page(int skip, int take)
+        {
+            return _context.NewsCollection.OrderBy(a => a.DateCreated).Skip(skip).Take(take).ToList();
         }
 
         public void Save()
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
     }
 }

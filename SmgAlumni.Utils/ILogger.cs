@@ -1,4 +1,4 @@
-﻿namespace SmgAlumni.App.Logging
+﻿namespace SmgAlumni.Utils
 {
     public interface ILogger
     {

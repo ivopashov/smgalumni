@@ -3,6 +3,7 @@ using System.Linq;
 using SmgAlumni.Data.Interfaces;
 using SmgAlumni.EF.DAL;
 using SmgAlumni.EF.Models;
+using System.Collections.Generic;
 
 namespace SmgAlumni.Data.Repositories
 {
@@ -17,43 +18,54 @@ namespace SmgAlumni.Data.Repositories
 
         public int Add(Setting entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Settings.Add(entity);
+            Save();
+            return entity.Id;
         }
 
         public Setting GetById(int id)
         {
-            return this._context.Settings.Find(id);
+            return _context.Settings.Find(id);
         }
 
         public void Delete(Setting entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Settings.Remove(entity);
+            Save();
         }
 
         public void Update(Setting entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            var oldEntity = GetById(entity.Id);
+            if (oldEntity == null)
+            {
+                throw new Exception("Could not find searched for object of type" + typeof(Activity) + " with id " + entity.Id);
+            }
+
+            _context.Entry(oldEntity).CurrentValues.SetValues(entity);
+            Save();
         }
 
         public void Save()
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         public string GetValueByKey(string key)
         {
-            var setting= this._context.Settings.Where(a => a.SettingKey == key).SingleOrDefault();
-            
+            var setting = _context.Settings.Where(a => a.SettingKey == key).SingleOrDefault();
+
             if (setting == null)
             {
                 return string.Empty;
             }
 
             return setting.SettingName;
+        }
+
+        public IEnumerable<Setting> GetAll()
+        {
+            return _context.Settings.ToList();
         }
     }
 }

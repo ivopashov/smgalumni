@@ -2,6 +2,8 @@
 using SmgAlumni.Data.Interfaces;
 using SmgAlumni.EF.DAL;
 using SmgAlumni.EF.Models;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace SmgAlumni.Data.Repositories
 {
@@ -16,31 +18,47 @@ namespace SmgAlumni.Data.Repositories
 
         public Cause GetById(int id)
         {
-            return this._context.Causes.Find(id);
+            return _context.Causes.Find(id);
         }
 
         public int Add(Cause entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Causes.Add(entity);
+            Save();
+            return entity.Id;
         }
 
         public void Delete(Cause entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Causes.Remove(entity);
+            Save();
+        }
+
+        public int GetCount()
+        {
+            return _context.Listings.Count();
         }
 
         public void Update(Cause entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            var oldEntity = GetById(entity.Id);
+            if (oldEntity == null)
+            {
+                throw new Exception("Could not find searched for object of type" + typeof(Activity) + " with id " + entity.Id);
+            }
+
+            _context.Entry(oldEntity).CurrentValues.SetValues(entity);
+            Save();
         }
 
         public void Save()
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<Cause> Page(int skip, int take)
+        {
+            return _context.Causes.OrderBy(a => a.DateCreated).Skip(skip).Take(take).ToList();
         }
     }
 }

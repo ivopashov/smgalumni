@@ -1,26 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using SmgAlumni.App.Models;
+using SmgAlumni.Data.Interfaces;
+using SmgAlumni.ServiceLayer;
+using SmgAlumni.ServiceLayer.Interfaces;
+using SmgAlumni.Utils;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using NLog;
-using SmgAlumni.App.Logging;
-using SmgAlumni.App.Models;
-using SmgAlumni.Utils.Identity;
-using SmgAlumni.Utils.Membership;
 
 namespace SmgAlumni.App.Api
 {
     public class AuthenticationController : BaseApiController
     {
-        private readonly UserManager _userManager;
-        private readonly EFUserManager membership;
+        private readonly IUserService _userManager;
+        private readonly IAccountService _accountService;
 
-        public AuthenticationController(UserManager userManager, EFUserManager surveyMasterMembership, ILogger logger)
-            : base(logger)
+        public AuthenticationController(IUserService userManager, IAccountService accountService, ILogger logger, IUserRepository userRepository)
+            : base(logger, userRepository)
         {
             _userManager = userManager;
             VerifyNotNull(_userManager);
-            membership = surveyMasterMembership;
-            VerifyNotNull(membership);
+            _accountService = accountService;
+            VerifyNotNull(_accountService);
         }
 
         [AllowAnonymous]
@@ -32,9 +32,9 @@ namespace SmgAlumni.App.Api
                 return BadRequest("Грешни входни данни. Моля опитайте отново.");
             }
 
-            var user = membership.GetUserByUserName(login.UserName);
+            var user = _userRepository.UsersByUserName(login.UserName).SingleOrDefault();
 
-            if (user == null || !membership.ValidatePassword(user, login.Password))
+            if (user == null || !_accountService.ValidatePassword(user, login.Password))
             {
                 return BadRequest("Грешни входни данни. Моля опитайте отново.");
             }

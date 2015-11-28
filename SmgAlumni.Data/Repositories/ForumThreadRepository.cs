@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using SmgAlumni.Data.Interfaces;
 using SmgAlumni.EF.DAL;
 using SmgAlumni.EF.Models;
+using System.Linq;
 
 namespace SmgAlumni.Data.Repositories
 {
@@ -15,31 +17,47 @@ namespace SmgAlumni.Data.Repositories
         }
         public int Add(ForumThread entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Threads.Add(entity);
+            Save();
+            return entity.Id;
         }
 
         public void Delete(ForumThread entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Threads.Remove(entity);
+            Save();
         }
 
         public ForumThread GetById(int id)
         {
-            return this._context.Threads.Find(id);
+            return _context.Threads.Find(id);
         }
 
         public void Update(ForumThread entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            var oldEntity = GetById(entity.Id);
+            if (oldEntity == null)
+            {
+                throw new Exception("Could not find searched for object of type" + typeof(Activity) + " with id " + entity.Id);
+            }
+
+            _context.Entry(oldEntity).CurrentValues.SetValues(entity);
+            Save();
         }
 
         public void Save()
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<ForumThread> Page(int skip, int take)
+        {
+            return _context.Threads.OrderBy(a => a.CreatedOn).Skip(skip).Take(take).ToList();
+        }
+
+        public int GetCount()
+        {
+            return _context.Threads.Count();
         }
     }
 }

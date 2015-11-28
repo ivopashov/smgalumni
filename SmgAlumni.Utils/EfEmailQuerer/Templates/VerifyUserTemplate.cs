@@ -1,13 +1,9 @@
 ﻿using SmgAlumni.Utils.EfEmailQuerer.Serialization;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmgAlumni.Utils.EfEmailQuerer.Templates
 {
-    class VerifyUserTemplate : IEmailNotificationTemplate
+    public class VerifyUserTemplate : IEmailNotificationTemplate
     {
         public string Subject { get { return "Одобрение за СМГ Алумни"; } }
 

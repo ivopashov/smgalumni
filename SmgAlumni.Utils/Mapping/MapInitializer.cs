@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using System.IO;
 using System.Reflection;
 
 namespace SmgAlumni.Utils.Mapping
 {
-        public static class MapInitializer
+    public static class MapInitializer
         {
             public static void Initialize()
             {

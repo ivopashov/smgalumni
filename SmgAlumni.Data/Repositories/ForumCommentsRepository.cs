@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using SmgAlumni.Data.Interfaces;
 using SmgAlumni.EF.DAL;
 using SmgAlumni.EF.Models;
+using System.Linq;
 
 namespace SmgAlumni.Data.Repositories
 {
@@ -16,31 +18,42 @@ namespace SmgAlumni.Data.Repositories
 
         public int Add(ForumComment entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Comments.Add(entity);
+            Save();
+            return entity.Id;
         }
 
         public ForumComment GetById(int id)
         {
-            return this._context.Comments.Find(id);
+            return _context.Comments.Find(id);
         }
 
         public void Delete(ForumComment entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Comments.Remove(entity);
+            Save();
         }
 
         public void Update(ForumComment entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            var oldEntity = GetById(entity.Id);
+            if (oldEntity == null)
+            {
+                throw new Exception("Could not find searched for object of type" + typeof(Activity) + " with id " + entity.Id);
+            }
+
+            _context.Entry(oldEntity).CurrentValues.SetValues(entity);
+            Save();
         }
 
         public void Save()
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<ForumComment> GetCommentsForAnswer(int answerID)
+        {
+            return _context.Comments.Where(a => a.ForumAnswerId == answerID).ToList();
         }
     }
 }

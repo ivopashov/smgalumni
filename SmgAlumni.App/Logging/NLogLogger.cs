@@ -1,4 +1,5 @@
 ﻿using NLog;
+using SmgAlumni.Utils;
 
 namespace SmgAlumni.App.Logging
 {

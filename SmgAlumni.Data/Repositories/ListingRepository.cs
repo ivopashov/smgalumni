@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using SmgAlumni.Data.Interfaces;
 using SmgAlumni.EF.DAL;
 using SmgAlumni.EF.Models;
+using System.Collections.Generic;
 
 namespace SmgAlumni.Data.Repositories
 {
@@ -15,31 +17,52 @@ namespace SmgAlumni.Data.Repositories
         }
         public int Add(Listing entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Listings.Add(entity);
+            Save();
+            return entity.Id;
         }
 
         public Listing GetById(int id)
         {
-            return this._context.Listings.Find(id);
+            return _context.Listings.Find(id);
         }
 
         public void Delete(Listing entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.Listings.Remove(entity);
+            Save();
         }
 
         public void Update(Listing entity)
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            var oldEntity = GetById(entity.Id);
+            if (oldEntity == null)
+            {
+                throw new Exception("Could not find searched for object of type" + typeof(Activity) + " with id " + entity.Id);
+            }
+
+            _context.Entry(oldEntity).CurrentValues.SetValues(entity);
+            Save();
+        }
+
+        public int GetCount()
+        {
+            return _context.Listings.Count();
+        }
+
+        public IEnumerable<Listing> ListingForUser(int id)
+        {
+            return _context.Listings.Where(listing => listing.User.Id == id).ToList();
         }
 
         public void Save()
         {
-            // TODO: Implement this method
-            throw new NotImplementedException();
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<Listing> Page(int skip, int take)
+        {
+            return _context.Listings.OrderBy(a => a.DateCreated).Skip(skip).Take(take).ToList();
         }
     }
 }

@@ -16,24 +16,25 @@ namespace SmgAlumni.Data.Repositories
 
         public int Add(Activity entity)
         {
-            this._context.Activities.Add(entity);
+            _context.Activities.Add(entity);
             Save();
             return entity.Id;
         }
 
         public Activity GetById(int id)
         {
-            return this._context.Activities.Find(id);
+            return _context.Activities.Find(id);
         }
 
         public void Delete(Activity entity)
         {
-            this._context.Activities.Remove(entity);
+            _context.Activities.Remove(entity);
+            Save();
         }
 
         public void Update(Activity entity)
         {
-            var oldEntity = this.GetById(entity.Id);
+            var oldEntity = GetById(entity.Id);
             if (oldEntity == null)
             {
                 throw new Exception("Could not find searched for object of type" + typeof(Activity) + " with id " + entity.Id);
@@ -45,7 +46,7 @@ namespace SmgAlumni.Data.Repositories
 
         public void Save()
         {
-            this._context.SaveChanges();
+            _context.SaveChanges();
         }
     }
 }

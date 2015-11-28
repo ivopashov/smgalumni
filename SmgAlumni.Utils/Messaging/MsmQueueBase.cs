@@ -7,9 +7,9 @@ namespace SmgAlumni.Utils.Messaging
 {
     public class MsmQueueBase
     {
-        protected readonly AppSettings _appSettings;
+        protected readonly IAppSettings _appSettings;
 
-        public MsmQueueBase(AppSettings appSettings)
+        public MsmQueueBase(IAppSettings appSettings)
         {
             _appSettings = appSettings;
         }

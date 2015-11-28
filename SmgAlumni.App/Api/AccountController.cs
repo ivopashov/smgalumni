@@ -1,29 +1,35 @@
-﻿using System;
-using System.Web.Http;
-using AutoMapper;
-using SmgAlumni.App.Logging;
+﻿using AutoMapper;
 using SmgAlumni.App.Models;
+using SmgAlumni.Data.Interfaces;
 using SmgAlumni.EF.Models;
+using SmgAlumni.ServiceLayer;
+using SmgAlumni.ServiceLayer.Interfaces;
+using SmgAlumni.Utils;
 using SmgAlumni.Utils.DomainEvents;
-using SmgAlumni.Utils.DomainEvents.Interfaces;
+using SmgAlumni.Utils.DomainEvents.Models;
 using SmgAlumni.Utils.EfEmailQuerer;
 using SmgAlumni.Utils.Helpers;
-using SmgAlumni.Utils.Membership;
+using System;
+using System.Linq;
+using System.Web.Http;
 
 namespace SmgAlumni.App.Api
 {
     public class AccountController : BaseApiController
     {
-        private readonly EFUserManager _userManager;
+        private readonly IAccountService _accountService;
         private readonly INotificationEnqueuer _sender;
+        private readonly IUserService _userService;
 
-        public AccountController(EFUserManager userManager, INotificationEnqueuer sender, ILogger logger)
-            : base(logger)
+        public AccountController(IAccountService accountService, INotificationEnqueuer sender, ILogger logger, IUserRepository userRepository, IUserService userService)
+            : base(logger, userRepository)
         {
-            _userManager = userManager;
-            VerifyNotNull(_userManager);
+            _accountService = accountService;
+            VerifyNotNull(_accountService);
             _sender = sender;
             VerifyNotNull(_sender);
+            _userService = userService;
+            VerifyNotNull(_userService);
         }
 
         [AllowAnonymous]
@@ -36,7 +42,7 @@ namespace SmgAlumni.App.Api
             }
             try
             {
-                var getUserByEmail = _userManager.GetUserByEmail(model.Email);
+                var getUserByEmail = _userRepository.UsersByEmail(model.Email).SingleOrDefault();
                 if (getUserByEmail != null)
                 {
                     return BadRequest("Потребител с такъв имейл съществува");
@@ -44,7 +50,7 @@ namespace SmgAlumni.App.Api
 
                 var user = Mapper.Map<User>(model);
 
-                _userManager.CreateUser(user);
+                _userService.CreateUser(user);
                 return Ok();
             }
             catch (Exception ex)
@@ -64,11 +70,11 @@ namespace SmgAlumni.App.Api
             //check that user is valid
             try
             {
-                DomainEvents.Raise<ForgotPasswordEvent>(new ForgotPasswordEvent() 
+                DomainEvents.Raise(new ForgotPasswordEvent()
                 {
-                    RequestAuthority=Request.RequestUri.Authority,
-                    RequestScheme=Request.RequestUri.Scheme,
-                    Email=model.Email
+                    RequestAuthority = Request.RequestUri.Authority,
+                    RequestScheme = Request.RequestUri.Scheme,
+                    Email = model.Email
                 });
                 return Ok("Ако сте въвели правилен и-мейл трябва да получите съобщение с инструкции как да възстановите паролата си");
             }
@@ -89,16 +95,20 @@ namespace SmgAlumni.App.Api
                 return BadRequest("Невалидни входни данни.");
             }
 
-            var user = _userManager.GetUserByEmail(model.Email);
+            var user = _userRepository.UsersByEmail(model.Email).SingleOrDefault();
+            if (user == null)
+            {
+                throw new NullReferenceException("User with email: " + model.Email + " could not be found");
+            }
 
-            if (!_userManager.IsPasswordResetTokenValid(user, model.Token))
+            if (!_accountService.IsPasswordResetTokenValid(user, model.Token))
             {
                 return BadRequest("Искането за възстановяване на парола е невалидно или изгубило давност. Моля опитайте отново.");
             }
 
             try
             {
-                _userManager.ResetPasswordBasedOnToken(user, model.Token, model.Password);
+                _accountService.ResetPasswordBasedOnToken(user, model.Token, model.Password);
                 return Ok("Вашата парола беше сменена успешно. Сега може да се автентикирате с новите credentials.");
             }
             catch (Exception ex)
@@ -115,10 +125,15 @@ namespace SmgAlumni.App.Api
         {
             if ((guid != null) && (email != null))
             {
-                var user = _userManager.GetUserByEmail(email);
+                var user = _userRepository.UsersByEmail(email).SingleOrDefault();
+                if (user == null)
+                {
+                    throw new NullReferenceException("User with email: " + email + " could not be found");
+                }
+
                 //check validity
                 var g = new Guid(guid);
-                if (!_userManager.IsPasswordResetTokenValid(user, g))
+                if (!_accountService.IsPasswordResetTokenValid(user, g))
                 {
                     return Ok(false);
                 }
@@ -126,8 +141,8 @@ namespace SmgAlumni.App.Api
             }
             return BadRequest("Невалидни входни данни");
         }
-        
-        
+
+
         [Route("api/account/changepassword")]
         public IHttpActionResult ChangePassword(ChangePasswordViewModel model)
         {
@@ -135,13 +150,13 @@ namespace SmgAlumni.App.Api
             {
                 return BadRequest("Невалидни входни данни");
             }
-            if (!_userManager.ValidatePassword(CurrentUser, model.OldPassword))
+            if (!_accountService.ValidatePassword(CurrentUser, model.OldPassword))
             {
                 return BadRequest("Старата парола е грешна");
             }
             try
             {
-                _userManager.ChangePassword(CurrentUser.UserName, model.NewPassword);
+                _accountService.ChangePassword(CurrentUser.UserName, model.NewPassword);
                 return Ok();
             }
             catch (Exception ex)
@@ -155,22 +170,26 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult GetUserAccount()
         {
             var id = CurrentUser.Id;
-            var user = _userManager.GetUserById(id);
+            var user = _userRepository.GetById(id);
             if (user == null) return BadRequest("Потребителят не беше намерен. Моля опитайте отново");
-            
+
             var vm = Mapper.Map<UserAccountViewModel>(user);
             return Ok(vm);
         }
 
-        [Authorize(Roles="Admin, MasterAdmin")]
-        [HttpGet,Route("api/account/delete")]
+        [Authorize(Roles = "Admin, MasterAdmin")]
+        [HttpGet, Route("api/account/delete")]
         public IHttpActionResult DeleteUser([FromUri] string username)
         {
-            var user = _userManager.GetUserByUserName(username);
-            if (user == null) return BadRequest("Потребителят не беше намерен");
+            var user = _userRepository.UsersByUserName(username).FirstOrDefault();
+            if (user == null)
+            {
+                return BadRequest("Потребителят не беше намерен");
+            }
+
             try
             {
-                Users.Delete(user);
+                _userRepository.Delete(user);
                 return Ok();
             }
             catch (Exception e)
@@ -186,16 +205,19 @@ namespace SmgAlumni.App.Api
         {
             if (!ModelState.IsValid) return BadRequest("Невярни входни данни");
 
-            var user = _userManager.GetUserById(vm.Id);
-            if (user == null) return BadRequest("Потребителят не беше намерен");
+            var user = _userRepository.GetById(vm.Id);
+            if (user == null)
+            {
+                return BadRequest("Потребителят не беше намерен");
+            }
 
             var salt = Password.CreateSalt();
             user.Password = Password.HashPassword(vm.Password + salt);
             user.PasswordSalt = salt;
-            
+
             try
             {
-                Users.Update(user);
+                _userRepository.Update(user);
                 return Ok();
             }
             catch (Exception e)
@@ -227,10 +249,10 @@ namespace SmgAlumni.App.Api
                 CurrentUser.Profession = model.Profession;
                 CurrentUser.PhoneNumber = model.PhoneNumber;
 
-                Users.Update(CurrentUser);
+                _userRepository.Update(CurrentUser);
                 return Ok();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Error(e.Message);
                 return BadRequest("Потребителските данни не можаха да бъдат обновени. Моля опитайте отново");

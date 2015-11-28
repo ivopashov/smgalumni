@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.Owin.Security;
+using SmgAlumni.Data.Interfaces;
+using SmgAlumni.EF.Models;
+using SmgAlumni.Utils;
+using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
-using Microsoft.Owin.Security;
-using SmgAlumni.App.Logging;
-using SmgAlumni.Data.Repositories;
-using SmgAlumni.EF.Models;
 
 namespace SmgAlumni.App.Api
 {
@@ -14,13 +14,14 @@ namespace SmgAlumni.App.Api
     public class BaseApiController : ApiController
     {
         protected ILogger _logger;
+        protected readonly IUserRepository _userRepository;
 
-        public BaseApiController(ILogger logger)
+        public BaseApiController(ILogger logger, IUserRepository userRepository)
         {
             _logger = logger;
+            _userRepository = userRepository;
+            VerifyNotNull(_userRepository);
         }
-
-        public UserRepository Users { get; set; }
 
         private User currentUser;
         protected User CurrentUser
@@ -43,7 +44,7 @@ namespace SmgAlumni.App.Api
                     int id;
                     int.TryParse(claim.Value, out id);
 
-                    currentUser = int.TryParse(claim.Value, out id) ? Users.GetById(id) : null;
+                    currentUser = int.TryParse(claim.Value, out id) ? _userRepository.GetById(id) : null;
                 }
 
                 return currentUser;

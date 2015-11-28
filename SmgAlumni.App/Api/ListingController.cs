@@ -1,26 +1,24 @@
-﻿using System;
+﻿using SmgAlumni.App.Models;
+using SmgAlumni.Data.Interfaces;
+using SmgAlumni.EF.Models;
+using SmgAlumni.Utils;
+using SmgAlumni.Utils.DomainEvents;
+using SmgAlumni.Utils.DomainEvents.Models;
+using System;
 using System.Linq;
 using System.Web.Http;
-using NLog;
-using SmgAlumni.App.Logging;
-using SmgAlumni.App.Models;
-using SmgAlumni.Data.Repositories;
-using SmgAlumni.EF.Models;
-using SmgAlumni.Utils.DomainEvents;
-using SmgAlumni.Utils.DomainEvents.Interfaces;
 
 namespace SmgAlumni.App.Api
 {
     public class ListingController : BaseApiController
     {
-        private readonly ListingRepository _listingRepository;
+        private readonly IListingRepository _listingRepository;
 
-        public ListingController(ListingRepository listingRepository, ILogger logger)
-            : base(logger)
+        public ListingController(IListingRepository listingRepository, IUserRepository userRepository, ILogger logger)
+            : base(logger, userRepository)
         {
             _listingRepository = listingRepository;
             VerifyNotNull(_listingRepository);
-
         }
 
         [HttpPost]
@@ -39,7 +37,7 @@ namespace SmgAlumni.App.Api
             try
             {
                 CurrentUser.Listings.Add(listing);
-                Users.Update(CurrentUser);
+                _userRepository.Update(CurrentUser);
                 return Ok();
             }
             catch (Exception e)
@@ -60,20 +58,13 @@ namespace SmgAlumni.App.Api
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("api/listing/alllistings")]
-        public IHttpActionResult GetAllListings()
-        {
-            var news = _listingRepository.GetAll()
-                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled }).ToList();
-            return Ok(news);
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
         [Route("api/listing/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
         {
-            var news = _listingRepository.GetAll().OrderBy(a => a.DateCreated).Take(take).Skip(skip).Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName }).ToList();
+            var news = _listingRepository
+                .Page(skip, take)
+                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName })
+                .ToList();
             return Ok(news);
         }
 
@@ -81,9 +72,10 @@ namespace SmgAlumni.App.Api
         [Route("api/listing/my/skiptake")]
         public IHttpActionResult MyListingsSkipAndTake([FromUri] int take, [FromUri]int skip)
         {
-            var news = _listingRepository.GetAll().Where(a => a.User.Id.Equals(CurrentUser.Id))
+            var news = _listingRepository.ListingForUser(CurrentUser.Id)
                 .OrderBy(a => a.DateCreated).Take(take).Skip(skip)
-                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName }).ToList();
+                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName })
+                .ToList();
             return Ok(news);
         }
 
@@ -92,8 +84,7 @@ namespace SmgAlumni.App.Api
         [Route("api/listing/count")]
         public IHttpActionResult GetListingsCount()
         {
-            var count = _listingRepository.GetAll()
-                .ToList().Count;
+            var count = _listingRepository.GetCount();
             return Ok(count);
         }
 
@@ -101,7 +92,7 @@ namespace SmgAlumni.App.Api
         [Route("api/listing/my/count")]
         public IHttpActionResult GetMyListingsCount()
         {
-            var count = _listingRepository.GetAll().Where(a => a.User.Id.Equals(CurrentUser.Id)).ToList().Count;
+            var count = _listingRepository.ListingForUser(CurrentUser.Id).Count();
             return Ok(count);
         }
 
@@ -109,8 +100,7 @@ namespace SmgAlumni.App.Api
         [Route("api/listing/mylistings")]
         public IHttpActionResult MyListings()
         {
-            var listings = _listingRepository.GetAll()
-                .Where(a => a.User.Id.Equals(CurrentUser.Id))
+            var listings = _listingRepository.ListingForUser(CurrentUser.Id)
                 .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName })
                 .ToList();
             return Ok(listings);
@@ -128,7 +118,7 @@ namespace SmgAlumni.App.Api
             try
             {
                 _listingRepository.Delete(listings);
-                DomainEvents.Raise<DeleteListingDomainEvent>(new DeleteListingDomainEvent() { Heading = listings.Heading, User = CurrentUser});
+                DomainEvents.Raise(new DeleteListingDomainEvent() { Heading = listings.Heading, User = CurrentUser });
                 return Ok();
             }
             catch (Exception e)
@@ -147,7 +137,7 @@ namespace SmgAlumni.App.Api
 
             var listing = _listingRepository.GetById(vm.Id);
             if (listing == null) return BadRequest("Новина с такова id не можа да бъде намерена");
-            if(listing.User.Id!=CurrentUser.Id)return Unauthorized();
+            if (listing.User.Id != CurrentUser.Id) return Unauthorized();
             listing.Body = vm.Body;
             listing.Heading = vm.Heading;
             listing.DateCreated = DateTime.Now;

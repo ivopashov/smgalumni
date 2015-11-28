@@ -1,10 +1,10 @@
-﻿using System;
-using SmgAlumni.Data.Repositories;
+﻿using SmgAlumni.Data.Interfaces;
 using SmgAlumni.EF.Models;
 using SmgAlumni.EF.Models.enums;
-using SmgAlumni.Utils.DomainEvents.Interfaces;
+using SmgAlumni.Utils.DomainEvents.Models;
+using System;
 
-namespace SmgAlumni.Utils.DomainEvents.Handlers
+namespace SmgAlumni.ServiceLayer.DomainEventHandlers
 {
     public class ActivityLogger :
         IHandleDomainEvent<AddNewsDomainEvent>,
@@ -16,10 +16,10 @@ namespace SmgAlumni.Utils.DomainEvents.Handlers
         IHandleDomainEvent<DeleteListingDomainEvent>,
         IHandleDomainEvent<VerifyUserEvent>
     {
-        private ActivityRepository _activityRepositorty;
-        private UserRepository _userRepository;
+        private IActivityRepository _activityRepositorty;
+        private IUserRepository _userRepository;
 
-        public ActivityLogger(ActivityRepository activityRepository, UserRepository userRepository)
+        public ActivityLogger(IActivityRepository activityRepository, IUserRepository userRepository)
         {
             _activityRepositorty = activityRepository;
             _userRepository = userRepository;

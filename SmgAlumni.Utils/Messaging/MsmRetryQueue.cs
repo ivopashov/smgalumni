@@ -1,5 +1,4 @@
 ﻿using SmgAlumni.Utils.Settings;
-using System;
 using System.Collections.Generic;
 using System.Messaging;
 
@@ -7,7 +6,7 @@ namespace SmgAlumni.Utils.Messaging
 {
     public class MsmRetryQueue<T> : MsmQueueBase where T : class, IMsmqMessage
     {
-        public MsmRetryQueue(AppSettings appSettings)
+        public MsmRetryQueue(IAppSettings appSettings)
             : base(appSettings)
         {
             SetupQueue();
@@ -16,7 +15,7 @@ namespace SmgAlumni.Utils.Messaging
         private void SetupQueue()
         {
             var typeName = typeof(T).Name;
-            string queuePath = String.Concat(_appSettings.Messaging.QueuePathPrefix, typeName, "_retry");
+            var queuePath = string.Concat(_appSettings.Messaging.QueuePathPrefix, typeName, "_retry");
             CreateQueuePathIfNotExists(queuePath);
             _messageQueue = new MessageQueue(queuePath) { Formatter = new BinaryMessageFormatter() };
         }
