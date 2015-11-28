@@ -58,7 +58,7 @@ namespace SmgAlumni.Data.Repositories
 
         public IEnumerable<User> UsersByUserName(string username)
         {
-            return _context.Users.Where(a => a.UserName.ToLower().Equals(username.ToLower())).ToList();
+            return _context.Users.Where(a => a.UserName.Equals(username)).ToList();
         }
 
         public IEnumerable<User> UsersByName(string name)
