@@ -1236,6 +1236,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SmgAlumni.ServiceLayer\SmgAlumni.ServiceLayer.csproj">
+      <Project>{b5ffac84-2454-4b7b-9ded-a7c20a73ae53}</Project>
+      <Name>SmgAlumni.ServiceLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SmgAlumni.Utils\SmgAlumni.Utils.csproj">
       <Project>{bb73fde0-95af-400a-8a3c-5380eacd809e}</Project>
       <Name>SmgAlumni.Utils</Name>
