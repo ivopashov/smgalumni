@@ -18,19 +18,19 @@ namespace SmgAlumni.Data.Repositories
 
         public int Add(ForumComment entity)
         {
-            _context.Comments.Add(entity);
+            _context.ForumComments.Add(entity);
             Save();
             return entity.Id;
         }
 
         public ForumComment GetById(int id)
         {
-            return _context.Comments.Find(id);
+            return _context.ForumComments.Find(id);
         }
 
         public void Delete(ForumComment entity)
         {
-            _context.Comments.Remove(entity);
+            _context.ForumComments.Remove(entity);
             Save();
         }
 
@@ -53,7 +53,7 @@ namespace SmgAlumni.Data.Repositories
 
         public IEnumerable<ForumComment> GetCommentsForAnswer(int answerID)
         {
-            return _context.Comments.Where(a => a.ForumAnswerId == answerID).ToList();
+            return _context.ForumComments.Where(a => a.ForumAnswerId == answerID).ToList();
         }
     }
 }

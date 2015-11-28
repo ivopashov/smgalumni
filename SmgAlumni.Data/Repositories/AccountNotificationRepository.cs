@@ -7,30 +7,30 @@ using System.Linq;
 
 namespace SmgAlumni.Data.Repositories
 {
-    public class NotificationRepository : INotificationRepository
+    public class AccountNotificationRepository : IAccountNotificationRepository
     {
         private readonly SmgAlumniContext _context;
 
-        public NotificationRepository(SmgAlumniContext context)
+        public AccountNotificationRepository(SmgAlumniContext context)
         {
             _context = context;
         }        
         public int Add(Notification entity)
         {
-            _context.Notifications.Add(entity);
+            _context.AccountNotifications.Add(entity);
             Save();
             return entity.Id;
         }
 
         public void Delete(Notification entity)
         {
-            _context.Notifications.Remove(entity);
+            _context.AccountNotifications.Remove(entity);
             Save();
         }
 
         public Notification GetById(int id)
         {
-            return _context.Notifications.Find(id);
+            return _context.AccountNotifications.Find(id);
         }
 
         public void Update(Notification entity)
@@ -52,7 +52,7 @@ namespace SmgAlumni.Data.Repositories
 
         public IEnumerable<Notification> GetSentNotifications()
         {
-            return _context.Notifications.Where(a => a.Sent).ToList();
+            return _context.AccountNotifications.Where(a => a.Sent).ToList();
         }
     }
 }

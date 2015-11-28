@@ -29,7 +29,7 @@ namespace SmgAlumni.App.Workers
         private static Timer _timer = new Timer(OnTimerElapsed);
         private static EmailSenderWorker _jobHost = new EmailSenderWorker();
         private static readonly AppSettings _appSettings = new AppSettings(new EFSettingsRetriever(new SettingRepository(_context)));
-        private static NotificationRepository _notificationRepository = new NotificationRepository(_context);
+        private static AccountNotificationRepository _notificationRepository = new AccountNotificationRepository(_context);
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public static void StartTimer()

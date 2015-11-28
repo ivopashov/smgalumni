@@ -55,7 +55,7 @@
     <Compile Include="Interfaces\IForumThreadRepository.cs" />
     <Compile Include="Interfaces\IListingRepository.cs" />
     <Compile Include="Interfaces\INewsRepository.cs" />
-    <Compile Include="Interfaces\INotificationRepository.cs" />
+    <Compile Include="Interfaces\IAccountNotificationRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IRoleRepository.cs" />
     <Compile Include="Interfaces\ISettingRepository.cs" />
@@ -70,7 +70,7 @@
     <Compile Include="Repositories\NewsRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\SettingRepository.cs" />
-    <Compile Include="Repositories\NotificationRepository.cs" />
+    <Compile Include="Repositories\AccountNotificationRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -46,16 +46,16 @@ namespace SmgAlumni.App.App_Start
 
             //Repos
             container.Register<IActivityRepository, ActivityRepository>();
-            container.Register<ISettingRepository, SettingRepository>(); //fix
+            container.Register<ISettingRepository, SettingRepository>();
             container.Register<IUserRepository, UserRepository>();
-            container.Register<INotificationRepository, NotificationRepository>();
+            container.Register<IAccountNotificationRepository, AccountNotificationRepository>();
             container.Register<ICauseRepository, CauseRepository>();
             container.Register<IForumAnswerRepository, ForumAnswerRepository>();
             container.Register<IForumCommentsRepository, ForumCommentsRepository>();
             container.Register<IForumThreadRepository, ForumThreadRepository>();
             container.Register<IListingRepository, ListingRepository>();
             container.Register<INewsRepository, NewsRepository>();
-            container.Register<IRoleRepository, RoleRepository>(); //fix
+            container.Register<IRoleRepository, RoleRepository>();
 
             container.Register<IUserService, UserService>();
             container.Register<IAccountService, AccountService>();

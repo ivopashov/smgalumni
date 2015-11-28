@@ -17,20 +17,20 @@ namespace SmgAlumni.Data.Repositories
         }
         public int Add(ForumThread entity)
         {
-            _context.Threads.Add(entity);
+            _context.ForumThreads.Add(entity);
             Save();
             return entity.Id;
         }
 
         public void Delete(ForumThread entity)
         {
-            _context.Threads.Remove(entity);
+            _context.ForumThreads.Remove(entity);
             Save();
         }
 
         public ForumThread GetById(int id)
         {
-            return _context.Threads.Find(id);
+            return _context.ForumThreads.Find(id);
         }
 
         public void Update(ForumThread entity)
@@ -52,12 +52,12 @@ namespace SmgAlumni.Data.Repositories
 
         public IEnumerable<ForumThread> Page(int skip, int take)
         {
-            return _context.Threads.OrderBy(a => a.CreatedOn).Skip(skip).Take(take).ToList();
+            return _context.ForumThreads.OrderBy(a => a.CreatedOn).Skip(skip).Take(take).ToList();
         }
 
         public int GetCount()
         {
-            return _context.Threads.Count();
+            return _context.ForumThreads.Count();
         }
     }
 }

@@ -15,19 +15,19 @@ namespace SmgAlumni.Data.Repositories
         }
         public int Add(ForumAnswer entity)
         {
-            _context.Answers.Add(entity);
+            _context.ForumAnswers.Add(entity);
             Save();
             return entity.Id;
         }
 
         public ForumAnswer GetById(int id)
         {
-            return _context.Answers.Find(id);
+            return _context.ForumAnswers.Find(id);
         }
 
         public void Delete(ForumAnswer entity)
         {
-            _context.Answers.Remove(entity);
+            _context.ForumAnswers.Remove(entity);
             Save();
         }
 

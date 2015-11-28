@@ -13,9 +13,9 @@ namespace SmgAlumni.Utils.EfEmailQuerer
     public class NotificationEnqueuer : INotificationEnqueuer
     {
         private readonly IAppSettings _appSettings;
-        private readonly INotificationRepository _repo;
+        private readonly IAccountNotificationRepository _repo;
 
-        public NotificationEnqueuer(IAppSettings appSettings, INotificationRepository repo)
+        public NotificationEnqueuer(IAppSettings appSettings, IAccountNotificationRepository repo)
         {
             _appSettings = appSettings;
             _repo = repo;

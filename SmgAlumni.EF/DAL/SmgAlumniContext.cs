@@ -18,11 +18,11 @@ namespace SmgAlumni.EF.DAL
         public virtual DbSet<Cause> Causes { get; set; }
         public virtual DbSet<Listing> Listings { get; set; }
         public virtual DbSet<News> NewsCollection { get; set; }
-        public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<Notification> AccountNotifications { get; set; }
         public virtual DbSet<Activity> Activities { get; set; }
-        public virtual DbSet<ForumThread> Threads { get; set; }
-        public virtual DbSet<ForumAnswer> Answers { get; set; }
-        public virtual DbSet<ForumComment> Comments { get; set; }
+        public virtual DbSet<ForumThread> ForumThreads { get; set; }
+        public virtual DbSet<ForumAnswer> ForumAnswers { get; set; }
+        public virtual DbSet<ForumComment> ForumComments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
