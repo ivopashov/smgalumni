@@ -50,7 +50,7 @@ namespace SmgAlumni.App.Api
 
                 var user = Mapper.Map<User>(model);
 
-                _userService.CreateUser(user);
+                _userService.CreateUser(user, model.ReceiveNewsletter);
                 return Ok();
             }
             catch (Exception ex)
@@ -171,7 +171,10 @@ namespace SmgAlumni.App.Api
         {
             var id = CurrentUser.Id;
             var user = _userRepository.GetById(id);
-            if (user == null) return BadRequest("Потребителят не беше намерен. Моля опитайте отново");
+            if (user == null)
+            {
+                return BadRequest("Потребителят не беше намерен. Моля опитайте отново");
+            }
 
             var vm = Mapper.Map<UserAccountViewModel>(user);
             return Ok(vm);
@@ -250,6 +253,7 @@ namespace SmgAlumni.App.Api
                 CurrentUser.PhoneNumber = model.PhoneNumber;
 
                 _userRepository.Update(CurrentUser);
+                _userService.UpdateUserNewsLetterNotification(model.ReceiveNewsletter, model.UserName);
                 return Ok();
             }
             catch (Exception e)

@@ -49,7 +49,7 @@ namespace SmgAlumni.ServiceLayer
             return ticket;
         }
 
-        public void CreateUser(User user)
+        public void CreateUser(User user, bool receiveNewsletter)
         {
             if (string.IsNullOrEmpty(user.UserName))
             {
@@ -84,7 +84,59 @@ namespace SmgAlumni.ServiceLayer
             user.Roles.Add(new Role() { Name = "User" });
             user.Verified = false;
 
+            if (receiveNewsletter)
+            {
+                var newsletterNoty = new NotificationSubscription()
+                {
+                    CreatedOn = DateTime.Now,
+                    NotificationKind = EF.Models.enums.NotificationKind.NewsLetter,
+                    UnsubscribeToken = Guid.NewGuid(),
+                    Enabled = true
+                };
+                user.NotificationSubscriptions.Add(newsletterNoty);
+            }
+
             _userRepository.Add(user);
+        }
+
+        public void UpdateUserNewsLetterNotification(bool subscribe, string username)
+        {
+            var user = _userRepository.UsersByUserName(username).FirstOrDefault();
+            if (user == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            var newsLetterSubscription = user.NotificationSubscriptions.Where(a => a.NotificationKind == EF.Models.enums.NotificationKind.NewsLetter).SingleOrDefault();
+
+            //if we dont have any newsletter subscriptions but want to subscribe for the first time
+            if (newsLetterSubscription == null && subscribe)
+            {
+                var noty = new NotificationSubscription()
+                {
+                    CreatedOn = DateTime.Now,
+                    NotificationKind = EF.Models.enums.NotificationKind.NewsLetter,
+                    UnsubscribeToken = Guid.NewGuid(),
+                    Enabled = true
+                };
+
+                user.NotificationSubscriptions.Add(noty);
+            }
+
+            if (newsLetterSubscription != null)
+            {
+                if (subscribe && subscribe != newsLetterSubscription.Enabled)
+                {
+                    newsLetterSubscription.Enabled = true;
+                    newsLetterSubscription.UnsubscribeToken = Guid.NewGuid();
+                }
+                if (!subscribe && subscribe != newsLetterSubscription.Enabled)
+                {
+                    newsLetterSubscription.Enabled = false;
+                }
+            }
+
+            _userRepository.Update(user);
         }
     }
 }

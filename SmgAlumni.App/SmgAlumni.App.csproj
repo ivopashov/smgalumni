@@ -225,6 +225,7 @@
     <Compile Include="Api\FileController.cs" />
     <Compile Include="Api\MasterAdminController.cs" />
     <Compile Include="Api\NewsController.cs" />
+    <Compile Include="Api\NewsletterController.cs" />
     <Compile Include="Api\SearchController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

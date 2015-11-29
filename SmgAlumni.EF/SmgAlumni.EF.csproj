@@ -49,9 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\SmgAlumniContext.cs" />
-    <Compile Include="Migrations\201504191938216_InitialCreate.cs" />
-    <Compile Include="Migrations\201504191938216_InitialCreate.Designer.cs">
-      <DependentUpon>201504191938216_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201511292117222_Initial Create.cs" />
+    <Compile Include="Migrations\201511292117222_Initial Create.Designer.cs">
+      <DependentUpon>201511292117222_Initial Create.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -68,6 +68,7 @@
     <Compile Include="Models\Listing.cs" />
     <Compile Include="Models\News.cs" />
     <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationSubscription.cs" />
     <Compile Include="Models\PasswordReset.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Setting.cs" />
@@ -79,8 +80,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504191938216_InitialCreate.resx">
-      <DependentUpon>201504191938216_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511292117222_Initial Create.resx">
+      <DependentUpon>201511292117222_Initial Create.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -28,8 +28,8 @@ X:\Repos\smg-alumni\SmgAlumni.EF\bin\Debug\EntityFramework.dll
 X:\Repos\smg-alumni\SmgAlumni.EF\bin\Debug\EntityFramework.SqlServer.dll
 X:\Repos\smg-alumni\SmgAlumni.EF\bin\Debug\EntityFramework.xml
 X:\Repos\smg-alumni\SmgAlumni.EF\bin\Debug\EntityFramework.SqlServer.xml
-X:\Repos\smg-alumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.Migrations.InitialCreate.resources
-X:\Repos\smg-alumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csproj.GenerateResource.Cache
 X:\Repos\smg-alumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.dll
 X:\Repos\smg-alumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.pdb
 X:\Repos\smg-alumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csprojResolveAssemblyReference.cache
+X:\Repos\smg-alumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.Migrations.InitialCreate.resources
+X:\Repos\smg-alumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csproj.GenerateResource.Cache

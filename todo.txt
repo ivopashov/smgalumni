@@ -8,6 +8,5 @@ unsubscribe
 check the forum repos
 global exception attribute
 error pages
-research how to make the application awake ar all times
 
 TEST

@@ -68,14 +68,13 @@ namespace SmgAlumni.App.Workers
 
                 try
                 {
-                    var unsentNotification = _notificationRepository.GetSentNotifications();
-                    SendEmailsViaSmtpClient(unsentNotification);
+                    var unsentNotifications = _notificationRepository.GetSentNotifications();
+                    SendEmailsViaSmtpClient(unsentNotifications);
                 }
                 catch (Exception e)
                 {
                     _logger.Error("Error while sending email: " + e.Message + "\n Inner Exception: " + e.InnerException);
                 }
-
             }
         }
 
@@ -91,11 +90,25 @@ namespace SmgAlumni.App.Workers
 
                 foreach (var notification in notifications)
                 {
-                    var mailMessage = DeserializeEmail(notification.Message);
-                    _logger.Info("Sending email to: " + mailMessage.To);
-                    client.Send(mailMessage);
-                    notification.Sent = true;
-                    _notificationRepository.Update(notification);
+                    try
+                    {
+                        var mailMessage = DeserializeEmail(notification.Message);
+                        _logger.Info("Sending email to: " + mailMessage.To);
+                        client.Send(mailMessage);
+                        notification.Sent = true;
+                        notification.SentOn = DateTime.Now;
+                    }
+                    catch (Exception)
+                    {
+                        notification.Sent = false;
+                        notification.Retries++;
+                        throw;
+                    }
+                    finally
+                    {
+                        _notificationRepository.Update(notification);
+                    }
+                   
                 }
             }
         }

@@ -8,6 +8,7 @@ namespace SmgAlumni.ServiceLayer.Interfaces
     {
         AuthenticationTicket CreateAuthenticationTicket(ClaimsIdentity identity);
         ClaimsIdentity CreateIdentity(string username, string authenticationType);
-        void CreateUser(User user);
+        void CreateUser(User user, bool receiveNewsletter);
+        void UpdateUserNewsLetterNotification(bool subscribe, string username);
     }
 }

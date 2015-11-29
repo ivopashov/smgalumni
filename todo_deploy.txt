@@ -14,7 +14,6 @@ INSERT INTO [dbo].[Setting]
 		   ('email_UseSecureConnection','')
 GO
 
-
 - throttling
 
 - set the link in the verify user email template
@@ -22,3 +21,5 @@ GO
 - set workers intervals
 
 - db context setup
+
+- make sure that the app is registered in https://uptimerobot.com with a ping interval of <20 min

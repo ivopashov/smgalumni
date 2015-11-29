@@ -39,11 +39,12 @@ namespace SmgAlumni.EF.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string City { get; set; }
+        public virtual List<NotificationSubscription> NotificationSubscriptions { get; set; }
 
         //for admin usage
         public bool Verified { get; set; }
         public DateTime DateJoined { get; set; }
-        public virtual List<PasswordReset> PasswordResets{ get; set; }
+        public virtual List<PasswordReset> PasswordResets { get; set; }
 
         //image
         public byte[] AvatarImage { get; set; }
@@ -51,10 +52,10 @@ namespace SmgAlumni.EF.Models
         //role
         public virtual List<Role> Roles { get; set; }
         public virtual List<News> News { get; set; }
-        public virtual List<Cause> Causes{ get; set; }
+        public virtual List<Cause> Causes { get; set; }
         public virtual List<Listing> Listings { get; set; }
-        public virtual List<ForumThread> ForumThreads{ get; set; }
-        public virtual List<ForumAnswer> ForumAnswers{ get; set; }
+        public virtual List<ForumThread> ForumThreads { get; set; }
+        public virtual List<ForumAnswer> ForumAnswers { get; set; }
         public virtual List<ForumComment> ForumComments { get; set; }
         public virtual List<Activity> Activities { get; set; }
     }

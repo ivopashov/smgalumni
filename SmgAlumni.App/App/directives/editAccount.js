@@ -1,5 +1,5 @@
 ﻿app.directive('editAccount', [
-    'authHelper', 'accountService', 'commonService', '$upload', '$state','$loading', function (authHelper, accountService, commonService, $upload, $state, $loading) {
+    'authHelper', 'accountService', 'commonService', '$upload', '$state', '$loading', function (authHelper, accountService, commonService, $upload, $state, $loading) {
 
         var editAccountCtrl = function (authHelper, $scope, accountService, commonService, $upload, $state, $loading) {
 
@@ -29,8 +29,12 @@
                 $scope.fileUploaded = false;
                 $scope.image = file[0];
 
-                if (!file || file.length == 0) return;
-                if (file[0].type.indexOf('image') < 0) commonService.notification.error('Файлът не е снимка');
+                if (!file || file.length == 0) {
+                    return;
+                }
+                if (file[0].type.indexOf('image') < 0) {
+                    commonService.notification.error('Файлът не е снимка');
+                }
                 $upload.upload({
                     url: 'api/file/upload',
                     fields: { 'username': $scope.username },
@@ -69,7 +73,7 @@
             restrict: 'AE',
             templateUrl: '/App/templates/directives/manageAccount.html',
             scope: {},
-            controller: ['authHelper', '$scope', 'accountService', 'commonService', '$upload', '$state','$loading', editAccountCtrl]
+            controller: ['authHelper', '$scope', 'accountService', 'commonService', '$upload', '$state', '$loading', editAccountCtrl]
         }
 
     }

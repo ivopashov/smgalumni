@@ -31,7 +31,9 @@ namespace SmgAlumni.Utils.EfEmailQuerer
                 CreatedOn = DateTime.Now,
                 Kind = kind,
                 Sent = false,
-                Message = binaryFormattedMessage
+                Message = binaryFormattedMessage,
+                HtmlMessage = string.Empty,
+                To = options.To
             };
 
             _repo.Add(notification);
