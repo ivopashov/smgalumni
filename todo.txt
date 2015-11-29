@@ -1,1 +1,13 @@
-remove users from the base api ctrl
+newsletter
+ - generate newsletters
+ - save the newsletter with a version in the db (table newsletter)
+ - table pending sends (that is the subscribed people linked to the current newsletter)
+ - job that sends the emails - use send grid functionality
+
+unsubscribe
+check the forum repos
+global exception attribute
+error pages
+research how to make the application awake ar all times
+
+TEST
