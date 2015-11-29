@@ -1,10 +1,8 @@
 newsletter
- - generate newsletters
- - save the newsletter with a version in the db (table newsletter)
- - table pending sends (that is the subscribed people linked to the current newsletter)
+ - generate newsletters xml+xslt - try to do the templates in a file
  - job that sends the emails - use send grid functionality
+ - make sure the js gets the app secret and app_id from the db settings table
 
-unsubscribe
 check the forum repos
 global exception attribute
 error pages

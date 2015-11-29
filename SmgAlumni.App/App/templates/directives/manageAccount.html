@@ -1,7 +1,9 @@
 ﻿<ol class="breadcrumb">
-    <li><a href="#" ng-file-select
-   ng-model="image"
-   ng-file-change="upload($files, $event)">Качи снимка</a></li>
+    <li>
+        <a href="#" ng-file-select
+           ng-model="image"
+           ng-file-change="upload($files, $event)">Качи снимка</a>
+    </li>
 </ol>
 <div class="col-sm-12" style="margin-top: 20px;">
     <div class="col-sm-9">
@@ -127,7 +129,7 @@
                 <div class="form-group">
                     <label for="receiveNewsLetter" class="col-sm-3 control-label">Искам да получавам newsletter</label>
                     <div class="col-sm-9">
-                        <input type="checkbox" ng-model="user.receiveNewsletter" id="receiveNewsLetterEdit" name="receiveNewsLetter" class="form-control" />
+                        <input type="checkbox" ng-model="user.receiveNewsletter" id="receiveNewsLetterEdit" name="receiveNewsLetter"/>
                     </div>
                 </div>
                 <div class="form-group">

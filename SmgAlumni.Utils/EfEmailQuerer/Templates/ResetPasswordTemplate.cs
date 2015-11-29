@@ -16,8 +16,9 @@ namespace SmgAlumni.Utils.EfEmailQuerer.Templates
                         <p>Ако не сте, може да игнорирате този имейл.</p>", UserName, Link);
             }
         }
-        public object Data {
-            get { return new {UserName, Link}; }
+        public object Data
+        {
+            get { return new { UserName, Link }; }
         }
 
         public string UserName { get; set; }

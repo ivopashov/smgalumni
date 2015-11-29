@@ -23,3 +23,5 @@ GO
 - db context setup
 
 - make sure that the app is registered in https://uptimerobot.com with a ping interval of <20 min
+
+- linked in app_secret and app_id
