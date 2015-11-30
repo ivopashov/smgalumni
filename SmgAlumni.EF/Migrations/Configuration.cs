@@ -97,6 +97,26 @@
                 {
                     SettingKey = "email_UseSecureConnection",
                     SettingName = "true"
+                },
+                new Setting()
+                {
+                    SettingKey = "mailgun_ApiUrl",
+                    SettingName = "https://api.mailgun.net/v3/www.smg-alumni.com"
+                },
+                new Setting()
+                {
+                    SettingKey = "mailgun_ApiKey",
+                    SettingName = "test"
+                },
+                new Setting()
+                {
+                    SettingKey = "mailgun_NewsLetterMailingList",
+                    SettingName = "test"
+                },
+                new Setting()
+                {
+                    SettingKey = "mailgun_BaseUrl",
+                    SettingName = "https://api.mailgun.net/v3"
                 }
             };
 

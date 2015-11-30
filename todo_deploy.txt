@@ -11,7 +11,11 @@ INSERT INTO [dbo].[Setting]
 		   ('email_FromAddress',''),
 		   ('email_SmtpHost',''),
 		   ('email_SmtpPort',''),
-		   ('email_UseSecureConnection','')
+		   ('email_UseSecureConnection',''),
+		   ('mailgun_ApiUrl','')
+		   ('mailgun_ApiKey','')
+		   ('mailgun_NewsLetterMailingList','')
+		   ('mailgun_BaseUrl','')
 GO
 
 - throttling
