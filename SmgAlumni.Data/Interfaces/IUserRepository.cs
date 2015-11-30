@@ -12,5 +12,6 @@ namespace SmgAlumni.Data.Interfaces
         IEnumerable<User> UsersByEmail(string email);
         IEnumerable<User> VerifiedUsers();
         IEnumerable<User> UnVerifiedUsers();
+        IEnumerable<User> UnSubscribedUsersToNewsLetter();
     }
 }

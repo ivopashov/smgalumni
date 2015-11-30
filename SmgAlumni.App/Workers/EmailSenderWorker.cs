@@ -23,7 +23,6 @@ namespace SmgAlumni.App.Workers
     {
         private const int CheckForMailIntervalSeconds = 600;
 
-        private readonly object _lock = new object();
         private bool _shuttingDown;
         private static SmgAlumniContext _context = new SmgAlumniContext();
         private static Timer _timer = new Timer(OnTimerElapsed);
@@ -50,7 +49,7 @@ namespace SmgAlumni.App.Workers
 
         public void Stop(bool immediate)
         {
-            lock (_lock)
+            lock (LockProvider._lock)
             {
                 _shuttingDown = true;
             }
@@ -59,7 +58,7 @@ namespace SmgAlumni.App.Workers
 
         public void DoWork()
         {
-            lock (_lock)
+            lock (LockProvider._lock)
             {
                 if (_shuttingDown)
                 {

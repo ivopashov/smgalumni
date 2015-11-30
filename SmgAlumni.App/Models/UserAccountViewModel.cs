@@ -25,7 +25,6 @@ namespace SmgAlumni.App.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string City { get; set; }
-        public bool ReceiveNewsletter { get; set; }
 
         //metadata
         public bool HasPicture { get; set; }
@@ -49,7 +48,6 @@ namespace SmgAlumni.App.Models
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City))
                 .ForMember(dest => dest.HasPicture, opt => opt.MapFrom(src => DoesUserHasPicture(src)))
-                .ForMember(dest => dest.ReceiveNewsletter, opt => opt.MapFrom(src => src.NotificationSubscriptions.Any(subs => subs.Enabled && subs.NotificationKind == NotificationKind.NewsLetter)))
                 ;
 
             configuration.CreateMap<UserAccountViewModel, User>()

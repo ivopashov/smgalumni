@@ -3,7 +3,6 @@
     public enum NotificationKind
     {
         ForgotPassword,
-        UserVerified,
-        NewsLetter
+        UserVerified
     }
 }

@@ -26,9 +26,6 @@ namespace SmgAlumni.EF.Models
                     case NotificationKind.UserVerified:
                         value = 1;
                         break;
-                    case NotificationKind.NewsLetter:
-                        value = 10;
-                        break;
                 }
             }
         }

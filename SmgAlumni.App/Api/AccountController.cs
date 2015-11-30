@@ -50,7 +50,7 @@ namespace SmgAlumni.App.Api
 
                 var user = Mapper.Map<User>(model);
 
-                _userService.CreateUser(user, model.ReceiveNewsletter);
+                _userService.CreateUser(user);
                 return Ok();
             }
             catch (Exception ex)
@@ -253,7 +253,6 @@ namespace SmgAlumni.App.Api
                 CurrentUser.PhoneNumber = model.PhoneNumber;
 
                 _userRepository.Update(CurrentUser);
-                _userService.UpdateUserNewsLetterNotification(model.ReceiveNewsletter, model.UserName);
                 return Ok();
             }
             catch (Exception e)

@@ -14,7 +14,6 @@ namespace SmgAlumni.EF.DAL
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<PasswordReset> PasswordResets { get; set; }
-        public virtual DbSet<NotificationSubscription> NotificationSubscriptions { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<Cause> Causes { get; set; }
         public virtual DbSet<Listing> Listings { get; set; }

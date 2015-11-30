@@ -131,8 +131,6 @@ namespace SmgAlumni.App.Models
         [Required]
         public ClassDivision Division { get; set; }
 
-        public bool ReceiveNewsletter { get; set; }
-
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<RegisterViewModel, User>()

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Owin.Security;
+using RestSharp;
+using RestSharp.Authenticators;
 using SmgAlumni.Data.Interfaces;
 using SmgAlumni.EF.Models;
 using SmgAlumni.ServiceLayer.Interfaces;
@@ -49,7 +51,7 @@ namespace SmgAlumni.ServiceLayer
             return ticket;
         }
 
-        public void CreateUser(User user, bool receiveNewsletter)
+        public void CreateUser(User user)
         {
             if (string.IsNullOrEmpty(user.UserName))
             {
@@ -83,60 +85,51 @@ namespace SmgAlumni.ServiceLayer
             user.DateJoined = DateTime.Now;
             user.Roles.Add(new Role() { Name = "User" });
             user.Verified = false;
-
-            if (receiveNewsletter)
-            {
-                var newsletterNoty = new NotificationSubscription()
-                {
-                    CreatedOn = DateTime.Now,
-                    NotificationKind = EF.Models.enums.NotificationKind.NewsLetter,
-                    UnsubscribeToken = Guid.NewGuid(),
-                    Enabled = true
-                };
-                user.NotificationSubscriptions.Add(newsletterNoty);
-            }
+            user.AddedToNewsLetterList = false;
 
             _userRepository.Add(user);
+
+            AddUserToNewsLetterList(user);
         }
 
-        public void UpdateUserNewsLetterNotification(bool subscribe, string username)
+        public bool AddUserToNewsLetterList(User user)
         {
-            var user = _userRepository.UsersByUserName(username).FirstOrDefault();
-            if (user == null)
+            var result = SendRequest(user.Email, user.FirstName, user.LastName);
+            var isSuccess = false;
+
+            switch (result)
             {
-                throw new NullReferenceException();
+                case System.Net.HttpStatusCode.OK:
+                case System.Net.HttpStatusCode.Accepted:
+                case System.Net.HttpStatusCode.Created:
+                    isSuccess = true;
+                    break;
             }
 
-            var newsLetterSubscription = user.NotificationSubscriptions.Where(a => a.NotificationKind == EF.Models.enums.NotificationKind.NewsLetter).SingleOrDefault();
-
-            //if we dont have any newsletter subscriptions but want to subscribe for the first time
-            if (newsLetterSubscription == null && subscribe)
+            if (isSuccess)
             {
-                var noty = new NotificationSubscription()
-                {
-                    CreatedOn = DateTime.Now,
-                    NotificationKind = EF.Models.enums.NotificationKind.NewsLetter,
-                    UnsubscribeToken = Guid.NewGuid(),
-                    Enabled = true
-                };
-
-                user.NotificationSubscriptions.Add(noty);
+                user.AddedToNewsLetterList = true;
+                _userRepository.Update(user);
             }
 
-            if (newsLetterSubscription != null)
-            {
-                if (subscribe && subscribe != newsLetterSubscription.Enabled)
-                {
-                    newsLetterSubscription.Enabled = true;
-                    newsLetterSubscription.UnsubscribeToken = Guid.NewGuid();
-                }
-                if (!subscribe && subscribe != newsLetterSubscription.Enabled)
-                {
-                    newsLetterSubscription.Enabled = false;
-                }
-            }
+            return isSuccess;
+        }
 
-            _userRepository.Update(user);
+        private System.Net.HttpStatusCode SendRequest(string email, string firstName, string lastName)
+        {
+            RestClient client = new RestClient();
+            client.BaseUrl = new Uri(_appSettings.MailgunSettings.BaseUrl);
+            client.Authenticator =
+                    new HttpBasicAuthenticator("api",
+                                               _appSettings.MailgunSettings.ApiKey);
+            RestRequest request = new RestRequest();
+            request.Resource = "lists/{list}/members";
+            request.AddParameter("list", _appSettings.MailgunSettings.NewsLetterMailingList, ParameterType.UrlSegment);
+            request.AddParameter("address", email);
+            request.AddParameter("subscribed", true);
+            request.AddParameter("name", firstName + " " + lastName);
+            request.Method = Method.POST;
+            return client.Execute(request).StatusCode;
         }
     }
 }

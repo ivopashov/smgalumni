@@ -80,5 +80,10 @@ namespace SmgAlumni.Data.Repositories
         {
             return _context.Users.Where(a => !a.Verified).ToList();
         }
+
+        public IEnumerable<User> UnSubscribedUsersToNewsLetter()
+        {
+            return _context.Users.Where(a => !a.AddedToNewsLetterList).ToList();
+        }
     }
 }

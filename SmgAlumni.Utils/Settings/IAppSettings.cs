@@ -5,5 +5,6 @@
         AuthenticationSettings Authentication { get; }
         EmailSettings Email { get; }
         MessagingSettings Messaging { get; }
+        MailgunSettings MailgunSettings { get; }
     }
 }

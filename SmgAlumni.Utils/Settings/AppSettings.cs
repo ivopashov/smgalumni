@@ -8,6 +8,7 @@ namespace SmgAlumni.Utils.Settings
         private IAppSettingsRetriever _retriever;
         private MessagingSettings _messaging;
         private EmailSettings _email;
+        private MailgunSettings _mailGunSettings;
 
         public AppSettings(IAppSettingsRetriever retriever)
         {
@@ -35,6 +36,14 @@ namespace SmgAlumni.Utils.Settings
         public virtual EmailSettings Email
         {
             get { return _email ?? (_email = new EmailSettings(_retriever)); }
+        }
+
+        public virtual MailgunSettings MailgunSettings
+        {
+            get
+            {
+                return _mailGunSettings ?? (_mailGunSettings = new MailgunSettings(_retriever));
+            }
         }
     }
 }

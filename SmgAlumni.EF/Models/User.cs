@@ -39,7 +39,7 @@ namespace SmgAlumni.EF.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string City { get; set; }
-        public virtual List<NotificationSubscription> NotificationSubscriptions { get; set; }
+        public bool AddedToNewsLetterList { get; set; }
 
         //for admin usage
         public bool Verified { get; set; }

@@ -1,39 +1,35 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
+﻿using SmgAlumni.App.Workers;
 using System.Web.Hosting;
-using NLog;
-using SmgAlumni.App.Workers;
-using SmgAlumni.Data.Repositories;
-using SmgAlumni.EF.DAL;
-using SmgAlumni.Utils.Settings;
 using WebActivatorEx;
+using System;
+using SmgAlumni.EF.DAL;
+using System.Threading;
+using SmgAlumni.Utils.Settings;
+using NLog;
+using SmgAlumni.Data.Repositories;
+using SmgAlumni.ServiceLayer;
 
-[assembly: PostApplicationStartMethod(typeof(SentNotificationsCleaner), "StartTimer")]
+[assembly: PostApplicationStartMethod(typeof(UsersToNewsLetterSubscriber), "StartTimer")]
 
 namespace SmgAlumni.App.Workers
 {
-    public static class LockProvider
+    /// <summary>
+    /// this worker searches for user that are not subscribed for the newsletter and subscribed them
+    /// this is valid only for the initial subscription and will not subscribe users again once they have unsubscribed by themselves
+    /// </summary>
+    public class UsersToNewsLetterSubscriber : IRegisteredObject
     {
-        public static object _lock = new object();
-    }
-
-    public class SentNotificationsCleaner : IRegisteredObject
-    {
-        private const int cleanIntervalInSecs = 43200;
+        private const int cleanIntervalInSecs = 7200; // why not 2 hours:)
 
         private bool _shuttingDown;
         private static SmgAlumniContext _context = new SmgAlumniContext();
         private static Timer _timer = new Timer(OnTimerElapsed);
-        private static SentNotificationsCleaner _jobHost = new SentNotificationsCleaner();
+        private static UsersToNewsLetterSubscriber _jobHost = new UsersToNewsLetterSubscriber();
         private static readonly AppSettings _appSettings = new AppSettings(new EFSettingsRetriever(new SettingRepository(_context)));
-        private static AccountNotificationRepository _notificationRepository = new AccountNotificationRepository(_context);
-        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        private static UserRepository _userRepository = new UserRepository(_context);
+        private static UserService _userService = new UserService(_appSettings, _userRepository);
 
-        public SentNotificationsCleaner()
-        {
-            HostingEnvironment.RegisterObject(this);
-        }
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public static void StartTimer()
         {
@@ -65,7 +61,7 @@ namespace SmgAlumni.App.Workers
 
                 try
                 {
-                    DeleteSentNotifications();
+                    SubscribeUsers();
                 }
                 catch (Exception EX_NAME)
                 {
@@ -75,13 +71,12 @@ namespace SmgAlumni.App.Workers
             }
         }
 
-        private void DeleteSentNotifications()
+        private void SubscribeUsers()
         {
-            _logger.Info("Starting clean of notification repo");
-            var sentNotifications = _notificationRepository.GetSentNotifications();
-            foreach (var item in sentNotifications)     
+            var unsubscribedUsers = _userRepository.UnSubscribedUsersToNewsLetter();
+            foreach (var user in unsubscribedUsers)
             {
-                _notificationRepository.Delete(item);
+                _userService.AddUserToNewsLetterList(user);
             }
         }
     }

@@ -4,7 +4,7 @@ app.controller('registerController',
     ['$scope', 'accountService', 'commonService',
         function ($scope, accountService, commonService) {
 
-            $scope.user = { receiveNewsletter: true };
+            $scope.user = { };
             $scope.validation = {};
             $scope.divisions = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М'];
             $scope.user.division = { division: $scope.divisions[0] };
