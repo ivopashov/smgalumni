@@ -38,6 +38,7 @@ namespace SmgAlumni.App.Api
             {
                 CurrentUser.Listings.Add(listing);
                 _userRepository.Update(CurrentUser);
+                DomainEvents.Raise(new AddListingDomainEvent() { Heading = vm.Heading, User = CurrentUser, Body = vm.Body });
                 return Ok();
             }
             catch (Exception e)

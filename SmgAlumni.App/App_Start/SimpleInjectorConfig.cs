@@ -56,13 +56,15 @@ namespace SmgAlumni.App.App_Start
             container.Register<IListingRepository, ListingRepository>();
             container.Register<INewsRepository, NewsRepository>();
             container.Register<IRoleRepository, RoleRepository>();
+            container.Register<INewsLetterCandidateRepository, NewsLetterCandidateRepository>();
 
             container.Register<IUserService, UserService>();
             container.Register<IAccountService, AccountService>();
             container.Register<INotificationEnqueuer, NotificationEnqueuer>();
             container.Register<IAppSettings, AppSettings>();
             container.Register<IAppSettingsRetriever, EFSettingsRetriever>();
-            
+            container.Register<IRequestSender, RequestSender>();
+
             container.RegisterWithContext<ILogger>(dependencyContext =>
             {
                 return new NLogLogger();

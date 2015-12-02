@@ -23,6 +23,7 @@ namespace SmgAlumni.EF.DAL
         public virtual DbSet<ForumThread> ForumThreads { get; set; }
         public virtual DbSet<ForumAnswer> ForumAnswers { get; set; }
         public virtual DbSet<ForumComment> ForumComments { get; set; }
+        public virtual DbSet<NewsLetterCandidate> NewsLetterCandidates { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

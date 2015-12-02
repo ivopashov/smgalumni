@@ -17,6 +17,7 @@ namespace SmgAlumni.EF.Models
             ForumComments = new List<ForumComment>();
             ForumThreads = new List<ForumThread>();
             Activities = new List<Activity>();
+            NewsLetterCandidates = new List<NewsLetterCandidate>();
         }
 
         //basic identification
@@ -58,5 +59,6 @@ namespace SmgAlumni.EF.Models
         public virtual List<ForumAnswer> ForumAnswers { get; set; }
         public virtual List<ForumComment> ForumComments { get; set; }
         public virtual List<Activity> Activities { get; set; }
+        public virtual List<NewsLetterCandidate> NewsLetterCandidates { get; set; }
     }
 }

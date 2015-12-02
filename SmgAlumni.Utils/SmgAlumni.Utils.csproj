@@ -130,6 +130,7 @@
     <Compile Include="Settings\EmailSettings.cs" />
     <Compile Include="Settings\IAppSettings.cs" />
     <Compile Include="Settings\IAppSettingsRetriever.cs" />
+    <Compile Include="Settings\MailgunSettings.cs" />
     <Compile Include="Settings\MessagingSettings.cs" />
   </ItemGroup>
   <ItemGroup>

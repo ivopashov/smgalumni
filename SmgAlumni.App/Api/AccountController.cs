@@ -51,6 +51,8 @@ namespace SmgAlumni.App.Api
                 var user = Mapper.Map<User>(model);
 
                 _userService.CreateUser(user);
+                DomainEvents.Raise(new RegisterUserDomainEvent() { User = user, RegisteredOn = DateTime.Now });
+
                 return Ok();
             }
             catch (Exception ex)

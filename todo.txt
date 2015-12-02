@@ -1,7 +1,9 @@
 newsletter
  - generate newsletters xml+xslt - try to do the templates in a file
- - job that sends the emails - use send grid functionality
- - make sure the js gets the app secret and app_id from the db settings table
+ - job that sends the emails - use external service - mailgun
+ - migrate all the email notifications to mailgun - forgot password etc.
+ - delete the jobs that are connected to notifications
+ - new job to send the newsletter
 
 check the forum repos
 global exception attribute

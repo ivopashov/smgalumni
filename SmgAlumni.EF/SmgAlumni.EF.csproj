@@ -56,6 +56,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Cause.cs" />
+    <Compile Include="Models\enums\NewsLetterItemType.cs" />
     <Compile Include="Models\ForumComment.cs" />
     <Compile Include="Models\enums\ActivityType.cs" />
     <Compile Include="Models\enums\ClassDivision.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Models\IListingEntity.cs" />
     <Compile Include="Models\Listing.cs" />
     <Compile Include="Models\News.cs" />
+    <Compile Include="Models\NewsLetterCandidate.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\PasswordReset.cs" />
     <Compile Include="Models\Role.cs" />

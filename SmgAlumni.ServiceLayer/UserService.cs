@@ -16,11 +16,13 @@ namespace SmgAlumni.ServiceLayer
     {
         private readonly IAppSettings _appSettings;
         private readonly IUserRepository _userRepository;
+        private readonly IRequestSender _requestSender;
 
-        public UserService(IAppSettings appSettings, IUserRepository userRepository)
+        public UserService(IAppSettings appSettings, IUserRepository userRepository, IRequestSender requestSender)
         {
             _appSettings = appSettings;
             _userRepository = userRepository;
+            _requestSender = requestSender;
         }
 
         public ClaimsIdentity CreateIdentity(string username, string authenticationType)
@@ -117,19 +119,15 @@ namespace SmgAlumni.ServiceLayer
 
         private System.Net.HttpStatusCode SendRequest(string email, string firstName, string lastName)
         {
-            RestClient client = new RestClient();
-            client.BaseUrl = new Uri(_appSettings.MailgunSettings.BaseUrl);
-            client.Authenticator =
-                    new HttpBasicAuthenticator("api",
-                                               _appSettings.MailgunSettings.ApiKey);
-            RestRequest request = new RestRequest();
-            request.Resource = "lists/{list}/members";
-            request.AddParameter("list", _appSettings.MailgunSettings.NewsLetterMailingList, ParameterType.UrlSegment);
-            request.AddParameter("address", email);
-            request.AddParameter("subscribed", true);
-            request.AddParameter("name", firstName + " " + lastName);
-            request.Method = Method.POST;
-            return client.Execute(request).StatusCode;
+            return _requestSender.InitializeClient()
+                .AddParameter("address", email)
+                .AddParameter("subscribed", true)
+                .AddParameter("name", firstName + " " + lastName)
+                .AddParameter("list", _appSettings.MailgunSettings.NewsLetterMailingList, ParameterType.UrlSegment)
+                .SetResource("lists/{list}/members")
+                .SetMethod(Method.POST)
+                .Execute()
+                .StatusCode;
         }
     }
 }

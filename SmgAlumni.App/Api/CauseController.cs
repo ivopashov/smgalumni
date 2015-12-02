@@ -40,7 +40,7 @@ namespace SmgAlumni.App.Api
             {
                 CurrentUser.Causes.Add(cause);
                 _userRepository.Update(CurrentUser);
-                DomainEvents.Raise(new AddCauseDomainEvent() { Heading = cause.Heading, User = CurrentUser });
+                DomainEvents.Raise(new AddCauseDomainEvent() { Heading = vm.Heading, User = CurrentUser, Body = vm.Body });
                 return Ok();
             }
             catch (Exception e)

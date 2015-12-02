@@ -69,7 +69,7 @@ namespace SmgAlumni.App.Api
             {
                 CurrentUser.News.Add(news);
                 _userRepository.Update(CurrentUser);
-                DomainEvents.Raise(new AddNewsDomainEvent() { Heading = news.Heading, User = CurrentUser });
+                DomainEvents.Raise(new AddNewsDomainEvent() { Heading = vm.Heading, User = CurrentUser, Body = vm.Body });
                 return Ok();
             }
             catch (Exception e)
