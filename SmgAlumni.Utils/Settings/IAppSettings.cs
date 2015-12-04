@@ -6,5 +6,6 @@
         EmailSettings Email { get; }
         MessagingSettings Messaging { get; }
         MailgunSettings MailgunSettings { get; }
+        NewsLetterSettings NewsLetterSettings { get; }
     }
 }

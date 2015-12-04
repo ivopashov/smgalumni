@@ -1,7 +1,9 @@
-﻿namespace SmgAlumni.ServiceLayer.Interfaces
+﻿using SmgAlumni.ServiceLayer.Models;
+
+namespace SmgAlumni.ServiceLayer.Interfaces
 {
     public interface INewsLetterGenerator
     {
-        string GenerateNewsLetter();
+        string GenerateNewsLetter(BiMonthlyNewsLetterDto newsLetterModel);
     }
 }

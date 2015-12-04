@@ -15,4 +15,6 @@ check the forum repos
 global exception attribute
 error pages
 
+check the image error in the console
+
 TEST

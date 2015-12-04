@@ -69,6 +69,7 @@
     <Compile Include="Interfaces\INewsLetterGenerator.cs" />
     <Compile Include="Interfaces\IRequestSender.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Models\BiMonthlyNewsLetterDto.cs" />
     <Compile Include="NewsLetterGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestSender.cs" />

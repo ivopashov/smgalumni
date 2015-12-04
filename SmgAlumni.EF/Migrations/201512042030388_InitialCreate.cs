@@ -58,6 +58,7 @@ namespace SmgAlumni.EF.Migrations
                         Email = c.String(),
                         PhoneNumber = c.String(),
                         City = c.String(),
+                        AddedToNewsLetterList = c.Boolean(nullable: false),
                         Verified = c.Boolean(nullable: false),
                         DateJoined = c.DateTime(nullable: false),
                         AvatarImage = c.Binary(),
@@ -157,19 +158,19 @@ namespace SmgAlumni.EF.Migrations
                 .Index(t => t.User_Id);
             
             CreateTable(
-                "dbo.NotificationSubscription",
+                "dbo.NewsLetterCandidate",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Enabled = c.Boolean(nullable: false),
-                        UnsubscribeToken = c.Guid(nullable: false),
-                        NotificationKind = c.Int(nullable: false),
+                        HtmlBody = c.String(),
                         CreatedOn = c.DateTime(nullable: false),
-                        User_Id = c.Int(),
+                        Sent = c.Boolean(nullable: false),
+                        Type = c.Int(nullable: false),
+                        CreatedBy_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.User", t => t.User_Id)
-                .Index(t => t.User_Id);
+                .ForeignKey("dbo.User", t => t.CreatedBy_Id)
+                .Index(t => t.CreatedBy_Id);
             
             CreateTable(
                 "dbo.PasswordReset",
@@ -213,7 +214,7 @@ namespace SmgAlumni.EF.Migrations
         {
             DropForeignKey("dbo.Role", "User_Id", "dbo.User");
             DropForeignKey("dbo.PasswordReset", "User_Id", "dbo.User");
-            DropForeignKey("dbo.NotificationSubscription", "User_Id", "dbo.User");
+            DropForeignKey("dbo.NewsLetterCandidate", "CreatedBy_Id", "dbo.User");
             DropForeignKey("dbo.News", "User_Id", "dbo.User");
             DropForeignKey("dbo.Listing", "User_Id", "dbo.User");
             DropForeignKey("dbo.ForumAnswer", "UserId", "dbo.User");
@@ -225,7 +226,7 @@ namespace SmgAlumni.EF.Migrations
             DropForeignKey("dbo.Activity", "User_Id", "dbo.User");
             DropIndex("dbo.Role", new[] { "User_Id" });
             DropIndex("dbo.PasswordReset", new[] { "User_Id" });
-            DropIndex("dbo.NotificationSubscription", new[] { "User_Id" });
+            DropIndex("dbo.NewsLetterCandidate", new[] { "CreatedBy_Id" });
             DropIndex("dbo.News", new[] { "User_Id" });
             DropIndex("dbo.Listing", new[] { "User_Id" });
             DropIndex("dbo.ForumThread", new[] { "UserId" });
@@ -238,7 +239,7 @@ namespace SmgAlumni.EF.Migrations
             DropTable("dbo.Setting");
             DropTable("dbo.Role");
             DropTable("dbo.PasswordReset");
-            DropTable("dbo.NotificationSubscription");
+            DropTable("dbo.NewsLetterCandidate");
             DropTable("dbo.News");
             DropTable("dbo.Listing");
             DropTable("dbo.ForumThread");

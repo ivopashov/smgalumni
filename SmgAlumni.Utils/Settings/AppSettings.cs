@@ -9,6 +9,7 @@ namespace SmgAlumni.Utils.Settings
         private MessagingSettings _messaging;
         private EmailSettings _email;
         private MailgunSettings _mailGunSettings;
+        private NewsLetterSettings _newsLetterSettings;
 
         public AppSettings(IAppSettingsRetriever retriever)
         {
@@ -43,6 +44,14 @@ namespace SmgAlumni.Utils.Settings
             get
             {
                 return _mailGunSettings ?? (_mailGunSettings = new MailgunSettings(_retriever));
+            }
+        }
+
+        public NewsLetterSettings NewsLetterSettings
+        {
+            get
+            {
+                return _newsLetterSettings ?? (_newsLetterSettings = new NewsLetterSettings(_retriever));
             }
         }
     }

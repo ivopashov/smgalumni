@@ -64,6 +64,7 @@ namespace SmgAlumni.App.App_Start
             container.Register<IAppSettings, AppSettings>();
             container.Register<IAppSettingsRetriever, EFSettingsRetriever>();
             container.Register<IRequestSender, RequestSender>();
+            container.Register<INewsLetterGenerator, NewsLetterGenerator>();
 
             container.RegisterWithContext<ILogger>(dependencyContext =>
             {

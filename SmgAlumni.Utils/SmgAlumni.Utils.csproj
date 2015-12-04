@@ -132,6 +132,7 @@
     <Compile Include="Settings\IAppSettingsRetriever.cs" />
     <Compile Include="Settings\MailgunSettings.cs" />
     <Compile Include="Settings\MessagingSettings.cs" />
+    <Compile Include="Settings\NewsLetterSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

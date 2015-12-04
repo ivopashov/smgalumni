@@ -227,6 +227,7 @@
     <Compile Include="Api\NewsController.cs" />
     <Compile Include="Api\SearchController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BundleRelaxed.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SimpleInjectorConfig.cs" />
@@ -258,7 +259,7 @@
     <Compile Include="Ioc\ContextDependentExtensions.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Workers\EmailSenderWorker.cs" />
-    <Compile Include="Workers\NewsLetterSender.cs" />
+    <Compile Include="Workers\BiMonthlyNewsLetterSender.cs" />
     <Compile Include="Workers\UsersToNewsLetterSubscriber.cs" />
   </ItemGroup>
   <ItemGroup>
