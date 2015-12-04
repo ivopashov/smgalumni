@@ -4,6 +4,12 @@ newsletter
  - migrate all the email notifications to mailgun - forgot password etc.
  - delete the jobs that are connected to notifications
  - new job to send the newsletter
+ - abstract the mailgun things and make appropriate for every mail client provider
+
+ registrations
+ - remove the approve step
+ 
+ contact us form
 
 check the forum repos
 global exception attribute

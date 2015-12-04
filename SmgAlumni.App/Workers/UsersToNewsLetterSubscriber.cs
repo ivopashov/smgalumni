@@ -13,13 +13,18 @@ using SmgAlumni.ServiceLayer;
 
 namespace SmgAlumni.App.Workers
 {
+    public static class LockProvider
+    {
+        public static object _lock = new object();
+    }
+
     /// <summary>
     /// this worker searches for user that are not subscribed for the newsletter and subscribed them
     /// this is valid only for the initial subscription and will not subscribe users again once they have unsubscribed by themselves
     /// </summary>
     public class UsersToNewsLetterSubscriber : IRegisteredObject
     {
-        private const int cleanIntervalInSecs = 7200; // why not 2 hours:)
+        private const int cleanIntervalInSecs = 7200; // 2 hours. why not? :)
 
         private bool _shuttingDown;
         private static SmgAlumniContext _context = new SmgAlumniContext();
@@ -27,7 +32,8 @@ namespace SmgAlumni.App.Workers
         private static UsersToNewsLetterSubscriber _jobHost = new UsersToNewsLetterSubscriber();
         private static readonly AppSettings _appSettings = new AppSettings(new EFSettingsRetriever(new SettingRepository(_context)));
         private static UserRepository _userRepository = new UserRepository(_context);
-        private static UserService _userService = new UserService(_appSettings, _userRepository);
+        private static RequestSender _requestSender = new RequestSender(_appSettings);
+        private static UserService _userService = new UserService(_appSettings, _userRepository, _requestSender);
 
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 

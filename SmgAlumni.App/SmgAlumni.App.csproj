@@ -258,7 +258,8 @@
     <Compile Include="Ioc\ContextDependentExtensions.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Workers\EmailSenderWorker.cs" />
-    <Compile Include="Workers\SentNotificationsCleaner.cs" />
+    <Compile Include="Workers\NewsLetterSender.cs" />
+    <Compile Include="Workers\UsersToNewsLetterSubscriber.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
@@ -417,6 +418,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\documents\СМГ Алумни Мрежа Конституция Драфт.doc" />
+    <Content Include="App_Data\NewsLetterTemplates\BiWeeklyTemplate.xslt" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1226,7 +1228,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\filters\" />
-    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
