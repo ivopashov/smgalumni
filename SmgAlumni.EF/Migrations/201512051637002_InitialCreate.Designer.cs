@@ -13,7 +13,7 @@ namespace SmgAlumni.EF.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201512042030388_InitialCreate"; }
+            get { return "201512051637002_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source
