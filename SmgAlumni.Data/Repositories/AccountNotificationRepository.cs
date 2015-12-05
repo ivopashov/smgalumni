@@ -14,7 +14,7 @@ namespace SmgAlumni.Data.Repositories
         public AccountNotificationRepository(SmgAlumniContext context)
         {
             _context = context;
-        }        
+        }
         public int Add(Notification entity)
         {
             _context.AccountNotifications.Add(entity);
@@ -33,7 +33,7 @@ namespace SmgAlumni.Data.Repositories
             return _context.AccountNotifications.Find(id);
         }
 
-        public void Update(Notification entity)
+        public void Update(Notification entity, bool save = true)
         {
             var oldEntity = GetById(entity.Id);
             if (oldEntity == null)
@@ -42,7 +42,10 @@ namespace SmgAlumni.Data.Repositories
             }
 
             _context.Entry(oldEntity).CurrentValues.SetValues(entity);
-            Save();
+            if (save)
+            {
+                Save();
+            }
         }
 
         public void Save()

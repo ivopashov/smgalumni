@@ -18,6 +18,8 @@ INSERT INTO [dbo].[Setting]
 		   ('mailgun_BaseUrl','')
 		   ('BiWeeklyNewsLetterTemplatePath','')
 		   ('SiteUrl','')
+		   ('From','')
+		   ('Subject','')
 GO
 
 - throttling

@@ -1,14 +1,17 @@
 ﻿
 using NLog;
+using RestSharp;
 using SmgAlumni.App.Workers;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.DAL;
+using SmgAlumni.EF.Models;
 using SmgAlumni.ServiceLayer;
 using SmgAlumni.ServiceLayer.Models;
 using SmgAlumni.Utils.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Web.Hosting;
 using WebActivatorEx;
@@ -29,6 +32,7 @@ namespace SmgAlumni.App.Workers
         private static NewsLetterCandidateRepository _newsLetterCandidateRepository = new NewsLetterCandidateRepository(_context);
         private static NewsLetterGenerator _newsLetterGenerator = new NewsLetterGenerator(_appSettings);
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        private static RequestSender _requestSender = new RequestSender(_appSettings);
 
         public static void StartTimer()
         {
@@ -74,6 +78,11 @@ namespace SmgAlumni.App.Workers
 
                 try
                 {
+                    if (_newsLetterCandidateRepository.AnyItemsSentToday())
+                    {
+                        return;
+                    }
+
                     var model = new BiMonthlyNewsLetterDto()
                     {
                         AddedUsers = GetRegisteredUsers(),
@@ -82,8 +91,22 @@ namespace SmgAlumni.App.Workers
                         News = GetNews()
                     };
 
-                    _newsLetterGenerator.GenerateNewsLetter(model);
+                    var newsLetterBody = _newsLetterGenerator.GenerateNewsLetter(model);
+                    var result = _requestSender.InitializeClient()
+                        .AddParameter("domain", "www.smg-alumni.com", ParameterType.UrlSegment)
+                        .SetResource("{domain}/messages")
+                        .AddParameter("from", _appSettings.MailgunSettings.From)
+                        .AddParameter("subject", _appSettings.MailgunSettings.Subject)
+                        .AddParameter("html", newsLetterBody)
+                        .AddParameter("to", _appSettings.MailgunSettings.NewsLetterMailingList)
+                        .SetMethod(Method.POST)
+                        .Execute()
+                        .StatusCode;
 
+                    if (result == HttpStatusCode.OK || result == HttpStatusCode.Accepted || result == HttpStatusCode.Created)
+                    {
+                        MarkItemsAsSent(model);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -92,31 +115,42 @@ namespace SmgAlumni.App.Workers
             }
         }
 
-        public IEnumerable<string> GetNews()
+        private void MarkItemsAsSent(BiMonthlyNewsLetterDto model)
         {
-            var events = _newsLetterCandidateRepository.GetUnsentOfType(EF.Models.enums.NewsLetterItemType.NewsAdded).Select(a => a.HtmlBody);
+            var items = model.News.Concat(model.Listings).Concat(model.Causes).Concat(model.AddedUsers);
+            foreach (var item in items)
+            {
+                item.Sent = true;
+                item.SentOn = DateTime.Now;
+                _newsLetterCandidateRepository.Update(item, false);
+            }
+            _newsLetterCandidateRepository.Save();
+        }
+
+        public IEnumerable<NewsLetterCandidate> GetNews()
+        {
+            var events = _newsLetterCandidateRepository.GetUnsentOfType(EF.Models.enums.NewsLetterItemType.NewsAdded);
             return events;
         }
 
-        public IEnumerable<string> GetCauses()
+        public IEnumerable<NewsLetterCandidate> GetCauses()
         {
             var events = _newsLetterCandidateRepository
                 .GetOfType(EF.Models.enums.NewsLetterItemType.CauseAdded)
                 .OrderByDescending(a => a.CreatedOn)
-                .Take(4)
-                .Select(a => a.HtmlBody);
+                .Take(4);
             return events;
         }
 
-        public IEnumerable<string> GetListings()
+        public IEnumerable<NewsLetterCandidate> GetListings()
         {
-            var events = _newsLetterCandidateRepository.GetUnsentOfType(EF.Models.enums.NewsLetterItemType.ListingAdded).Select(a => a.HtmlBody);
+            var events = _newsLetterCandidateRepository.GetUnsentOfType(EF.Models.enums.NewsLetterItemType.ListingAdded);
             return events;
         }
 
-        public IEnumerable<string> GetRegisteredUsers()
+        public IEnumerable<NewsLetterCandidate> GetRegisteredUsers()
         {
-            var events = _newsLetterCandidateRepository.GetUnsentOfType(EF.Models.enums.NewsLetterItemType.UserRegistered).Select(a => a.HtmlBody);
+            var events = _newsLetterCandidateRepository.GetUnsentOfType(EF.Models.enums.NewsLetterItemType.UserRegistered);
             return events;
         }
     }

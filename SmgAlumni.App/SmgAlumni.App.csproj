@@ -91,6 +91,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\RazorEngine.3.2.0\lib\net40\RazorEngine.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="SimpleInjector, Version=2.7.3.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\SimpleInjector.2.7.3\lib\net45\SimpleInjector.dll</HintPath>
@@ -1229,6 +1230,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\filters\" />
+    <Folder Include="Content\images\news\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

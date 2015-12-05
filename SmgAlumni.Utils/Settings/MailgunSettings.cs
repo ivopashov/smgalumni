@@ -37,5 +37,15 @@ namespace SmgAlumni.Utils.Settings
         {
             get { return _retriever.GetSetting(_settingPrefix + "BaseUrl"); }
         }
+
+        public string From
+        {
+            get { return _retriever.GetSetting(_settingPrefix + "From"); }
+        }
+
+        public string Subject
+        {
+            get { return _retriever.GetSetting(_settingPrefix + "Subject"); }
+        }
     }
 }

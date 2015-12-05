@@ -32,16 +32,19 @@ namespace SmgAlumni.Data.Repositories
             Save();
         }
 
-        public void Update(Activity entity)
+        public void Update(Activity entity, bool save = true)
         {
             var oldEntity = GetById(entity.Id);
             if (oldEntity == null)
             {
                 throw new Exception("Could not find searched for object of type" + typeof(Activity) + " with id " + entity.Id);
             }
-            
+
             _context.Entry(oldEntity).CurrentValues.SetValues(entity);
-            Save();
+            if (save)
+            {
+                Save();
+            }
         }
 
         public void Save()

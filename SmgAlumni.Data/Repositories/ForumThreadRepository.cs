@@ -33,7 +33,7 @@ namespace SmgAlumni.Data.Repositories
             return _context.ForumThreads.Find(id);
         }
 
-        public void Update(ForumThread entity)
+        public void Update(ForumThread entity, bool save = true)
         {
             var oldEntity = GetById(entity.Id);
             if (oldEntity == null)
@@ -42,7 +42,10 @@ namespace SmgAlumni.Data.Repositories
             }
 
             _context.Entry(oldEntity).CurrentValues.SetValues(entity);
-            Save();
+            if (save)
+            {
+                Save();
+            }
         }
 
         public void Save()

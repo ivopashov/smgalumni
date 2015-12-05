@@ -9,5 +9,6 @@ namespace SmgAlumni.Data.Interfaces
         IEnumerable<NewsLetterCandidate> GetUnsent();
         IEnumerable<NewsLetterCandidate> GetUnsentOfType(NewsLetterItemType type);
         IEnumerable<NewsLetterCandidate> GetOfType(NewsLetterItemType type);
+        bool AnyItemsSentToday();
     }
 }

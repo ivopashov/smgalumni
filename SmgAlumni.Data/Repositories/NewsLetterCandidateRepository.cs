@@ -27,7 +27,6 @@ namespace SmgAlumni.Data.Repositories
         public void Delete(NewsLetterCandidate entity)
         {
             _context.NewsLetterCandidates.Remove(entity);
-            Save();
         }
 
         public NewsLetterCandidate GetById(int id)
@@ -40,7 +39,7 @@ namespace SmgAlumni.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void Update(NewsLetterCandidate entity)
+        public void Update(NewsLetterCandidate entity, bool save = true)
         {
             var oldEntity = GetById(entity.Id);
             if (oldEntity == null)
@@ -49,7 +48,10 @@ namespace SmgAlumni.Data.Repositories
             }
 
             _context.Entry(oldEntity).CurrentValues.SetValues(entity);
-            Save();
+            if (save)
+            {
+                Save();
+            }
         }
 
         public IEnumerable<NewsLetterCandidate> GetUnsent()
@@ -66,6 +68,11 @@ namespace SmgAlumni.Data.Repositories
         public IEnumerable<NewsLetterCandidate> GetOfType(NewsLetterItemType type)
         {
             return _context.NewsLetterCandidates.Where(a => a.Type == type);
+        }
+
+        public bool AnyItemsSentToday()
+        {
+            return _context.NewsLetterCandidates.Any(a => a.SentOn.Date == DateTime.Now.Date);
         }
     }
 }

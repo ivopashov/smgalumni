@@ -33,7 +33,7 @@ namespace SmgAlumni.Data.Repositories
             Save();
         }
 
-        public void Update(Listing entity)
+        public void Update(Listing entity, bool save = true)
         {
             var oldEntity = GetById(entity.Id);
             if (oldEntity == null)
@@ -42,7 +42,10 @@ namespace SmgAlumni.Data.Repositories
             }
 
             _context.Entry(oldEntity).CurrentValues.SetValues(entity);
-            Save();
+            if (save)
+            {
+                Save();
+            }
         }
 
         public int GetCount()

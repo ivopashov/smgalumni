@@ -21,7 +21,7 @@ namespace SmgAlumni.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void Update(Role entity)
+        public void Update(Role entity, bool save = true)
         {
             var oldEntity = GetById(entity.Id);
             if (oldEntity == null)
@@ -30,7 +30,10 @@ namespace SmgAlumni.Data.Repositories
             }
 
             _context.Entry(oldEntity).CurrentValues.SetValues(entity);
-            Save();
+            if (save)
+            {
+                Save();
+            }
         }
 
         public Role GetById(int id)
