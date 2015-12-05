@@ -1,7 +1,10 @@
 ﻿using SmgAlumni.Data.Interfaces;
 using SmgAlumni.EF.DAL;
 using SmgAlumni.EF.Models;
+using SmgAlumni.EF.Models.enums;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SmgAlumni.Data.Repositories
 {
@@ -47,6 +50,22 @@ namespace SmgAlumni.Data.Repositories
 
             _context.Entry(oldEntity).CurrentValues.SetValues(entity);
             Save();
+        }
+
+        public IEnumerable<NewsLetterCandidate> GetUnsent()
+        {
+            return _context.NewsLetterCandidates.Where(a => !a.Sent);
+        }
+
+        public IEnumerable<NewsLetterCandidate> GetUnsentOfType(NewsLetterItemType type)
+        {
+            return _context.NewsLetterCandidates.Where(a => !a.Sent && type == a.Type);
+        }
+
+
+        public IEnumerable<NewsLetterCandidate> GetOfType(NewsLetterItemType type)
+        {
+            return _context.NewsLetterCandidates.Where(a => a.Type == type);
         }
     }
 }

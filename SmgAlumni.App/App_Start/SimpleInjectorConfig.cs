@@ -7,6 +7,7 @@ using SmgAlumni.Data.Interfaces;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.DAL;
 using SmgAlumni.ServiceLayer;
+using SmgAlumni.ServiceLayer.DomainEventHandlers;
 using SmgAlumni.ServiceLayer.Interfaces;
 using SmgAlumni.Utils;
 using SmgAlumni.Utils.DomainEvents;
@@ -65,6 +66,24 @@ namespace SmgAlumni.App.App_Start
             container.Register<IAppSettingsRetriever, EFSettingsRetriever>();
             container.Register<IRequestSender, RequestSender>();
             container.Register<INewsLetterGenerator, NewsLetterGenerator>();
+
+            //handlers
+            container.Register<IHandleDomainEvent<VerifyUserEvent>, VerifiedUserHandler>();
+            container.Register<IHandleDomainEvent<AddCauseDomainEvent>, AddedCauseHandler>();
+            container.Register<IHandleDomainEvent<AddListingDomainEvent>, AddedListingHandler>();
+            container.Register<IHandleDomainEvent<AddNewsDomainEvent>, AddedNewsHandler>();
+            container.Register<IHandleDomainEvent<RegisterUserDomainEvent>, RegisteredUserHandler>();
+            container.Register<IHandleDomainEvent<ForgotPasswordEvent>, ForgotPasswordRequestHandler>();
+            container.Register<IHandleDomainEvent<VerifyUserEvent>, VerifiedUserHandler>();
+            container.Register<IHandleDomainEvent<VerifyUserEvent>, VerifiedUserHandler>();
+            container.Register<IHandleDomainEvent<AddNewsDomainEvent>, ActivityLogger>();
+            container.Register<IHandleDomainEvent<DeleteNewsDomainEvent>, ActivityLogger>();
+            container.Register<IHandleDomainEvent<ModifyNewsDomainEvent>, ActivityLogger>();
+            container.Register<IHandleDomainEvent<AddCauseDomainEvent>, ActivityLogger>();
+            container.Register<IHandleDomainEvent<ModifyCauseDomainEvent>, ActivityLogger>();
+            container.Register<IHandleDomainEvent<DeleteCauseDomainEvent>, ActivityLogger>();
+            container.Register<IHandleDomainEvent<DeleteListingDomainEvent>, ActivityLogger>();
+            container.Register<IHandleDomainEvent<VerifyUserEvent>, ActivityLogger>();
 
             container.RegisterWithContext<ILogger>(dependencyContext =>
             {

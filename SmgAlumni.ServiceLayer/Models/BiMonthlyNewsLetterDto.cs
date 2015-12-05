@@ -4,10 +4,10 @@ namespace SmgAlumni.ServiceLayer.Models
 {
     public class BiMonthlyNewsLetterDto
     {
-        public List<string> Causes;
-        public List<string> News;
-        public List<string> Listings;  
-        public List<string> AddedUsers;
+        public IEnumerable<string> Causes;
+        public IEnumerable<string> News;
+        public IEnumerable<string> Listings;  
+        public IEnumerable<string> AddedUsers;
 
         public BiMonthlyNewsLetterDto()
         {

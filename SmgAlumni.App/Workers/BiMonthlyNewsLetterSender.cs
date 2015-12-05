@@ -8,6 +8,7 @@ using SmgAlumni.ServiceLayer.Models;
 using SmgAlumni.Utils.Settings;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Web.Hosting;
 using WebActivatorEx;
@@ -91,24 +92,32 @@ namespace SmgAlumni.App.Workers
             }
         }
 
-        public List<string> GetNews()
+        public IEnumerable<string> GetNews()
         {
-            return new List<string>();
+            var events = _newsLetterCandidateRepository.GetUnsentOfType(EF.Models.enums.NewsLetterItemType.NewsAdded).Select(a => a.HtmlBody);
+            return events;
         }
 
-        public List<string> GetCauses()
+        public IEnumerable<string> GetCauses()
         {
-            return new List<string>();
+            var events = _newsLetterCandidateRepository
+                .GetOfType(EF.Models.enums.NewsLetterItemType.CauseAdded)
+                .OrderByDescending(a => a.CreatedOn)
+                .Take(4)
+                .Select(a => a.HtmlBody);
+            return events;
         }
 
-        public List<string> GetListings()
+        public IEnumerable<string> GetListings()
         {
-            return new List<string>();
+            var events = _newsLetterCandidateRepository.GetUnsentOfType(EF.Models.enums.NewsLetterItemType.ListingAdded).Select(a => a.HtmlBody);
+            return events;
         }
 
-        public List<string> GetRegisteredUsers()
+        public IEnumerable<string> GetRegisteredUsers()
         {
-            return new List<string>();
+            var events = _newsLetterCandidateRepository.GetUnsentOfType(EF.Models.enums.NewsLetterItemType.UserRegistered).Select(a => a.HtmlBody);
+            return events;
         }
     }
 }
