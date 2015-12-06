@@ -104,7 +104,6 @@
     <Compile Include="EfEmailQuerer\Serialization\SerializeableContentType.cs" />
     <Compile Include="EfEmailQuerer\Serialization\SerializeableLinkedResource.cs" />
     <Compile Include="EfEmailQuerer\Templates\ResetPasswordTemplate.cs" />
-    <Compile Include="EfEmailQuerer\Templates\VerifyUserTemplate.cs" />
     <Compile Include="Helpers\Password.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="Mapping\Extensions.cs" />

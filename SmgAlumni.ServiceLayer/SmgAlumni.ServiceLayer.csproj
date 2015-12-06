@@ -68,7 +68,6 @@
     <Compile Include="DomainEventHandlers\AddedNewsHandler.cs" />
     <Compile Include="DomainEventHandlers\ForgotPasswordRequestHandler.cs" />
     <Compile Include="DomainEventHandlers\RegisteredUserHandler.cs" />
-    <Compile Include="DomainEventHandlers\VerifiedUserHandler.cs" />
     <Compile Include="Interfaces\IAccountService.cs" />
     <Compile Include="Interfaces\INewsLetterGenerator.cs" />
     <Compile Include="Interfaces\IRequestSender.cs" />

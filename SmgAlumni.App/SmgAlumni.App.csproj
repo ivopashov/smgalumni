@@ -211,7 +211,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\AccountController.cs" />
-    <Compile Include="Api\AdminController.cs" />
     <Compile Include="Api\AuthenticationController.cs" />
     <Compile Include="Api\BaseApiController.cs" />
     <Compile Include="Api\ForumCommentController.cs" />
@@ -281,7 +280,6 @@
     <Content Include="App\controllers\adminManageUsersController.js" />
     <Content Include="App\controllers\userSearchController.js" />
     <Content Include="App\controllers\manageRolesController.js" />
-    <Content Include="App\controllers\verifyUsersController.js" />
     <Content Include="App\directives\allListings.js" />
     <Content Include="App\directives\changePass.js" />
     <Content Include="App\directives\editAccount.js" />
@@ -299,7 +297,6 @@
     <Content Include="App\services\forumAnswerService.js" />
     <Content Include="App\services\forumThreadService.js" />
     <Content Include="App\services\masterAdminService.js" />
-    <Content Include="App\services\adminService.js" />
     <Content Include="App\services\authHelper.js" />
     <Content Include="App\services\authService.js" />
     <Content Include="App\services\commonService.js" />
@@ -318,7 +315,6 @@
     <Content Include="App\templates\admin\causes.html" />
     <Content Include="App\templates\admin\news.html" />
     <Content Include="App\templates\admin\manageUsers.html" />
-    <Content Include="App\templates\admin\verifyUsers.html" />
     <Content Include="App\templates\dialog\confirmDeleteDialog.html" />
     <Content Include="App\templates\dialog\editItemWithBodyOnly.html" />
     <Content Include="App\templates\dialog\resetUserPass.html" />

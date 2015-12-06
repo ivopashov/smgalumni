@@ -74,16 +74,6 @@ namespace SmgAlumni.Data.Repositories
             return _context.Users.Where(a => a.Email.ToLower().Equals(email.ToLower())).ToList();
         }
 
-        public IEnumerable<User> VerifiedUsers()
-        {
-            return _context.Users.Where(a => a.Verified).ToList();
-        }
-
-        public IEnumerable<User> UnVerifiedUsers()
-        {
-            return _context.Users.Where(a => !a.Verified).ToList();
-        }
-
         public IEnumerable<User> UnSubscribedUsersToNewsLetter()
         {
             return _context.Users.Where(a => !a.AddedToNewsLetterList).ToList();
