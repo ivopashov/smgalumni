@@ -4,7 +4,7 @@
   <xsl:output method="html" />
   <xsl:template match="/">
     <html>
-      <body>
+      <head>
         <style type="text/css">
 
           /* Client-specific Styles */
@@ -15,67 +15,74 @@
           /* Reset Styles */
           body{margin:0; padding:0;font-family: 'Segoe UI', Arial, Helvetica, sans-serif;}
         </style>
-          <hr/>
-
-      <h3>Благотворителни каузи</h3>
-      <xsl:for-each select="/BiMonthlyNewsLetterDto/Causes">
-        <div> 
-            <div>
-              <xsl:value-of select="CreatedOn"/>
-            </div>
-            <div>
-              <xsl:value-of select="CreatedBy/UserName"/>
-            </div>
-            <div>
-              <xsl:value-of select="HtmlBody" disable-output-escaping="yes"/>
-            </div>
-          </div>
-      </xsl:for-each>
-          
-      <hr style="margin-top:20px;"/>
-
-          <h3>Новини</h3>
-      <xsl:for-each select="/BiMonthlyNewsLetterDto/News">
-        <div> 
-            <div>
-              <xsl:value-of select="CreatedOn"/>
-            </div>
-            <div>
-              <xsl:value-of select="CreatedBy/UserName"/>
-            </div>
-            <div>
-              <xsl:value-of select="HtmlBody" disable-output-escaping="yes"/>
-            </div>
-          </div>
-      </xsl:for-each>
-          
-      <hr style="margin-top:20px;"/>
-
-          <h3>Обяви</h3>
-     <xsl:for-each select="/BiMonthlyNewsLetterDto/Listings">
-        <div> 
-            <div>
-              <xsl:value-of select="CreatedOn"/>
-            </div>
-            <div>
-              <xsl:value-of select="CreatedBy/UserName"/>
-            </div>
-            <div>
-              <xsl:value-of select="HtmlBody" disable-output-escaping="yes"/>
-            </div>
-          </div>
-      </xsl:for-each>
-          
-      <hr style="margin-top:20px;"/>
-
-          <h3>Нови потребители</h3>
-        <xsl:for-each select="/BiMonthlyNewsLetterDto/AddedUsers">
+      </head>
+      <body>
+        <xsl:if test="count(//BiMonthlyNewsLetterDto/Causes/NewsLetterCandidateDto) &gt; 0">
           <div>
-            <span>
-              <xsl:value-of select="HtmlBody" disable-output-escaping="yes"/>
-          </span>  
+            <h3>Благотворителни каузи</h3>
+            <xsl:for-each select="BiMonthlyNewsLetterDto/Causes">
+              <div>
+                <div>
+                  <xsl:value-of select="NewsLetterCandidateDto/CreatedOn"/>
+                </div>
+                <div>
+                  <xsl:value-of select="NewsLetterCandidateDto/CreatedBy"/>
+                </div>
+                <div>
+                  <xsl:value-of select="NewsLetterCandidateDto/HtmlBody" disable-output-escaping="yes"/>
+                </div>
+              </div>
+            </xsl:for-each>
           </div>
-        </xsl:for-each>
+        </xsl:if>
+
+        <hr style="margin-top:20px;"/>
+        <xsl:if test="count(//BiMonthlyNewsLetterDto/News/NewsLetterCandidateDto) &gt; 0">
+          <h3>Новини</h3>
+          <xsl:for-each select="BiMonthlyNewsLetterDto/News">
+            <div>
+              <div>
+                <xsl:value-of select="NewsLetterCandidateDto/CreatedOn"/>
+              </div>
+              <div>
+                <xsl:value-of select="NewsLetterCandidateDto/CreatedBy"/>
+              </div>
+              <div>
+                <xsl:value-of select="NewsLetterCandidateDto/HtmlBody" disable-output-escaping="yes"/>
+              </div>
+            </div>
+          </xsl:for-each>
+        </xsl:if>
+        <hr style="margin-top:20px;"/>
+
+        <xsl:if test="count(//BiMonthlyNewsLetterDto/Listings/NewsLetterCandidateDto) &gt; 0">
+          <h3>Обяви</h3>
+          <xsl:for-each select="BiMonthlyNewsLetterDto/Listings">
+            <div>
+              <div>
+                <xsl:value-of select="NewsLetterCandidateDto/CreatedOn"/>
+              </div>
+              <div>
+                <xsl:value-of select="NewsLetterCandidateDto/CreatedBy"/>
+              </div>
+              <div>
+                <xsl:value-of select="NewsLetterCandidateDto/HtmlBody" disable-output-escaping="yes"/>
+              </div>
+            </div>
+          </xsl:for-each>
+        </xsl:if>
+        <hr style="margin-top:20px;"/>
+
+        <xsl:if test="count(//BiMonthlyNewsLetterDto/AddedUsers/NewsLetterCandidateDto) &gt; 0">
+          <h3>Нови потребители</h3>
+          <xsl:for-each select="BiMonthlyNewsLetterDto/AddedUsers">
+            <div>
+              <span>
+                <xsl:value-of select="NewsLetterCandidateDto/HtmlBody" disable-output-escaping="yes"/>
+              </span>
+            </div>
+          </xsl:for-each>
+        </xsl:if>
       </body>
     </html>
   </xsl:template>
