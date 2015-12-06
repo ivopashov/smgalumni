@@ -1,21 +1,23 @@
 ﻿using SmgAlumni.EF.Models;
+using System;
 using System.Collections.Generic;
 
 namespace SmgAlumni.ServiceLayer.Models
 {
+    [Serializable]
     public class BiMonthlyNewsLetterDto
     {
-        public IEnumerable<NewsLetterCandidate> Causes;
-        public IEnumerable<NewsLetterCandidate> News;
-        public IEnumerable<NewsLetterCandidate> Listings;  
-        public IEnumerable<NewsLetterCandidate> AddedUsers;
+        public List<NewsLetterCandidateDto> Causes;
+        public List<NewsLetterCandidateDto> News;
+        public List<NewsLetterCandidateDto> Listings;  
+        public List<NewsLetterCandidateDto> AddedUsers;
 
         public BiMonthlyNewsLetterDto()
         {
-            Causes = new List<NewsLetterCandidate>();
-            News = new List<NewsLetterCandidate>();
-            AddedUsers = new List<NewsLetterCandidate>();
-            Listings = new List<NewsLetterCandidate>();
+            Causes = new List<NewsLetterCandidateDto>();
+            News = new List<NewsLetterCandidateDto>();
+            AddedUsers = new List<NewsLetterCandidateDto>();
+            Listings = new List<NewsLetterCandidateDto>();
         }
     }
 }

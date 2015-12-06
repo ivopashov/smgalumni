@@ -46,7 +46,7 @@ namespace SmgAlumni.App.Api
             catch (Exception e)
             {
                 _logger.Error(e.Message);
-                return BadRequest("Новината не можа да бъде създадена");
+                return BadRequest("Каузата не можа да бъде създадена");
             }
         }
 
@@ -106,7 +106,7 @@ namespace SmgAlumni.App.Api
             }
 
             var cause = _causeRepository.GetById(vm.Id);
-            if (cause == null) return BadRequest("Новина с такова id не можа да бъде намерена");
+            if (cause == null) return BadRequest("Кауза с такова id не можа да бъде намерена");
             cause.Body = vm.Body;
             cause.Heading = vm.Heading;
             cause.DateCreated = DateTime.Now;

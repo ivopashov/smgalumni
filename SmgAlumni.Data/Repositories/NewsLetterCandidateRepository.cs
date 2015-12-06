@@ -5,6 +5,9 @@ using SmgAlumni.EF.Models.enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
+using System.Data.Entity.SqlServer;
+using System.Data.Entity.Core.Objects;
 
 namespace SmgAlumni.Data.Repositories
 {
@@ -72,7 +75,22 @@ namespace SmgAlumni.Data.Repositories
 
         public bool AnyItemsSentToday()
         {
-            return _context.NewsLetterCandidates.Any(a => a.SentOn.Date == DateTime.Now.Date);
+            //DateTime.Date is not supported to compare in linq
+            var result = from nlc in _context.NewsLetterCandidates
+                         where nlc.Sent
+                         && nlc.SentOn.Day == DateTime.Now.Day
+                         && nlc.SentOn.Month == DateTime.Now.Month
+                         && nlc.SentOn.Year == DateTime.Now.Year
+                         select nlc;
+
+            if (result.Count() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

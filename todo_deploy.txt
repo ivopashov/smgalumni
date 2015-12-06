@@ -16,10 +16,10 @@ INSERT INTO [dbo].[Setting]
 		   ('mailgun_ApiKey','')
 		   ('mailgun_NewsLetterMailingList','')
 		   ('mailgun_BaseUrl','')
-		   ('BiWeeklyNewsLetterTemplatePath','')
-		   ('SiteUrl','')
-		   ('From','')
-		   ('Subject','')
+		   ('newsletter_BiWeeklyNewsLetterTemplatePath','')
+		   ('newsletter_SiteUrl','')
+		   ('mailgun_From','')
+		   ('mailgun_Subject','')
 GO
 
 - throttling

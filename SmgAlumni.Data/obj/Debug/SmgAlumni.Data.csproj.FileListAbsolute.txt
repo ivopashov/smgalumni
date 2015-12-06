@@ -22,3 +22,5 @@ X:\Repos\smgalumni1\SmgAlumni.Data\bin\Debug\EntityFramework.SqlServer.xml
 X:\Repos\smgalumni1\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.csprojResolveAssemblyReference.cache
 X:\Repos\smgalumni1\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.dll
 X:\Repos\smgalumni1\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.pdb
+X:\Repos\smgalumni1\SmgAlumni.Data\bin\Debug\AutoMapper.dll
+X:\Repos\smgalumni1\SmgAlumni.Data\bin\Debug\AutoMapper.xml

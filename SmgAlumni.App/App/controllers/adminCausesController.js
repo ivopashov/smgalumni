@@ -6,7 +6,7 @@ app.controller('adminCausesController',
 
             $scope.params = {};
             $scope.items = [];
-            $scope.kind = "news";
+            $scope.kind = "cause";
             $scope.currentSelectedPage = { number: -1 };
 
             $scope.init = function () {
@@ -52,7 +52,7 @@ app.controller('adminCausesController',
                     scope: $scope
                 }).then(function (success) {
                     newsCauseListingService.addNew($scope.selectedItem, $scope.kind).then(function (success) {
-                        commonService.notification.success("Успешно добавихте новината");
+                        commonService.notification.success("Успешно добавихте каузата");
                         $scope.selectedItem = {};
                         $scope.init();
                     }, function (err) {

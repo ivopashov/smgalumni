@@ -14,7 +14,7 @@ namespace SmgAlumni.EF.Models
         public DateTime CreatedOn { get; set; }
         public virtual User CreatedBy { get; set; }
         public bool Sent { get; set; }
-        public DateTime SentOn { get; set; }
+        public DateTimeOffset SentOn { get; set; }
         public NewsLetterItemType Type { get; set; }
     }
 }

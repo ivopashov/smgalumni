@@ -26,7 +26,7 @@ namespace SmgAlumni.ServiceLayer.DomainEventHandlers
                 CreatedOn = DateTime.Now,
                 Sent = false,
                 HtmlBody = GetHtml(args),
-                Type = NewsLetterItemType.CauseAdded
+                Type = NewsLetterItemType.CauseAdded,
             });
         }
 

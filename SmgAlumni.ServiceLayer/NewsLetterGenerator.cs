@@ -19,11 +19,11 @@ namespace SmgAlumni.ServiceLayer
             _appSettings = appSettings;
         }
 
-        public string GenerateNewsLetter(BiMonthlyNewsLetterDto newsLetterModel)
+        public string GenerateNewsLetter(BiMonthlyNewsLetterDto newsLetterModel, string rootUrl)
         {
             XslCompiledTransform transform = new XslCompiledTransform();
 
-            var path = _appSettings.NewsLetterSettings.BiWeeklyNewsLetterTemplatePath;
+            var path = rootUrl + _appSettings.NewsLetterSettings.BiWeeklyNewsLetterTemplatePath;
             transform.Load(path, XsltSettings.TrustedXslt, new XmlUrlResolver());
 
             var messageBuilder = new StringBuilder();

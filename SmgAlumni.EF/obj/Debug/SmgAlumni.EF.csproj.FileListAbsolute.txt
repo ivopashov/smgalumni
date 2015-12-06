@@ -17,6 +17,10 @@ X:\Repos\smgalumni1\SmgAlumni.EF\bin\Debug\EntityFramework.dll
 X:\Repos\smgalumni1\SmgAlumni.EF\bin\Debug\EntityFramework.SqlServer.dll
 X:\Repos\smgalumni1\SmgAlumni.EF\bin\Debug\EntityFramework.xml
 X:\Repos\smgalumni1\SmgAlumni.EF\bin\Debug\EntityFramework.SqlServer.xml
-X:\Repos\smgalumni1\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csprojResolveAssemblyReference.cache
 X:\Repos\smgalumni1\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.dll
 X:\Repos\smgalumni1\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.pdb
+X:\Repos\smgalumni1\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csprojResolveAssemblyReference.cache
+X:\Repos\smgalumni1\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.Migrations.InitialCreate.resources
+X:\Repos\smgalumni1\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csproj.GenerateResource.Cache
+X:\Repos\smgalumni1\SmgAlumni.EF\bin\Debug\AutoMapper.dll
+X:\Repos\smgalumni1\SmgAlumni.EF\bin\Debug\AutoMapper.xml

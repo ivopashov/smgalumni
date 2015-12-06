@@ -44,7 +44,7 @@ namespace SmgAlumni.App.Api
             catch (Exception e)
             {
                 _logger.Error(e.Message);
-                return BadRequest("Новината не можа да бъде създадена");
+                return BadRequest("Обявата не можа да бъде създадена");
             }
         }
 
