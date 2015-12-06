@@ -124,12 +124,6 @@ app.config([
             templateUrl: '/App/templates/admin/adminmenu.html',
             authenticate: true
         });
-        $stateProvider.state('admin.verifyusers', {
-            url: '/verifyusers',
-            templateUrl: '/App/templates/admin/verifyUsers.html',
-            controller: 'verifyUsersController',
-            authenticate: true
-        });
         $stateProvider.state('admin.news', {
             url: '/news',
             templateUrl: '/App/templates/admin/news.html',

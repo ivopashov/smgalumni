@@ -3,6 +3,7 @@ using SmgAlumni.EF.Models;
 using SmgAlumni.EF.Models.enums;
 using SmgAlumni.Utils.DomainEvents.Models;
 using System;
+using System.Linq;
 
 namespace SmgAlumni.ServiceLayer.DomainEventHandlers
 {
@@ -14,7 +15,8 @@ namespace SmgAlumni.ServiceLayer.DomainEventHandlers
         IHandleDomainEvent<ModifyCauseDomainEvent>,
         IHandleDomainEvent<DeleteCauseDomainEvent>,
         IHandleDomainEvent<DeleteListingDomainEvent>,
-        IHandleDomainEvent<VerifyUserEvent>
+        IHandleDomainEvent<RegisterUserDomainEvent>,
+        IHandleDomainEvent<ForgotPasswordEvent>
     {
         private IActivityRepository _activityRepositorty;
         private IUserRepository _userRepository;
@@ -36,6 +38,37 @@ namespace SmgAlumni.ServiceLayer.DomainEventHandlers
 
             args.User.Activities.Add(activity);
             _userRepository.Update(args.User);
+        }
+
+        public void Handle(RegisterUserDomainEvent args)
+        {
+            var activity = new Activity()
+            {
+                ActivityType = ActivityType.RegisteredUser,
+                Date = DateTime.Now,
+                Description = "User with username " + args.User.UserName + " was registered.",
+            };
+
+            args.User.Activities.Add(activity);
+            _userRepository.Update(args.User);
+        }
+
+        public void Handle(ForgotPasswordEvent args)
+        {
+            var user = _userRepository.UsersByEmail(args.Email).SingleOrDefault();
+
+            if (user != null)
+            {
+                var activity = new Activity()
+                {
+                    ActivityType = ActivityType.ForgotPassword,
+                    Date = DateTime.Now,
+                    Description = "User with username " + user.UserName + " issued a forgot password request.",
+                };
+
+                user.Activities.Add(activity);
+                _userRepository.Update(user);
+            }
         }
 
         public void Handle(DeleteNewsDomainEvent args)
@@ -116,20 +149,6 @@ namespace SmgAlumni.ServiceLayer.DomainEventHandlers
                 ActivityType = ActivityType.ModifyCause,
                 Date = DateTime.Now,
                 Description = "Cause with heading " + args.Heading + " was modified.",
-            };
-
-            args.User.Activities.Add(activity);
-            _userRepository.Update(args.User);
-
-        }
-
-        public void Handle(VerifyUserEvent args)
-        {
-            var activity = new Activity()
-            {
-                ActivityType = ActivityType.VerifyUser,
-                Date = DateTime.Now,
-                Description = "User with username: " + args.UserName + " was verified",
             };
 
             args.User.Activities.Add(activity);

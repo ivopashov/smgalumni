@@ -21,7 +21,6 @@
         $scope.menuItems = [
             { name: 'Новини', state: 'admin.news' },
             { name: 'Благотворителност', state: 'admin.causes' },
-            { name: 'Одобри Юзери', state: 'admin.verifyusers' },
             { name: 'Управлявай Юзери', state: 'admin.manageusers' },
         ];
     }

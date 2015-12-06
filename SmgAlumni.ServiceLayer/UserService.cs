@@ -86,7 +86,7 @@ namespace SmgAlumni.ServiceLayer
             user.PasswordSalt = salt;
             user.DateJoined = DateTime.Now;
             user.Roles.Add(new Role() { Name = "User" });
-            user.Verified = false;
+            user.Verified = true;
             user.AddedToNewsLetterList = false;
 
             _userRepository.Add(user);

@@ -61,7 +61,6 @@ namespace SmgAlumni.App.App_Start
 
             container.Register<IUserService, UserService>();
             container.Register<IAccountService, AccountService>();
-            container.Register<INotificationEnqueuer, NotificationEnqueuer>();
             container.Register<IAppSettings, AppSettings>();
             container.Register<IAppSettingsRetriever, EFSettingsRetriever>();
             container.Register<IRequestSender, RequestSender>();

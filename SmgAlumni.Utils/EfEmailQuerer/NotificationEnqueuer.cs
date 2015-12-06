@@ -10,6 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace SmgAlumni.Utils.EfEmailQuerer
 {
+    [Obsolete]
     public class NotificationEnqueuer : INotificationEnqueuer
     {
         private readonly IAppSettings _appSettings;

@@ -9,6 +9,8 @@
         AddCause,
         ModifyCause,
         VerifyUser,
-        DeleteListing
+        DeleteListing,
+        RegisteredUser,
+        ForgotPassword
     }
 }

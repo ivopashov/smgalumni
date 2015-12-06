@@ -18,16 +18,13 @@ namespace SmgAlumni.App.Api
     public class AccountController : BaseApiController
     {
         private readonly IAccountService _accountService;
-        private readonly INotificationEnqueuer _sender;
         private readonly IUserService _userService;
 
-        public AccountController(IAccountService accountService, INotificationEnqueuer sender, ILogger logger, IUserRepository userRepository, IUserService userService)
+        public AccountController(IAccountService accountService, ILogger logger, IUserRepository userRepository, IUserService userService)
             : base(logger, userRepository)
         {
             _accountService = accountService;
             VerifyNotNull(_accountService);
-            _sender = sender;
-            VerifyNotNull(_sender);
             _userService = userService;
             VerifyNotNull(_userService);
         }

@@ -1,27 +1,31 @@
-﻿using SmgAlumni.Data.Interfaces;
+﻿using RestSharp;
+using SmgAlumni.Data.Interfaces;
 using SmgAlumni.Data.Repositories;
-using SmgAlumni.EF.Models.enums;
 using SmgAlumni.ServiceLayer.Interfaces;
 using SmgAlumni.Utils.DomainEvents.Models;
 using SmgAlumni.Utils.EfEmailQuerer;
-using SmgAlumni.Utils.EfEmailQuerer.Serialization;
 using SmgAlumni.Utils.EfEmailQuerer.Templates;
+using SmgAlumni.Utils.Settings;
 using System;
 using System.Linq;
+using System.Net;
 
 namespace SmgAlumni.ServiceLayer.DomainEventHandlers
 {
     public class ForgotPasswordRequestHandler : IHandleDomainEvent<ForgotPasswordEvent>
     {
-        private readonly INotificationEnqueuer _sender;
         private readonly IUserRepository _userRepository;
         private readonly IAccountService _accountService;
+        private readonly IRequestSender _requestSender;
+        private readonly IAppSettings _appSettings;
+        private int SendRetries = 0;
 
-        public ForgotPasswordRequestHandler(INotificationEnqueuer sender, UserRepository userRepository, IAccountService accountService)
+        public ForgotPasswordRequestHandler(UserRepository userRepository, IAccountService accountService, IRequestSender requestSender, IAppSettings appSettings)
         {
-            _sender = sender;
             _accountService = accountService;
             _userRepository = userRepository;
+            _requestSender = requestSender;
+            _appSettings = appSettings;
         }
 
         public void Handle(ForgotPasswordEvent args)
@@ -49,16 +53,46 @@ namespace SmgAlumni.ServiceLayer.DomainEventHandlers
         {
             if (!string.IsNullOrEmpty(email))
             {
-                _sender.EnqueueNotification(new EmailNotificationOptions
+                var template = new ResetPasswordTemplate()
                 {
-                    To = email,
-                    Template = new ResetPasswordTemplate
+                    Link = link,
+                    UserName = username
+                };
+
+                var result = SendRequest(template.Template, template.Subject, email);
+
+                if (result == HttpStatusCode.OK || result == HttpStatusCode.Accepted || result == HttpStatusCode.Created)
+                {
+                    return;
+                }
+                else
+                {
+                    SendRetries++;
+                    if (SendRetries < 3)
                     {
-                        UserName = username,
-                        Link = link
+                        CreateAndEnqueueMessage(link, email, username);
                     }
-                }, NotificationKind.ForgotPassword);
+
+                    return;
+                }
+
             }
+
+
+        }
+
+        private HttpStatusCode SendRequest(string message, string subject, string email)
+        {
+            return _requestSender.InitializeClient()
+               .AddParameter("domain", "www.smg-alumni.com", ParameterType.UrlSegment)
+                        .SetResource("{domain}/messages")
+                        .AddParameter("from", _appSettings.MailgunSettings.From)
+                        .AddParameter("subject", subject)
+                        .AddParameter("html", message)
+                        .AddParameter("to", email)
+                        .SetMethod(Method.POST)
+                        .Execute()
+                        .StatusCode;
         }
     }
 }
