@@ -94,6 +94,12 @@ namespace SmgAlumni.App.Workers
                         News = Mapper.Map<List<NewsLetterCandidate>, List<NewsLetterCandidateDto>>(GetNews())
                     };
 
+                    if (!ThresholdReachedInOrderToSend(model))
+                    {
+                        return;
+                    }
+                   
+
                     var newsLetterBody = _newsLetterGenerator.GenerateNewsLetter(model, HttpRuntime.AppDomainAppPath);
                     var result = _requestSender.InitializeClient()
                         .AddParameter("domain", "www.smg-alumni.com", ParameterType.UrlSegment)
@@ -116,6 +122,23 @@ namespace SmgAlumni.App.Workers
                     _logger.Error("Error while sending email: " + e.Message + "\n Inner Exception: " + e.InnerException);
                 }
             }
+        }
+
+        //here we have the logic that takes the decision whether to send a newsletter ot not
+        private bool ThresholdReachedInOrderToSend(BiMonthlyNewsLetterDto model)
+        {
+            if(model.AddedUsers.Count==0 && model.News.Count == 0&& model.Listings.Count == 0 && model.Causes.Count == 0)
+            {
+                return false;
+            }
+
+            var result = model.AddedUsers.Count * 1 + model.News.Count * 5 + model.Listings.Count * 2 + model.Causes.Count * 5;
+            if (result < 15)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private void MarkItemsAsSent(BiMonthlyNewsLetterDto model)

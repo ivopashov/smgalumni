@@ -8,4 +8,6 @@ check the forum repos
 global exception attribute
 error pages
 
+admin panel - news (after save) and causes (at all) dont show up every time
+
 TEST

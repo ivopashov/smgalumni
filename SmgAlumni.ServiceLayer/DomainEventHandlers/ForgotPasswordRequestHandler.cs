@@ -77,8 +77,6 @@ namespace SmgAlumni.ServiceLayer.DomainEventHandlers
                 }
 
             }
-
-
         }
 
         private HttpStatusCode SendRequest(string message, string subject, string email)

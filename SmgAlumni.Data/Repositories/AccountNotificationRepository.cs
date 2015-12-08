@@ -17,20 +17,20 @@ namespace SmgAlumni.Data.Repositories
         }
         public int Add(Notification entity)
         {
-            _context.AccountNotifications.Add(entity);
+            _context.PendingNotifications.Add(entity);
             Save();
             return entity.Id;
         }
 
         public void Delete(Notification entity)
         {
-            _context.AccountNotifications.Remove(entity);
+            _context.PendingNotifications.Remove(entity);
             Save();
         }
 
         public Notification GetById(int id)
         {
-            return _context.AccountNotifications.Find(id);
+            return _context.PendingNotifications.Find(id);
         }
 
         public void Update(Notification entity, bool save = true)
@@ -53,9 +53,9 @@ namespace SmgAlumni.Data.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<Notification> GetSentNotifications()
+        public IEnumerable<Notification> GetUnSentNotifications()
         {
-            return _context.AccountNotifications.Where(a => a.Sent).ToList();
+            return _context.PendingNotifications.Where(a => !a.Sent).ToList();
         }
     }
 }

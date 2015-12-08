@@ -14,22 +14,26 @@ using SmgAlumni.EF.Models;
 using SmgAlumni.Utils.EfEmailQuerer.Serialization;
 using SmgAlumni.Utils.Settings;
 using WebActivatorEx;
+using System.Net;
+using SmgAlumni.ServiceLayer;
+using RestSharp;
 
-[assembly: PostApplicationStartMethod(typeof(EmailSenderWorker), "StartTimer")]
+[assembly: PostApplicationStartMethod(typeof(UnsentNotificationSender), "StartTimer")]
 
 namespace SmgAlumni.App.Workers
 {
-    public class EmailSenderWorker : IRegisteredObject
+    public class UnsentNotificationSender : IRegisteredObject
     {
-        private const int CheckForMailIntervalSeconds = 600;
+        private const int CheckForMailIntervalSeconds = 120;
 
         private bool _shuttingDown;
         private static SmgAlumniContext _context = new SmgAlumniContext();
         private static Timer _timer = new Timer(OnTimerElapsed);
-        private static EmailSenderWorker _jobHost = new EmailSenderWorker();
+        private static UnsentNotificationSender _jobHost = new UnsentNotificationSender();
         private static readonly AppSettings _appSettings = new AppSettings(new EFSettingsRetriever(new SettingRepository(_context)));
         private static AccountNotificationRepository _notificationRepository = new AccountNotificationRepository(_context);
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        private static RequestSender _requestSender = new RequestSender(_appSettings);
 
         public static void StartTimer()
         {
@@ -42,7 +46,7 @@ namespace SmgAlumni.App.Workers
             _jobHost.DoWork();
         }
 
-        public EmailSenderWorker()
+        public UnsentNotificationSender()
         {
             HostingEnvironment.RegisterObject(this);
         }
@@ -67,8 +71,8 @@ namespace SmgAlumni.App.Workers
 
                 try
                 {
-                    var unsentNotifications = _notificationRepository.GetSentNotifications();
-                    SendEmailsViaSmtpClient(unsentNotifications);
+                    var unsentNotifications = _notificationRepository.GetUnSentNotifications();
+                    Send(unsentNotifications);
                 }
                 catch (Exception e)
                 {
@@ -77,49 +81,34 @@ namespace SmgAlumni.App.Workers
             }
         }
 
-        private void SendEmailsViaSmtpClient(IEnumerable<Notification> notifications)
+        private void Send(IEnumerable<Notification> notifications)
         {
-            var emailSettings = new EmailSettings(new EFSettingsRetriever(new SettingRepository(_context)));
-            _logger.Info("Starting email send");
-
-            using (var client = emailSettings.GetSmtpClient())
+            foreach (var notification in notifications)
             {
-                client.EnableSsl = emailSettings.UseSecureConnection;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                var result = _requestSender.InitializeClient()
+                .AddParameter("domain", "www.smg-alumni.com", ParameterType.UrlSegment)
+                         .SetResource("{domain}/messages")
+                         .AddParameter("from", _appSettings.MailgunSettings.From)
+                         .AddParameter("subject", "Забравена парола")
+                         .AddParameter("html", notification.HtmlMessage)
+                         .AddParameter("to", notification.To)
+                         .SetMethod(Method.POST)
+                         .Execute()
+                         .StatusCode;
 
-                foreach (var notification in notifications)
+                if (result == HttpStatusCode.OK || result == HttpStatusCode.Accepted || result == HttpStatusCode.Created)
                 {
-                    try
-                    {
-                        var mailMessage = DeserializeEmail(notification.Message);
-                        _logger.Info("Sending email to: " + mailMessage.To);
-                        client.Send(mailMessage);
-                        notification.Sent = true;
-                        notification.SentOn = DateTime.Now;
-                    }
-                    catch (Exception)
-                    {
-                        notification.Sent = false;
-                        notification.Retries++;
-                        throw;
-                    }
-                    finally
-                    {
-                        _notificationRepository.Update(notification);
-                    }
-                   
+                    MarkItemsAsSent(notification);
                 }
+
             }
         }
 
-        private static MailMessage DeserializeEmail(byte[] obj)
+        private void MarkItemsAsSent(Notification notification)
         {
-            var formatter = new BinaryFormatter();
-            using (var ms = new MemoryStream(obj))
-            {
-                var set = (SerializeableMailMessage)formatter.Deserialize(ms);
-                return set.GetMailMessage();
-            }
+            notification.Sent = true;
+            notification.SentOn = DateTime.Now;
+            _notificationRepository.Update(notification);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace SmgAlumni.ServiceLayer.DomainEventHandlers
 
         private string GetHtml(RegisterUserDomainEvent args)
         {
-            var html = "<p>" + args.User.FirstName + " " + args.User.LastName + " от " + args.User.Division + " клас " + args.User.YearOfGraduation + " випуск се регистрира на " + string.Format("{0}-{1}-{2}", args.RegisteredOn.Day, args.RegisteredOn.Month, args.RegisteredOn.Year) + "</p>";
+            var html = "<p>" + args.User.FirstName + " " + args.User.LastName + " от " + args.User.Division + " клас " + args.User.YearOfGraduation + " випуск се регистрира</p>";
             return ParseImageLinks(html);
         }
 

@@ -5,6 +5,6 @@ namespace SmgAlumni.Data.Interfaces
 {
     public interface IAccountNotificationRepository : IRepository<Notification>
     {
-        IEnumerable<Notification> GetSentNotifications();
+        IEnumerable<Notification> GetUnSentNotifications();
     }
 }

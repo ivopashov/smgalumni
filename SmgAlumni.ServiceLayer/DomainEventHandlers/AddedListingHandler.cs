@@ -28,14 +28,7 @@ namespace SmgAlumni.ServiceLayer.DomainEventHandlers
 
         private string GetHtml(AddListingDomainEvent args)
         {
-            var html = "<h3>" + args.Heading + "</h3></br>" + args.Body;
-            return ParseImageLinks(html);
-        }
-
-        private string ParseImageLinks(string html)
-        {
-            //TODO
-            return html;
+            return "<h4>" + args.Heading + "</h4>" + args.Body;
         }
     }
 }

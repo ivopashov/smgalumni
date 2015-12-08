@@ -8,22 +8,6 @@ namespace SmgAlumni.EF.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Notification",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        CreatedOn = c.DateTime(nullable: false),
-                        SentOn = c.DateTime(nullable: false),
-                        Retries = c.Int(nullable: false),
-                        Sent = c.Boolean(nullable: false),
-                        Message = c.Binary(),
-                        HtmlMessage = c.String(),
-                        To = c.String(),
-                        Kind = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
                 "dbo.Activity",
                 c => new
                     {
@@ -200,6 +184,21 @@ namespace SmgAlumni.EF.Migrations
                 .Index(t => t.User_Id);
             
             CreateTable(
+                "dbo.UnsentNotifications",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        CreatedOn = c.DateTime(nullable: false),
+                        SentOn = c.DateTime(nullable: false),
+                        Sent = c.Boolean(nullable: false),
+                        Message = c.Binary(),
+                        HtmlMessage = c.String(),
+                        To = c.String(),
+                        Kind = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Setting",
                 c => new
                     {
@@ -238,6 +237,7 @@ namespace SmgAlumni.EF.Migrations
             DropIndex("dbo.Cause", new[] { "User_Id" });
             DropIndex("dbo.Activity", new[] { "User_Id" });
             DropTable("dbo.Setting");
+            DropTable("dbo.UnsentNotifications");
             DropTable("dbo.Role");
             DropTable("dbo.PasswordReset");
             DropTable("dbo.NewsLetterCandidate");
@@ -249,7 +249,6 @@ namespace SmgAlumni.EF.Migrations
             DropTable("dbo.Cause");
             DropTable("dbo.User");
             DropTable("dbo.Activity");
-            DropTable("dbo.Notification");
         }
     }
 }

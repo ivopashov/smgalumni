@@ -254,7 +254,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ioc\ContextDependentExtensions.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Workers\EmailSenderWorker.cs" />
+    <Compile Include="Workers\UnsentNotificationSender.cs" />
     <Compile Include="Workers\BiMonthlyNewsLetterSender.cs" />
     <Compile Include="Workers\UsersToNewsLetterSubscriber.cs" />
   </ItemGroup>
@@ -412,7 +412,6 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\documents\СМГ Алумни Мрежа Конституция Драфт.doc" />
-    <Content Include="App_Data\NewsLetterTemplates\BiWeeklyTemplate.xslt" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
