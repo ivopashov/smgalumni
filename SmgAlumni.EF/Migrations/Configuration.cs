@@ -117,7 +117,18 @@
                 {
                     SettingKey = "mailgun_BaseUrl",
                     SettingName = "https://api.mailgun.net/v3"
+                },
+                new Setting()
+                {
+                    SettingKey = "newsletter_SiteUrl",
+                    SettingName = "http://smg-alumni.com"
+                },
+                new Setting()
+                {
+                    SettingKey = "newsletter_BiWeeklyNewsLetterTemplatePath",
+                    SettingName = @"App_Data\NewsLetterTemplates\BiMonthlyTemplate.cshtml"
                 }
+                
             };
 
             settings.ForEach(a => context.Settings.AddOrUpdate(c=>c.SettingKey, a));

@@ -30,7 +30,8 @@ namespace SmgAlumni.ServiceLayer
             Engine.Razor = service;
 
             var emailHtmlBody = Engine.Razor.RunCompile(template, Guid.NewGuid().ToString(),null, newsLetterModel);
-            File.WriteAllText(@"C:\Users\ivopashov\Desktop\razor.html", emailHtmlBody);
+            //TODO: to be deleted - only for testing purposes
+            File.WriteAllText(@"C:\Users\ipashov\Desktop\razor.html", emailHtmlBody, System.Text.Encoding.UTF8);
             return emailHtmlBody;
         }
     }

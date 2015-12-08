@@ -1219,7 +1219,9 @@
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\ServerError.cshtml" />
-    <Content Include="App_Data\NewsLetterTemplates\BiMonthlyTemplate.cshtml" />
+    <Content Include="App_Data\NewsLetterTemplates\BiMonthlyTemplate.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\filters\" />

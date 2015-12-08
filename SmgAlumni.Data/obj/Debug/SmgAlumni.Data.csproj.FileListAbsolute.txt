@@ -24,3 +24,17 @@ X:\Repos\smgalumni1\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.dll
 X:\Repos\smgalumni1\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.pdb
 X:\Repos\smgalumni1\SmgAlumni.Data\bin\Debug\AutoMapper.dll
 X:\Repos\smgalumni1\SmgAlumni.Data\bin\Debug\AutoMapper.xml
+D:\Repos\smgalumni\SmgAlumni.Data\bin\Debug\SmgAlumni.Data.dll.config
+D:\Repos\smgalumni\SmgAlumni.Data\bin\Debug\SmgAlumni.Data.dll
+D:\Repos\smgalumni\SmgAlumni.Data\bin\Debug\SmgAlumni.Data.pdb
+D:\Repos\smgalumni\SmgAlumni.Data\bin\Debug\EntityFramework.dll
+D:\Repos\smgalumni\SmgAlumni.Data\bin\Debug\EntityFramework.SqlServer.dll
+D:\Repos\smgalumni\SmgAlumni.Data\bin\Debug\SmgAlumni.EF.dll
+D:\Repos\smgalumni\SmgAlumni.Data\bin\Debug\SmgAlumni.EF.pdb
+D:\Repos\smgalumni\SmgAlumni.Data\bin\Debug\EntityFramework.xml
+D:\Repos\smgalumni\SmgAlumni.Data\bin\Debug\EntityFramework.SqlServer.xml
+D:\Repos\smgalumni\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.csprojResolveAssemblyReference.cache
+D:\Repos\smgalumni\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.dll
+D:\Repos\smgalumni\SmgAlumni.Data\obj\Debug\SmgAlumni.Data.pdb
+D:\Repos\smgalumni\SmgAlumni.Data\bin\Debug\AutoMapper.dll
+D:\Repos\smgalumni\SmgAlumni.Data\bin\Debug\AutoMapper.xml
