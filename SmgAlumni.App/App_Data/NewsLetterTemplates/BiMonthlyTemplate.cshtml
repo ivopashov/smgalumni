@@ -1,0 +1,129 @@
+﻿@model SmgAlumni.ServiceLayer.Models.BiMonthlyNewsLetterDto
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <style type="text/css">
+        /* Client-specific Styles */
+        #outlook a {
+            padding: 0;
+        }
+        /* Force Outlook to provide a "view in browser" button. */
+        body {
+            width: 100% !important;
+        }
+
+        .ReadMsgBody {
+            width: 100%;
+        }
+
+        .ExternalClass {
+            width: 100%;
+        }
+        /* Force Hotmail to display emails at full width */
+        body {
+            -webkit-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+        }
+        /* Prevent Webkit and Windows Mobile platforms from changing default font sizes. */
+
+        /* Reset Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    @if (Model.Causes.Count > 0)
+    {
+        <div>
+            <h3>Благотворителни каузи</h3>
+            @foreach (var item in Model.Causes)
+            {
+                <div>
+                    <div>
+                        @item.CreatedOn
+                    </div>
+                    <div>
+                        @item.CreatedBy
+                    </div>
+                    <div>
+                        @item.HtmlBody
+                    </div>
+                </div>
+            };
+        </div>
+    }
+
+    @if (Model.News.Count > 0)
+    {
+        <div>
+            <h3>Новини</h3>
+            @foreach (var item in Model.News)
+            {
+                <div>
+                    <div>
+                        @item.CreatedOn
+                    </div>
+                    <div>
+                        @item.CreatedBy
+                    </div>
+                    <div>
+                        @item.HtmlBody
+                    </div>
+                </div>
+            };
+        </div>
+    }
+
+    @if (Model.Listings.Count > 0)
+    {
+        <div>
+            <h3>Обяви</h3>
+            @foreach (var item in Model.Listings)
+            {
+                <div>
+                    <div>
+                        @item.CreatedOn
+                    </div>
+                    <div>
+                        @item.CreatedBy
+                    </div>
+                    <div>
+                        @item.HtmlBody
+                    </div>
+                </div>
+            };
+        </div>
+    }
+
+    @if (Model.AddedUsers.Count > 0)
+    {
+        <div>
+            <h3>Обяви</h3>
+            <table>
+                @foreach (var item in Model.AddedUsers)
+                {
+                    <tr>
+                        <td>
+                            @item.CreatedOn
+                        </td>
+                        <td>
+                            @item.CreatedBy
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @item.HtmlBody
+                        </td>
+                    </tr>
+                };
+            </table>
+        </div>
+    }
+</body>
+</html>

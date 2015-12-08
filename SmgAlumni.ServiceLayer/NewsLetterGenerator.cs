@@ -1,12 +1,12 @@
-﻿using SmgAlumni.Data.Interfaces;
+﻿using RazorEngine;
+using RazorEngine.Configuration;
+using RazorEngine.Templating;
+using RazorEngine.Text;
 using SmgAlumni.ServiceLayer.Interfaces;
 using SmgAlumni.ServiceLayer.Models;
 using SmgAlumni.Utils.Settings;
+using System;
 using System.IO;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
-using System.Xml.Xsl;
 
 namespace SmgAlumni.ServiceLayer
 {
@@ -21,37 +21,17 @@ namespace SmgAlumni.ServiceLayer
 
         public string GenerateNewsLetter(BiMonthlyNewsLetterDto newsLetterModel, string rootUrl)
         {
-            XslCompiledTransform transform = new XslCompiledTransform();
-
             var path = rootUrl + _appSettings.NewsLetterSettings.BiWeeklyNewsLetterTemplatePath;
-            transform.Load(path, XsltSettings.TrustedXslt, new XmlUrlResolver());
+            var template = File.ReadAllText(path,System.Text.Encoding.UTF8);
 
-            var messageBuilder = new StringBuilder();
-            var messageWriter = new StringWriter(messageBuilder);
+            var config = new TemplateServiceConfiguration();
+            config.EncodedStringFactory = new RawStringFactory();
+            var service = RazorEngineService.Create(config);
+            Engine.Razor = service;
 
-            using (var wri = new XmlTextWriter(messageWriter))
-            {
-                var xmlIn = new XmlDocument();
-                xmlIn.LoadXml(SerializeToXml(newsLetterModel));
-                transform.Transform(xmlIn, wri);
-                wri.Flush();
-                wri.Close();
-            }
-
-            return messageBuilder.ToString();
-        }
-
-        private string SerializeToXml(object objectToSerialize)
-        {
-            var serializer = new XmlSerializer(objectToSerialize.GetType());
-            var ms = new MemoryStream();
-
-            serializer.Serialize(ms, objectToSerialize);
-
-            byte[] bytes = ms.ToArray();
-            ms.Close();
-
-            return System.Text.Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+            var emailHtmlBody = Engine.Razor.RunCompile(template, Guid.NewGuid().ToString(),null, newsLetterModel);
+            File.WriteAllText(@"C:\Users\ivopashov\Desktop\razor.html", emailHtmlBody);
+            return emailHtmlBody;
         }
     }
 }

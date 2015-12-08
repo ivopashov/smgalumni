@@ -4,8 +4,6 @@ newsletter
  - migrate the table notifications to unsent notifications and modify he email sender worker
  - put in there umsent notifications (password resets) 
 
-contact us form
-
 check the forum repos
 global exception attribute
 error pages

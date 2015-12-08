@@ -23,9 +23,6 @@ namespace SmgAlumni.EF.Models
                     case NotificationKind.ForgotPassword:
                         value = 0;
                         break;
-                    case NotificationKind.UserVerified:
-                        value = 1;
-                        break;
                 }
             }
         }
