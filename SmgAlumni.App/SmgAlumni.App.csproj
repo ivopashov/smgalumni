@@ -232,6 +232,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="ExceptionHandlers\WebApiGlobalExceptionHandler.cs" />
+    <Compile Include="Filters\UnhandledApiExceptionAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -6,6 +6,8 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using WebApiThrottle;
 using SmgAlumni.App.ExceptionHandlers;
+using SmgAlumni.Utils;
+using SmgAlumni.App.Filters;
 
 namespace SmgAlumni.App.App_Start
 {
@@ -41,6 +43,8 @@ namespace SmgAlumni.App.App_Start
                 },
                 Repository = new CacheRepository()
             });
+
+            config.Filters.Add(new UnhandledApiExceptionAttribute(SimpleInjectorConfig.Container.GetInstance<ILogger>()));
         }
 
         public static void UseJsonFormatter()

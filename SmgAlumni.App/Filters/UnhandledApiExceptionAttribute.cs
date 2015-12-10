@@ -3,7 +3,7 @@ using SmgAlumni.Utils;
 
 namespace SmgAlumni.App.Filters
 {
-   public class UnhandledApiExceptionAttribute : ExceptionFilterAttribute
+    public class UnhandledApiExceptionAttribute : ExceptionFilterAttribute
     {
         private readonly ILogger logger;
 
@@ -15,7 +15,7 @@ namespace SmgAlumni.App.Filters
         {
             if (context.Exception != null)
             {
-                this.logger.Error("Unhandled exception in API "+ context.Exception);
+                this.logger.Error("Unhandled exception in API " + context.Exception);
                 if (context.Exception.InnerException != null)
                 {
                     this.logger.Error("Unhandled exception in API " + context.Exception.InnerException);
@@ -34,4 +34,5 @@ namespace SmgAlumni.App.Filters
                 //}
             }
         }
+    }
 }

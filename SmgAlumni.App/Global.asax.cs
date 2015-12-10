@@ -16,6 +16,7 @@ namespace SmgAlumni.App
     {
         protected void Application_Start()
         {
+            SimpleInjectorConfig.Initialize();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -23,7 +24,6 @@ namespace SmgAlumni.App
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             WebApiConfig.UseJsonFormatter();
             MapInitializer.Initialize();
-            SimpleInjectorConfig.Initialize();
             Database.SetInitializer<SmgAlumniContext>(null);
         }
 
