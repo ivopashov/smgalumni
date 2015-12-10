@@ -8,6 +8,7 @@ namespace SmgAlumni.EF.Models
         public ForumThread()
         {
             Answers = new List<ForumAnswer>();
+            Tags = new List<Tag>();
         }
 
         public int Id { get; set; }
@@ -19,5 +20,6 @@ namespace SmgAlumni.EF.Models
         public virtual User User { get; set; }
 
         public virtual List<ForumAnswer> Answers { get; set; }
+        public virtual List<Tag> Tags { get; set; }
     }
 }

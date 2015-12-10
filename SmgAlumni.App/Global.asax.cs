@@ -5,7 +5,9 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using SmgAlumni.App.App_Start;
+using SmgAlumni.App.Filters;
 using SmgAlumni.EF.DAL;
+using SmgAlumni.Utils;
 using SmgAlumni.Utils.Mapping;
 
 namespace SmgAlumni.App
@@ -23,6 +25,11 @@ namespace SmgAlumni.App
             MapInitializer.Initialize();
             SimpleInjectorConfig.Initialize();
             Database.SetInitializer<SmgAlumniContext>(null);
+        }
+
+        public static void RegisterActionFilters(System.Web.Http.Filters.HttpFilterCollection filters)
+        {
+            filters.Add(new UnhandledApiExceptionAttribute(SimpleInjectorConfig.Container.GetInstance<ILogger>()));
         }
     }
 }

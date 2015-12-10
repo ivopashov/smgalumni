@@ -112,6 +112,19 @@ namespace SmgAlumni.EF.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
+                "dbo.Tag",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        CreatedBy = c.String(),
+                        ForumThread_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.ForumThread", t => t.ForumThread_Id)
+                .Index(t => t.ForumThread_Id);
+            
+            CreateTable(
                 "dbo.Listing",
                 c => new
                     {
@@ -184,7 +197,7 @@ namespace SmgAlumni.EF.Migrations
                 .Index(t => t.User_Id);
             
             CreateTable(
-                "dbo.UnsentNotifications",
+                "dbo.Notification",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -219,6 +232,7 @@ namespace SmgAlumni.EF.Migrations
             DropForeignKey("dbo.Listing", "User_Id", "dbo.User");
             DropForeignKey("dbo.ForumAnswer", "UserId", "dbo.User");
             DropForeignKey("dbo.ForumThread", "UserId", "dbo.User");
+            DropForeignKey("dbo.Tag", "ForumThread_Id", "dbo.ForumThread");
             DropForeignKey("dbo.ForumAnswer", "ForumThreadId", "dbo.ForumThread");
             DropForeignKey("dbo.ForumComment", "UserId", "dbo.User");
             DropForeignKey("dbo.ForumComment", "ForumAnswerId", "dbo.ForumAnswer");
@@ -229,6 +243,7 @@ namespace SmgAlumni.EF.Migrations
             DropIndex("dbo.NewsLetterCandidate", new[] { "CreatedBy_Id" });
             DropIndex("dbo.News", new[] { "User_Id" });
             DropIndex("dbo.Listing", new[] { "User_Id" });
+            DropIndex("dbo.Tag", new[] { "ForumThread_Id" });
             DropIndex("dbo.ForumThread", new[] { "UserId" });
             DropIndex("dbo.ForumComment", new[] { "ForumAnswerId" });
             DropIndex("dbo.ForumComment", new[] { "UserId" });
@@ -237,12 +252,13 @@ namespace SmgAlumni.EF.Migrations
             DropIndex("dbo.Cause", new[] { "User_Id" });
             DropIndex("dbo.Activity", new[] { "User_Id" });
             DropTable("dbo.Setting");
-            DropTable("dbo.UnsentNotifications");
+            DropTable("dbo.Notification");
             DropTable("dbo.Role");
             DropTable("dbo.PasswordReset");
             DropTable("dbo.NewsLetterCandidate");
             DropTable("dbo.News");
             DropTable("dbo.Listing");
+            DropTable("dbo.Tag");
             DropTable("dbo.ForumThread");
             DropTable("dbo.ForumComment");
             DropTable("dbo.ForumAnswer");

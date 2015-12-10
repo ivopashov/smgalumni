@@ -30,11 +30,11 @@ D:\Repos\smgalumni\SmgAlumni.EF\bin\Debug\EntityFramework.SqlServer.dll
 D:\Repos\smgalumni\SmgAlumni.EF\bin\Debug\EntityFramework.xml
 D:\Repos\smgalumni\SmgAlumni.EF\bin\Debug\EntityFramework.SqlServer.xml
 D:\Repos\smgalumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csprojResolveAssemblyReference.cache
-D:\Repos\smgalumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.Migrations.InitialCreate.resources
-D:\Repos\smgalumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csproj.GenerateResource.Cache
 D:\Repos\smgalumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.dll
 D:\Repos\smgalumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.pdb
 D:\Repos\smgalumni\SmgAlumni.EF\bin\Debug\AutoMapper.dll
 D:\Repos\smgalumni\SmgAlumni.EF\bin\Debug\AutoMapper.xml
 X:\Repos\smgalumni1\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.Migrations.InitialCreate.resources
 X:\Repos\smgalumni1\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csproj.GenerateResource.Cache
+D:\Repos\smgalumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.Migrations.InitialCreate.resources
+D:\Repos\smgalumni\SmgAlumni.EF\obj\Debug\SmgAlumni.EF.csproj.GenerateResource.Cache
