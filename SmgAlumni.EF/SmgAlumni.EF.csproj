@@ -53,12 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\SmgAlumniContext.cs" />
-    <Compile Include="Migrations\201512100828559_InitialCreate.cs" />
-    <Compile Include="Migrations\201512100828559_InitialCreate.Designer.cs">
-      <DependentUpon>201512100828559_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\Cause.cs" />
     <Compile Include="Models\enums\NewsLetterItemType.cs" />
     <Compile Include="Models\ForumComment.cs" />
@@ -84,11 +81,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512100828559_InitialCreate.resx">
-      <DependentUpon>201512100828559_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

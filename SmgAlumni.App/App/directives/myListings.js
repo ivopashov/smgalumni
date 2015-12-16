@@ -4,7 +4,7 @@
 
         $scope.params = {};
         $scope.items = [];
-        $scope.kind = "news";
+        $scope.kind = "myListings";
         $scope.currentSelectedPage = { number: -1 };
 
 

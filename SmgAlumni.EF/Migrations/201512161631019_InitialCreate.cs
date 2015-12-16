@@ -140,6 +140,22 @@ namespace SmgAlumni.EF.Migrations
                 .Index(t => t.User_Id);
             
             CreateTable(
+                "dbo.Attachment",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Size = c.Int(nullable: false),
+                        Description = c.String(),
+                        CreatedOn = c.DateTimeOffset(nullable: false, precision: 7),
+                        Data = c.Binary(),
+                        Listing_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Listing", t => t.Listing_Id)
+                .Index(t => t.Listing_Id);
+            
+            CreateTable(
                 "dbo.News",
                 c => new
                     {
@@ -230,6 +246,7 @@ namespace SmgAlumni.EF.Migrations
             DropForeignKey("dbo.NewsLetterCandidate", "CreatedBy_Id", "dbo.User");
             DropForeignKey("dbo.News", "User_Id", "dbo.User");
             DropForeignKey("dbo.Listing", "User_Id", "dbo.User");
+            DropForeignKey("dbo.Attachment", "Listing_Id", "dbo.Listing");
             DropForeignKey("dbo.ForumAnswer", "UserId", "dbo.User");
             DropForeignKey("dbo.ForumThread", "UserId", "dbo.User");
             DropForeignKey("dbo.Tag", "ForumThread_Id", "dbo.ForumThread");
@@ -242,6 +259,7 @@ namespace SmgAlumni.EF.Migrations
             DropIndex("dbo.PasswordReset", new[] { "User_Id" });
             DropIndex("dbo.NewsLetterCandidate", new[] { "CreatedBy_Id" });
             DropIndex("dbo.News", new[] { "User_Id" });
+            DropIndex("dbo.Attachment", new[] { "Listing_Id" });
             DropIndex("dbo.Listing", new[] { "User_Id" });
             DropIndex("dbo.Tag", new[] { "ForumThread_Id" });
             DropIndex("dbo.ForumThread", new[] { "UserId" });
@@ -257,6 +275,7 @@ namespace SmgAlumni.EF.Migrations
             DropTable("dbo.PasswordReset");
             DropTable("dbo.NewsLetterCandidate");
             DropTable("dbo.News");
+            DropTable("dbo.Attachment");
             DropTable("dbo.Listing");
             DropTable("dbo.Tag");
             DropTable("dbo.ForumThread");

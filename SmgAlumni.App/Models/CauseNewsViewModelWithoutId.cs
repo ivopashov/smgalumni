@@ -1,4 +1,6 @@
-﻿namespace SmgAlumni.App.Models
+﻿using System.Collections.Generic;
+
+namespace SmgAlumni.App.Models
 {
     public class CauseNewsViewModelWithoutId
     {

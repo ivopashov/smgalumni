@@ -7,6 +7,7 @@ app.controller('userForumController',
             $scope.params = {};
             $scope.items = [];
             $scope.currentSelectedPage = { number: -1 };
+            $scope.kind = 'forumThread';
 
             $scope.init = function () {
                 forumThreadService.count().then(function(success) {

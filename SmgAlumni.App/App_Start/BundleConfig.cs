@@ -25,7 +25,8 @@ namespace SmgAlumni.App
                      "~/Scripts/ng-table.js",
                      "~/Scripts/spin.js",
                      "~/Scripts/angular-loading.js",
-                     "~/Scripts/ng-ckeditor.js"));
+                     "~/Scripts/ng-ckeditor.js",
+                     "~/Scripts/ng-tags-input.js"));
 
 
             bundles.Add(
@@ -49,7 +50,8 @@ namespace SmgAlumni.App
                     "~/Content/ngDialog-theme-default.css",
                     "~/Content/ng-ckeditor.css",
                     "~/Content/ng-table.css",
-                    "~/Content/menustyles.css"
+                    "~/Content/menustyles.css",
+                    "~/Content/ng-tags-input.css"
                     ));
 
 

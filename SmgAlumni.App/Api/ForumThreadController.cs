@@ -1,12 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using NLog;
-using SmgAlumni.App.Logging;
 using SmgAlumni.App.Models;
+using SmgAlumni.Data.Interfaces;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
-using SmgAlumni.Data.Interfaces;
 using SmgAlumni.Utils;
 
 namespace SmgAlumni.App.Api
@@ -24,13 +23,14 @@ namespace SmgAlumni.App.Api
 
         [HttpPost]
         [Route("api/forumthread/create")]
-        public IHttpActionResult Create(CauseNewsViewModelWithoutId vm)
+        public IHttpActionResult Create(ForumThreadViewModel vm)
         {
 
             var ft = new ForumThread()
             {
                 Body = vm.Body,
                 Heading = vm.Heading,
+                Tags = AutoMapper.Mapper.Map<List<Tag>>(vm.Tags),
                 CreatedOn = DateTime.Now,
             };
 
