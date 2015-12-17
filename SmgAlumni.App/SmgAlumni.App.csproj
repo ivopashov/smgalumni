@@ -347,6 +347,7 @@
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\anonymoususer.png" />
     <Content Include="Content\images\background-patterns\brickwall.png" />
     <Content Include="Content\images\favicon.ico" />
     <Content Include="Content\images\paisii.jpg" />

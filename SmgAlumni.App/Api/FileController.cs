@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web;
 
 namespace SmgAlumni.App.Api
 {
@@ -21,8 +22,8 @@ namespace SmgAlumni.App.Api
         {
         }
 
-        [HttpPost, Route("api/file/upload")]
-        public async Task<IHttpActionResult> Upload()
+        [HttpPost, Route("api/file/avatar")]
+        public async Task<IHttpActionResult> Avatar()
         {
             if (!Request.Content.IsMimeMultipartContent())
                 return BadRequest("Невалиден опит да се качи снимка");
@@ -35,7 +36,11 @@ namespace SmgAlumni.App.Api
                 var filename = file.Headers.ContentDisposition.FileName.Trim('\"');
                 var buffer = await file.ReadAsByteArrayAsync();
                 var user = _userRepository.UsersByUserName(User.Identity.Name).SingleOrDefault();
-                if (user == null) return BadRequest("Възникна грешка - моля опитайте отново");
+                if (user == null)
+                {
+                    return BadRequest("Възникна грешка - моля опитайте отново");
+                }
+
                 user.AvatarImage = ResizeImage(buffer);
                 try
                 {
@@ -53,8 +58,8 @@ namespace SmgAlumni.App.Api
         }
 
         [AllowAnonymous]
-        [HttpGet, Route("api/file/download")]
-        public HttpResponseMessage DownloadFile([FromUri]string username)
+        [HttpGet, Route("api/file/avatar")]
+        public HttpResponseMessage Avatar([FromUri]string username)
         {
             var user = _userRepository.UsersByUserName(username).SingleOrDefault();
             if (user == null)
@@ -63,12 +68,28 @@ namespace SmgAlumni.App.Api
                 return badresponse;
             }
 
-            var ms = new MemoryStream(user.AvatarImage);
+            MemoryStream ms;
+
+            if (user.AvatarImage == null)
+            {
+                ms = new MemoryStream(File.ReadAllBytes(HttpContext.Current.Server.MapPath("~/Content/images/anonymoususer.png")));
+            }
+            else
+            {
+                ms = new MemoryStream(user.AvatarImage);
+            }
+
             ms.Position = 0;
             var response = new HttpResponseMessage(HttpStatusCode.OK);
             response.Content = new StreamContent(ms);
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
             response.Content.Headers.ContentLength = ms.Length;
+            response.Headers.CacheControl = new CacheControlHeaderValue()
+            {
+                Public = false,
+                NoStore = true,
+                
+            };
             return response;
         }
 

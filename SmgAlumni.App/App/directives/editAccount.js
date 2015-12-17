@@ -6,6 +6,9 @@
             $scope.divisions = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М'];
             accountService.getUserAccount().then(function (success) {
                 $scope.user = success.data;
+                var img = angular.element('<img src="api/file/avatar?username=' + $scope.user.userName + '" />');
+                var holder = $('.manageAccountAvatarHolder');
+                holder.append(img);
             }, function (errorMsg) {
                 commonService.notification.error(errorMsg.data.message);
             });
@@ -26,7 +29,6 @@
             $scope.image = {};
 
             $scope.upload = function (file) {
-                $scope.fileUploaded = false;
                 $scope.image = file[0];
 
                 if (!file || file.length == 0) {
@@ -36,12 +38,12 @@
                     commonService.notification.error('Файлът не е снимка');
                 }
                 $upload.upload({
-                    url: 'api/file/upload',
+                    url: 'api/file/avatar',
                     fields: { 'username': $scope.username },
                     file: file
                 }).success(function (data, status, headers, config) {
                     commonService.notification.success('Файлът е качен успешно.');
-                    $scope.fileUploaded = true;
+                    $('.manageAccountAvatarHolder img').attr('src', 'api/file/avatar?username=' + $scope.user.userName + '#' + new Date().getTime());
                 });
             }
 
