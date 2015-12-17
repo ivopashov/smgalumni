@@ -30,7 +30,7 @@ app.controller('userForumThreadController',
             $scope.initAnswers();
 
             $scope.$watch('currentSelectedPage.number', function (val) {
-                if (val == 0) $scope.items = [];
+                if (val === 0) $scope.items = [];
                 if (val > 0) $scope.retrieveItems(val);
             });
 
@@ -62,7 +62,7 @@ app.controller('userForumThreadController',
                     }
                 }
 
-                if (action == 'increase') {
+                if (action === 'increase') {
                     forumAnswerService.modifyLikes(answer.id, 1).then(function(success) {
                         temp.push(answer.id);
                         sessionStorage.votes = JSON.stringify(temp);
@@ -70,7 +70,7 @@ app.controller('userForumThreadController',
                         answer.likes++;
                     });
                 }
-                if (action == 'decrease') {
+                if (action === 'decrease') {
                     forumAnswerService.modifyLikes(answer.id, -1).then(function(success) {
                         temp.push(answer.id);
                         sessionStorage.votes = JSON.stringify(temp);

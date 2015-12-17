@@ -170,9 +170,17 @@ input.small-input {
     border: 1px solid #e3e3e3;
     border-radius: 5px;
     position: relative;
-    margin: 10px;
+    margin-bottom:10px;
 }
 
+    .forumThreadHolder table {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+#createdByRow {
+    width: 100%;
+}
 
 .forumAnswerHolder {
     position: relative;
@@ -185,14 +193,32 @@ input.small-input {
     font-size: small;
     bottom: 0;
     right: 0;
-    margin: 12px;
     float: right;
+    background: #e1ecf4;
+    padding:5px;
 }
 
 .forumThreadBody {
     -ms-word-break: break-all;
     word-break: break-all;
 }
+
+.forumThreadHolder .tags-holder {
+    padding: 0;
+}
+
+    .forumThreadHolder .tags-holder li {
+        list-style: none;
+        display: inline-block;
+        color: #39739d;
+        font-size: 12px;
+        white-space: nowrap;
+        background: #e1ecf4;
+        border: 1px solid #e1ecf4;
+        margin: 4px;
+        border-radius: 2px;
+        padding: 0 4px;
+    }
 
 .votecell {
     padding-right: 20px;
@@ -234,4 +260,33 @@ h2 {
         position: absolute;
         top: 50%;
         margin-left: 1rem;
+    }
+
+    .forumCommentHolder .createdOnBy{
+        font-size:10px;
+        padding:2px;
+    }
+
+    .forumCommentHolder p{
+        margin:0;
+    }
+
+    #addComment{
+        margin-left:10px;
+    }
+
+    #addComment:hover{
+        color:blue;
+    }
+
+    #addAnswer{
+        margin-left:10px;
+    }
+
+    #addAnswer:hover{
+        color:blue;
+    }
+
+    .forumThreadBody p, .forumAnswerBody p {
+        margin:0;
     }

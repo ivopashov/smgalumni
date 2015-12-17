@@ -1,9 +1,4 @@
-﻿<h2>Тема</h2>
-<ol class="breadcrumb">
-    <li><a href="#" ng-click="gotoForum()">Обратно във Форум</a></li>
-    <li><a href="#" ng-click="createAnswer()">Отговор</a></li>
-</ol>
-
+﻿<!--<h2>Тема</h2>-->
 <div class="forumThreadHolder col-sm-12">
     <table>
         <tr>
@@ -21,6 +16,15 @@
             </td>
         </tr>
         <tr>
+            <td>
+                <ul class="tags-holder">
+                    <li ng-repeat="tag in forumThread.tags">
+                        {{tag.name}}
+                    </li>
+                </ul>
+            </td>
+        </tr>
+        <tr id="createdByRow">
             <td class="createdByOn pull-right">
                 <div class="createdBy">
                     {{forumThread.createdBy}}
@@ -33,84 +37,80 @@
     </table>
 </div>
 
-<div ng-repeat="answer in items" class="forumAnswerHolder col-sm-12">
-    <hr />
-    <table class="col-sm-12">
-        <tr ng-if="answer.canEdit">
-            <td colspan="2">
-                <div class="pull-right">
-                    <span class="glyphicon glyphicon-pencil" style="margin-right:7px" ng-click="editAnswer(answer)"></span>
-                    <span class="glyphicon glyphicon-remove" ng-click="deleteAnswer(answer)"></span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td class="votecell">
-                <span class="glyphicon glyphicon-chevron-up" ng-click="modifyLikes('increase',answer)"></span>
-                <span id="likes" ng-bind="answer.likes"></span>
-                <span class="glyphicon glyphicon-chevron-down" ng-click="modifyLikes('decrease',answer)"></span>
-            </td>
-            <td>
-                <table>
-                    <tr class="col-sm-12">
-                        <td>
-                            <div ng-bind-html="answer.body"></div>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div class="createdByOn pull-right">
-                    <div class="createdBy">
-                        {{answer.createdBy}}
-                    </div>
-                    <div class="createdOn">
-                        {{answer.createdOn | date : 'dd/MM/yyyy @ HH:mm'}}
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <div ng-if="answer.comments.length>0"><strong><u>Коментари</u></strong></div>
-
-    <div ng-repeat="comment in answer.comments" class="forumCommentHolder col-sm-12" >
+<div class="forumAnswerHolder col-sm-12">
+    <div id="addAnswerHolder" ng-if="items.length>0">
+        <strong><u>Отговори</u></strong>
+        <i id="addAnswer" class="glyphicon glyphicon-plus" ng-click="createAnswer()" tooltip-placement="bottom" tooltip-trigger="mouseenter" uib-tooltip="Добави Коментар"></i>
+    </div>
+    <div ng-repeat="answer in items">
         <hr />
         <table class="col-sm-12">
-            <tr ng-if="comment.canEdit">
-                <td>
+            <tr ng-if="answer.canEdit">
+                <td colspan="2">
                     <div class="pull-right">
-                        <span class="glyphicon glyphicon-pencil" style="margin-right:7px" ng-click="editComment(comment)"></span>
-                        <span class="glyphicon glyphicon-remove" ng-click="deleteComment(comment, answer.id)"></span>
+                        <span class="glyphicon glyphicon-pencil" style="margin-right:7px" ng-click="editAnswer(answer)"></span>
+                        <span class="glyphicon glyphicon-remove" ng-click="deleteAnswer(answer)"></span>
                     </div>
                 </td>
             </tr>
             <tr>
+                <td class="votecell">
+                    <span class="glyphicon glyphicon-chevron-up" ng-click="modifyLikes('increase',answer)"></span>
+                    <span id="likes" ng-bind="answer.likes"></span>
+                    <span class="glyphicon glyphicon-chevron-down" ng-click="modifyLikes('decrease',answer)"></span>
+                </td>
                 <td>
-                    <div ng-bind-html="comment.body"></div>
+                    <table>
+                        <tr class="col-sm-12">
+                            <td class="forumAnswerBody">
+                                <div ng-bind-html="answer.body"></div>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                     <div class="createdByOn pull-right">
                         <div class="createdBy">
-                            {{comment.createdBy}}
+                            {{answer.createdBy}}
                         </div>
                         <div class="createdOn">
-                            {{comment.createdOn | date : 'dd/MM/yyyy @ HH:mm'}}
+                            {{answer.createdOn | date : 'dd/MM/yyyy @ HH:mm'}}
                         </div>
                     </div>
                 </td>
             </tr>
         </table>
-    </div>
-    <div>
-        <a href="#" ng-click="createComment(answer)">
-            Добави коментар
-        </a>
+        <div ng-if="answer.comments.length>0">
+            <strong><u>Коментари</u></strong>
+            <i id="addComment" class="glyphicon glyphicon-plus" ng-click="createComment(answer)" tooltip-placement="bottom" tooltip-trigger="mouseenter" uib-tooltip="Добави Коментар"></i>
+        </div>
+
+        <div ng-repeat="comment in answer.comments" class="forumCommentHolder col-sm-12">
+            <hr />
+            <table class="col-sm-12">
+                <tr ng-if="comment.canEdit">
+                    <td>
+                        <div class="pull-right">
+                            <span class="glyphicon glyphicon-pencil" style="margin-right:7px" ng-click="editComment(comment)"></span>
+                            <span class="glyphicon glyphicon-remove" ng-click="deleteComment(comment, answer.id)"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span ng-bind-html="comment.body"></span>
+                        <div class="createdOnBy">
+                            <span>{{comment.createdBy}} {{comment.createdOn | date : 'dd/MM/yyyy @ HH:mm'}}</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
+
 
 <div ng-if="totalCount > 0"
      custom-pager kind="kind"

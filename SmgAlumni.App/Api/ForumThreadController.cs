@@ -53,9 +53,12 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult GetById([FromUri] int id)
         {
             var ft = _forumThreadRepository.GetById(id);
-            if (ft == null) return BadRequest("Темата не можа да бъде намерена");
+            if (ft == null) 
+            { 
+                return BadRequest("Темата не можа да бъде намерена"); 
+            }
 
-            return Ok(new { Body = ft.Body, Id = ft.Id, Heading = ft.Heading, CreatedOn = ft.CreatedOn, CreatedBy = ft.User.UserName });
+            return Ok(new { Body = ft.Body, Id = ft.Id, Heading = ft.Heading, CreatedOn = ft.CreatedOn, CreatedBy = ft.User.UserName, Tags = ft.Tags });
         }
 
         [HttpGet]
@@ -83,7 +86,7 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
         {
             var news = _forumThreadRepository.Page(skip, take)
-                .Select(a => new { Heading = a.Heading, DateCreated = a.CreatedOn, Id = a.Id, CreatedBy = a.User.UserName, NumberOfAnswers = a.Answers.Count }).ToList();
+                .Select(a => new { Heading = a.Heading, DateCreated = a.CreatedOn, Id = a.Id, CreatedBy = a.User.UserName, NumberOfAnswers = a.Answers.Count}).ToList();
             return Ok(news);
         }
 
