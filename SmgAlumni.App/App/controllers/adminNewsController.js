@@ -29,14 +29,14 @@ app.controller('adminNewsController',
                         templateUrl: '/App/templates/dialog/editCauseNews.html',
                         scope: $scope
                     }).then(function (success) {
-                        newsCauseListingService.update($scope.selectedItem, $scope.kind).then(function(success) {
+                        newsCauseListingService.update($scope.selectedItem, $scope.kind).then(function (success) {
                             commonService.notification.success("Успешно обновихте новината");
-                            var temp = $scope.items.filter(function(x) { return x.id == $scope.selectedItem.id })[0];
+                            var temp = $scope.items.filter(function (x) { return x.id == $scope.selectedItem.id })[0];
                             var tempIndex = $scope.items.indexOf(temp);
                             $scope.items[tempIndex].heading = $scope.selectedItem.heading;
                             $scope.items[tempIndex].body = $scope.selectedItem.body;
                             $scope.selectedItem = {};
-                        }, function(err) {
+                        }, function (err) {
                             commonService.notification.error(err.data.message);
                         });
                     });
@@ -51,11 +51,11 @@ app.controller('adminNewsController',
                     templateUrl: '/App/templates/dialog/editCauseNews.html',
                     scope: $scope
                 }).then(function (success) {
-                    newsCauseListingService.addNew($scope.selectedItem, $scope.kind).then(function(success) {
+                    newsCauseListingService.addNew($scope.selectedItem, $scope.kind).then(function (success) {
                         commonService.notification.success("Успешно добавихте новината");
                         $scope.selectedItem = {};
-                        $scope.init();
-                    }, function(err) {
+                        $scope.getCurrentPageItems();
+                    }, function (err) {
                         commonService.notification.error(err.data.message);
                     });
                 });
@@ -65,11 +65,11 @@ app.controller('adminNewsController',
                 commonService.ngDialog.openConfirm({
                     templateUrl: '/App/templates/dialog/confirmDeleteDialog.html',
                     scope: $scope
-                }).then(function(success) {
-                    newsCauseListingService.deleteItem($scope.kind, item).then(function() {
+                }).then(function (success) {
+                    newsCauseListingService.deleteItem($scope.kind, item).then(function () {
                         commonService.notification.success("Новината беше изтрита успешно");
-                        $scope.init();
-                    }, function(error) {
+                        $scope.getCurrentPageItems();
+                    }, function (error) {
                         commonService.notification.error(error.data.message);
                     });
                 });
@@ -77,16 +77,24 @@ app.controller('adminNewsController',
 
             $scope.retrieveItems = function (pageNumber) {
                 var skip = (pageNumber - 1) * $scope.params.itemsPerPage;
-                newsCauseListingService.skipAndTake($scope.kind,skip, $scope.params.itemsPerPage).then(function (success) {
+                newsCauseListingService.skipAndTake($scope.kind, skip, $scope.params.itemsPerPage).then(function (success) {
                     $scope.items = success.data;
                 }, function (error) {
                     commonService.notification.error('Новините не можаха да бъдат заредени');
                 })
             }
 
+            $scope.getCurrentPageItems = function () {
+                $scope.retrieveItems($scope.currentSelectedPage.number);
+            }
+
             $scope.$watch('currentSelectedPage.dateChange', function () {
-                if ($scope.currentSelectedPage.number == 0) $scope.items = [];
-                if ($scope.currentSelectedPage.number > 0) $scope.retrieveItems($scope.currentSelectedPage.number);
+                if ($scope.currentSelectedPage.number == 0) {
+                    $scope.items = [];
+                };
+                if ($scope.currentSelectedPage.number > 0) {
+                    $scope.retrieveItems($scope.currentSelectedPage.number);
+                };
             });
 
             $scope.selectItem = function (item) {

@@ -54,7 +54,7 @@ app.controller('adminCausesController',
                     newsCauseListingService.addNew($scope.selectedItem, $scope.kind).then(function (success) {
                         commonService.notification.success("Успешно добавихте каузата");
                         $scope.selectedItem = {};
-                        $scope.init();
+                        $scope.getCurrentPageItems();
                     }, function (err) {
                         commonService.notification.error(err.data.message);
                     });
@@ -68,11 +68,15 @@ app.controller('adminCausesController',
                 }).then(function (success) {
                     newsCauseListingService.deleteItem($scope.kind, item).then(function () {
                         commonService.notification.success("Каузата беше изтрита успешно");
-                        $scope.init();
+                        $scope.getCurrentPageItems();
                     }, function (error) {
                         commonService.notification.error(error.data.message);
                     });
                 });
+            }
+
+            $scope.getCurrentPageItems = function () {
+                $scope.retrieveItems($scope.currentSelectedPage.number);
             }
 
             $scope.retrieveItems = function (pageNumber) {
@@ -83,5 +87,14 @@ app.controller('adminCausesController',
                     commonService.notification.error('Каузите не можаха да бъдат заредени');
                 })
             }
+
+            $scope.$watch('currentSelectedPage.dateChange', function () {
+                if ($scope.currentSelectedPage.number == 0) {
+                    $scope.items = [];
+                };
+                if ($scope.currentSelectedPage.number > 0) {
+                    $scope.retrieveItems($scope.currentSelectedPage.number);
+                };
+            });
 
         }]);
