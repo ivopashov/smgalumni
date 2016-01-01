@@ -12,14 +12,68 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web;
+using SmgAlumni.EF.Models;
+using System.Collections.Generic;
 
 namespace SmgAlumni.App.Api
 {
     public class FileController : BaseApiController
     {
-        public FileController(ILogger logger, IUserRepository userRepository)
+        private readonly IAttachmentRepository _attachmentRepsoitory;
+
+        public FileController(ILogger logger, IUserRepository userRepository, IAttachmentRepository attachmentRepository)
             : base(logger, userRepository)
         {
+            _attachmentRepsoitory = attachmentRepository;
+        }
+
+        [HttpPost, Route("api/attachment")]
+        public async Task<IHttpActionResult> Attachment()
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                return BadRequest("Невалиден опит да се качи файл");
+            }
+
+            var provider = new MultipartMemoryStreamProvider();
+            await Request.Content.ReadAsMultipartAsync(provider);
+            List<object> files = new List<object>();
+
+            foreach (var file in provider.Contents)
+            {
+                var filename = file.Headers.ContentDisposition.FileName.Trim('\"');
+                var buffer = await file.ReadAsByteArrayAsync();
+
+                if (buffer.Length > 2100000)
+                {
+                    return BadRequest("Файлът не може да е по-голям от 2 МБ");
+                }
+
+                var user = _userRepository.UsersByUserName(User.Identity.Name).SingleOrDefault();
+                var tempkey = Guid.NewGuid();
+
+                var attachment = new Attachment()
+                {
+                    TempKey = tempkey,
+                    CreatedOn = DateTime.Now,
+                    Name = filename,
+                    Data = buffer,
+                    Size = buffer.Length
+                };
+
+                try
+                {
+                    _attachmentRepsoitory.Add(attachment);
+                    files.Add(new { tempkey, filename});
+                }
+                catch (Exception e)
+                {
+                    _logger.Error(e.Message);
+                    return BadRequest("Възникна грешка - моля опитайте отново");
+                }
+            }
+
+            return Ok(files);
         }
 
         [HttpPost, Route("api/file/avatar")]
@@ -88,7 +142,7 @@ namespace SmgAlumni.App.Api
             {
                 Public = false,
                 NoStore = true,
-                
+
             };
             return response;
         }

@@ -7,18 +7,20 @@ using SmgAlumni.Utils.DomainEvents.Models;
 using System;
 using System.Linq;
 using System.Web.Http;
+using System.Collections.Generic;
 
 namespace SmgAlumni.App.Api
 {
     public class ListingController : BaseApiController
     {
         private readonly IListingRepository _listingRepository;
+        private readonly IAttachmentRepository _attachmentRepository;
 
-        public ListingController(IListingRepository listingRepository, IUserRepository userRepository, ILogger logger)
+        public ListingController(IAttachmentRepository attachmentRepository, IListingRepository listingRepository, IUserRepository userRepository, ILogger logger)
             : base(logger, userRepository)
         {
             _listingRepository = listingRepository;
-            VerifyNotNull(_listingRepository);
+            _attachmentRepository = attachmentRepository;
         }
 
         [HttpPost]
@@ -32,6 +34,7 @@ namespace SmgAlumni.App.Api
                 Heading = vm.Heading,
                 DateCreated = DateTime.Now,
                 Enabled = true,
+                Attachments = GetAttachments(vm.TempKeys)
             };
 
             try
@@ -46,6 +49,21 @@ namespace SmgAlumni.App.Api
                 _logger.Error(e.Message);
                 return BadRequest("Обявата не можа да бъде създадена");
             }
+        }
+
+        private List<Attachment> GetAttachments(List<Guid> tempKeys)
+        {
+            List<Attachment> attachments = new List<Attachment>();
+            foreach (var item in tempKeys)
+            {
+                var result = _attachmentRepository.FindByTempKey(item);
+                if (result != null)
+                {
+                    attachments.Add(result);
+                }
+            }
+
+            return attachments;
         }
 
         [AllowAnonymous]

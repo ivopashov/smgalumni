@@ -6,9 +6,11 @@ namespace SmgAlumni.EF.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public Guid? TempKey { get; set; }
         public int Size { get; set; }
         public string Description { get; set; }
         public DateTimeOffset CreatedOn { get; set; }
         public byte[] Data { get; set; }
+        public virtual Listing Listing{ get; set; }
     }
 }

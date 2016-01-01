@@ -44,7 +44,7 @@ namespace SmgAlumni.Data.Repositories
             var oldEntity = GetById(entity.Id);
             if (oldEntity == null)
             {
-                throw new Exception("Could not find searched for object of type" + typeof(Activity) + " with id " + entity.Id);
+                throw new Exception("Could not find searched for object of type" + typeof(Cause) + " with id " + entity.Id);
             }
 
             _context.Entry(oldEntity).CurrentValues.SetValues(entity);

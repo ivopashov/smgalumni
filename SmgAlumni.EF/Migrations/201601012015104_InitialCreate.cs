@@ -145,6 +145,7 @@ namespace SmgAlumni.EF.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
+                        TempKey = c.Guid(),
                         Size = c.Int(nullable: false),
                         Description = c.String(),
                         CreatedOn = c.DateTimeOffset(nullable: false, precision: 7),

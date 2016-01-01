@@ -1,12 +1,13 @@
-﻿app.directive('myListings', ['newsCauseListingService', 'commonService', 'ngDialog', function (newsCauseListingService, commonService, ngDialog) {
+﻿app.directive('myListings', ['newsCauseListingService', 'commonService', 'ngDialog', '$upload', function (newsCauseListingService, commonService, ngDialog, $upload) {
 
-    var myListingsController = function ($scope, newsCauseListingService, commonService) {
+    var myListingsController = function ($scope, newsCauseListingService, commonService, $upload) {
 
         $scope.params = {};
         $scope.items = [];
         $scope.kind = "myListings";
         $scope.currentSelectedPage = { number: -1 };
-
+        $scope.attachment = {};
+        $scope.uploads = [];
 
         $scope.init = function () {
             newsCauseListingService.myListingsCount().then(function (success) {
@@ -40,9 +41,11 @@
                 templateUrl: '/App/templates/dialog/editCauseNews.html',
                 scope: $scope
             }).then(function (success) {
+                $scope.selectedItem.tempKeys = _.map($scope.uploads,function(x){return x.tempkey});
                 newsCauseListingService.addNew($scope.selectedItem, 'listing').then(function (success) {
                     commonService.notification.success("Успешно добавихте обявата");
                     $scope.selectedItem = {};
+                    $scope.tempKeys = [];
                     $scope.init();
                 }, function (err) {
                     commonService.notification.error(err.data.message);
@@ -99,6 +102,19 @@
                     commonService.notification.error(error.data.message);
                 });
             });
+        };
+
+        $scope.upload = function (file) {
+            if (!file || file.length == 0) {
+                return;
+            }
+
+            $upload.upload({
+                url: 'api/attachment',
+                file: file
+            }).success(function (data, status, headers, config) {
+                $scope.uploads = $scope.uploads.concat(data);
+            });
         }
 
     }
@@ -107,6 +123,6 @@
         restrict: 'AE',
         templateUrl: '/App/templates/directives/myListings.html',
         scope: {},
-        controller: ['$scope', 'newsCauseListingService', 'commonService', myListingsController]
+        controller: ['$scope', 'newsCauseListingService', 'commonService', '$upload', myListingsController]
     }
 }]);

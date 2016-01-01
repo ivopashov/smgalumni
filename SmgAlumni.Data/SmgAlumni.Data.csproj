@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IActivityRepository.cs" />
+    <Compile Include="Interfaces\IAttachmentRepository.cs" />
     <Compile Include="Interfaces\ICauseRepository.cs" />
     <Compile Include="Interfaces\IForumAnswerRepository.cs" />
     <Compile Include="Interfaces\IForumCommentsRepository.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ActivityRepository.cs" />
+    <Compile Include="Repositories\AttachmentRepository.cs" />
     <Compile Include="Repositories\CauseRepository.cs" />
     <Compile Include="Repositories\ForumCommentsRepository.cs" />
     <Compile Include="Repositories\ForumAnswerRepository.cs" />

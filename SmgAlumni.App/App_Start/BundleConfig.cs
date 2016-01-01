@@ -26,7 +26,8 @@ namespace SmgAlumni.App
                      "~/Scripts/spin.js",
                      "~/Scripts/angular-loading.js",
                      "~/Scripts/ng-ckeditor.js",
-                     "~/Scripts/ng-tags-input.js"));
+                     "~/Scripts/ng-tags-input.js",
+                     "~/Scripts/lodash.js"));
 
 
             bundles.Add(

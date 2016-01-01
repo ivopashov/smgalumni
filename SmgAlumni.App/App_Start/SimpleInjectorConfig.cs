@@ -57,6 +57,7 @@ namespace SmgAlumni.App.App_Start
             container.Register<IListingRepository, ListingRepository>();
             container.Register<INewsRepository, NewsRepository>();
             container.Register<IRoleRepository, RoleRepository>();
+            container.Register<IAttachmentRepository, AttachmentRepository>();
             container.Register<INewsLetterCandidateRepository, NewsLetterCandidateRepository>();
 
             container.Register<IUserService, UserService>();

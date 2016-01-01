@@ -25,7 +25,8 @@ namespace SmgAlumni.EF.DAL
         public virtual DbSet<ForumComment> ForumComments { get; set; }
         public virtual DbSet<NewsLetterCandidate> NewsLetterCandidates { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
-        
+        public virtual DbSet<Attachment> Attachments { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

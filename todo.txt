@@ -12,4 +12,8 @@ error pages
 
 tooltips - why they dont work? see forum thread - add new comment
 
+forbid some attachment types
+clean up attachments - do a job
+ui to edit listing's attachments and ui to remove them
+
 TEST
