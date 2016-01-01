@@ -164,13 +164,14 @@ $RECYCLE.BIN/
 *log.txt*
 
 # Ignore less generated css files
-Source/TeamPulse.Client.Host/Content/Kendo/kendo.common.css
-Source/TeamPulse.Client.Host/Content/teampulse.admin.css
-Source/TeamPulse.Client.Host/Content/teampulse.fonts.css
-Source/TeamPulse.Client.Host/Content/teampulse.mobile.css
-Source/TeamPulse.Client.Host/Content/teampulse.view.css
-Source/TeamPulse.Client.Host/Images/Charts/
-Source/TeamPulse.FeedbackPortal/LuceneIndex
+SmgAlumni.App/Content/main.css
+SmgAlumni.App/Content/main.min.css
+SmgAlumni.App/Content/menu.css
+SmgAlumni.App/Content/menu.min.css
+SmgAlumni.App/Content/common.css
+SmgAlumni.App/Content/common.min.css
+SmgAlumni.App/Content/variables.css
+SmgAlumni.App/Content/variables.min.css
 
 # Ignore Visual Studio Solution Source Control Files
 *.vssscc

@@ -369,7 +369,6 @@
     <Content Include="Content\menu.min.css">
       <DependentUpon>menu.css</DependentUpon>
     </Content>
-    <Content Include="Content\menustyles.css" />
     <Content Include="Content\ng-ckeditor.css" />
     <Content Include="Content\ng-table.css" />
     <Content Include="Content\ng-tags-input.bootstrap.css" />
@@ -380,7 +379,6 @@
     <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />
