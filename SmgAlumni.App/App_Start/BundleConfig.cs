@@ -42,7 +42,7 @@ namespace SmgAlumni.App
             bundles.Add(
                 new StyleBundle("~/bundles/css/site").Include(
                     "~/Content/bootstrap/bootstrap.css",
-                    "~/Content/Site.css",
+                    "~/Content/main.css",
                     "~/Content/toastr.css",
                     "~/Content/loading-bar.css",
                     "~/Content/ngDialog.css",
@@ -50,7 +50,6 @@ namespace SmgAlumni.App
                     "~/Content/ngDialog-theme-default.css",
                     "~/Content/ng-ckeditor.css",
                     "~/Content/ng-table.css",
-                    "~/Content/menustyles.css",
                     "~/Content/ng-tags-input.css"
                     ));
 

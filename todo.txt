@@ -12,6 +12,4 @@ error pages
 
 tooltips - why they dont work? see forum thread - add new comment
 
-admin panel - news (after save) and causes (at all) dont show up every time
-
 TEST

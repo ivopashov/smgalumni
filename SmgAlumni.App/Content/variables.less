@@ -1,0 +1,19 @@
+﻿@validation-error-color: #b94a48;
+@main-background-color: #fafafa;
+@input-max-width: 280px;
+@comment-alert-color:#f86872;
+@forum-tag-background-color:#e1ecf4;
+
+/*mixins*/
+.padding-left-right(@padding) {
+    padding-left: @padding;
+    padding-right: @padding;
+}
+
+.truncate (@maxwidth){
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    max-width: @maxwidth;
+}

@@ -357,6 +357,18 @@
     <Content Include="Content\images\smg_970px.jpg" />
     <Content Include="Content\loading-bar.css" />
     <Content Include="Content\loading-bar.min.css" />
+    <Content Include="Content\main.css">
+      <DependentUpon>main.less</DependentUpon>
+    </Content>
+    <Content Include="Content\main.min.css">
+      <DependentUpon>main.css</DependentUpon>
+    </Content>
+    <Content Include="Content\menu.css">
+      <DependentUpon>menu.less</DependentUpon>
+    </Content>
+    <Content Include="Content\menu.min.css">
+      <DependentUpon>menu.css</DependentUpon>
+    </Content>
     <Content Include="Content\menustyles.css" />
     <Content Include="Content\ng-ckeditor.css" />
     <Content Include="Content\ng-table.css" />
@@ -420,6 +432,15 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\documents\СМГ Алумни Мрежа Конституция Драфт.doc" />
+    <Content Include="Content\menu.less" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="Content\main.less" />
+    <Content Include="Content\variables.less" />
+    <Content Include="Content\common.less" />
+    <Content Include="Content\forum.less" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

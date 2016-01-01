@@ -13,12 +13,13 @@
         width: 100%;
         background-image: url('/Content/images/smg_970px.jpg');
         height: 180px;
-        -webkit-box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.4);
-        -ms-box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.4);
-        box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.4);
+        -webkit-box-shadow: 0 0 4px 2px rgba(0,0,0,0.4);
+        -ms-box-shadow: 0 0 4px 2px rgba(0,0,0,0.4);
+        box-shadow: 0 0 4px 2px rgba(0,0,0,0.4);
     }
-    .menu-nav-header > a > i{
-        font-size:medium;
+
+    .menu-nav-header > a > i {
+        font-size: medium;
     }
 }
 
@@ -41,8 +42,9 @@
         -ms-box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.4);
         box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.4);
     }
-    .menu-nav-header > a > i{
-        font-size:small;
+
+    .menu-nav-header > a > i {
+        font-size: small;
     }
 }
 
@@ -61,12 +63,13 @@
         width: 100%;
         background-image: url('/Content/images/smg_750px.jpg');
         height: 180px;
-        -webkit-box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.4);
-        -ms-box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.4);
-        box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.4);
+        -webkit-box-shadow: 0 0 4px 2px rgba(0,0,0,0.4);
+        -ms-box-shadow: 0 0 4px 2px rgba(0,0,0,0.4);
+        box-shadow: 0 0 4px 2px rgba(0,0,0,0.4);
     }
-    .menu-nav-header > a > i{
-        font-size:small;
+
+    .menu-nav-header > a > i {
+        font-size: small;
     }
 }
 
@@ -79,43 +82,47 @@
     .menu-items > li {
         display: block;
     }
-    .menu-nav-header > a > i{
-        font-size:medium;
+
+    .menu-nav-header > a > i {
+        font-size: medium;
     }
 }
 
-.menu {
-    width: 100%;
-    min-height: 40px;
-    background: -webkit-gradient(linear, center top, center bottom, from(#fff), to(#ccc));
-    background-image: linear-gradient(#fff, #ccc);
-    border: #e7e7e7 solid 1px;
-    margin-bottom: 5px;
-    display: table;
-    font-family: 'Book Antiqua', Palatino, 'Palatino Linotype', 'Palatino LT STD', Georgia, serif;
-    border-radius: 3px;
-    -webkit-box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.4);
-    -ms-box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.4);
-    box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.4);
+.account-menu {
+    list-style: none;
+    float: right;
+    padding-right: 10px;
+
+    > li {
+        display: inline-block;
+        cursor: pointer;
+
+        > a {
+            text-decoration: none;
+        }
+    }
 }
 
-.menu-holder {
-    display: table-cell;
-    vertical-align: middle;
-}
 
 .menu-items {
-    margin-bottom: 0px;
+    margin-bottom: 0;
     list-style: none;
-}
 
-    .menu-items > li {
+    > li {
         text-align: center;
         border-right: transparent solid 2px;
         border-bottom: transparent solid 2px;
+
+        > a:hover, > a:visited, > a:link, > a:active {
+            text-decoration: none;
+        }
+
+        > a:hover {
+            color: white;
+        }
     }
 
-    .menu-items li a {
+    li a {
         color: #777;
         padding-top: 10px;
         padding-bottom: 10px;
@@ -125,9 +132,7 @@
         margin-right: 10px;
     }
 
-
-
-    .menu-items > li:hover {
+    > li:hover {
         text-decoration: none;
         /*background-color: RGBA(178,34,34,1);*/
         background-color: RGBA(114,108,108,1);
@@ -145,26 +150,51 @@
         border-right: darkgrey solid 2px;
         border-bottom: darkgrey solid 2px;
     }
+}
 
-    .menu-items > li > a:hover, .menu-items > li > a:visited, .menu-items > li > a:active, .menu-items > li > a:link {
-        text-decoration: none;
-    }
+.menu {
+    width: 100%;
+    min-height: 40px;
+    background: -webkit-gradient(linear, center top, center bottom, from(#fff), to(#ccc));
+    background-image: linear-gradient(#fff, #ccc);
+    border: #e7e7e7 solid 1px;
+    margin-bottom: 5px;
+    display: table;
+    font-family: 'Book Antiqua', Palatino, 'Palatino Linotype', 'Palatino LT STD', Georgia, serif;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 0 4px 2px rgba(0,0,0,0.4);
+    -ms-box-shadow: 0 0 4px 2px rgba(0,0,0,0.4);
+    box-shadow: 0 0 4px 2px rgba(0,0,0,0.4);
+}
 
-.menu-nav-header > a:hover, .menu-nav-header > a:visited, .menu-nav-header > a:active, .menu-nav-header > a:link {
-    text-decoration: none;
+.menu-holder {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .menu-nav-header {
     border-right: transparent solid 2px;
     border-bottom: transparent solid 2px;
-}
+    float: left;
+    height: 100%;
 
+    > a:hover, > a:visited, > a:link, > a:active {
+        text-decoration: none;
+    }
 
+    a {
+        padding-top: 3px;
+        padding-bottom: 3px;
+        display: block;
+        vertical-align: middle;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 
-    .menu-nav-header:hover {
+    :hover {
         text-decoration: none;
         /*background-color: RGBA(178,34,34,1);*/
-       background-color: RGBA(114,108,108,1);
+        background-color: RGBA(114,108,108,1);
         color: white !important;
         -moz-transition: all .3s ease-in;
         -o-transition: all .3s ease-in;
@@ -180,48 +210,17 @@
         border-bottom: darkgrey solid 2px;
     }
 
-    .menu-nav-header a {
-        padding-top: 3px;
-        padding-bottom: 3px;
-        display: block;
-        vertical-align: middle;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
+    > a {
+        > i {
+            display: block;
+            height: 100%;
+            min-width: 40px;
+            padding: 10px;
+            color: #777;
+        }
 
-
-.menu-items > li > a:hover {
-    color: white;
-}
-
-.menu-nav-header {
-    float: left;
-    height: 100%;
-}
-
-    .menu-nav-header > a > i {
-        display: block;
-        height: 100%;
-        min-width: 40px;
-        padding: 10px;
-        color: #777;
-    }
-
-        .menu-nav-header > a > i:hover {
+        > i:hover {
             color: white;
         }
-
-.account-menu {
-    list-style: none;
-    float: right;
-    padding-right: 10px;
-}
-
-    .account-menu > li {
-        display: inline-block;
-        cursor: pointer;
     }
-
-        .account-menu > li > a {
-            text-decoration: none;
-        }
+}
