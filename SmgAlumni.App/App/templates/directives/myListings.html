@@ -17,12 +17,16 @@
                     {{item.dateCreated | date : 'dd/MM/yyyy'}}
                 </div>
             </td>
-            <td ng-click="selectItem(item)">
+            <td ng-click="selectItem(item)" class="mylisting-body-holder">
                 <h4>
                     {{item.heading}}
                 </h4>
-                <div ng-if="item.selected && item.body">
+                <div ng-if="item.selected && (item.body || item.attachments)">
                     <div ng-bind-html="item.body"></div>
+                    <hr ng-if="item.attachments.length > 0" />
+                    <div ng-repeat="item in item.attachments">
+                        <a ng-click="downloadFile(item.tempKey)">{{item.name}}</a>
+                    </div>
                 </div>
             </td>
             <td ng-click="editItem(item)">

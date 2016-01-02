@@ -16,7 +16,7 @@
 </div>
 <div class="form-group" ng-if="$parent.kind=='myListings'">
     <div class="col-sm-12">
-        Максимална големина на файл е 2МБ
+        Максимална големина на файл е 2МБ. Позволените видове документи са word, excel, txt, pdf и снимки.
     </div>
     <div class="col-sm-12" ng-repeat="item in $parent.selectedItem.attachments">
         {{item.name}}
@@ -24,7 +24,8 @@
     </div>
     <div class="col-sm-12">
         <a href="#" ngf-select="$parent.upload($files)" 
-           ngf-max-size="2MB">Качи файл</a>
+           ngf-max-size="2MB"
+           ngf-pattern="'.pdf,.jpg,.jpeg,.bmp,.png,.doc,.docx,.xls,.xlsx,.txt'">Качи файл</a>
     </div>
 </div>
 <div class="ngdialog-buttons">

@@ -53,22 +53,23 @@
         }
 
         $scope.editItem = function (listing) {
-            $scope.selectedItem = listing;
+            $scope.selectedItem = { id: listing.id, heading: listing.heading, body: listing.body, attachments: _.map(listing.attachments, function (item) { return { tempkey: item.tempKey, name: item.name } }) };
             commonService.ngDialog.openConfirm({
                 templateUrl: '/App/templates/dialog/editCauseNews.html',
                 scope: $scope
             }).then(function (success) {
                 newsCauseListingService.update($scope.selectedItem, 'listing').then(function (success) {
                     commonService.notification.success("Успешно обновихте Обявата");
-                    var temp = $scope.items.filter(function (x) { return x.id == $scope.selectedItem.id })[0];
-                    var tempIndex = $scope.items.indexOf(temp);
-                    $scope.items[tempIndex].heading = $scope.selectedItem.heading;
-                    $scope.items[tempIndex].body = $scope.selectedItem.body;
                     $scope.selectedItem = {};
+                    $scope.getCurrentPageItems();
                 }, function (err) {
                     commonService.notification.error(err.data.message);
                 });
             });
+        }
+
+        $scope.getCurrentPageItems = function () {
+            $scope.retrieveItems($scope.currentSelectedPage.number);
         }
 
         $scope.retrieveItems = function (pageNumber) {
@@ -98,6 +99,15 @@
                 });
             });
         };
+
+        $scope.downloadFile = function (tempKey) {
+            commonService.$http({ method: 'GET', url: 'api/attachment?tempkey=' + tempKey })
+            .success(function (data, status, headers, config) {
+                var blob = new Blob([data], { type: headers()['content-type'] });
+                var objectUrl = URL.createObjectURL(blob);
+                window.open(objectUrl);
+            });
+        }
 
         $scope.upload = function (file) {
             if (file && file.length > 0) {

@@ -93,7 +93,7 @@ namespace SmgAlumni.App.Api
         {
             var listings = _listingRepository.ListingForUser(CurrentUser.Id)
                 .Take(take).Skip(skip)
-                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName, Attachments = AutoMapper.Mapper.Map<List<AttachmentViewModel>>(a.Attachments) })
+                .Select(a => new { Heading = a.Heading, Body = a.Body, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName, Attachments = AutoMapper.Mapper.Map<List<AttachmentViewModel>>(a.Attachments) })
                 .ToList();
             return Ok(listings);
         }
@@ -115,15 +115,15 @@ namespace SmgAlumni.App.Api
             return Ok(count);
         }
 
-        [HttpGet]
-        [Route("api/listing/mylistings")]
-        public IHttpActionResult MyListings()
-        {
-            var listings = _listingRepository.ListingForUser(CurrentUser.Id)
-                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName })
-                .ToList();
-            return Ok(listings);
-        }
+        //[HttpGet]
+        //[Route("api/listing/mylistings")]
+        //public IHttpActionResult MyListings()
+        //{
+        //    var listings = _listingRepository.ListingForUser(CurrentUser.Id)
+        //        .Select(a => new { Heading = a.Heading, Body = a.Body, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName })
+        //        .ToList();
+        //    return Ok(listings);
+        //}
 
         [HttpGet]
         [Route("api/listing/delete")]
@@ -150,16 +150,39 @@ namespace SmgAlumni.App.Api
 
         [HttpPost]
         [Route("api/listing/updatelisting")]
-        public IHttpActionResult UpdateListing(Listing vm)
+        public IHttpActionResult UpdateListing(ListingUpdateVm vm)
         {
             if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");
 
             var listing = _listingRepository.GetById(vm.Id);
-            if (listing == null) return BadRequest("Новина с такова id не можа да бъде намерена");
-            if (listing.User.Id != CurrentUser.Id) return Unauthorized();
+            if (listing == null)
+            {
+                return BadRequest("Обява с такова id не можа да бъде намерена");
+            }
+            if (listing.User.Id != CurrentUser.Id)
+            {
+                return Unauthorized();
+            }
             listing.Body = vm.Body;
             listing.Heading = vm.Heading;
             listing.DateCreated = DateTime.Now;
+            var vmTempKeys = vm.Attachments.Select(a => a.TempKey);
+            var listingTempKeys = listing.Attachments.Select(a=>a.TempKey);
+
+            var deletedAttachments = listingTempKeys.Where(a => !vmTempKeys.Contains(a.GetValueOrDefault())).ToList();
+            foreach (var item in deletedAttachments)
+            {
+                var attachment = _attachmentRepository.FindByTempKey(item.GetValueOrDefault());
+                listing.Attachments.Remove(attachment);
+            }
+
+            var addedAttachments = vmTempKeys.Where(a => !listingTempKeys.Contains(a)).ToList();
+            foreach (var item in addedAttachments)
+            {
+                var attachment = _attachmentRepository.FindByTempKey(item);
+                listing.Attachments.Add(attachment);
+            }
+
             _listingRepository.Update(listing);
 
             return Ok();

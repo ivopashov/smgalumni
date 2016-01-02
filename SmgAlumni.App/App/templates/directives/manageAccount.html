@@ -138,9 +138,8 @@
 
         </div>
         <div>
-            <a href="#" ng-file-select
-               ng-model="image"
-               ng-file-change="upload($files, $event)">Качи снимка</a>
+            <a href="#" ngf-select="$parent.upload($files)"
+               ngf-max-size="2MB">Качи снимка</a>
         </div>
     </div>
 </div>

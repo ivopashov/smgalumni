@@ -40,7 +40,7 @@
                 $upload.upload({
                     url: 'api/file/avatar',
                     fields: { 'username': $scope.username },
-                    file: file
+                    data: { file: file[0] }
                 }).success(function (data, status, headers, config) {
                     commonService.notification.success('Файлът е качен успешно.');
                     $('.manageAccountAvatarHolder img').attr('src', 'api/file/avatar?username=' + $scope.user.userName + '#' + new Date().getTime());
@@ -75,7 +75,7 @@
             restrict: 'AE',
             templateUrl: '/App/templates/directives/manageAccount.html',
             scope: {},
-            controller: ['authHelper', '$scope', 'accountService', 'commonService', '$upload', '$state', '$loading', editAccountCtrl]
+            controller: ['authHelper', '$scope', 'accountService', 'commonService', 'Upload', '$state', '$loading', editAccountCtrl]
         }
 
     }

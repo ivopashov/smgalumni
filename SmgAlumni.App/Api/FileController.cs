@@ -20,6 +20,7 @@ namespace SmgAlumni.App.Api
     public class FileController : BaseApiController
     {
         private readonly IAttachmentRepository _attachmentRepsoitory;
+        private readonly List<string> allowedExtensions = new List<string>() { "doc", "docx", "xls", "xlsx", "pdf", "jpg", "jpeg", "bmp", "png", "txt" };
 
         public FileController(ILogger logger, IUserRepository userRepository, IAttachmentRepository attachmentRepository)
             : base(logger, userRepository)
@@ -42,6 +43,11 @@ namespace SmgAlumni.App.Api
             foreach (var file in provider.Contents)
             {
                 var filename = file.Headers.ContentDisposition.FileName.Trim('\"');
+                var extension = filename.Split(new char[] { '.' }).Last().Trim();
+                if (!allowedExtensions.Contains(extension))
+                {
+                    return BadRequest("Неразрешено разширение на файл");
+                }
                 var buffer = await file.ReadAsByteArrayAsync();
 
                 if (buffer.Length > 2100000)

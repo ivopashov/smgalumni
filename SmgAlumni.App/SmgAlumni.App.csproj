@@ -246,6 +246,7 @@
     <Compile Include="Models\ForumThreadViewModel.cs" />
     <Compile Include="Models\ItemWithBodyAndParentIdViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ListingUpdateVm.cs" />
     <Compile Include="Models\ResetUserPassViewModel.cs" />
     <Compile Include="Models\SearchByDivisionAndYearViewModel.cs" />
     <Compile Include="Models\SettingViewModel.cs" />
