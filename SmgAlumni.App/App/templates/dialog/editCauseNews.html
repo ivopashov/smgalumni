@@ -15,14 +15,16 @@
     <tags-input ng-model="$parent.selectedItem.tags"></tags-input>
 </div>
 <div class="form-group" ng-if="$parent.kind=='myListings'">
-    <div class="col-sm-12" ng-repeat="item in $parent.uploads">
-        {{item.filename}}
-        <i class="glyphicon glyphicon-remove"></i>
+    <div class="col-sm-12">
+        Максимална големина на файл е 2МБ
+    </div>
+    <div class="col-sm-12" ng-repeat="item in $parent.selectedItem.attachments">
+        {{item.name}}
+        <i class="glyphicon glyphicon-remove" ng-click="$parent.deleteAttachment(item)"></i>
     </div>
     <div class="col-sm-12">
-        <a href="#" ng-file-select
-           ng-model="$parent.attachment"
-           ng-file-change="$parent.upload($files, $event)">Качи файл</a>
+        <a href="#" ngf-select="$parent.upload($files)" 
+           ngf-max-size="2MB">Качи файл</a>
     </div>
 </div>
 <div class="ngdialog-buttons">

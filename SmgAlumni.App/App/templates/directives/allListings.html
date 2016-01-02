@@ -16,8 +16,11 @@
                 <h4>
                     {{item.heading}}
                 </h4>
-                <div ng-if="item.selected && item.body">
+                <div ng-if="item.selected && (item.body || item.attachments)">
                     <div ng-bind-html="item.body"></div>
+                    <div ng-repeat="item in item.attachments">
+                        <a ng-click="downloadFile(item.tempKey)">{{item.name}}</a>
+                    </div>
                 </div>
             </td>
         </tr>

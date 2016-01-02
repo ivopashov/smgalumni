@@ -1,5 +1,5 @@
 ﻿app.directive('editAccount', [
-    'authHelper', 'accountService', 'commonService', '$upload', '$state', '$loading', function (authHelper, accountService, commonService, $upload, $state, $loading) {
+    'authHelper', 'accountService', 'commonService', 'Upload', '$state', '$loading', function (authHelper, accountService, commonService, $upload, $state, $loading) {
 
         var editAccountCtrl = function (authHelper, $scope, accountService, commonService, $upload, $state, $loading) {
 

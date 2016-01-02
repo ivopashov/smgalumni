@@ -14,8 +14,8 @@ namespace SmgAlumni.App
                      "~/Scripts/jquery-1.10.2.js",
                      "~/Scripts/angular.js",
                      "~/Scripts/angular-ui-router.js",
-                     "~/Scripts/angular-file-upload-shim.min.js",
-                     "~/Scripts/angular-file-upload.min.js",
+                     "~/Scripts/ng-file-upload-shim.min.js",
+                     "~/Scripts/ng-file-upload.min.js",
                      "~/Scripts/loading-bar.js",
                      "~/Scripts/toastr.min.js",
                      "~/Scripts/ngDialog.min.js",
@@ -37,7 +37,8 @@ namespace SmgAlumni.App
                      .IncludeDirectory("~/App/directives", "*.js", true)
                      .IncludeDirectory("~/App/services", "*.js", true)
                      .IncludeDirectory("~/App/factories", "*.js", true)
-                     .IncludeDirectory("~/App/controllers", "*.js", true));
+                     .IncludeDirectory("~/App/controllers", "*.js", true)
+                     .IncludeDirectory("~/App/constants", "*.js", true));
 
 
             bundles.Add(

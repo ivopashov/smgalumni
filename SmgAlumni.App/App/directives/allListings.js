@@ -39,6 +39,15 @@
             if (val == 0) $scope.items = [];
             if (val > 0) $scope.retrieveItems(val);
         })
+
+        $scope.downloadFile = function (tempKey) {
+            commonService.$http({ method: 'GET', url: 'api/attachment?tempkey=' + tempKey })
+            .success(function (data, status, headers, config) {
+                var blob = new Blob([data], { type: headers()['content-type'] });
+                var objectUrl = URL.createObjectURL(blob);
+                window.open(objectUrl);
+            });
+        }
     }
 
     return {

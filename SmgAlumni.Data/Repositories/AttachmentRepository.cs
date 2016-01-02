@@ -3,6 +3,7 @@ using SmgAlumni.EF.DAL;
 using SmgAlumni.EF.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace SmgAlumni.Data.Repositories
@@ -18,14 +19,15 @@ namespace SmgAlumni.Data.Repositories
 
         public int Add(Attachment entity)
         {
-           _context.Attachments.Add(entity);
+            _context.Attachments.Add(entity);
             Save();
             return entity.Id;
         }
 
-        public IEnumerable<Attachment> AttachmentsWithTempKey()
+        public IEnumerable<Attachment> AttachmentsWithoutParentAndAtLeastOneHourOld()
         {
-            return _context.Attachments.Where(a => a.TempKey != null).ToList();
+            var result = _context.Attachments.Where(a => a.Listing == null && DbFunctions.DiffHours(a.CreatedOn, DateTime.Now) >= 1).ToList();
+            return result;
         }
 
         public void Delete(Attachment entity)

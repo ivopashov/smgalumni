@@ -53,8 +53,12 @@ namespace SmgAlumni.Data.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<ForumThread> Page(int skip, int take)
+        public IEnumerable<ForumThread> Page(int skip, int take, bool orderByDescDate = true)
         {
+            if (orderByDescDate)
+            {
+                return _context.ForumThreads.OrderByDescending(a => a.CreatedOn).Skip(skip).Take(take).ToList();
+            }
             return _context.ForumThreads.OrderBy(a => a.CreatedOn).Skip(skip).Take(take).ToList();
         }
 

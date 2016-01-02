@@ -6,7 +6,7 @@ namespace SmgAlumni.Data.Interfaces
 {
     public interface IAttachmentRepository : IRepository<Attachment>
     {
-        IEnumerable<Attachment> AttachmentsWithTempKey();
+        IEnumerable<Attachment> AttachmentsWithoutParentAndAtLeastOneHourOld();
         Attachment FindByTempKey(Guid guid);
     }
 }

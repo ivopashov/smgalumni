@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Mail;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading;
-using System.Web.Hosting;
-using NLog;
+﻿using NLog;
+using RestSharp;
 using SmgAlumni.App.Workers;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.DAL;
 using SmgAlumni.EF.Models;
-using SmgAlumni.Utils.EfEmailQuerer.Serialization;
-using SmgAlumni.Utils.Settings;
-using WebActivatorEx;
-using System.Net;
 using SmgAlumni.ServiceLayer;
-using RestSharp;
+using SmgAlumni.Utils.Settings;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading;
+using System.Web.Hosting;
+using WebActivatorEx;
 
 [assembly: PostApplicationStartMethod(typeof(UnsentNotificationSender), "StartTimer")]
 

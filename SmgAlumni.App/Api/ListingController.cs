@@ -71,8 +71,8 @@ namespace SmgAlumni.App.Api
         [Route("api/listing/listingbyid")]
         public IHttpActionResult GetListingById([FromUri] int id)
         {
-            var news = _listingRepository.GetById(id);
-            return Ok(news);
+            var listing = _listingRepository.GetById(id);
+            return Ok(listing);
         }
 
         [AllowAnonymous]
@@ -80,22 +80,22 @@ namespace SmgAlumni.App.Api
         [Route("api/listing/skiptake")]
         public IHttpActionResult SkipAndTake([FromUri] int take, [FromUri]int skip)
         {
-            var news = _listingRepository
+            var listings = _listingRepository
                 .Page(skip, take)
-                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName })
+                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName, Attachments = AutoMapper.Mapper.Map<List<AttachmentViewModel>>(a.Attachments) })
                 .ToList();
-            return Ok(news);
+            return Ok(listings);
         }
 
         [HttpGet]
         [Route("api/listing/my/skiptake")]
         public IHttpActionResult MyListingsSkipAndTake([FromUri] int take, [FromUri]int skip)
         {
-            var news = _listingRepository.ListingForUser(CurrentUser.Id)
-                .OrderBy(a => a.DateCreated).Take(take).Skip(skip)
-                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName })
+            var listings = _listingRepository.ListingForUser(CurrentUser.Id)
+                .Take(take).Skip(skip)
+                .Select(a => new { Heading = a.Heading, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName, Attachments = AutoMapper.Mapper.Map<List<AttachmentViewModel>>(a.Attachments) })
                 .ToList();
-            return Ok(news);
+            return Ok(listings);
         }
 
         [AllowAnonymous]

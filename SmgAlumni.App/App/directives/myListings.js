@@ -1,4 +1,4 @@
-﻿app.directive('myListings', ['newsCauseListingService', 'commonService', 'ngDialog', '$upload', function (newsCauseListingService, commonService, ngDialog, $upload) {
+﻿app.directive('myListings', ['newsCauseListingService', 'commonService', 'ngDialog', 'Upload', function (newsCauseListingService, commonService, ngDialog, $upload) {
 
     var myListingsController = function ($scope, newsCauseListingService, commonService, $upload) {
 
@@ -36,16 +36,15 @@
         }
 
         $scope.createNew = function () {
-            $scope.selectedItem = {};
+            $scope.selectedItem = { attachments: [] };
             commonService.ngDialog.openConfirm({
                 templateUrl: '/App/templates/dialog/editCauseNews.html',
                 scope: $scope
             }).then(function (success) {
-                $scope.selectedItem.tempKeys = _.map($scope.uploads,function(x){return x.tempkey});
+                $scope.selectedItem.tempKeys = _.map($scope.selectedItem.attachments, function (x) { return x.tempkey });
                 newsCauseListingService.addNew($scope.selectedItem, 'listing').then(function (success) {
                     commonService.notification.success("Успешно добавихте обявата");
                     $scope.selectedItem = {};
-                    $scope.tempKeys = [];
                     $scope.init();
                 }, function (err) {
                     commonService.notification.error(err.data.message);
@@ -54,25 +53,21 @@
         }
 
         $scope.editItem = function (listing) {
-            newsCauseListingService.getById('listing', listing.id).then(function (success) {
-                $scope.selectedItem = success.data;
-                commonService.ngDialog.openConfirm({
-                    templateUrl: '/App/templates/dialog/editCauseNews.html',
-                    scope: $scope
-                }).then(function (success) {
-                    newsCauseListingService.update($scope.selectedItem, 'listing').then(function (success) {
-                        commonService.notification.success("Успешно обновихте Обявата");
-                        var temp = $scope.items.filter(function (x) { return x.id == $scope.selectedItem.id })[0];
-                        var tempIndex = $scope.items.indexOf(temp);
-                        $scope.items[tempIndex].heading = $scope.selectedItem.heading;
-                        $scope.items[tempIndex].body = $scope.selectedItem.body;
-                        $scope.selectedItem = {};
-                    }, function (err) {
-                        commonService.notification.error(err.data.message);
-                    });
+            $scope.selectedItem = listing;
+            commonService.ngDialog.openConfirm({
+                templateUrl: '/App/templates/dialog/editCauseNews.html',
+                scope: $scope
+            }).then(function (success) {
+                newsCauseListingService.update($scope.selectedItem, 'listing').then(function (success) {
+                    commonService.notification.success("Успешно обновихте Обявата");
+                    var temp = $scope.items.filter(function (x) { return x.id == $scope.selectedItem.id })[0];
+                    var tempIndex = $scope.items.indexOf(temp);
+                    $scope.items[tempIndex].heading = $scope.selectedItem.heading;
+                    $scope.items[tempIndex].body = $scope.selectedItem.body;
+                    $scope.selectedItem = {};
+                }, function (err) {
+                    commonService.notification.error(err.data.message);
                 });
-            }, function (err) {
-                commonService.notification.error(err.data.message);
             });
         }
 
@@ -105,16 +100,18 @@
         };
 
         $scope.upload = function (file) {
-            if (!file || file.length == 0) {
-                return;
+            if (file && file.length > 0) {
+                $upload.upload({
+                    url: 'api/attachment',
+                    data: { file: file[0] }
+                }).success(function (data, status, headers, config) {
+                    $scope.selectedItem.attachments = $scope.selectedItem.attachments.concat(data);
+                });
             }
+        }
 
-            $upload.upload({
-                url: 'api/attachment',
-                file: file
-            }).success(function (data, status, headers, config) {
-                $scope.uploads = $scope.uploads.concat(data);
-            });
+        $scope.deleteAttachment = function (item) {
+            $scope.selectedItem.attachments.splice($scope.selectedItem.attachments.indexOf(item), 1);
         }
 
     }
@@ -123,6 +120,6 @@
         restrict: 'AE',
         templateUrl: '/App/templates/directives/myListings.html',
         scope: {},
-        controller: ['$scope', 'newsCauseListingService', 'commonService', '$upload', myListingsController]
+        controller: ['$scope', 'newsCauseListingService', 'commonService', 'Upload', myListingsController]
     }
 }]);

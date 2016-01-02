@@ -5,8 +5,8 @@ namespace SmgAlumni.Data.Interfaces
 {
     public interface IListingRepository : IRepository<Listing>
     {
-        IEnumerable<Listing> ListingForUser(int id);
+        IEnumerable<Listing> ListingForUser(int id, bool orderByDesc = true);
         int GetCount();
-        IEnumerable<Listing> Page(int skip, int take);
+        IEnumerable<Listing> Page(int skip, int take, bool orderByDescDate = true);
     }
 }

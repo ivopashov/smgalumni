@@ -5,7 +5,7 @@ namespace SmgAlumni.Data.Interfaces
 {
     public interface INewsRepository : IRepository<News>
     {
-        IEnumerable<News> Page(int skip, int take);
+        IEnumerable<News> Page(int skip, int take, bool orderByDescDate = true);
         int GetCount();
     }
 }

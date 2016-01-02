@@ -53,8 +53,12 @@ namespace SmgAlumni.Data.Repositories
             return _context.Listings.Count();
         }
 
-        public IEnumerable<News> Page(int skip, int take)
+        public IEnumerable<News> Page(int skip, int take, bool orderByDescDate = true)
         {
+            if (orderByDescDate)
+            {
+                return _context.NewsCollection.OrderByDescending(a => a.DateCreated).Skip(skip).Take(take).ToList();
+            }
             return _context.NewsCollection.OrderBy(a => a.DateCreated).Skip(skip).Take(take).ToList();
         }
 

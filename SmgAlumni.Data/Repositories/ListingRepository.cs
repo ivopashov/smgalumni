@@ -53,9 +53,13 @@ namespace SmgAlumni.Data.Repositories
             return _context.Listings.Count();
         }
 
-        public IEnumerable<Listing> ListingForUser(int id)
+        public IEnumerable<Listing> ListingForUser(int id, bool orderByDesc = true)
         {
-            return _context.Listings.Where(listing => listing.User.Id == id).ToList();
+            if (orderByDesc)
+            {
+                return _context.Listings.OrderByDescending(a => a.DateCreated).Where(listing => listing.User.Id == id).ToList();
+            }
+            return _context.Listings.OrderBy(a => a.DateCreated).Where(listing => listing.User.Id == id).ToList();
         }
 
         public void Save()
@@ -63,8 +67,13 @@ namespace SmgAlumni.Data.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<Listing> Page(int skip, int take)
+        public IEnumerable<Listing> Page(int skip, int take, bool orderByDescDate = true)
         {
+            if (orderByDescDate)
+            {
+                return _context.Listings.OrderByDescending(a => a.DateCreated).Skip(skip).Take(take).ToList();
+            }
+
             return _context.Listings.OrderBy(a => a.DateCreated).Skip(skip).Take(take).ToList();
         }
     }

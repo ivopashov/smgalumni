@@ -64,7 +64,7 @@ namespace SmgAlumni.App.Api
                 try
                 {
                     _attachmentRepsoitory.Add(attachment);
-                    files.Add(new { tempkey, filename});
+                    files.Add(new { tempkey, name = filename });
                 }
                 catch (Exception e)
                 {
@@ -74,6 +74,66 @@ namespace SmgAlumni.App.Api
             }
 
             return Ok(files);
+        }
+
+        [AllowAnonymous]
+        [HttpGet, Route("api/attachment")]
+        public HttpResponseMessage DownloadAttachment([FromUri]Guid tempkey)
+        {
+            var attachment = _attachmentRepsoitory.FindByTempKey(tempkey);
+            if (attachment == null)
+            {
+                var badresponse = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                return badresponse;
+            }
+
+            var extension = attachment.Name.Split(new char[] { '.' }).Last().Trim();
+            string contentType = string.Empty;
+            switch (extension)
+            {
+                case "doc":
+                    contentType = @"application/msword";
+                    break;
+                case "docx":
+                    contentType = @"application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                    break;
+                case "xls":
+                    contentType = @"application/vnd.ms-excel";
+                    break;
+                case "xlsx":
+                    contentType = @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    break;
+                case "pdf":
+                    contentType = @"application/pdf";
+                    break;
+                case "jpg":
+                case "jpeg":
+                    contentType = @"image/jpeg";
+                    break;
+                case "txt":
+                    contentType = @"text/plain";
+                    break;
+                case "png":
+                    contentType = @"image/png";
+                    break;
+                default:
+                    return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+
+            MemoryStream ms;
+
+            ms = new MemoryStream(attachment.Data);
+
+            ms.Position = 0;
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new ByteArrayContent(attachment.Data);
+            response.Content.Headers.ContentLength = ms.Length;
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = attachment.Name
+            };
+            return response;
         }
 
         [HttpPost, Route("api/file/avatar")]

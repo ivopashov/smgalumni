@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var app = angular.module('app', ['ngCkeditor', 'ngSanitize', 'darthwade.loading', 'ui.bootstrap', 'ui.router', 'angular-loading-bar', 'ngDialog', 'angularFileUpload', 'ngTagsInput']);
+var app = angular.module('app', ['ngCkeditor', 'ngSanitize', 'darthwade.loading', 'ui.bootstrap', 'ui.router', 'angular-loading-bar', 'ngDialog', 'ngFileUpload', 'ngTagsInput']);
 
 
 

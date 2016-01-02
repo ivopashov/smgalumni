@@ -5,7 +5,4 @@ app.controller('menuController',
         function ($scope, $state) {
 
             $scope.$state = $state;
-
-
-
         }]);
