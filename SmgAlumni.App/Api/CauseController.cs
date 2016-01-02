@@ -106,10 +106,14 @@ namespace SmgAlumni.App.Api
             }
 
             var cause = _causeRepository.GetById(vm.Id);
-            if (cause == null) return BadRequest("Кауза с такова id не можа да бъде намерена");
+            if (cause == null)
+            {
+                return BadRequest("Кауза с такова id не можа да бъде намерена");
+            }
+
             cause.Body = vm.Body;
             cause.Heading = vm.Heading;
-            cause.DateCreated = DateTime.Now;
+            cause.LastModified = DateTime.Now;
 
             try
             {

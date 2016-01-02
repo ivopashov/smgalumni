@@ -55,6 +55,7 @@ namespace SmgAlumni.EF.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         DateCreated = c.DateTime(nullable: false),
+                        LastModified = c.DateTime(nullable: false),
                         Heading = c.String(),
                         Body = c.String(),
                         Enabled = c.Boolean(nullable: false),
@@ -130,6 +131,7 @@ namespace SmgAlumni.EF.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         DateCreated = c.DateTime(nullable: false),
+                        LastModified = c.DateTime(nullable: false),
                         Heading = c.String(),
                         Body = c.String(),
                         Enabled = c.Boolean(nullable: false),
@@ -162,6 +164,7 @@ namespace SmgAlumni.EF.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         DateCreated = c.DateTime(nullable: false),
+                        LastModified = c.DateTime(nullable: false),
                         Heading = c.String(),
                         Body = c.String(),
                         Enabled = c.Boolean(nullable: false),

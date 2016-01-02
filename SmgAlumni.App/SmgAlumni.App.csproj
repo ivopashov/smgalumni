@@ -438,6 +438,7 @@
     <Content Include="Content\variables.less" />
     <Content Include="Content\common.less" />
     <Content Include="Content\forum.less" />
+    <Content Include="Content\listings.less" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

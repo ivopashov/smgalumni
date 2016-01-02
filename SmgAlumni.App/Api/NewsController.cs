@@ -111,7 +111,7 @@ namespace SmgAlumni.App.Api
 
             news.Body = vm.Body;
             news.Heading = vm.Heading;
-            news.DateCreated = DateTime.Now;
+            news.LastModified = DateTime.Now;
 
             try
             {

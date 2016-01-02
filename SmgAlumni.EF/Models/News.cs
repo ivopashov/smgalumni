@@ -6,6 +6,7 @@ namespace SmgAlumni.EF.Models
     {
         public int Id { get; set; }
         public DateTime DateCreated { get; set; }
+        public DateTime LastModified { get; set; }
         public string Heading { get; set; }
         public string Body { get; set; }
         public bool Enabled { get; set; }

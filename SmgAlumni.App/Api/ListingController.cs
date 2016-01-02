@@ -165,7 +165,7 @@ namespace SmgAlumni.App.Api
             }
             listing.Body = vm.Body;
             listing.Heading = vm.Heading;
-            listing.DateCreated = DateTime.Now;
+            listing.LastModified = DateTime.Now;
             var vmTempKeys = vm.Attachments.Select(a => a.TempKey);
             var listingTempKeys = listing.Attachments.Select(a=>a.TempKey);
 
