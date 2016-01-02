@@ -33,6 +33,7 @@ namespace SmgAlumni.App.Api
                 Body = vm.Body,
                 Heading = vm.Heading,
                 DateCreated = DateTime.Now,
+                LastModified = DateTime.Now,
                 Enabled = true,
                 Attachments = GetAttachments(vm.TempKeys)
             };
@@ -91,8 +92,7 @@ namespace SmgAlumni.App.Api
         [Route("api/listing/my/skiptake")]
         public IHttpActionResult MyListingsSkipAndTake([FromUri] int take, [FromUri]int skip)
         {
-            var listings = _listingRepository.ListingForUser(CurrentUser.Id)
-                .Take(take).Skip(skip)
+            var listings = _listingRepository.PageListingForUser(CurrentUser.Id, skip, take)
                 .Select(a => new { Heading = a.Heading, Body = a.Body, DateCreated = a.DateCreated, Id = a.Id, Enabled = a.Enabled, CreatedBy = a.User.UserName, Attachments = AutoMapper.Mapper.Map<List<AttachmentViewModel>>(a.Attachments) })
                 .ToList();
             return Ok(listings);
@@ -111,7 +111,7 @@ namespace SmgAlumni.App.Api
         [Route("api/listing/my/count")]
         public IHttpActionResult GetMyListingsCount()
         {
-            var count = _listingRepository.ListingForUser(CurrentUser.Id).Count();
+            var count = _listingRepository.GetCount(CurrentUser.Id);
             return Ok(count);
         }
 
@@ -167,7 +167,7 @@ namespace SmgAlumni.App.Api
             listing.Heading = vm.Heading;
             listing.LastModified = DateTime.Now;
             var vmTempKeys = vm.Attachments.Select(a => a.TempKey);
-            var listingTempKeys = listing.Attachments.Select(a=>a.TempKey);
+            var listingTempKeys = listing.Attachments.Select(a => a.TempKey);
 
             var deletedAttachments = listingTempKeys.Where(a => !vmTempKeys.Contains(a.GetValueOrDefault())).ToList();
             foreach (var item in deletedAttachments)

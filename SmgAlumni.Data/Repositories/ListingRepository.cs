@@ -48,18 +48,25 @@ namespace SmgAlumni.Data.Repositories
             }
         }
 
-        public int GetCount()
+        public int GetCount(int? userId=null)
         {
-            return _context.Listings.Count();
+            if (userId == null)
+            {
+                return _context.Listings.Count();
+            }
+            else
+            {
+                return _context.Listings.Where(a=>a.User.Id==userId).Count();
+            }
         }
 
-        public IEnumerable<Listing> ListingForUser(int id, bool orderByDesc = true)
+        public IEnumerable<Listing> PageListingForUser(int id,int skip, int take, bool orderByDesc = true)
         {
             if (orderByDesc)
             {
-                return _context.Listings.OrderByDescending(a => a.DateCreated).Where(listing => listing.User.Id == id).ToList();
+                return _context.Listings.Where(listing => listing.User.Id == id).OrderByDescending(a => a.DateCreated).Skip(skip).Take(take).ToList();
             }
-            return _context.Listings.OrderBy(a => a.DateCreated).Where(listing => listing.User.Id == id).ToList();
+            return _context.Listings.Where(listing => listing.User.Id == id).OrderBy(a => a.DateCreated).Skip(skip).Take(take).ToList();
         }
 
         public void Save()

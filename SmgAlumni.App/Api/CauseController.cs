@@ -33,6 +33,7 @@ namespace SmgAlumni.App.Api
                 Body = vm.Body,
                 Heading = vm.Heading,
                 DateCreated = DateTime.Now,
+                LastModified = DateTime.Now,
                 Enabled = true
             };
 
