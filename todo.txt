@@ -11,8 +11,8 @@ global exception attribute
 error pages
 
 tooltips - why they dont work? see forum thread - add new comment
+search by tag in the forum
 
 see why attachments are not readable
-refresh listings when edit a listing
 
 TEST

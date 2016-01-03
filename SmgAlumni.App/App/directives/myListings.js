@@ -103,7 +103,8 @@
         $scope.downloadFile = function (tempKey) {
             commonService.$http({ method: 'GET', url: 'api/attachment?tempkey=' + tempKey })
             .success(function (data, status, headers, config) {
-                var blob = new Blob([data], { type: headers()['content-type'] });
+                var byteArray = new Uint8Array(data);
+                var blob = new Blob([byteArray], { type: headers()['content-type'] });
                 var objectUrl = URL.createObjectURL(blob);
                 window.open(objectUrl);
             });

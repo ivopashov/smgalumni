@@ -38,9 +38,9 @@
 </div>
 
 <div class="forumAnswerHolder col-sm-12">
-    <div id="addAnswerHolder" ng-if="items.length>0">
+    <div id="addAnswerHolder">
         <strong><u>Отговори</u></strong>
-        <i id="addAnswer" class="glyphicon glyphicon-plus" ng-click="createAnswer()" tooltip-placement="bottom" tooltip-trigger="mouseenter" uib-tooltip="Добави Коментар"></i>
+        <i id="addAnswer" class="glyphicon glyphicon-plus" ng-click="createAnswer()" uib-tooltip="Добави Отговор"></i>
     </div>
     <div ng-repeat="answer in items">
         <hr />
@@ -82,9 +82,9 @@
                 </td>
             </tr>
         </table>
-        <div ng-if="answer.comments.length>0">
+        <div>
             <strong><u>Коментари</u></strong>
-            <i id="addComment" class="glyphicon glyphicon-plus" ng-click="createComment(answer)" tooltip-placement="bottom" tooltip-trigger="mouseenter" uib-tooltip="Добави Коментар"></i>
+            <i id="addComment" class="glyphicon glyphicon-plus" ng-click="createComment(answer)" uib-tooltip="Добави Коментар"></i>
         </div>
 
         <div ng-repeat="comment in answer.comments" class="forumCommentHolder col-sm-12">

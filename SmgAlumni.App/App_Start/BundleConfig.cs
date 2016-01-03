@@ -27,7 +27,8 @@ namespace SmgAlumni.App
                      "~/Scripts/angular-loading.js",
                      "~/Scripts/ng-ckeditor.js",
                      "~/Scripts/ng-tags-input.js",
-                     "~/Scripts/lodash.js"));
+                     "~/Scripts/lodash.js",
+                      "~/Scripts/angular-ui/ui-bootstrap-tpls.js"));
 
 
             bundles.Add(
