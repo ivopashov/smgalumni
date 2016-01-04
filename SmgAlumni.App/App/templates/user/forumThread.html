@@ -3,8 +3,8 @@
     <table>
         <tr>
             <td>
-                <h3>
-                    {{forumThread.heading}}
+                <h3 ng-bind-html="forumThread.heading">
+                    
                 </h3>
             </td>
         </tr>
@@ -19,15 +19,15 @@
             <td>
                 <ul class="tags-holder">
                     <li ng-repeat="tag in forumThread.tags">
-                        {{tag.name}}
+                        <span ng-bind-html="tag.name"></span>
                     </li>
                 </ul>
             </td>
         </tr>
         <tr id="createdByRow">
             <td class="createdByOn pull-right">
-                <div class="createdBy">
-                    {{forumThread.createdBy}}
+                <div class="createdBy" ng-bind-html="forumThread.createdBy">
+                    
                 </div>
                 <div class="createdOn">
                     {{forumThread.createdOn | date : 'dd/MM/yyyy @ HH:mm'}}
@@ -72,8 +72,7 @@
             <tr>
                 <td colspan="2">
                     <div class="createdByOn pull-right">
-                        <div class="createdBy">
-                            {{answer.createdBy}}
+                        <div class="createdBy" ng-bind-html="answer.createdBy">
                         </div>
                         <div class="createdOn">
                             {{answer.createdOn | date : 'dd/MM/yyyy @ HH:mm'}}
@@ -101,8 +100,8 @@
                 <tr>
                     <td>
                         <span ng-bind-html="comment.body"></span>
-                        <div class="createdOnBy">
-                            <span>{{comment.createdBy}} {{comment.createdOn | date : 'dd/MM/yyyy @ HH:mm'}}</span>
+                        <div class="createdOnBy" >
+                            <span ng-bind-html="comment.createdBy"></span><span>{{comment.createdOn | date : 'dd/MM/yyyy @ HH:mm'}}</span>
                         </div>
                     </td>
                 </tr>

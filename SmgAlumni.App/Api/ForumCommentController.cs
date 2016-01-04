@@ -7,6 +7,7 @@ using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
 using SmgAlumni.Data.Interfaces;
 using SmgAlumni.Utils;
+using System.Web;
 
 namespace SmgAlumni.App.Api
 {
@@ -33,7 +34,7 @@ namespace SmgAlumni.App.Api
 
             var comment = new ForumComment()
             {
-                Body = vm.Body,
+                Body = HttpContext.Current.Server.HtmlEncode(vm.Body),
                 CreatedOn = DateTime.Now,
                 UserId = CurrentUser.Id
             };
@@ -95,7 +96,7 @@ namespace SmgAlumni.App.Api
                 return BadRequest("Нямате права да променяте отговорът");
             }
 
-            fa.Body = vm.Body;
+            fa.Body = HttpContext.Current.Server.HtmlEncode(vm.Body);
             fa.CreatedOn = DateTime.Now;
 
             try

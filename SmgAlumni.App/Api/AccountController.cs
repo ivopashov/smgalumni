@@ -10,6 +10,7 @@ using SmgAlumni.Utils.DomainEvents.Models;
 using SmgAlumni.Utils.EfEmailQuerer;
 using SmgAlumni.Utils.Helpers;
 using System;
+using System.Web;
 using System.Linq;
 using System.Web.Http;
 
@@ -44,6 +45,12 @@ namespace SmgAlumni.App.Api
                 {
                     return BadRequest("Потребител с такъв имейл съществува");
                 }
+
+                model.FirstName = HttpContext.Current.Server.HtmlEncode(model.FirstName);
+                model.MiddleName = HttpContext.Current.Server.HtmlEncode(model.MiddleName);
+                model.LastName= HttpContext.Current.Server.HtmlEncode(model.LastName);
+                model.Username= HttpContext.Current.Server.HtmlEncode(model.Username);
+                model.Email = HttpContext.Current.Server.HtmlEncode(model.Email);
 
                 var user = Mapper.Map<User>(model);
 
@@ -236,20 +243,20 @@ namespace SmgAlumni.App.Api
             if (!ModelState.IsValid) return BadRequest("Невалидни входни данни");
             try
             {
-                CurrentUser.UserName = model.UserName;
-                CurrentUser.FirstName = model.FirstName;
-                CurrentUser.MiddleName = model.MiddleName;
-                CurrentUser.LastName = model.LastName;
-                CurrentUser.Email = model.Email;
-                CurrentUser.Company = model.Company;
-                CurrentUser.Description = model.Description;
-                CurrentUser.DwellingCountry = model.DwellingCountry;
-                CurrentUser.City = model.City;
+                CurrentUser.UserName = HttpContext.Current.Server.HtmlEncode(model.UserName);
+                CurrentUser.FirstName = HttpContext.Current.Server.HtmlEncode(model.FirstName);
+                CurrentUser.MiddleName = HttpContext.Current.Server.HtmlEncode(model.MiddleName);
+                CurrentUser.LastName = HttpContext.Current.Server.HtmlEncode(model.LastName);
+                CurrentUser.Email = HttpContext.Current.Server.HtmlEncode(model.Email);
+                CurrentUser.Company = HttpContext.Current.Server.HtmlEncode(model.Company);
+                CurrentUser.Description = HttpContext.Current.Server.HtmlEncode(model.Description);
+                CurrentUser.DwellingCountry = HttpContext.Current.Server.HtmlEncode(model.DwellingCountry);
+                CurrentUser.City = HttpContext.Current.Server.HtmlEncode(model.City);
                 CurrentUser.Division = model.Division;
                 CurrentUser.YearOfGraduation = model.YearOfGraduation;
-                CurrentUser.UniversityGraduated = model.UniversityGraduated;
-                CurrentUser.Profession = model.Profession;
-                CurrentUser.PhoneNumber = model.PhoneNumber;
+                CurrentUser.UniversityGraduated = HttpContext.Current.Server.HtmlEncode(model.UniversityGraduated);
+                CurrentUser.Profession = HttpContext.Current.Server.HtmlEncode(model.Profession);
+                CurrentUser.PhoneNumber = HttpContext.Current.Server.HtmlEncode(model.PhoneNumber);
 
                 _userRepository.Update(CurrentUser);
                 return Ok();

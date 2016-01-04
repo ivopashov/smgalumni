@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 app.controller('registerController',
-    ['$scope', 'accountService', 'commonService',
-        function ($scope, accountService, commonService) {
+    ['$scope', 'accountService', 'commonService','$sanitize',
+        function ($scope, accountService, commonService, $sanitize) {
 
             $scope.user = { };
             $scope.validation = {};
@@ -25,6 +25,7 @@ app.controller('registerController',
                 }
 
                 $scope.validation.trySentInvalidForm = false;
+
                 accountService.register($scope.user).then(
                 function (success) {
                     commonService.$state.go('menu.successfullregistration');

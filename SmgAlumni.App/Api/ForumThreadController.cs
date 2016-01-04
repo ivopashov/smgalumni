@@ -7,6 +7,7 @@ using SmgAlumni.Data.Interfaces;
 using SmgAlumni.Data.Repositories;
 using SmgAlumni.EF.Models;
 using SmgAlumni.Utils;
+using System.Web;
 
 namespace SmgAlumni.App.Api
 {
@@ -28,8 +29,8 @@ namespace SmgAlumni.App.Api
 
             var ft = new ForumThread()
             {
-                Body = vm.Body,
-                Heading = vm.Heading,
+                Body = HttpContext.Current.Server.HtmlEncode(vm.Body),
+                Heading = HttpContext.Current.Server.HtmlEncode(vm.Heading),
                 Tags = AutoMapper.Mapper.Map<List<Tag>>(vm.Tags),
                 CreatedOn = DateTime.Now,
             };
@@ -115,8 +116,8 @@ namespace SmgAlumni.App.Api
                 return BadRequest("Темата с такова id не можа да бъде намерена");
             }
 
-            ft.Body = vm.Body;
-            ft.Heading = vm.Heading;
+            ft.Body = HttpContext.Current.Server.HtmlEncode(vm.Body);
+            ft.Heading = HttpContext.Current.Server.HtmlEncode(vm.Heading);
             ft.CreatedOn = DateTime.Now;
 
             try

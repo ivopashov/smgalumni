@@ -19,12 +19,10 @@
                 </div>
             </td>
            <td>
-               <span>{{item.createdBy}}</span>
+               <span ng-bind-html="item.createdBy"></span>
            </td>
             <td>
-                <h4>
-                    {{item.heading}}
-                </h4>
+                <h4 ng-bind-html="item.heading"></h4>
             </td>
             <td>{{item.numberOfAnswers}}</td>
         </tr>

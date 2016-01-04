@@ -6,6 +6,7 @@ using SmgAlumni.EF.Models;
 using SmgAlumni.Utils;
 using System;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 
 namespace SmgAlumni.App.Api
@@ -35,7 +36,7 @@ namespace SmgAlumni.App.Api
 
             var fa = new ForumAnswer()
             {
-                Body = vm.Body,
+                Body = HttpContext.Current.Server.HtmlEncode(vm.Body),
                 CreatedOn = DateTime.Now,
                 Likes = 0,
                 UserId = CurrentUser.Id
@@ -153,7 +154,7 @@ namespace SmgAlumni.App.Api
             if (fa == null) return BadRequest("Темата с такова id не можа да бъде намерена");
             if (fa.User.Id != CurrentUser.Id)
                 return Unauthorized();
-            fa.Body = vm.Body;
+            fa.Body = HttpContext.Current.Server.HtmlEncode(vm.Body);
             fa.CreatedOn = DateTime.Now;
 
             try

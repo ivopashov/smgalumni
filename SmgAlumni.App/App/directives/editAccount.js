@@ -29,6 +29,10 @@
             $scope.image = {};
 
             $scope.upload = function (file) {
+                if (!file || file.length == 0) {
+                    return;
+                }
+
                 $scope.image = file[0];
 
                 if (!file || file.length == 0) {
@@ -43,7 +47,12 @@
                     data: { file: file[0] }
                 }).success(function (data, status, headers, config) {
                     commonService.notification.success('Файлът е качен успешно.');
-                    $('.manageAccountAvatarHolder img').attr('src', 'api/file/avatar?username=' + $scope.user.userName + '#' + new Date().getTime());
+                    
+                    $('.manageAccountAvatarHolder img').remove();
+
+                    var img = angular.element('<img src="api/file/avatar?username=' + $scope.user.userName + '" />');
+                    var holder = $('.manageAccountAvatarHolder');
+                    holder.append(img);
                 });
             }
 

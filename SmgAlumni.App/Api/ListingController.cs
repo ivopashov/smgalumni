@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Web.Http;
 using System.Collections.Generic;
+using System.Web;
 
 namespace SmgAlumni.App.Api
 {
@@ -30,8 +31,8 @@ namespace SmgAlumni.App.Api
 
             var listing = new Listing()
             {
-                Body = vm.Body,
-                Heading = vm.Heading,
+                Body = HttpContext.Current.Server.HtmlEncode(vm.Body),
+                Heading = HttpContext.Current.Server.HtmlEncode(vm.Heading),
                 DateCreated = DateTime.Now,
                 LastModified = DateTime.Now,
                 Enabled = true,
@@ -163,8 +164,8 @@ namespace SmgAlumni.App.Api
             {
                 return Unauthorized();
             }
-            listing.Body = vm.Body;
-            listing.Heading = vm.Heading;
+            listing.Body = HttpContext.Current.Server.HtmlEncode(vm.Body);
+            listing.Heading = HttpContext.Current.Server.HtmlEncode(vm.Heading);
             listing.LastModified = DateTime.Now;
             var vmTempKeys = vm.Attachments.Select(a => a.TempKey);
             var listingTempKeys = listing.Attachments.Select(a => a.TempKey);

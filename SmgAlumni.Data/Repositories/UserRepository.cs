@@ -66,7 +66,14 @@ namespace SmgAlumni.Data.Repositories
 
         public IEnumerable<User> UsersByName(string name)
         {
-            return _context.Users.Where(a => a.FirstName.ToLower().Equals(name.ToLower()) || a.MiddleName.ToLower().Equals(name.ToLower()) || a.LastName.ToLower().Equals(name.ToLower())).ToList();
+            var trimmedname = RemoveWhiteSpace(name);
+
+            return _context.Users.Where(a => 
+                a.FirstName.ToLower().Equals(name.ToLower()) 
+                || a.MiddleName.ToLower().Equals(name.ToLower()) 
+                || a.LastName.ToLower().Equals(name.ToLower()) 
+                || (a.FirstName + a.MiddleName + a.LastName).ToLower().Equals(trimmedname.ToLower()))
+                .ToList();
         }
 
         public IEnumerable<User> UsersByEmail(string email)
@@ -77,6 +84,12 @@ namespace SmgAlumni.Data.Repositories
         public IEnumerable<User> UnSubscribedUsersToNewsLetter()
         {
             return _context.Users.Where(a => !a.AddedToNewsLetterList).ToList();
+        }
+
+        private string RemoveWhiteSpace(string input)
+        {
+            var result = input.ToCharArray().Where(ch => !char.IsWhiteSpace(ch)).ToArray();
+            return new string(result);
         }
     }
 }

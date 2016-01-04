@@ -5,6 +5,7 @@ using SmgAlumni.ServiceLayer.Interfaces;
 using SmgAlumni.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 
 namespace SmgAlumni.App.Api
@@ -32,7 +33,7 @@ namespace SmgAlumni.App.Api
                 return BadRequest("Грешни входни данни. Моля опитайте отново.");
             }
 
-            var user = _userRepository.UsersByUserName(login.UserName).SingleOrDefault();
+            var user = _userRepository.UsersByUserName(HttpContext.Current.Server.HtmlEncode(login.UserName)).SingleOrDefault();
 
             if (user == null || !_accountService.ValidatePassword(user, login.Password))
             {

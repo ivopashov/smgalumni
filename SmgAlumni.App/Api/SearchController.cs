@@ -4,6 +4,7 @@ using SmgAlumni.Data.Interfaces;
 using SmgAlumni.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 
 namespace SmgAlumni.App.Api
@@ -40,7 +41,7 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult GetUserByNameShortVM([FromUri]string name)
         {
             var foundUsers = new List<UserAccountShortViewModel>();
-            var users = _userRepository.UsersByName(name);
+            var users = _userRepository.UsersByName(HttpContext.Current.Server.HtmlEncode(name));
             if (users.Any())
             {
                 foundUsers = Mapper.Map<List<UserAccountShortViewModel>>(users);
@@ -54,7 +55,7 @@ namespace SmgAlumni.App.Api
         public IHttpActionResult GetUserByUserNameShortVM([FromUri]string username)
         {
             var foundUsers = new List<UserAccountShortViewModel>();
-            var users = _userRepository.UsersByUserName(username);
+            var users = _userRepository.UsersByUserName(HttpContext.Current.Server.HtmlEncode(username));
             if (users.Any())
             {
                 foundUsers = Mapper.Map<List<UserAccountShortViewModel>>(users);
@@ -67,7 +68,7 @@ namespace SmgAlumni.App.Api
         [Route("api/search/long/byusernamecontains")]
         public IHttpActionResult GetUserByUserNameLongVM([FromUri]string username)
         {
-            var users = _userRepository.UsersByUserName(username);
+            var users = _userRepository.UsersByUserName(HttpContext.Current.Server.HtmlEncode(username));
             var vm = Mapper.Map<List<UserAccountViewModel>>(users);
             return Ok(vm);
         }
