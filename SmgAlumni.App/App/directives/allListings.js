@@ -1,6 +1,6 @@
-﻿app.directive('allListings', ['newsCauseListingService', 'commonService', function (newsCauseListingService, commonService) {
+﻿app.directive('allListings', ['newsCauseListingService', 'commonService','attachmentService', function (newsCauseListingService, commonService,attachmentService) {
 
-    var allListingsController = function ($scope, newsCauseListingService, commonService) {
+    var allListingsController = function ($scope, newsCauseListingService, commonService,attachmentService) {
 
         $scope.params = {};
         $scope.items = [];
@@ -41,12 +41,7 @@
         })
 
         $scope.downloadFile = function (tempKey) {
-            commonService.$http({ method: 'GET', url: 'api/attachment?tempkey=' + tempKey })
-            .success(function (data, status, headers, config) {
-                var blob = new Blob([data], { type: headers()['content-type'] });
-                var objectUrl = URL.createObjectURL(blob);
-                window.open(objectUrl);
-            });
+            attachmentService.downloadFile(tempKey);
         }
     }
 
@@ -54,6 +49,6 @@
         restrict: 'AE',
         templateUrl: '/App/templates/directives/allListings.html',
         scope: {},
-        controller: ['$scope', 'newsCauseListingService', 'commonService', allListingsController]
+        controller: ['$scope', 'newsCauseListingService', 'commonService','attachmentService', allListingsController]
     }
 }]);

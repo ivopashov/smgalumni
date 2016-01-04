@@ -1,6 +1,6 @@
-﻿app.directive('myListings', ['newsCauseListingService', 'commonService', 'ngDialog', 'Upload', function (newsCauseListingService, commonService, ngDialog, $upload) {
+﻿app.directive('myListings', ['newsCauseListingService', 'commonService', 'ngDialog', 'Upload','attachmentService', function (newsCauseListingService, commonService, ngDialog, $upload,attachmentService) {
 
-    var myListingsController = function ($scope, newsCauseListingService, commonService, $upload) {
+    var myListingsController = function ($scope, newsCauseListingService, commonService, $upload,attachmentService) {
 
         $scope.params = {};
         $scope.items = [];
@@ -101,13 +101,7 @@
         };
 
         $scope.downloadFile = function (tempKey) {
-            commonService.$http({ method: 'GET', url: 'api/attachment?tempkey=' + tempKey })
-            .success(function (data, status, headers, config) {
-                var byteArray = new Uint8Array(data);
-                var blob = new Blob([byteArray], { type: headers()['content-type'] });
-                var objectUrl = URL.createObjectURL(blob);
-                window.open(objectUrl);
-            });
+           attachmentService.downloadFile(tempKey);
         }
 
         $scope.upload = function (file) {
@@ -131,6 +125,6 @@
         restrict: 'AE',
         templateUrl: '/App/templates/directives/myListings.html',
         scope: {},
-        controller: ['$scope', 'newsCauseListingService', 'commonService', 'Upload', myListingsController]
+        controller: ['$scope', 'newsCauseListingService', 'commonService', 'Upload','attachmentService', myListingsController]
     }
 }]);

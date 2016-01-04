@@ -10,7 +10,7 @@ app.controller('userForumController',
             $scope.kind = 'forumThread';
 
             $scope.init = function () {
-                forumThreadService.count().then(function(success) {
+                forumThreadService.count().then(function (success) {
                     $scope.totalCount = success.data;
                     $scope.params = forumThreadService.itemsPerPage();
                 });
@@ -24,11 +24,15 @@ app.controller('userForumController',
 
             $scope.retrieveItems = function (pageNumber) {
                 var skip = (pageNumber - 1) * $scope.params.itemsPerPage;
-                forumThreadService.skipandtake(skip, $scope.params.itemsPerPage).then(function(success) {
+                forumThreadService.skipandtake(skip, $scope.params.itemsPerPage).then(function (success) {
                     $scope.items = success.data;
-                }, function(error) {
+                }, function (error) {
                     commonService.notification.error('Темите не можаха да бъдат заредени');
                 });
+            }
+
+            $scope.getCurrentPageItems = function () {
+                $scope.retrieveItems($scope.currentSelectedPage.number);
             }
 
             $scope.createNew = function () {
@@ -42,11 +46,11 @@ app.controller('userForumController',
                     templateUrl: '/App/templates/dialog/editCauseNews.html',
                     scope: $scope
                 }).then(function (success) {
-                    forumThreadService.addNew($scope.selectedItem).then(function(success) {
+                    forumThreadService.addNew($scope.selectedItem).then(function (success) {
                         commonService.notification.success("Успешно добавихте темата");
                         $scope.selectedItem = {};
-                        $scope.init();
-                    }, function(err) {
+                        $scope.getCurrentPageItems();
+                    }, function (err) {
                         commonService.notification.error(err.data.message);
                     });
                 });

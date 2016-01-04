@@ -301,6 +301,7 @@
     <Content Include="App\interceptors\authInterceptor.js" />
     <Content Include="App\factories\authHelper.js" />
     <Content Include="App\services\accountService.js" />
+    <Content Include="App\services\attachmentService.js" />
     <Content Include="App\services\forumCommentService.js" />
     <Content Include="App\services\forumAnswerService.js" />
     <Content Include="App\services\forumThreadService.js" />
