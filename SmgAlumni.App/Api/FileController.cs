@@ -181,7 +181,7 @@ namespace SmgAlumni.App.Api
         [HttpGet, Route("api/file/avatar")]
         public HttpResponseMessage Avatar([FromUri]string username)
         {
-            var user = _userRepository.UsersByUserName(username).SingleOrDefault();
+            var user = _userRepository.UsersByUserName(HttpContext.Current.Server.HtmlEncode(username)).SingleOrDefault();
             if (user == null)
             {
                 var badresponse = new HttpResponseMessage(HttpStatusCode.BadRequest);
