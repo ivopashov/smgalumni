@@ -48,5 +48,56 @@ namespace SmgAlumni.Tests.Repositories.UserRepository
             Assert.AreEqual(uppercase_result.Count(), 1);
             Assert.AreEqual(lowercase_result.Count(), 1);
         }
+
+        [TestMethod]
+        public void ReturnUser_IfMiddleNameMatch()
+        {
+            //Arrange
+            var repo = new Data.Repositories.UserRepository(context.Object);
+
+            //Act
+            var lowercase_result = repo.UsersByName("klm");
+            var uppercase_result = repo.UsersByName("KLM");
+            var result = repo.UsersByName("Klm");
+
+            //Assert
+            Assert.AreEqual(result.Count(), 1);
+            Assert.AreEqual(uppercase_result.Count(), 1);
+            Assert.AreEqual(lowercase_result.Count(), 1);
+        }
+
+        [TestMethod]
+        public void ReturnUser_IfLastNameMatch()
+        {
+            //Arrange
+            var repo = new Data.Repositories.UserRepository(context.Object);
+
+            //Act
+            var lowercase_result = repo.UsersByName("xyz");
+            var uppercase_result = repo.UsersByName("XYZ");
+            var result = repo.UsersByName("Xyz");
+
+            //Assert
+            Assert.AreEqual(result.Count(), 1);
+            Assert.AreEqual(uppercase_result.Count(), 1);
+            Assert.AreEqual(lowercase_result.Count(), 1);
+        }
+
+        [TestMethod]
+        public void ReturnUser_IfWholeNameMatch()
+        {
+            //Arrange
+            var repo = new Data.Repositories.UserRepository(context.Object);
+
+            //Act
+            var lowercase_result = repo.UsersByName("abc     klm  xyz");
+            var uppercase_result = repo.UsersByName("ABC   KLM    XYZ");
+            var result = repo.UsersByName("Abc Klm    Xyz");
+
+            //Assert
+            Assert.AreEqual(result.Count(), 1);
+            Assert.AreEqual(uppercase_result.Count(), 1);
+            Assert.AreEqual(lowercase_result.Count(), 1);
+        }
     }
 }
