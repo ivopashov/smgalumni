@@ -61,24 +61,28 @@ namespace SmgAlumni.Data.Repositories
 
         public IEnumerable<User> UsersByUserName(string username)
         {
-            return _context.Users.Where(a => a.UserName.Equals(username)).ToList();
+            var result = _context.Users.Where(a => a.UserName.Equals(username));
+            return result.ToList();
         }
 
         public IEnumerable<User> UsersByName(string name)
         {
             var trimmedname = RemoveWhiteSpace(name);
+            var loweredName = name.ToLower();
 
-            return _context.Users.Where(a => 
-                a.FirstName.ToLower().Equals(name.ToLower()) 
-                || a.MiddleName.ToLower().Equals(name.ToLower()) 
-                || a.LastName.ToLower().Equals(name.ToLower()) 
-                || (a.FirstName + a.MiddleName + a.LastName).ToLower().Equals(trimmedname.ToLower()))
-                .ToList();
+            var result = _context.Users.Where(a =>
+                a.FirstName.ToLower().Equals(loweredName)
+                || a.MiddleName.ToLower().Equals(loweredName)
+                || a.LastName.ToLower().Equals(loweredName)
+             || (a.FirstName + a.MiddleName + a.LastName).ToLower().Equals(trimmedname.ToLower()));
+
+            return result.ToList();
         }
 
         public IEnumerable<User> UsersByEmail(string email)
         {
-            return _context.Users.Where(a => a.Email.ToLower().Equals(email.ToLower())).ToList();
+            var result = _context.Users.Where(a => a.Email.ToLower().Equals(email.ToLower()));
+            return result.ToList();
         }
 
         public IEnumerable<User> UnSubscribedUsersToNewsLetter()

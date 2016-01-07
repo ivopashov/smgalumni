@@ -50,7 +50,7 @@ namespace SmgAlumni.Data.Repositories
 
         public int GetCount()
         {
-            return _context.Listings.Count();
+            return _context.NewsCollection.Count();
         }
 
         public IEnumerable<News> Page(int skip, int take, bool orderByDescDate = true)

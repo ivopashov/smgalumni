@@ -36,7 +36,7 @@ namespace SmgAlumni.Data.Repositories
 
         public int GetCount()
         {
-            return _context.Listings.Count();
+            return _context.Causes.Count();
         }
 
         public void Update(Cause entity, bool save = true)
