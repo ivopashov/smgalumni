@@ -1,0 +1,26 @@
+BACKEND:
+
+RestSharp - for api calls to mailgun. Apache License - https://github.com/restsharp/RestSharp/blob/master/LICENSE.txt
+AutoMapper - for entity mappings. Copyright (c) 2010 Jimmy Bogard - https://github.com/AutoMapper/AutoMapper/blob/master/LICENSE.txt
+SimpleInjector - for dependency injection. MIT license - https://simpleinjector.codeplex.com/license
+WebApiThrottle - for throttling the api requests and prevent ddos attacks. MIT license - https://github.com/stefanprodan/WebApiThrottle/blob/master/LICENSE.md
+EntityFramework - for ORM. https://www.microsoft.com/web/webpi/eula/net_library_eula_enu.htm
+Newtonsoft.JSON - JSON framework for .NET. MIT license - https://raw.githubusercontent.com/JamesNK/Newtonsoft.Json/master/LICENSE.md
+NLog - for logging. Copyright (c) 2004-2011 Jaroslaw Kowalski <jaak@jkowalski.net> - https://raw.githubusercontent.com/NLog/NLog/master/LICENSE.txt
+
+FRONTEND:
+
+JQuery - 
+AngularJS - JS MVC framework. v1.3.14 - MIT license - https://github.com/angular/angular.js/blob/master/LICENSE
+ngDialog.js - dialog window for angular - MIT license - https://github.com/likeastore/ngDialog
+angular-ui - routing and bootstrap/angular compliant directives - MIT license - https://github.com/angular-ui/bootstrap/blob/master/LICENSE
+ng-ckeditor - wysiwyg editor for angular - Copyright (c) 2013, esvit. - https://github.com/esvit/ng-ckeditor/blob/master/LICENSE
+ng-table.js - table directive - BSD license - https://github.com/esvit/ng-table/
+spin.js - loading spinner - MIT license - https://github.com/fgnass/spin.js/blob/master/LICENSE.md
+angular-loading.js - MIT license - v3.0.0 - https://github.com/darthwade/angular-loading/blob/master/LICENSE
+ng-tags-input.js - tag support directive - v3.0.0 - MIT license - https://github.com/mbenford/ngTagsInput/blob/master/LICENSE
+loading-bar.js - for loading indication - v0.5.2 - MIT license - https://github.com/chieffancypants/angular-loading-bar/blob/master/LICENSE
+toastr.js - for notification toastrs - MIT license - https://github.com/CodeSeven/toastr
+bootstrap.css - styling framework - v3.0.0 - APACHE license
+lodash.js - utility js library - version 3.10.1 - MIT license - https://lodash.com/license
+ng-file-upload.js - file upload helper for angular - version 11.0.0 - MIT licence - https://github.com/danialfarid/ng-file-upload/blob/master/LICENSE

@@ -13,6 +13,3 @@ error pages
 search by tag in the forum
 
 TEST
-
-BUG:
-try adding a news - take is -20

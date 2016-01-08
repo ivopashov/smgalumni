@@ -1,0 +1,10 @@
+The site relies on uptimerobot.com for scheduled wake-up calls.
+
+All the mail sending functionality (forgot password and other notifications) as well as the newsletter functionality is outsourced to mailgun.com,
+which is a mail and newsletter service by rackspace and is free for up to 10,000 mails per month as of the time of this writing. That suits our needs.
+
+As of the time of this writing we have the following jobs scheduled to run in specific intervals:
+- DeleteAbandonedAttachments- that is when you go ahead to create a listing and attach some files to it but close the dialog without saving the listing, the attachments end up abandoned - runs every 3600 sec
+- UnsentNotificationSender - 120 sec
+- UsersToNewsLetterSubscriber - looks for registered users and subscribes them to the newsletter automatically - runs every 7200 sec
+- BiMonthlyNewsLetterSender - sends the bimonthly newsletter to subscribed users - runs every 3600 sec but returns if day is not 14-th or 28-th

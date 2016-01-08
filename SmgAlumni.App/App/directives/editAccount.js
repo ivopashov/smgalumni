@@ -86,6 +86,5 @@
             scope: {},
             controller: ['authHelper', '$scope', 'accountService', 'commonService', 'Upload', '$state', '$loading', editAccountCtrl]
         }
-
     }
 ]);

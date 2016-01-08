@@ -40,9 +40,6 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="FluentEmail">
-      <HintPath>..\packages\fluent-email.1.4\lib\net40\FluentEmail.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -50,12 +47,6 @@
     <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="MongoDB.Bson">
-      <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Bson.dll</HintPath>
-    </Reference>
-    <Reference Include="MongoDB.Driver">
-      <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
@@ -92,8 +83,6 @@
   <ItemGroup>
     <Compile Include="DomainEvents\DomainEvents.cs" />
     <Compile Include="DomainEvents\Models\Events.cs" />
-    <Compile Include="EfEmailQuerer\INotificationEnqueuer.cs" />
-    <Compile Include="EfEmailQuerer\NotificationEnqueuer.cs" />
     <Compile Include="EfEmailQuerer\Serialization\EmailNotificationOptions.cs" />
     <Compile Include="EfEmailQuerer\Serialization\IEmailNotificationTemplate.cs" />
     <Compile Include="EfEmailQuerer\Serialization\SerializableAttachment.cs" />

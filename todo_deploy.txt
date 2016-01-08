@@ -1,26 +1,4 @@
-
-USE [SmgAlumni]
-GO
-
-INSERT INTO [dbo].[Setting]
-           ([SettingKey]
-           ,[SettingName])
-     VALUES
-           ('email_SmtpLogin',''),
-		   ('email_SmtpPassword',''),
-		   ('email_FromAddress',''),
-		   ('email_SmtpHost',''),
-		   ('email_SmtpPort',''),
-		   ('email_UseSecureConnection',''),
-		   ('mailgun_ApiUrl','')
-		   ('mailgun_ApiKey','')
-		   ('mailgun_NewsLetterMailingList','')
-		   ('mailgun_BaseUrl','')
-		   ('newsletter_BiWeeklyNewsLetterTemplatePath','')
-		   ('newsletter_SiteUrl','')
-		   ('mailgun_From','')
-		   ('mailgun_Subject','')
-GO
+- make sure to update all the values of the settings after deploy. Those include intervals, api keys etc
 
 - throttling
 
@@ -31,5 +9,3 @@ GO
 - db context setup
 
 - make sure that the app is registered in https://uptimerobot.com with a ping interval of <20 min
-
-- linked in app_secret and app_id

@@ -14,7 +14,7 @@ namespace SmgAlumni.App.Workers
 {
     public class DeleteAbandonedAttachments : IRegisteredObject
     {
-        private const int deleteTempKeyAttachmentsInterval =3600;
+        private const int deleteTempKeyAttachmentsInterval = 3600;
 
         private bool _shuttingDown;
         private static SmgAlumniContext _context = new SmgAlumniContext();

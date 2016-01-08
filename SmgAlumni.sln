@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmgAlumni.Utils", "SmgAlumni.Utils\SmgAlumni.Utils.csproj", "{BB73FDE0-95AF-400A-8A3C-5380EACD809E}"
 EndProject
@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmgAlumni.ServiceLayer", "S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DA13373C-1524-448F-BDE2-1497CE545B67}"
 	ProjectSection(SolutionItems) = preProject
+		Dependencies and Licensing.txt = Dependencies and Licensing.txt
+		Good to Know.txt = Good to Know.txt
 		todo.txt = todo.txt
 		todo_deploy.txt = todo_deploy.txt
 	EndProjectSection
