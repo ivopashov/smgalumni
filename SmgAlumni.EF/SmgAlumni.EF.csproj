@@ -53,9 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\SmgAlumniContext.cs" />
-    <Compile Include="Migrations\201601021626266_InitialCreate.cs" />
-    <Compile Include="Migrations\201601021626266_InitialCreate.Designer.cs">
-      <DependentUpon>201601021626266_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201601081339199_InitialCreate.cs" />
+    <Compile Include="Migrations\201601081339199_InitialCreate.Designer.cs">
+      <DependentUpon>201601081339199_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -87,8 +87,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201601021626266_InitialCreate.resx">
-      <DependentUpon>201601021626266_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201601081339199_InitialCreate.resx">
+      <DependentUpon>201601081339199_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

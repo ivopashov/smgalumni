@@ -222,7 +222,7 @@ namespace SmgAlumni.EF.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         CreatedOn = c.DateTime(nullable: false),
-                        SentOn = c.DateTime(nullable: false),
+                        SentOn = c.DateTime(),
                         Sent = c.Boolean(nullable: false),
                         Message = c.Binary(),
                         HtmlMessage = c.String(),

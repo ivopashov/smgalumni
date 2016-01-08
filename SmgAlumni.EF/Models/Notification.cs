@@ -7,7 +7,7 @@ namespace SmgAlumni.EF.Models
     {
         public int Id { get; set; }
         public DateTime CreatedOn { get; set; }
-        public DateTime SentOn { get; set; }
+        public DateTime? SentOn { get; set; }
         public bool Sent { get; set; }
         public byte[] Message { get; set; }
         public string HtmlMessage { get; set; }

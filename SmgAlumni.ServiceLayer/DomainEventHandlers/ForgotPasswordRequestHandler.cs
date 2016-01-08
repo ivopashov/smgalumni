@@ -1,6 +1,7 @@
 ﻿using RestSharp;
 using SmgAlumni.Data.Interfaces;
 using SmgAlumni.Data.Repositories;
+using SmgAlumni.EF.Models;
 using SmgAlumni.ServiceLayer.Interfaces;
 using SmgAlumni.Utils.DomainEvents.Models;
 using SmgAlumni.Utils.EfEmailQuerer;
@@ -16,16 +17,16 @@ namespace SmgAlumni.ServiceLayer.DomainEventHandlers
     {
         private readonly IUserRepository _userRepository;
         private readonly IAccountService _accountService;
-        private readonly IRequestSender _requestSender;
         private readonly IAppSettings _appSettings;
+        private readonly IAccountNotificationRepository _notificationRepository;
         private int SendRetries = 0;
 
-        public ForgotPasswordRequestHandler(UserRepository userRepository, IAccountService accountService, IRequestSender requestSender, IAppSettings appSettings)
+        public ForgotPasswordRequestHandler(IUserRepository userRepository, IAccountService accountService, IAppSettings appSettings, IAccountNotificationRepository notificationRepository)
         {
             _accountService = accountService;
             _userRepository = userRepository;
-            _requestSender = requestSender;
             _appSettings = appSettings;
+            _notificationRepository = notificationRepository;
         }
 
         public void Handle(ForgotPasswordEvent args)
@@ -39,7 +40,7 @@ namespace SmgAlumni.ServiceLayer.DomainEventHandlers
             var user = _userRepository.UsersByEmail(email).SingleOrDefault();
             if (user == null)
             {
-                throw new NullReferenceException("User with email: " + email + " could not be retrieved");
+                return;
             }
 
             if (_accountService.AddResetPassRequest(user, guid))
@@ -59,38 +60,19 @@ namespace SmgAlumni.ServiceLayer.DomainEventHandlers
                     UserName = username
                 };
 
-                var result = SendRequest(template.Template, template.Subject, email);
-
-                if (result == HttpStatusCode.OK || result == HttpStatusCode.Accepted || result == HttpStatusCode.Created)
+                var notification = new Notification()
                 {
-                    return;
-                }
-                else
-                {
-                    SendRetries++;
-                    if (SendRetries < 3)
-                    {
-                        CreateAndEnqueueMessage(link, email, username);
-                    }
+                    CreatedOn = DateTime.Now,
+                    Kind = EF.Models.enums.NotificationKind.ForgotPassword,
+                    Sent = false,
+                    SentOn = null,
+                    To = email,
+                    HtmlMessage = template.Template,
+                    Message = null
+                };
 
-                    return;
-                }
-
+                _notificationRepository.Add(notification);
             }
-        }
-
-        private HttpStatusCode SendRequest(string message, string subject, string email)
-        {
-            return _requestSender.InitializeClient()
-               .AddParameter("domain", "www.smg-alumni.com", ParameterType.UrlSegment)
-                        .SetResource("{domain}/messages")
-                        .AddParameter("from", _appSettings.MailgunSettings.From)
-                        .AddParameter("subject", subject)
-                        .AddParameter("html", message)
-                        .AddParameter("to", email)
-                        .SetMethod(Method.POST)
-                        .Execute()
-                        .StatusCode;
         }
     }
 }

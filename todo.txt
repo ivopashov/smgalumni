@@ -1,13 +1,10 @@
 newsletter
  - delete the jobs that are connected to notifications
  - abstract the mailgun things and make appropriate for every mail client provider
- - migrate the table notifications to unsent notifications and modify he email sender worker
- - put in there unsent notifications (password resets) 
 
  - extract jobs run times in sql somehow
 
 check the forum repos
-global exception attribute
 error pages
 
 search by tag in the forum

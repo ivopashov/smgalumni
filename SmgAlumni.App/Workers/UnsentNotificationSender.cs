@@ -19,7 +19,7 @@ namespace SmgAlumni.App.Workers
 {
     public class UnsentNotificationSender : IRegisteredObject
     {
-        private const int CheckForMailIntervalSeconds = 120;
+        private const int CheckForMailIntervalSeconds = 60;
 
         private bool _shuttingDown;
         private static SmgAlumniContext _context = new SmgAlumniContext();
@@ -80,11 +80,22 @@ namespace SmgAlumni.App.Workers
         {
             foreach (var notification in notifications)
             {
+                string subject = string.Empty;
+                switch (notification.Kind)
+                {
+                    case EF.Models.enums.NotificationKind.ForgotPassword:
+                        subject = "Забравена парола";
+                        break;
+                    default:
+                        subject = "Smg Alumni";
+                        break;
+                }
+
                 var result = _requestSender.InitializeClient()
                 .AddParameter("domain", "www.smg-alumni.com", ParameterType.UrlSegment)
                          .SetResource("{domain}/messages")
                          .AddParameter("from", _appSettings.MailgunSettings.From)
-                         .AddParameter("subject", "Забравена парола")
+                         .AddParameter("subject", subject)
                          .AddParameter("html", notification.HtmlMessage)
                          .AddParameter("to", notification.To)
                          .SetMethod(Method.POST)
